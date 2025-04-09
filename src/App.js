@@ -1,23 +1,27 @@
-import './App.css';
-import LoginButton from './components/ui-basic-reusables/buttons/button-login'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import React, { useState } from 'react';
-import LabelLogin from './components/ui-basic-reusables/labels/label-input-login'; 
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
-import MyAppleSigninButton from './components/ui-basic-reusables/buttons/apple-bougie-sign-in-button';
-import FacebookLogin from '@greatsumini/react-facebook-login';
+import "./App.css";
+import LoginButton from "./components/ui-basic-reusables/buttons/button-login";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import React, { useState } from "react";
+import LabelLogin from "./components/ui-basic-reusables/labels/label-input-login";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import MyAppleSigninButton from "./components/ui-basic-reusables/buttons/apple-bougie-sign-in-button";
+import FacebookLogin from "@greatsumini/react-facebook-login";
 
 function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID"; 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
 
   const handleLogin = () => {
-    console.log('Login button clicked!');
+    console.log("Login button clicked!");
   };
+
+  // const BrowserRouter = createBrowserRouter()
+  // define BrowserRouter and routes, and bind MainPage
+  // {path: "/" element='<MainPage />'}
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
@@ -30,7 +34,7 @@ function App() {
               </div>
               <div className="right-block">
                 <h1>Login</h1>
-                <div style={{ marginBottom: '20px' }}></div> 
+                <div style={{ marginBottom: "20px" }}></div>
                 <LabelLogin
                   label="Username"
                   type="text"
@@ -38,7 +42,7 @@ function App() {
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
                 />
-                <div style={{ marginBottom: '10px' }}></div> 
+                <div style={{ marginBottom: "10px" }}></div>
                 <LabelLogin
                   label="Password"
                   type="password"
@@ -46,40 +50,43 @@ function App() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                 />
-                <div style={{ marginBottom: '10px' }}></div> 
+                <div style={{ marginBottom: "10px" }}></div>
                 <Link to="/dashboard">
                   <LoginButton onPress={handleLogin} />
                 </Link>
-                <div style={{ marginBottom: '40px' }}></div> 
+                <div style={{ marginBottom: "40px" }}></div>
                 <GoogleLogin
                   onSuccess={(credentialResponse) => {
                     console.log(credentialResponse);
                   }}
                   onError={() => {
-                    console.log('Login Failed');
+                    console.log("Login Failed");
                   }}
                 />
-                <div style={{ marginBottom: '10px' }}></div> 
+                <div style={{ marginBottom: "10px" }}></div>
                 <FacebookLogin
                   appId="1088597931155576"
                   onSuccess={(response) => {
-                    console.log('Login Success!', response);
+                    console.log("Login Success!", response);
                   }}
                   onFail={(error) => {
-                    console.log('Login Failed!', error);
+                    console.log("Login Failed!", error);
                   }}
                   onProfileSuccess={(response) => {
-                    console.log('Get Profile Success!', response);
+                    console.log("Get Profile Success!", response);
                   }}
                   className="btn-fb-signin"
                 >
-                  <FontAwesomeIcon icon={faFacebook} style={{ marginRight: '8px' }} />
-                    Continue with Facebook
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    style={{ marginRight: "8px" }}
+                  />
+                  Continue with Facebook
                 </FacebookLogin>
-                <div style={{ marginBottom: '10px' }}></div> 
+                <div style={{ marginBottom: "10px" }}></div>
                 <MyAppleSigninButton
                   onPress={() => {
-                    console.log('Apple Sign In button clicked!');
+                    console.log("Apple Sign In button clicked!");
                   }}
                   className="btn-apple-signin"
                 />
