@@ -1,0 +1,118 @@
+/* FONT FAMILIES */
+
+/* Work Sans */
+
+.work-sans-regular_roman-global> {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .work-sans-regular_italic-global> {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .work-sans-light_roman-global> {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+    
+  .work-sans-light_italic-global> {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  /* Open Sans, Semi-Condensed */
+  
+  .open-sans-semi_condensed-bold-italic-global> {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: italic;
+    font-variation-settings:
+      "wdth" 87.5;
+  }
+  
+  
+  .open-sans-semi_condensed-semi_bold-italic-global> {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: italic;
+    font-variation-settings:
+      "wdth" 87.5;
+  }
+  
+  .open-sans-semi_condensed-regular-italic-global {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: italic;
+    font-variation-settings:
+      "wdth" 87.5;
+  }
+    
+    
+  .open-sans-semi_condensed-light-italic-global> {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: italic;
+    font-variation-settings:
+      "wdth" 87.5;
+  }
+  
+  /* Inter */
+  
+  .inter-extra_bold-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  .inter-bold-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .inter-semi_bold-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .inter-medium-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+    
+  .inter-regular-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 400;
+    font-style: normal;
+  }
+    
+  .inter-light-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }      
+  
+  
+  

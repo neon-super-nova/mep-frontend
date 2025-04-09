@@ -1,3 +1,19 @@
+h1 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #171717;
+  font-size: 1.45rem; 
+  letter-spacing: 0.25px;
+  text-align: center;
+}
+
+p {
+  font-size: 1rem;
+  color: #171717;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +51,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app-container {
+  display: flex;
+  flex-wrap: wrap; 
+  width: 100%;
+  min-height: 100vh; 
+  align-items: center; 
+  background-color: #282c34;
+  overflow: hidden;
+}
+
+.left-block {
+  flex: 7 1 0%;
+  background-color: #F8DA70; 
+  padding: 20px;
+  min-height: 100vh; 
+}
+
+.right-block {
+  flex: 5 1 0%; 
+  flex-grow: 1; 
+  background-color: #F5F5F5;
+  padding: 20px;
+  min-height: 100vh; 
 }
