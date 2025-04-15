@@ -1,0 +1,65 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .home-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  #f2e2ce;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo {
+    width: auto;
+ 
+    height:5.25vh;
+    max-width: 100%;
+    object-fit: contain;
+
+  }
+  
+  .user-dropdown select {
+    padding: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Main Content */
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  /* Left Panel */
+  .left-panel {
+    flex: 8;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    background-color:  rgb(242, 226, 206, 0.15);
+  }
+  
+  /* Right Panel */
+  .right-panel {
+    flex: 4;
+    padding: 20px;
+    background-color:  #f2e2ce;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #3b4a4d;
+    text-align: center;
+    padding: 10px 20px;
+    border-top: 10px solid #528082;
+  }

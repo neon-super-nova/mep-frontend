@@ -37,7 +37,7 @@ const MyAppleSigninButton = () => (
     /** Render function - called with all props - can be used to fully customize the UI */
     render={(props) => (
       <button {...props} className="apple-auth-btn">
-        <FontAwesomeIcon icon={faApple} style={{ marginRight: '8px' }} />
+        <FontAwesomeIcon icon={faApple} className="apple-icon" style={{ marginRight: '8px' }} />
         Sign in with Apple
       </button>
     )}

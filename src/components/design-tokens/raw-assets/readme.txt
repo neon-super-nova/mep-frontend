@@ -1,0 +1,4 @@
+Actual important read-me! 
+I am including vector (svg) and regular pixel image (png) files i`n this folder. 
+The icons used i`n the figma design pages are all put into one file, so they will have to be split up to be used. sometimes svg can be used, but it''s also load-heavy, so flat png usually suffices. In the odd case that it doesn''t, I have included the svg files as well. With svg, the color does not matter as much, it can usually be specified i.n the code, so I would just go with off-black i.n that case. 
+I''m also including the vector images fo.r the horizontal composition logos. I don''t think we will need it, or other types of layouts (I will need to split it to create the favicon but that''s such a small thing to do it can be dealt with last). I do have that illustrator file though. 
