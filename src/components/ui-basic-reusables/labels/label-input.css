@@ -31,11 +31,11 @@
     font-weight: 600;
     font-style: normal;
     color: #171717;
-    font-size: 0.84375rem; 
+    font-size: 0.82375rem; 
     letter-spacing: 0.75px;
     border-radius: 7.5px;
     text-align: left;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     width: 100%;
 }
 .label-input-login .label-input-field {
@@ -44,12 +44,13 @@
     font-weight: 400;
     font-style: normal;
     color: #171717;
-    font-size: 0.8125rem; 
+    font-size: 0.7925rem; 
     letter-spacing: 0.25px;
     border-radius: 7.5px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 10px;
+    margin-bottom: 0.25px;
     text-align: left;
     width: 100%;
 } 
