@@ -9,21 +9,51 @@ import { GoogleLogin } from "@react-oauth/google";
 import MyAppleSigninButton from "../components/ui-basic-reusables/buttons/apple-bougie-sign-in-button";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import landing1b_web from "../components/img/landing-1b_web.png";
+import axios from "axios";
 
 function SignUpPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!username || !email || !password) {
       alert("Please fill out all fields.");
       return;
     }
-    console.log("Sign-up button clicked!");
-    navigate("/home");
+    const userCredentials = {
+      username,
+      email,
+      password,
+      firstName,
+      lastName,
+    };
+    try {
+      const result = await axios.post(
+        "http://localhost:8080/api/users/register",
+        userCredentials,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const response = result.data;
+      if (response.message === "User successfully registered") {
+        navigate("/");
+      } else {
+        alert(response.error || "Try again");
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+      if (err.response) {
+        alert(err.response.data.error);
+      }
+    }
   };
 
   const handleGoogleSignUpError = () => {
@@ -50,11 +80,15 @@ function SignUpPage() {
                 />
               </div>
             </div>
-
             <div className="right-block">
               <div className="wrapper">
                 <h1>Sign Up</h1>
-                <form>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSignUp();
+                  }}
+                >
                   <LabelLogin
                     label="Username"
                     type="text"
@@ -76,8 +110,23 @@ function SignUpPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                   />
+                  <LabelLogin
+                    label="First name"
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    placeholder="Enter your first name"
+                  />
+                  <LabelLogin
+                    label="Last name"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Enter your last name"
+                  />
                   <div className="login-button-container">
                     <button
+                      type="submit"
                       onClick={handleSignUp}
                       className="btn-lg"
                       aria-label="Sign Up"
