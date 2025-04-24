@@ -10,6 +10,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import MyAppleSigninButton from "../components/ui-basic-reusables/buttons/apple-bougie-sign-in-button";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import landing1b_web from "../components/img/landing-1b_web.png";
+import axios from "axios";
 
 function LandingPage() {
   const [username, setUsername] = useState("");
@@ -17,13 +18,41 @@ function LandingPage() {
   const navigate = useNavigate();
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!username || !password) {
       alert("Please enter both username and password.");
       return;
     }
-    console.log("Login button clicked!");
-    navigate("/home");
+
+    const userCredentials = {
+      username,
+      password,
+    };
+
+    try {
+      const result = await axios.post(
+        "http://localhost:8080/api/users/login",
+        userCredentials,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const response = result.data;
+      if (response.message === "Login successful") {
+        localStorage.setItem("token", result.token);
+        navigate("/home");
+      } else {
+        alert(response.error || "Please, try again");
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+      if (err.response) {
+        alert(err.response.data.error);
+      }
+    }
   };
 
   const handleGoogleLoginError = () => {
@@ -52,7 +81,12 @@ function LandingPage() {
             <div className="right-block">
               <div className="wrapper">
                 <h1>Login</h1>
-                <form>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleLogin();
+                  }}
+                >
                   <LabelLogin
                     label="Username"
                     type="text"
@@ -68,7 +102,11 @@ function LandingPage() {
                     placeholder="Enter your password"
                   />
                   <div className="login-button-container">
-                    <LoginButton onClick={handleLogin} aria-label="Login" />
+                    <LoginButton
+                      type="submit"
+                      onClick={handleLogin}
+                      aria-label="Login"
+                    />
                   </div>
                 </form>
                 <div className="sign-up">

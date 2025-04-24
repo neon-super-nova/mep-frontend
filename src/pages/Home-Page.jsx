@@ -1,13 +1,13 @@
-import '../page-css/home-page.css';
-import UserDropdown from '../components/ui-basic-reusables/dropdown-menus/user-dropdown';
-import logoLightModeWeb from '../components/img/logos/logoLightModeWeb.png';
+import "../page-css/home-page.css";
+import UserDropdown from "../components/ui-basic-reusables/dropdown-menus/user-dropdown";
+import logoLightModeWeb from "../components/img/logos/logoLightModeWeb.png";
 
 function HomePage() {
   return (
     <div className="home-page">
       {/* Header */}
       <header className="header">
-      <img src={logoLightModeWeb} alt="Logo" className="logo"/>
+        <img src={logoLightModeWeb} alt="Logo" className="logo" />
         <UserDropdown /> {/* Placeholder for the dropdown component */}
       </header>
 
