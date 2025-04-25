@@ -11,6 +11,7 @@ import MyAppleSigninButton from "../components/ui-basic-reusables/buttons/apple-
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import landing1b_web from "../components/img/landing-1b_web.png";
 import axios from "axios";
+import { saveToken } from "../context/tokens.js";
 
 function LandingPage() {
   const [username, setUsername] = useState("");
@@ -42,7 +43,7 @@ function LandingPage() {
 
       const response = result.data;
       if (response.message === "Login successful") {
-        localStorage.setItem("token", result.token);
+        saveToken(response.token);
         navigate("/home");
       } else {
         alert(response.error || "Please, try again");
