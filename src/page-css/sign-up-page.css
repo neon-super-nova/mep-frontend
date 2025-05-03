@@ -9,6 +9,7 @@ h1 {
   font-size: 1.45rem;
   letter-spacing: 0.25px;
   text-align: center;
+  margin-top: -30px;
 }
 
 p {
@@ -18,11 +19,11 @@ p {
 
 /* General Styles */
 
-.App {
+.signup-App {
   text-align: center;
 }
 
-.App-header {
+.signup-App-header {
   background-color: #171717;
   min-height: 100%;
   display: flex;
@@ -34,7 +35,7 @@ p {
   margin: 0;
 }
 
-.app-container {
+.signup-App-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -46,7 +47,7 @@ p {
 
 /* Left Block */
 
-.left-block {
+.signup-left-block {
   flex: 7 1 0%;
   background-color: #f8da70;
   padding: 20px;
@@ -57,7 +58,7 @@ p {
 
 /* Right Block */
 
-.right-block {
+.signup-right-block {
   flex: 5 1 0%;
   padding: 20px;
   max-height: 100vh;
@@ -65,11 +66,16 @@ p {
   margin-right: 0.15%;
 }
 
-.wrapper {
+.signup-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.signup-wrapper h1 {
+  margin-bottom: 40px;
+  /* Adjust the value as needed */
 }
 
 .signup-content {
@@ -115,24 +121,47 @@ p {
 }
 
 /* Login Form */
-.login-button-container {
-  margin-top: 20px;
+.signup-login-button-container {
+  margin-bottom: 10px;
+
 }
 
-.sign-up {
-  margin-top: 15px;
+.signup-sign-up {
+  margin-top: 5px;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   color: #171717;
-  font-size: 0.9rem;
   letter-spacing: 0.15px;
   text-align: center;
 }
 
-.sign-up-link,
-.home-link {
+.signup-App .signup-wrapper .label-input-container {
+  margin-bottom: 10px;
+  /* Adjust spacing between form fields */
+}
+
+.signup-App .signup-wrapper .label-input-login .label-input-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.65px;
+  margin-bottom: 2.5px;
+}
+
+.signup-App .label-input-field {
+  font-size: 0.65rem;
+  border-radius: 7.5px;
+  letter-spacing: 0.25px;
+  margin-bottom: 5px;
+  padding: 8px;
+}
+
+.signup-App .signup-login-button-container {
+  margin-top: 20px;
+}
+
+.signup-sign-up-link,
+.signup-home-link {
   color: #171717;
   text-decoration: none;
   font-weight: bold;
@@ -145,20 +174,32 @@ p {
   text-align: center;
 }
 
-.sign-up-link:hover,
-.home-link:hover {
+.signup-sign-up-link:hover,
+.signup-home-link:hover {
   text-decoration: underline;
   color: #007bff;
 }
 
 /* Social Login Buttons */
-.social-login-buttons {
+.signup-social-login-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Adds spacing between buttons */
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.facebook-icon {
-  font-size: 1.25rem; /* Adjust the size of the icon */
+.signup-facebook-icon {
+  font-size: 1.25rem;
+}
+
+.signup-App .label-input-container {
+  margin-bottom: 1.5rem;
+}
+
+.signup-App .label-input-label {
+  color: #171717;
+}
+
+.signup-App .label-input-field {
+  border: 1px solid #ccc;
 }

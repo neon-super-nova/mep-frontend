@@ -1,24 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { getToken, deleteToken } from "../../../context/tokens.js";
 
 function UserDropdown() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
 
-  const handleLogout = async () => {
-    const token = getToken();
-    try {
-      await axios.post("http://localhost:8080/api/users/logout", null, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      deleteToken();
-      navigate("/");
-    } catch (err) {
-      console.error("Logout error:", err);
-    }
+  const handleLogout = () => {
+    console.log("Logout button clicked!");
+    navigate("/");
   };
 
   const handleChange = (e) => {

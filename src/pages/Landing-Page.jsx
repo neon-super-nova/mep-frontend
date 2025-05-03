@@ -10,8 +10,6 @@ import { GoogleLogin } from "@react-oauth/google";
 import MyAppleSigninButton from "../components/ui-basic-reusables/buttons/apple-bougie-sign-in-button";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import landing1b_web from "../components/img/landing-1b_web.png";
-import axios from "axios";
-import { saveToken } from "../context/tokens.js";
 
 function LandingPage() {
   const [username, setUsername] = useState("");
@@ -19,41 +17,13 @@ function LandingPage() {
   const navigate = useNavigate();
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     if (!username || !password) {
       alert("Please enter both username and password.");
       return;
     }
-
-    const userCredentials = {
-      username,
-      password,
-    };
-
-    try {
-      const result = await axios.post(
-        "http://localhost:8080/api/users/login",
-        userCredentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const response = result.data;
-      if (response.message === "Login successful") {
-        saveToken(response.token);
-        navigate("/home");
-      } else {
-        alert(response.error || "Please, try again");
-      }
-    } catch (err) {
-      console.error("Error during login:", err);
-      if (err.response) {
-        alert(err.response.data.error);
-      }
-    }
+    console.log("Login button clicked!");
+    navigate("/home");
   };
 
   const handleGoogleLoginError = () => {
@@ -63,14 +33,14 @@ function LandingPage() {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <div className="App">
-        <header className="App-header">
-          <div className="app-container">
-            <div className="left-block">
-              <div className="wrapper landing">
+      <div className="landing-App">
+        <header className="landing-App-header">
+          <div className="landing-App-container">
+            <div className="landing-left-block">
+              <div className="landing-wrapper landing">
                 <p className="landing-welcome">Welcome!</p>
                 <p className="landing-text">
-                  Share your recipes, discover cooking tips, and inspire others!
+                  Share your recipes, discover cooking tips,<br /> and inspire others!
                 </p>
                 <img
                   src={landing1b_web}
@@ -79,15 +49,10 @@ function LandingPage() {
                 />
               </div>
             </div>
-            <div className="right-block">
-              <div className="wrapper">
+            <div className="landing-right-block">
+              <div className="landing-wrapper">
                 <h1>Login</h1>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleLogin();
-                  }}
-                >
+                <form>
                   <LabelLogin
                     label="Username"
                     type="text"
@@ -102,35 +67,31 @@ function LandingPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                   />
-                  <div className="login-button-container">
-                    <LoginButton
-                      type="submit"
-                      onClick={handleLogin}
-                      aria-label="Login"
-                    />
+                  <div className="landing-login-button-container">
+                    <LoginButton onClick={handleLogin} aria-label="Login" />
                   </div>
                 </form>
-                <div className="sign-up">
+                <div className="landing-sign-up">
                   <p>
                     Don't have an account?{" "}
-                    <Link to="/signup" className="sign-up-link">
+                    <Link to="/signup" className="landing-sign-up-link">
                       Sign up
                     </Link>
                   </p>
                   <p>
-                    check home{" "}
-                    <Link to="/home" className="home-link">
-                      Home
+                    Forgot Your Password?{" "}
+                    <Link to="/forgotpassword" className="landing-home-link">
+                      Reset Password
                     </Link>
                   </p>
                 </div>
-                <div className="social-login-buttons">
+                <div className="landing-social-login-buttons">
                   <GoogleLogin
                     onSuccess={(credentialResponse) => {
                       console.log(credentialResponse);
                     }}
                     onError={handleGoogleLoginError}
-                    className="social-button"
+                    className="landing-social-button"
                   />
                   <FacebookLogin
                     appId="1088597931155576"
@@ -143,11 +104,11 @@ function LandingPage() {
                     onProfileSuccess={(response) => {
                       console.log("Get Profile Success!", response);
                     }}
-                    className="btn-fb-signin social-button"
+                    className="btn-fb-signin landing-social-button"
                   >
                     <FontAwesomeIcon
                       icon={faFacebook}
-                      className="facebook-icon"
+                      className="landing-facebook-icon"
                       style={{ marginRight: "8px" }}
                     />
                     Continue with Facebook
@@ -156,7 +117,7 @@ function LandingPage() {
                     onPress={() => {
                       console.log("Apple Sign In button clicked!");
                     }}
-                    className="btn-apple-signin social-button"
+                    className="btn-apple-signin landing-social-button"
                   />
                 </div>
               </div>

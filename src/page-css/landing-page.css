@@ -18,11 +18,11 @@ p {
 
 /* General Styles */
 
-.App {
+.landing-App {
   text-align: center;
 }
 
-.App-header {
+.landing-App-header {
   background-color: #171717;
   min-height: 100%;
   display: flex;
@@ -34,7 +34,7 @@ p {
   margin: 0;
 }
 
-.app-container {
+.landing-App-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -46,7 +46,7 @@ p {
 
 /* Left Block */
 
-.left-block {
+.landing-left-block {
   flex: 7 1 0%;
   background-color: #f8da70;
   padding: 20px;
@@ -57,7 +57,7 @@ p {
 
 /* Right Block */
 
-.right-block {
+.landing-right-block {
   flex: 5 1 0%;
   padding: 20px;
   max-height: 100vh;
@@ -65,11 +65,15 @@ p {
   margin-right: 0.15%;
 }
 
-.wrapper {
+.landing-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.landing-wrapper h1 {
+  margin-bottom: 40px; /* Adjust the value as needed */
 }
 
 .landing-content {
@@ -115,12 +119,12 @@ p {
 }
 
 /* Login Form */
-.login-button-container {
-  margin-top: 20px;
+.landing-login-button-container {
+  margin-top: 30px;
 }
 
-.sign-up {
-  margin-top: 15px;
+.landing-sign-up {
+  margin-top: 25px;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -129,10 +133,12 @@ p {
   font-size: 0.9rem;
   letter-spacing: 0.15px;
   text-align: center;
+  gap: 18px;
+  
 }
 
-.sign-up-link,
-.home-link {
+.landing-sign-up-link,
+.landing-home-link {
   color: #171717;
   text-decoration: none;
   font-weight: bold;
@@ -145,20 +151,20 @@ p {
   text-align: center;
 }
 
-.sign-up-link:hover,
-.home-link:hover {
+.landing-sign-up-link:hover,
+.landing-home-link:hover {
   text-decoration: underline;
   color: #007bff;
 }
 
 /* Social Login Buttons */
-.social-login-buttons {
+.landing-social-login-buttons {
   display: flex;
   flex-direction: column;
-  gap: 10px; 
-  margin-top: 10px;
+  gap: 10px; /* Adds spacing between buttons */
+  margin-top: 25px;
 }
 
-.facebook-icon {
-  font-size: 1.25rem; 
+.landing-facebook-icon {
+  font-size: 1.25rem; /* Adjust the size of the icon */
 }

@@ -63,14 +63,14 @@ function SignUpPage() {
 
   return (
     <GoogleOAuthProvider clientId={CLIENT_ID}>
-      <div className="App">
-        <header className="App-header">
-          <div className="app-container">
-            <div className="left-block">
-              <div className="wrapper signup">
+      <div className="signup-App">
+        <header className="signup-App-header">
+          <div className="signup-App-container">
+            <div className="signup-left-block">
+              <div className="signup-wrapper signup">
                 <p className="signup-welcome">Join Us!</p>
                 <p className="signup-text">
-                  Create an account to share your recipes, discover cooking
+                  Create an account to share your recipes,<br />discover cooking
                   tips, and inspire others!
                 </p>
                 <img
@@ -80,16 +80,17 @@ function SignUpPage() {
                 />
               </div>
             </div>
-            <div className="right-block">
-              <div className="wrapper">
+
+            <div className="signup-right-block">
+              <div className="signup-wrapper">
                 <h1>Sign Up</h1>
-                <form
-                  onSubmit={(e) => {
+                <form 
+                onSubmit={(e) => {
                     e.preventDefault();
                     handleSignUp();
                   }}
                 >
-                  <LabelLogin
+                <LabelLogin
                     label="Username"
                     type="text"
                     value={username}
@@ -124,38 +125,37 @@ function SignUpPage() {
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Enter your last name"
                   />
-                  <div className="login-button-container">
+                  <div className="signup-login-button-container">
                     <button
-                      type="submit"
                       onClick={handleSignUp}
-                      className="btn-lg"
+                      className="btn-lg-skinny"
                       aria-label="Sign Up"
                     >
                       Sign Up
                     </button>
                   </div>
                 </form>
-                <div className="sign-up">
+                <div className="signup-sign-up">
                   <p>
                     Already have an account?{" "}
-                    <Link to="/" className="sign-up-link">
+                    <Link to="/" className="signup-sign-up-link">
                       Log in
                     </Link>
                   </p>
                   <p>
                     check home{" "}
-                    <Link to="/home" className="home-link">
+                    <Link to="/home" className="signup-home-link">
                       Home
                     </Link>
                   </p>
                 </div>
-                <div className="social-login-buttons">
+                <div className="signup-social-login-buttons">
                   <GoogleLogin
                     onSuccess={(credentialResponse) => {
                       console.log(credentialResponse);
                     }}
                     onError={handleGoogleSignUpError}
-                    className="social-button"
+                    className="signup-social-button"
                   />
                   <FacebookLogin
                     appId="1088597931155576"
@@ -168,7 +168,7 @@ function SignUpPage() {
                     onProfileSuccess={(response) => {
                       console.log("Get Profile Success!", response);
                     }}
-                    className="btn-fb-signin social-button"
+                    className="btn-fb-signin signup-social-button"
                   >
                     <FontAwesomeIcon
                       icon={faFacebook}
@@ -181,7 +181,7 @@ function SignUpPage() {
                     onPress={() => {
                       console.log("Apple Sign-Up button clicked!");
                     }}
-                    className="btn-apple-signin social-button"
+                    className="btn-apple-signin signup-social-button"
                   />
                 </div>
               </div>

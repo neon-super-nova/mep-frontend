@@ -9,7 +9,7 @@
   letter-spacing: 0.25px;
 }
 
-/* Large Button Styles - Login and Sign-Up */
+/* Large Button Styles */
 .btn-lg {
   height: 35px;
   width: 425px;
@@ -25,6 +25,45 @@
 }
 
 .btn-lg:hover {
+  background-color: #3b4a4d;
+}
+
+.btn-lg-skinny {
+  height: 28px;
+  width: 425px;
+  background-color: #528082;
+  border-radius: 7.5px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.25px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-lg-skinny:hover {
+  background-color: #3b4a4d;
+}
+/* Small Button Styles */
+.btn-sm {
+  height: 30px;
+  width: 180px;
+  background-color: #528082;
+  border-radius: 7.5px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.90rem;
+  letter-spacing: 0.25px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-sm:hover {
   background-color: #3b4a4d;
 }
 
@@ -88,6 +127,52 @@
 }
 .apple-auth-btn:hover {
   background-color: #333333;
+}
+
+.reset-button {
+  height: 30px;
+  width: 130px;
+  background-color: #f8da70;
+  border-radius: 7.5px;
+  color: #2c2d2d;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 0.825rem;
+  /*text-transform: uppercase; use 0.715rem size */
+  letter-spacing: 0.25px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reset-button:hover {
+  background-color: #db6443;
+  color: #f5de9f;
+}
+
+.change-button {
+  height: 30px;
+  width: 35%;
+  background-color: #528082;
+  border-radius: 7.5px;
+  color: #f5f5f5;
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 0.825rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.change-button:hover {
+  background-color: #f8da70;
+  color: #db6443;
 }
 /* 
 

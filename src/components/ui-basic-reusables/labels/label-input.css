@@ -3,11 +3,13 @@
   flex-direction: column;
   margin-bottom: var(--label-input-container-margin-bottom, 1rem);
 }
+
 .label-input-label {
   font-size: var(--label-font-size, var(--default-font-size));
   color: var(--label-color, var(--default-text-color));
   margin-bottom: var(--label-margin-bottom, 0.5rem);
 }
+
 .label-input-field {
   display: block;
   font-size: var(--label-font-size, var(--default-font-size));
@@ -16,41 +18,83 @@
 }
 
 .label-input-login {
-    margin-bottom: 20px; /* Add spacing between login fields */
-  }
-  
+  margin-bottom: 20px;
+}
+
 .label-input-login .label-input-container {
   display: flex;
   flex-direction: column;
-  gap: 8px; 
+  gap: 0px;
 }
 
 .label-input-login .label-input-label {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    color: #171717;
-    font-size: 0.82375rem; 
-    letter-spacing: 0.75px;
-    border-radius: 7.5px;
-    text-align: left;
-    margin-bottom: 3px;
-    width: 100%;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #171717;
+  font-size: 0.84375rem;
+  letter-spacing: 0.75px;
+  border-radius: 7.5px;
+  text-align: left;
+  margin-bottom: 10px;
+  width: 100%;
 }
+
 .label-input-login .label-input-field {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: #171717;
-    font-size: 0.7925rem; 
-    letter-spacing: 0.25px;
-    border-radius: 7.5px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 0.25px;
-    text-align: left;
-    width: 100%;
-} 
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #171717;
+  font-size: 0.8125rem;
+  letter-spacing: 0.25px;
+  border-radius: 7.5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 0px;
+  text-align: left;
+  width: 100%;
+}
+
+.label-input-reset {
+  display: flex;
+  flex-direction: column; /* or row, as needed */
+    align-items: center; 
+  gap: 0px;
+}
+
+
+.label-input-reset .label-input-label {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  color: #3b4a4d;
+  font-size: 0.84375rem;
+  letter-spacing: 0.65px;
+  border-radius: 7.5px;
+  text-align: left;
+  margin-bottom: 5px;
+  width: 35%;
+}
+
+.label-input-reset .label-input-field {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #f5f5f5;
+  font-size: 0.8125rem;
+  letter-spacing: 0.25px;
+  border-radius: 7.5px;
+  padding: 8px;
+  background-color: #3b4a4d;
+  border-radius: 10px;
+  margin-bottom: 0px;
+  text-align: left;
+  width: 35%;
+}
+

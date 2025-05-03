@@ -12,7 +12,7 @@ body, html {
   }
   
   /* Header */
-  .header {
+  .home-page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,7 +21,7 @@ body, html {
     border-bottom: 1px solid #ddd;
   }
   
-  .logo {
+  .home-page-logo {
     width: auto;
  
     height:5.25vh;
@@ -30,19 +30,19 @@ body, html {
 
   }
   
-  .user-dropdown select {
+  .home-page-user-dropdown select {
     padding: 5px;
     font-size: 1rem;
   }
   
   /* Main Content */
-  .main-content {
+  .home-page-main-content {
     display: flex;
     flex: 1;
   }
   
   /* Left Panel */
-  .left-panel {
+  .home-page-left-panel {
     flex: 8;
     padding: 20px;
     border-right: 1px solid #ddd;
@@ -50,14 +50,14 @@ body, html {
   }
   
   /* Right Panel */
-  .right-panel {
+  .home-page-right-panel {
     flex: 4;
     padding: 20px;
     background-color:  #f2e2ce;
   }
   
   /* Footer */
-  .footer {
+  .home-page-footer {
     background-color: #3b4a4d;
     text-align: center;
     padding: 10px 20px;
