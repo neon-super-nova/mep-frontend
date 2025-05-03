@@ -1,0 +1,170 @@
+/*HTML Styles*/
+
+h1 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #171717;
+  font-size: 1.45rem;
+  letter-spacing: 0.25px;
+  text-align: center;
+}
+
+p {
+  font-size: 1rem;
+  color: #171717;
+}
+
+/* General Styles */
+
+.landing-App {
+  text-align: center;
+}
+
+.landing-App-header {
+  background-color: #171717;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
+}
+
+.landing-App-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+/* Left Block */
+
+.landing-left-block {
+  flex: 7 1 0%;
+  background-color: #f8da70;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Right Block */
+
+.landing-right-block {
+  flex: 5 1 0%;
+  padding: 20px;
+  max-height: 100vh;
+  margin-left: 0.15%;
+  margin-right: 0.15%;
+}
+
+.landing-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-wrapper h1 {
+  margin-bottom: 40px; /* Adjust the value as needed */
+}
+
+.landing-content {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-image {
+  width: auto;
+  height: 60vh;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  margin-top: 5px;
+  margin-bottom: 8.25vh;
+}
+
+.landing-welcome {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #171717;
+  font-size: 3.5rem;
+  letter-spacing: -0.25px;
+  text-align: center;
+  margin-top: 8.25vh;
+  margin-bottom: 3.5px;
+}
+
+.landing-text {
+  font-family: "Work Sans", sans-serif;
+  max-width: 100%;
+  font-weight: 400;
+  color: #171717;
+  font-size: 1.15rem;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin-top: 3.5px;
+  margin-bottom: 35px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+}
+
+/* Login Form */
+.landing-login-button-container {
+  margin-top: 30px;
+}
+
+.landing-sign-up {
+  margin-top: 25px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #171717;
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  text-align: center;
+  gap: 18px;
+  
+}
+
+.landing-sign-up-link,
+.landing-home-link {
+  color: #171717;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  text-align: center;
+}
+
+.landing-sign-up-link:hover,
+.landing-home-link:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+/* Social Login Buttons */
+.landing-social-login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds spacing between buttons */
+  margin-top: 25px;
+}
+
+.landing-facebook-icon {
+  font-size: 1.25rem; /* Adjust the size of the icon */
+}

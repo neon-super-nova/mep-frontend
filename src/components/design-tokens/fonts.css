@@ -2,6 +2,20 @@
 
 /* Work Sans */
 
+.work-sans-semi_bold_roman-global> {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.work-sans-semi_bold_italic-global> {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: italic;
+}
+
 .work-sans-regular_roman-global> {
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
@@ -71,6 +85,13 @@
   }
   
   /* Inter */
+
+  .inter-black-global {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+  }
   
   .inter-extra_bold-global {
     font-family: "Inter", sans-serif;
