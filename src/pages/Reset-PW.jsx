@@ -1,22 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../page-css/resetpw-page.css";
 import eggsOops from "../components/img/eggs-oops.png";
 import LabelReset from "../components/ui-basic-reusables/labels/label-input-reset";
 import ChangeButton from "../components/ui-basic-reusables/buttons/button-change";
 import axios from "axios";
-import { getToken } from "../context/tokens.js";
-import { useLocation } from "react-router-dom";
 
 function ResetScreen() {
-  const params = new URLSearchParams(useLocation().search);
-  const [email] = useState(params.get("email") || "");
-  const [token] = useState(params.get("token") || getToken() || "");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [temporaryPassword, setTemporaryPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleReset = async (e) => {
-    e.preventDefault();
-
+  const handleReset = async () => {
+    if (!email || !newPassword || !confirmPassword || !temporaryPassword) {
+      alert("Complete all fields");
+    }
     if (newPassword !== confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -32,11 +32,11 @@ function ResetScreen() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/reset-password/",
+        "http://localhost:8080/api/users/reset-password",
         {
-          email,
-          newPassword,
-          token,
+          email: email,
+          newPassword: newPassword,
+          token: temporaryPassword,
         },
         {
           headers: {
@@ -44,9 +44,10 @@ function ResetScreen() {
           },
         }
       );
-
+      console.log(newPassword);
       if (response.data.message === "Password was successfully changed") {
         alert("Your password has been reset successfully!");
+        navigate("/");
       } else {
         alert(response.data.error || "An error occurred. Please try again.");
       }
@@ -85,7 +86,27 @@ function ResetScreen() {
           }}
         >
           <div className="reset-wrapper2">
-            <form className="reset-form" onSubmit={handleReset}>
+            <form
+              className="reset-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleReset();
+              }}
+            >
+              <LabelReset
+                label="Temporary Password"
+                type="password"
+                value={temporaryPassword}
+                onChange={(e) => setTemporaryPassword(e.target.value)}
+                placeholder="Enter your temporary password"
+              />
+              <LabelReset
+                label="Your email"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+              />
               <LabelReset
                 label="New Password"
                 type="password"
@@ -109,6 +130,7 @@ function ResetScreen() {
                     !newPassword ||
                     !confirmPassword
                   }
+                  onClick={handleReset}
                 >
                   Reset Password
                 </ChangeButton>
