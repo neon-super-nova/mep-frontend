@@ -70,8 +70,9 @@ function SignUpPage() {
               <div className="signup-wrapper signup">
                 <p className="signup-welcome">Join Us!</p>
                 <p className="signup-text">
-                  Create an account to share your recipes,<br />discover cooking
-                  tips, and inspire others!
+                  Create an account to share your recipes,
+                  <br />
+                  discover cooking tips, and inspire others!
                 </p>
                 <img
                   src={landing1b_web}
@@ -84,13 +85,13 @@ function SignUpPage() {
             <div className="signup-right-block">
               <div className="signup-wrapper">
                 <h1>Sign Up</h1>
-                <form 
-                onSubmit={(e) => {
+                <form
+                  onSubmit={(e) => {
                     e.preventDefault();
                     handleSignUp();
                   }}
                 >
-                <LabelLogin
+                  <LabelLogin
                     label="Username"
                     type="text"
                     value={username}
@@ -143,9 +144,9 @@ function SignUpPage() {
                     </Link>
                   </p>
                   <p>
-                    check home{" "}
-                    <Link to="/home" className="signup-home-link">
-                      Home
+                    Forgot Your Password?{" "}
+                    <Link to="/forgotpassword" className="landing-home-link">
+                      Reset Password
                     </Link>
                   </p>
                 </div>
