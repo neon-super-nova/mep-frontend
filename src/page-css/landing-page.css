@@ -16,6 +16,19 @@ p {
   color: #171717;
 }
 
+.label-input-login.password-short-margin {
+  margin-bottom: 10px;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgot-password {
+  font-size: 0.85rem;
+}
+
 /* General Styles */
 
 .landing-App {
@@ -134,10 +147,21 @@ p {
   letter-spacing: 0.15px;
   text-align: center;
   gap: 18px;
-  
 }
 
-.landing-sign-up-link,
+.landing-sign-up-link {
+  color: #171717;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.15px;
+  text-align: center;
+}
+
 .landing-home-link {
   color: #171717;
   text-decoration: none;
@@ -146,7 +170,7 @@ p {
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: 0.15px;
   text-align: center;
 }
