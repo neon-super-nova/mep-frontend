@@ -4,7 +4,6 @@ import eggsOops from "../components/img/eggs-oops.png";
 import ResetButton from "../components/ui-basic-reusables/buttons/button-reset";
 import axios from "axios";
 
-
 function ForgotScreen() {
   const [email, setEmail] = useState("");
 
@@ -22,7 +21,7 @@ function ForgotScreen() {
 
     try {
       const result = await axios.post(
-        "http://localhost:8080/api/users/forgot-password",
+        "/api/users/forgot-password",
         { email },
         {
           headers: {

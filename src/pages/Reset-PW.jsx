@@ -32,7 +32,7 @@ function ResetScreen() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/users/reset-password",
+        "/api/users/reset-password",
         {
           email: email,
           newPassword: newPassword,

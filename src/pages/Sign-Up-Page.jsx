@@ -33,15 +33,11 @@ function SignUpPage() {
       lastName,
     };
     try {
-      const result = await axios.post(
-        "http://localhost:8080/api/users/register",
-        userCredentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const result = await axios.post("/api/users/register", userCredentials, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const response = result.data;
       if (response.message === "User successfully registered") {
         navigate("/");

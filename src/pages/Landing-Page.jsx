@@ -31,15 +31,12 @@ function LandingPage() {
     };
 
     try {
-      const result = await axios.post(
-        "http://localhost:8080/api/users/login",
-        userCredentials,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const result = await axios.post("/api/users/login", userCredentials, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
 
       const response = result.data;
       if (response.message === "Login successful") {
