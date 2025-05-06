@@ -86,6 +86,7 @@ function SignUpPage() {
               <div className="signup-wrapper">
                 <h1>Sign Up</h1>
                 <form
+                  name="signup-form"
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSignUp();
@@ -93,6 +94,7 @@ function SignUpPage() {
                 >
                   <LabelLogin
                     label="Username"
+                    name="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -101,6 +103,7 @@ function SignUpPage() {
                   />
                   <LabelLogin
                     label="Email"
+                    name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -109,6 +112,7 @@ function SignUpPage() {
                   />
                   <LabelLogin
                     label="Password"
+                    name="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -117,6 +121,7 @@ function SignUpPage() {
                   />
                   <LabelLogin
                     label="First name"
+                    name="firstName"
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -125,6 +130,7 @@ function SignUpPage() {
                   />
                   <LabelLogin
                     label="Last name"
+                    name="lastName"
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}

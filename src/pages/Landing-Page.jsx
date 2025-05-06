@@ -84,6 +84,7 @@ function LandingPage() {
               <div className="landing-wrapper">
                 <h1>Login</h1>
                 <form
+                  name="login-form"
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleLogin();
@@ -91,6 +92,7 @@ function LandingPage() {
                 >
                   <LabelLogin
                     label="Username"
+                    name="username"
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -98,11 +100,19 @@ function LandingPage() {
                   />
                   <LabelLogin
                     label="Password"
+                    name="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
+                    className="password-short-margin"
                   />
+                  <div className="forgot-password-container">
+                    <p className="forgot-password">Forgot Your Password? </p>
+                    <Link to="/forgotpassword" className="landing-home-link">
+                      Reset Password Here
+                    </Link>
+                  </div>
                   <div className="landing-login-button-container">
                     <LoginButton onClick={handleLogin} aria-label="Login" />
                   </div>
@@ -112,12 +122,6 @@ function LandingPage() {
                     Don't have an account?{" "}
                     <Link to="/signup" className="landing-sign-up-link">
                       Sign up
-                    </Link>
-                  </p>
-                  <p>
-                    Forgot Your Password?{" "}
-                    <Link to="/forgotpassword" className="landing-home-link">
-                      Reset Password
                     </Link>
                   </p>
                 </div>
