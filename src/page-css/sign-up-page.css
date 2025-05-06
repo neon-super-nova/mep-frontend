@@ -60,7 +60,8 @@ p {
 
 .signup-right-block {
   flex: 5 1 0%;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   max-height: 100vh;
   margin-left: 0.15%;
   margin-right: 0.15%;
@@ -74,7 +75,7 @@ p {
 }
 
 .signup-wrapper h1 {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   /* Adjust the value as needed */
 }
 
@@ -123,11 +124,10 @@ p {
 /* Login Form */
 .signup-login-button-container {
   margin-bottom: 10px;
-
 }
 
 .signup-sign-up {
-  margin-top: 5px;
+  /* margin-top: 5px; */
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -202,4 +202,11 @@ p {
 
 .signup-App .label-input-field {
   border: 1px solid #ccc;
+}
+.label-input-container.signup-label .label-input-label {
+  font-size: 0.845rem !important;
+}
+
+.label-input-container.signup-label .label-input-field {
+  font-size: 0.845rem !important;
 }

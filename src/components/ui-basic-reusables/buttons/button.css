@@ -29,7 +29,7 @@
 }
 
 .btn-lg-skinny {
-  height: 28px;
+  height: 30px;
   width: 425px;
   background-color: #528082;
   border-radius: 7.5px;
@@ -54,7 +54,7 @@
   color: white;
   font-family: "Inter", sans-serif;
   font-weight: 700;
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   letter-spacing: 0.25px;
   border: none;
   cursor: pointer;
@@ -83,7 +83,7 @@
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.865rem; 
+  font-size: 0.865rem;
   letter-spacing: 0.25px;
   display: flex;
   align-items: center;
@@ -102,13 +102,12 @@
   background-color: #365899;
 }
 
-
 /* Apple Sign-In Button */
 .apple-auth-btn {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.865rem; 
+  font-size: 0.865rem;
   letter-spacing: 0.25px;
   display: flex;
   align-items: center;
@@ -122,8 +121,8 @@
   border: none;
   cursor: pointer;
 }
-.apple-icon{
-  font-size: 1.25rem; 
+.apple-icon {
+  font-size: 1.25rem;
 }
 .apple-auth-btn:hover {
   background-color: #333333;

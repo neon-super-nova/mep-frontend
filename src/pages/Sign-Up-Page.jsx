@@ -97,6 +97,7 @@ function SignUpPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter your username"
+                    className="signup-label"
                   />
                   <LabelLogin
                     label="Email"
@@ -104,6 +105,7 @@ function SignUpPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
+                    className="signup-label"
                   />
                   <LabelLogin
                     label="Password"
@@ -111,6 +113,7 @@ function SignUpPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
+                    className="signup-label"
                   />
                   <LabelLogin
                     label="First name"
@@ -118,6 +121,7 @@ function SignUpPage() {
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Enter your first name"
+                    className="signup-label"
                   />
                   <LabelLogin
                     label="Last name"
@@ -125,6 +129,7 @@ function SignUpPage() {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     placeholder="Enter your last name"
+                    className="signup-label"
                   />
                   <div className="signup-login-button-container">
                     <button
@@ -141,12 +146,6 @@ function SignUpPage() {
                     Already have an account?{" "}
                     <Link to="/" className="signup-sign-up-link">
                       Log in
-                    </Link>
-                  </p>
-                  <p>
-                    Forgot Your Password?{" "}
-                    <Link to="/forgotpassword" className="landing-home-link">
-                      Reset Password
                     </Link>
                   </p>
                 </div>

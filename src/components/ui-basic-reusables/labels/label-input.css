@@ -61,10 +61,9 @@
 .label-input-reset {
   display: flex;
   flex-direction: column; /* or row, as needed */
-    align-items: center; 
+  align-items: center;
   gap: 0px;
 }
-
 
 .label-input-reset .label-input-label {
   font-family: "Work Sans", sans-serif;
@@ -97,4 +96,3 @@
   text-align: left;
   width: 35%;
 }
-
