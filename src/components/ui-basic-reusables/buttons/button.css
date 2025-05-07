@@ -29,7 +29,7 @@
 }
 
 .btn-lg-skinny {
-  height: 30px;
+  height: 28px;
   width: 425px;
   background-color: #528082;
   border-radius: 7.5px;
@@ -167,6 +167,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 18px;
 }
 
 .change-button:hover {

@@ -131,6 +131,7 @@ function ResetScreen() {
                     !confirmPassword
                   }
                   onClick={handleReset}
+                  className="reset-password-button"
                 >
                   Reset Password
                 </ChangeButton>

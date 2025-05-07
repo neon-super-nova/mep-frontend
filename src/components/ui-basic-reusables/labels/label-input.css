@@ -1,36 +1,32 @@
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+/* Base styles for all inputs */
 .label-input-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: var(--label-input-container-margin-bottom, 1rem);
-}
-
-.label-input-button-wrapper {
-  position: relative;
-  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .label-input-label {
-  font-size: var(--label-font-size, var(--default-font-size));
-  color: var(--label-color, var(--default-text-color));
-  margin-bottom: var(--label-margin-bottom, 0.5rem);
-  font-weight: 500;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.84375rem;
+  letter-spacing: 0.65px;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  color: #3b4a4d;
+  text-align: left;
 }
 
-.label-input-field {
-  display: block;
-  font-size: var(--label-font-size, var(--default-font-size));
-  color: var(--label-color, var(--default-text-color));
-  margin-bottom: var(--label-margin-bottom, 0.5rem);
-  padding: 2.5rem;
-  border: 1px solid;
+/* Button wrapper containing input + eye */
+.label-input-button-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center; /* keeps input and icon aligned */
 }
 
+/* Eye icon button */
 .eye-button {
   position: absolute;
   right: 10px;
@@ -43,82 +39,56 @@ button {
   color: #999;
 }
 
-.label-input-login {
-  margin-bottom: 20px;
-}
-
-.label-input-login .label-input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-}
-
-.label-input-login .label-input-label {
+/* Input field shared base */
+.label-input-field {
   font-family: "Work Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
-  color: #171717;
-  font-size: 0.84375rem;
-  letter-spacing: 0.75px;
-  border-radius: 7.5px;
-  text-align: left;
-  margin-bottom: 10px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.25px;
+  color: #f5f5f5;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #3b4a4d;
   width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 40px;
+}
+
+/* LOGIN SPECIFIC OVERRIDES */
+.label-input-login .label-input-label {
+  color: #171717;
+  letter-spacing: 0.75px;
 }
 
 .label-input-login .label-input-field {
-  font-family: "Work Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
   color: #171717;
-  font-size: 0.8125rem;
-  letter-spacing: 0.25px;
-  border-radius: 7.5px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin-bottom: 0px;
-  text-align: left;
-  width: 100%;
+  background-color: white;
+}
+
+/* RESET SPECIFIC OVERRIDES */
+.label-input-reset-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  box-sizing: border-box;
 }
 
 .label-input-reset {
   display: flex;
-  flex-direction: column; /* or row, as needed */
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 0px;
-}
-
-.label-input-reset .label-input-label {
-  font-family: "Work Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  text-transform: uppercase;
-  color: #3b4a4d;
-  font-size: 0.84375rem;
-  letter-spacing: 0.65px;
-  border-radius: 7.5px;
-  text-align: left;
-  /* margin-bottom: 5px; */
-  width: 35%;
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
 }
 
 .label-input-reset .label-input-field {
-  font-family: "Work Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
-  color: #f5f5f5;
-  font-size: 0.8125rem;
-  letter-spacing: 0.25px;
-  border-radius: 7.5px;
-  padding: 8px;
   background-color: #3b4a4d;
-  border-radius: 10px;
-  margin-bottom: 0px;
-  text-align: left;
-  width: 35%;
+  color: #f5f5f5;
 }
