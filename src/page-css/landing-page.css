@@ -16,19 +16,6 @@ p {
   color: #171717;
 }
 
-.label-input-login.password-short-margin {
-  margin-bottom: 10px;
-}
-
-.forgot-password-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.forgot-password {
-  font-size: 0.85rem;
-}
-
 /* General Styles */
 
 .landing-App {
@@ -179,6 +166,20 @@ p {
 .landing-home-link:hover {
   text-decoration: underline;
   color: #007bff;
+}
+
+/* Forgot password flex row */
+.label-input-login.password-short-margin {
+  margin-bottom: 10px;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgot-password {
+  font-size: 0.85rem;
 }
 
 /* Social Login Buttons */

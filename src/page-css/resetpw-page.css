@@ -1,107 +1,99 @@
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
-
 
 .reset-screen {
-    background-color: #f2e2ce;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
+  background-color: #f2e2ce;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
-
 
 .reset-title {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 900;
-    font-style: normal;
-    color: #3b4a4d;
-    font-size: 3.05rem;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-top: 12.5px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 900;
+  font-style: normal;
+  color: #3b4a4d;
+  font-size: 3.05rem;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 12.5px;
 }
-
 
 .reset-App-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 100%;
-    min-height: 100vh;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 100vh;
+  align-items: center;
 }
-
 
 .reset-upper-block {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 .reset-wrapper1 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .reset-description {
-    font-family: "Work Sans", sans-serif;
-    font-weight: 400;
-    color: #3b4a4d;
-    font-size: 1.105rem;
-    font-style: italic; 
-    letter-spacing: -0.2px;
-    text-align: center;
-    margin-top: -5px;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+  color: #3b4a4d;
+  font-size: 1.105rem;
+  font-style: italic;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin-top: -5px;
 }
-
 
 .reset-username {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
-
 
 .reset-image {
-    width: 30%;
-    margin: 0 auto;
-    object-fit: contain;
-    margin-top: 15px;
+  width: 30%;
+  margin: 0 auto;
+  object-fit: contain;
+  margin-top: 15px;
 }
-
 
 .reset-lower-block {
-    width: 100%;
-    align-items: center;
-    margin-bottom: 20px;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
 }
-
 
 .reset-wrapper2 {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-
 .reset-form {
-    width: 100%;
-    margin-bottom: 20px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .reset-button-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 35px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.reset-password-button {
+  width: 400px;
 }

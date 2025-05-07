@@ -12,19 +12,19 @@ function LabelReset({
   className = "",
   ...rest
 }) {
-  console.log("reset component loaded");
-
   return (
-    <LabelInput
-      label={label}
-      name={name}
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={`label-input-reset ${className}`} // Additional CSS class for login
-      {...rest}
-    />
+    <div className="label-input-reset-container">
+      <LabelInput
+        label={label}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={`label-input-reset ${className}`} // Additional CSS class for login
+        {...rest}
+      />
+    </div>
   );
 }
 
