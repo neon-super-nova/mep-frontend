@@ -5,15 +5,13 @@ import "./label-input.css";
 function LabelLogin({
   label,
   name,
-  type = "text",
+  type,
   value,
   onChange,
   placeholder = "",
   className = "",
   ...rest
 }) {
-  console.log("login component loaded");
-
   return (
     <LabelInput
       label={label}
@@ -22,7 +20,7 @@ function LabelLogin({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`label-input-login ${className}`} // Additional CSS class for login
+      className={`label-input-login relative ${className}`} // Additional CSS class for login
       {...rest}
     />
   );

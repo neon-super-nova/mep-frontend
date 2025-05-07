@@ -1,13 +1,25 @@
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 .label-input-container {
   display: flex;
   flex-direction: column;
+  position: relative;
   margin-bottom: var(--label-input-container-margin-bottom, 1rem);
+}
+
+.label-input-button-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .label-input-label {
   font-size: var(--label-font-size, var(--default-font-size));
   color: var(--label-color, var(--default-text-color));
   margin-bottom: var(--label-margin-bottom, 0.5rem);
+  font-weight: 500;
 }
 
 .label-input-field {
@@ -15,6 +27,20 @@
   font-size: var(--label-font-size, var(--default-font-size));
   color: var(--label-color, var(--default-text-color));
   margin-bottom: var(--label-margin-bottom, 0.5rem);
+  padding: 2.5rem;
+  border: 1px solid;
+}
+
+.eye-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #999;
 }
 
 .label-input-login {
