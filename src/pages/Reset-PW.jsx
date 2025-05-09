@@ -70,8 +70,8 @@ function ResetScreen() {
           <div className="reset-wrapper1">
             <h1 className="reset-title">Reset Password</h1>
             <p className="reset-description">
-              Please enter a new password for the account of:{" "}
-              <span className="reset-username">{email}</span>.
+              Please complete all fields below to reset your password:{""}
+              <span className="reset-username">{email}</span>
             </p>{" "}
             <img src={eggsOops} alt="Oops" className="reset-image" />
           </div>
