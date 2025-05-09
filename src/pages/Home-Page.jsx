@@ -2,6 +2,7 @@ import "../page-css/home-page.css";
 import { Link } from "react-router-dom";
 import UserDropdown from "../components/ui-basic-reusables/dropdown-menus/user-dropdown";
 import SearchBar from "../components/ui-basic-reusables/other/search-bar";
+import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
 import logoLightModeWeb from "../components/img/logos/logoLightModeWeb.png";
 
 function HomePage() {
@@ -32,6 +33,63 @@ function HomePage() {
             {/* Browse part */}
             <div className="home-page-left-panel-browse-div">
               <p className="home-page-left-panel-subtitles">BROWSE</p>
+              <BrowseBlocks
+                subheading="By Region"
+                columns={8}
+                blocks={[
+                  { label: "Latin-American", onClick: () => {} },
+                  { label: "Caribbean", onClick: () => {} },
+                  { label: "North American", onClick: () => {} },
+                  { label: "Middle Eastern", onClick: () => {} },
+                  { label: "East Asian", onClick: () => {} },
+                  { label: "Southeast Asian", onClick: () => {} },
+                  { label: "African", onClick: () => {} },
+                  { label: "Hawaiian", onClick: () => {} },
+                  { label: "European", onClick: () => {} },
+                ]}
+              />
+              <BrowseBlocks
+                subheading="By Protein Choice"
+                blocks={[
+                  {
+                    label: "Poultry",
+                    onClick: () => console.log("Clicked 1"),
+                  },
+                  {
+                    label: "Red Meat",
+                    onClick: () => console.log("Clicked 2"),
+                  },
+                  {
+                    label: "Pescatarian",
+                    onClick: () => console.log("Clicked 3"),
+                  },
+                  {
+                    label: "Vegan",
+                    onClick: () => console.log("Clicked 4"),
+                  },
+                ]}
+              />
+              <BrowseBlocks
+                subheading="By Allergen Restriction"
+                blocks={[
+                  {
+                    label: "Gluten free",
+                    onClick: () => console.log("Clicked 1"),
+                  },
+                  {
+                    label: "Dairy free",
+                    onClick: () => console.log("Clicked 2"),
+                  },
+                  {
+                    label: "Nut free",
+                    onClick: () => console.log("Clicked 3"),
+                  },
+                  {
+                    label: "Shellfish free",
+                    onClick: () => console.log("Clicked 4"),
+                  },
+                ]}
+              />
             </div>
           </div>
         </div>

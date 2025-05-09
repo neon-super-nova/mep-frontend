@@ -9,7 +9,7 @@ html {
 .home-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 /* Header */
@@ -37,7 +37,7 @@ html {
 /* Main Content */
 .home-page-main-content {
   display: flex;
-  flex: 1;
+  flex-grow: 1;
 }
 
 /* Left Panel */
@@ -78,7 +78,8 @@ html {
   font-weight: bolder;
   letter-spacing: 0.1rem;
   color: black;
-  margin-bottom: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .home-page-left-panel-advanced-search {

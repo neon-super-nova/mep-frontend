@@ -175,7 +175,7 @@ p {
 
 .forgot-password-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
 }
 
 .forgot-password {

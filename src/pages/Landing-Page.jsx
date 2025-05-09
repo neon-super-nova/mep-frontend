@@ -105,9 +105,8 @@ function LandingPage() {
                     className="password-short-margin"
                   />
                   <div className="forgot-password-container">
-                    <p className="forgot-password">Forgot Your Password? </p>
                     <Link to="/forgotpassword" className="landing-home-link">
-                      Reset Password Here
+                      Forgot password?
                     </Link>
                   </div>
                   <div className="landing-login-button-container">
