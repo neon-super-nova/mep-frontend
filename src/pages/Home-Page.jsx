@@ -25,72 +25,87 @@ function HomePage() {
             <SearchBar />
             {/* Advanced bar */}
             <div className="home-page-left-panel-advanced-search">
+              <button className="home-page-left-panel-advanced-search-buttons">
+                OPTION 1
+              </button>
+              <button className="home-page-left-panel-advanced-search-buttons">
+                OPTION 2
+              </button>
               <p className="home-page-left-panel-advanced-search-reg">or use</p>
               <Link className="home-page-left-panel-advanced-search-bold">
                 Advanced search
               </Link>
             </div>
-            {/* Browse part */}
-            <div className="home-page-left-panel-browse-div">
-              <p className="home-page-left-panel-subtitles">BROWSE</p>
-              <BrowseBlocks
-                subheading="By Region"
-                columns={8}
-                blocks={[
-                  { label: "Latin-American", onClick: () => {} },
-                  { label: "Caribbean", onClick: () => {} },
-                  { label: "North American", onClick: () => {} },
-                  { label: "Middle Eastern", onClick: () => {} },
-                  { label: "East Asian", onClick: () => {} },
-                  { label: "Southeast Asian", onClick: () => {} },
-                  { label: "African", onClick: () => {} },
-                  { label: "Hawaiian", onClick: () => {} },
-                  { label: "European", onClick: () => {} },
-                ]}
-              />
-              <BrowseBlocks
-                subheading="By Protein Choice"
-                blocks={[
-                  {
-                    label: "Poultry",
-                    onClick: () => console.log("Clicked 1"),
-                  },
-                  {
-                    label: "Red Meat",
-                    onClick: () => console.log("Clicked 2"),
-                  },
-                  {
-                    label: "Pescatarian",
-                    onClick: () => console.log("Clicked 3"),
-                  },
-                  {
-                    label: "Vegan",
-                    onClick: () => console.log("Clicked 4"),
-                  },
-                ]}
-              />
-              <BrowseBlocks
-                subheading="By Allergen Restriction"
-                blocks={[
-                  {
-                    label: "Gluten free",
-                    onClick: () => console.log("Clicked 1"),
-                  },
-                  {
-                    label: "Dairy free",
-                    onClick: () => console.log("Clicked 2"),
-                  },
-                  {
-                    label: "Nut free",
-                    onClick: () => console.log("Clicked 3"),
-                  },
-                  {
-                    label: "Shellfish free",
-                    onClick: () => console.log("Clicked 4"),
-                  },
-                ]}
-              />
-            </div>
+          </div>
+          {/* Browse part */}
+          <div className="home-page-left-panel-browse-div">
+            <p className="home-page-left-panel-subtitles">BROWSE</p>
+            <BrowseBlocks
+              subheading="By Region"
+              columns={8}
+              blocks={[
+                { label: "Latin-American", onClick: () => {} },
+                { label: "Caribbean", onClick: () => {} },
+                { label: "North American", onClick: () => {} },
+                { label: "Middle Eastern", onClick: () => {} },
+                { label: "South Asian", onClick: () => {} },
+                { label: "East Asian", onClick: () => {} },
+                { label: "Southeast Asian", onClick: () => {} },
+                { label: "African", onClick: () => {} },
+                { label: "European", onClick: () => {} },
+                { label: "Hawaiian", onClick: () => {} },
+              ]}
+            />
+            <BrowseBlocks
+              subheading="By Protein Choice"
+              blocks={[
+                {
+                  label: "Poultry",
+                  onClick: () => console.log("Clicked 1"),
+                },
+                {
+                  label: "Red Meat",
+                  onClick: () => console.log("Clicked 2"),
+                },
+                {
+                  label: "Pescatarian",
+                  onClick: () => console.log("Clicked 3"),
+                },
+                {
+                  label: "Vegetarian",
+                  onClick: () => console.log("Clicked 4"),
+                },
+                {
+                  label: "Vegan",
+                  onClick: () => console.log("Clicked 4"),
+                },
+              ]}
+            />
+            <BrowseBlocks
+              subheading="By Diet Restriction"
+              blocks={[
+                {
+                  label: "Gluten free",
+                  onClick: () => console.log("Clicked 1"),
+                },
+                {
+                  label: "Dairy free",
+                  onClick: () => console.log("Clicked 2"),
+                },
+                {
+                  label: "Nut free",
+                  onClick: () => console.log("Clicked 3"),
+                },
+                {
+                  label: "Shellfish free",
+                  onClick: () => console.log("Clicked 4"),
+                },
+                {
+                  label: "Low carb",
+                  onClick: () => console.log("Clicked 4"),
+                },
+              ]}
+            />
           </div>
         </div>
 

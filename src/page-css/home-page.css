@@ -19,7 +19,7 @@ html {
   align-items: center;
   background-color: #f2e2ce;
   padding: 5px 10px;
-  border-bottom: 5px solid #528082;
+  border-bottom: 10px solid #528082;
 }
 
 .home-page-logo {
@@ -48,58 +48,78 @@ html {
   justify-content: start;
   align-items: center;
   padding: 20px;
-  border-right: 1px solid #ddd;
+  border-right: 5px double #528082;
   background-color: rgb(242, 226, 206, 0.15);
 }
 
 .home-page-right-panel-title {
   font-family: "Open Sans", sans-serif;
-  font-size: 30px;
+  font-size: 2rem;
   font-weight: 50;
   letter-spacing: 0.2rem;
   color: #528082;
   margin-top: 2rem;
 }
 
+.shared-content-wrapper {
+  max-width: 41.5rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .home-page-left-panel-search-div,
 .home-page-left-panel-browse-div {
-  width: 100%;
+  align-items: center;
+  justify-content: start;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .home-page-left-panel-subtitles {
-  font-family: "Open Sans", sans-serif;
-  font-size: 28px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
   font-weight: bolder;
   letter-spacing: 0.1rem;
   color: black;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .home-page-left-panel-advanced-search {
   display: flex;
-  gap: 7px;
-  margin-top: 7px;
+  gap: 5px;
+  margin-top: 0.7rem;
+}
+
+.home-page-left-panel-advanced-search-buttons {
+  border-radius: 0.3rem;
+  background-color: #3b4a4d;
+  color: white;
+  width: 8rem;
+  padding: 0rem;
+  text-align: center;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-style: italic;
 }
 
 .home-page-left-panel-advanced-search-reg {
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 14px;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
   font-style: italic;
   font-weight: 200;
 }
 
 .home-page-left-panel-advanced-search-bold {
-  font-family: "Open Sans Condensed", sans-serif;
+  font-family: "Inter", sans-serif;
   font-style: italic;
   font-weight: 550;
-  font-size: 14px;
+  font-size: 1rem;
   letter-spacing: 0.05rem;
 }
 
