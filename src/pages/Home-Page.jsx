@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import UserDropdown from "../components/ui-basic-reusables/dropdown-menus/user-dropdown";
 import SearchBar from "../components/ui-basic-reusables/other/search-bar";
 import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
+import TrendingRecipe from "../components/ui-basic-reusables/other/trending-recipe";
 import logoLightModeWeb from "../components/img/logos/logoLightModeWeb.png";
+import bananaBread from "../components/img/dummy/bananabread.jpg";
+import macncheese from "../components/img/dummy/macncheese.jpg";
 
 function HomePage() {
   return (
@@ -106,6 +109,20 @@ function HomePage() {
         {/* Right Panel */}
         <div className="home-page-right-panel">
           <h2 className="home-page-right-panel-title">TRENDING</h2>
+          <TrendingRecipe
+            recipeImage={bananaBread}
+            recipeName="Banana Bread"
+            recipeRating={4.8}
+            recipeDescription="A moist, delicious banana bread recipe perfect for any time of day."
+            recipeTags={["Vegetarian", "kosher", "Dairy-free"]}
+          />
+          <TrendingRecipe
+            recipeImage={macncheese}
+            recipeName="Mac & Cheese Supreme"
+            recipeRating={3.8}
+            recipeDescription="Creamy, cheesy, and oven-baked to perfection. This is a comfort food classic with a gourmet twist."
+            recipeTags={["Vegetarian", "American"]}
+          />
         </div>
       </main>
 

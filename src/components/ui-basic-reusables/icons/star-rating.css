@@ -1,0 +1,25 @@
+.star-rating {
+  position: relative;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.star-background {
+  color: #f8da70;
+  border-color: #528082;
+}
+
+.star-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  color: #528082;
+  border-color: #528082;
+}
+
+.rating-number {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  color: #444;
+}

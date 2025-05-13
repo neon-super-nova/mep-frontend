@@ -49,7 +49,7 @@ html {
   align-items: center;
   padding: 20px;
   border-right: 5px double #528082;
-  background-color: rgb(242, 226, 206, 0.15);
+  background-color: rgba(242, 226, 206, 0.15);
 }
 
 .home-page-right-panel-title {
