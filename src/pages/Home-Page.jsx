@@ -25,21 +25,15 @@ function HomePage() {
             <SearchBar />
             {/* Advanced bar */}
             <div className="home-page-left-panel-advanced-search">
-              <button className="home-page-left-panel-advanced-search-buttons">
-                OPTION 1
-              </button>
-              <button className="home-page-left-panel-advanced-search-buttons">
-                OPTION 2
-              </button>
               <p className="home-page-left-panel-advanced-search-reg">or use</p>
               <Link className="home-page-left-panel-advanced-search-bold">
-                Advanced search
+                Advanced Search
               </Link>
             </div>
           </div>
           {/* Browse part */}
           <div className="home-page-left-panel-browse-div">
-            <p className="home-page-left-panel-subtitles">BROWSE</p>
+            <p className="home-page-left-panel-subtitles">BROWSE:</p>
             <BrowseBlocks
               subheading="By Region"
               columns={8}
@@ -53,7 +47,7 @@ function HomePage() {
                 { label: "Southeast Asian", onClick: () => {} },
                 { label: "African", onClick: () => {} },
                 { label: "European", onClick: () => {} },
-                { label: "Hawaiian", onClick: () => {} },
+                { label: "Hawaiian/Pacific Islander", onClick: () => {} },
               ]}
             />
             <BrowseBlocks
@@ -61,23 +55,23 @@ function HomePage() {
               blocks={[
                 {
                   label: "Poultry",
-                  onClick: () => console.log("Clicked 1"),
+                  onClick: () => {},
                 },
                 {
                   label: "Red Meat",
-                  onClick: () => console.log("Clicked 2"),
+                  onClick: () => {},
                 },
                 {
                   label: "Pescatarian",
-                  onClick: () => console.log("Clicked 3"),
+                  onClick: () => {},
                 },
                 {
                   label: "Vegetarian",
-                  onClick: () => console.log("Clicked 4"),
+                  onClick: () => {},
                 },
                 {
                   label: "Vegan",
-                  onClick: () => console.log("Clicked 4"),
+                  onClick: () => {},
                 },
               ]}
             />
@@ -86,23 +80,23 @@ function HomePage() {
               blocks={[
                 {
                   label: "Gluten free",
-                  onClick: () => console.log("Clicked 1"),
+                  onClick: () => {},
                 },
                 {
                   label: "Dairy free",
-                  onClick: () => console.log("Clicked 2"),
+                  onClick: () => {},
                 },
                 {
                   label: "Nut free",
-                  onClick: () => console.log("Clicked 3"),
+                  onClick: () => {},
                 },
                 {
                   label: "Shellfish free",
-                  onClick: () => console.log("Clicked 4"),
+                  onClick: () => {},
                 },
                 {
                   label: "Low carb",
-                  onClick: () => console.log("Clicked 4"),
+                  onClick: () => {},
                 },
               ]}
             />
@@ -111,8 +105,7 @@ function HomePage() {
 
         {/* Right Panel */}
         <div className="home-page-right-panel">
-          <h2>Right panel</h2>
-          <p>Content for the right panel goes here.</p>
+          <h2 className="home-page-right-panel-title">TRENDING</h2>
         </div>
       </main>
 

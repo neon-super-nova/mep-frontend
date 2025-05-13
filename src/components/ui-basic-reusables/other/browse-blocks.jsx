@@ -12,7 +12,7 @@ function BrowseBlocks({ subheading, blocks }) {
               className="browse-blocks-block"
               onClick={block.onClick}
             >
-              <span>{block.label}</span>
+              <span className="browse-blocks-block-label">{block.label}</span>
             </div>
           ))}
         </div>

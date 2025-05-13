@@ -14,17 +14,16 @@
   box-sizing: border-box;
 }
 
-.search-icon {
-  margin-right: 0.75rem;
-  color: black;
-}
-
 .home-page-left-panel-searchbar {
   flex: 1;
   width: 100%;
   border: none;
   background: transparent;
-  font-size: 1rem;
-  font-family: "Inter", sans-serif;
+  letter-spacing: 0.03em;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.8rem;
   outline: none;
 }
