@@ -37,7 +37,22 @@
   font-style: normal;
 }
 
-/* Open Sans, Condensed */
+.work-sans-light_italic-global > {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Open Sans, Regular */
+
+.open-sans-regular-light {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
 .open-sans-regular-global > {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
@@ -46,11 +61,12 @@
 }
 
 /* Open Sans, Condensed */
-.work-sans-light_italic-global > {
-  font-family: "Work Sans", sans-serif;
+
+.open-sans-_condensed-semibold-regular-global > {
+  font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "wdth" 75;
 }
 
 .open-sans-_condensed-semibold-italic-global > {
@@ -92,6 +108,13 @@
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: italic;
+  font-variation-settings: "wdth" 87.5;
+}
+
+.open-sans-semi_condensed-regular-global {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
   font-variation-settings: "wdth" 87.5;
 }
 

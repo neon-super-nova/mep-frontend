@@ -49,10 +49,10 @@ html {
   align-items: center;
   padding: 20px;
   border-right: 5px double #528082;
-  background-color: rgb(242, 226, 206, 0.15);
+  background-color: rgba(242, 226, 206, 0.15);
 }
 
-.home-page-right-panel-title {
+.home-page-panel-title {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
