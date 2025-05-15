@@ -21,7 +21,7 @@ function HomePage() {
       <main className="home-page-main-content">
         {/* Left Panel */}
         <div className="home-page-left-panel">
-          <h2 className="home-page-right-panel-title">RECIPE LOOKUP</h2>
+          <h2 className="home-page-panel-title">RECIPE LOOKUP</h2>
           {/* Search bar */}
           <div className="home-page-left-panel-search-div">
             <p className="home-page-left-panel-subtitles">SEARCH</p>
@@ -108,7 +108,7 @@ function HomePage() {
 
         {/* Right Panel */}
         <div className="home-page-right-panel">
-          <h2 className="home-page-right-panel-title">TRENDING</h2>
+          <h2 className="home-page-panel-title">TRENDING</h2>
           <TrendingRecipe
             recipeImage={bananaBread}
             recipeName="Banana Bread"

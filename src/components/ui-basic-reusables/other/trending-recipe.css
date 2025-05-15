@@ -6,7 +6,7 @@
   padding: 0.625rem;
   font-family: "Open Sans", sans-serif;
   background-color: rgba(242, 226, 206, 0.15);
-  width: 28rem; /* ~448px */
+  width: 28rem;
   height: 8rem;
 }
 
@@ -26,9 +26,12 @@
 }
 
 .recipe-title {
-  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
   font-size: 1rem;
-  color: #3e3e3e;
+  color: #3b4a4d;
 }
 
 .trending-recipe-user-rating {
@@ -38,15 +41,24 @@
   gap: 0.5rem;
   color: #444;
   font-size: 0.85rem;
-  flex-wrap: wrap; /* Optional: ensures stars + text wrap on smaller screens */
+  flex-wrap: wrap;
 }
 
 .user-rating-label {
   font-size: 0.75rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  color: #3b4a4d;
 }
 
 .recipe-description {
   font-size: 0.75rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
   color: #555;
   margin: 0 0 0.75rem;
   line-height: 1.2;
@@ -59,11 +71,14 @@
 }
 
 .recipe-tag {
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-variation-settings: "wdth" 75;
   font-size: 0.65rem;
-  font-weight: bold;
-  border-radius: 0.25rem;
-  background-color: #ffd699;
+  background-color: #f8da70;
+  border: #db6443 solid 1px;
   color: #333;
   text-transform: uppercase;
 }

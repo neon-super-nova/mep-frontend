@@ -12,9 +12,7 @@ function TrendingRecipe({
     <div className="trending-recipe-container">
       <img className="trending-recipe-img" alt={recipeName} src={recipeImage} />
       <div className="trending-recipe-right-side">
-        <p className="recipe-title">
-          <strong>RECIPE:</strong> {recipeName}
-        </p>
+        <p className="recipe-title">RECIPE: {recipeName}</p>
         <div className="trending-recipe-user-rating">
           <p className="user-rating-label">USER RATING:</p>
           <StarRating rating={recipeRating} />

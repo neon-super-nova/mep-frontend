@@ -6,7 +6,6 @@
 
 .star-background {
   color: #f8da70;
-  border-color: #528082;
 }
 
 .star-overlay {
@@ -15,7 +14,6 @@
   left: 0;
   overflow: hidden;
   color: #528082;
-  border-color: #528082;
 }
 
 .rating-number {
