@@ -1,10 +1,11 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import LandingPage from '../pages/Landing-Page';
-import SignUpPage from '../pages/Sign-Up-Page';
-import HomePage from '../pages/Home-Page';
-import ForgotScreen from '../pages/Forgot-PW';
-import ResetScreen from '../pages/Reset-PW';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "../pages/Landing-Page";
+import SignUpPage from "../pages/Sign-Up-Page";
+import HomePage from "../pages/Home-Page";
+import ForgotScreen from "../pages/Forgot-PW";
+import ResetScreen from "../pages/Reset-PW";
+import AdvancedSearchPage from "../pages/Advanced-Search-Page";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/home" element={<HomePage />} />
       <Route path="/forgotpassword" element={<ForgotScreen />} />
       <Route path="/resetpassword" element={<ResetScreen />} />
+      <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
     </Routes>
   );
 };
