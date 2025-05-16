@@ -29,7 +29,10 @@ function HomePage() {
             {/* Advanced bar */}
             <div className="home-page-left-panel-advanced-search">
               <p className="home-page-left-panel-advanced-search-reg">or use</p>
-              <Link className="home-page-left-panel-advanced-search-bold">
+              <Link
+                to="/advancedsearch"
+                className="home-page-left-panel-advanced-search-bold"
+              >
                 Advanced Search
               </Link>
             </div>
