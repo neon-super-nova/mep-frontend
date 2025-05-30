@@ -46,7 +46,7 @@ function LabelInput({
             tabIndex={-1}
             className="eye-button"
           >
-            {passwordVisibility ? <EyeOff size={10} /> : <Eye size={10} />}
+            {passwordVisibility ? <EyeOff  color="#999" strokeWidth={1.5} size={15} /> : <Eye  color="#999" strokeWidth={1.5} size={15} />}
           </button>
         )}
       </div>

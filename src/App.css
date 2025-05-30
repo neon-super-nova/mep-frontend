@@ -5,3 +5,15 @@ body {
   margin: 0;
   padding: 0;
 }
+body.dark-mode .custom-dropdown,
+body.dark-mode .option-label,
+body.dark-mode .dropdown-label-default,
+body.dark-mode .day-night-label,
+body.dark-mode .logout-label,
+body.dark-mode .dropdown-description-default {
+margin: 0;
+}
+
+body.dark-mode .option-description {
+margin:0; 
+}

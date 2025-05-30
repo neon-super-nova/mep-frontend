@@ -1,19 +1,80 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@600&display=swap&ital=1");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --bg-color: rgb(242, 226, 206, 0.25);
+  --bg-panel-color: #f2e2ce;
+  --bg-color-alt: #f2e2ce;
+  --text-color: #171717;
+  --text-color-invert: #f5f5f5;
+  --text-color-dropdown: #171717;
+  --text-color-alt: #3b4a4d;
+  --text-color-check: #db6443;
+
+  --main-accent-color: #f2e2ce;
+  --main-accent-color-alt: #528082;
+  --minor-accent-color-1: #528082;
+  --minor-accent-color-2: #3b4a4d;
+  --minor-accent-color-2-invert: #528082;
+  --minor-accent-color-2b: #3b4a4d;
+  --minor-accent-color-3: #db6443;
+  --star-coloring: #f8da70;
+
+  --button-color-yellow: #f8da70;
+
+  --inner-check-box: #f8da70;
+  --subcat-filter-box: #f5de9f;
+
+  --accent-color-neutral-white: #f5f5f5;
+  --accent-color-neutral-charcoal: #2c2d2d;
+  --accent-color-neutral-black: #171717;
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+.dark {
+  --bg-color: #3b4a4d;
+  --bg-panel-color: #528082;
+  --bg-color-alt:  #3b4a4d;
+  --text-color: #f5f5f5;
+  --text-color-invert: #171717;
+  --text-color-dropdown: #3b4a4d;
+  --text-color-alt:  #f2e2ce;
+  --text-color-check: #f2e2ce;
+
+  --main-accent-color:  #db6443;
+  --main-accent-color-alt: #f8da70;
+  --minor-accent-color-1: #f2e2ce;
+  --minor-accent-color-2: #528082;
+  --minor-accent-color-2-invert: #3b4a4d;
+  --minor-accent-color-2b:  #db6443;
+  --minor-accent-color-3: #f8da70;
+  --star-coloring:  #db6443;
+
+  --button-color-yellow: #f8da70;
+
+  --inner-check-box: #c2c5b7;
+  --subcat-filter-box: #829d99;
+
+  --accent-color-neutral-white: #f5f5f5;
+  --accent-color-neutral-charcoal: #2c2d2d;
+  --accent-color-neutral-black: #171717;
+  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+body {
+ margin: 0;
+ padding: 0;
+ height: 100%;
+ font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+   "Helvetica Neue", sans-serif;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+ font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+   monospace;
 }

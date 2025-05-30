@@ -23,20 +23,19 @@
   position: relative;
   width: 100%;
   display: flex;
-  align-items: center; /* keeps input and icon aligned */
+  align-items: center; 
 }
 
 /* Eye icon button */
 .eye-button {
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  color: #999;
 }
 
 /* Input field shared base */
@@ -66,7 +65,7 @@
 
 .label-input-login .label-input-field {
   color: #171717;
-  background-color: white;
+  background-color: #f5f5f5;
 }
 
 /* RESET SPECIFIC OVERRIDES */

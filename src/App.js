@@ -1,14 +1,27 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from './routes/Routes';
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./routes/Routes";
+import { ThemeProvider, useTheme }from "./context/theme-context.js";
 
-function App() {
+
+function AppContent() {
+  const { theme } = useTheme();
   return (
-    <Router>
+    <div className={theme === "dark" ? "dark" : ""}>
       <div className="App">
         <AppRoutes />
       </div>
-    </Router>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ThemeProvider>
   );
 }
 

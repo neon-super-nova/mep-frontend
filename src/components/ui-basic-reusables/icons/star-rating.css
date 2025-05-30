@@ -20,7 +20,7 @@
 }
 
 .star-background-bottom {
-  color: #528082;
+  color: var(--minor-accent-color-1);
   z-index: 0;
   font-size: 0.88rem; 
 
@@ -29,22 +29,21 @@
 .star-background-top,
 .star-overlay {
   z-index: 1;
-  top: 1.7266px;
+  top: 1.2px;
   left: 1.65px;
   font-size: 0.67rem;
-  letter-spacing: 0.21rem;
-  color: #f8da70; 
+  letter-spacing: 0.225rem;
+  color: var(--star-coloring);
   
 }
 
 .star-overlay {
   z-index: 2;
   overflow: hidden;
-  color: #528082;
+  color: var(--minor-accent-color-1);
 
 }
 .rating-number {
   margin-left: 0.5rem;
   width: 100%;
-  color: #641010;
 }

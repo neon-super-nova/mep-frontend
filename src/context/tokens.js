@@ -12,6 +12,6 @@ export const getToken = () => {
   return localStorage.getItem(TOKEN_KEY);
 };
 
-// export const isAuthenticated = () => {
-//   return !!getToken();
-// };
+export function isLoggedIn() {
+ return !!getToken();
+}

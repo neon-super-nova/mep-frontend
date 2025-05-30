@@ -6,9 +6,11 @@
 
 .browse-blocks-subheading {
   font-family: "Inter", sans-serif;
+  color: var(--text-color);
   font-weight: 600;
   font-size: 1.2rem;
   margin-bottom: 1rem;
+  letter-spacing: 0.04rem;
   text-align: center;
 }
 
@@ -26,8 +28,8 @@
 }
 /* add bold */
 .browse-blocks-block {
-  background-color: #db6443;
-  color: black;
+  background-color: var(--minor-accent-color-3);
+  color: var(--text-color-dropdown);
   width: 7.5rem;
   height: 8.125rem;
   border-radius: 0.5rem;
@@ -46,6 +48,8 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
+    letter-spacing: 0.02rem;
   font-style: normal;
   font-size: 0.75rem;
+  text-transform: uppercase;
 }

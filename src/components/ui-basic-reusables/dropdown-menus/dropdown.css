@@ -1,0 +1,191 @@
+.dropdown-trigger-wrapper {
+    border-left: 5px double var(--main-accent-color-alt);
+    position: relative;
+    display: inline-block;
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: 36px;
+    right: 0px;
+    z-index: 2000;
+    min-width: 325px;
+    background-color: var(--main-accent-color-alt);
+    border-radius: 8px;
+    box-shadow: var(--shadow-elevated);
+}
+
+.custom-dropdown {
+    background-color: transparent;
+}
+
+.selected {
+    background-color: transparent;
+}
+
+.dropdown-selected {
+    background-color: transparent;
+}
+
+.option-label {
+    color: white;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+
+}
+
+.dropdown-label-default {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--text-color-dropdown);
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-align: center;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+      padding-top: 1.5em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+}
+
+.day-night-label {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 1.05rem;
+    letter-spacing: 0.25px;
+    text-align: center;
+    padding: 0.5em 1em;
+    border-bottom: 5px double var(--minor-accent-color-2b);
+}
+
+.day-night-label-span {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5em;
+    padding: 0.2em 0.6em;
+    margin: 0.75em 0;
+    background: transparent;
+    border-radius: 4px;
+}
+
+.day-night-label-span svg {
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 0.35em;
+    width: 36px;
+    height: 36px;
+}
+
+.day-night-label-span .mode-label {
+    vertical-align: middle;
+    display: inline-block;
+    color: var(--text-color-dropdown);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+}
+
+.day-night-label-span .sun.light { 
+    background: rgba(130, 157, 153, 1);
+}
+
+.day-night-label-span .sun.dark { 
+    background: rgba(245, 222, 159, 0);
+}
+
+.day-night-label-span .moon.light { 
+    background: rgba(130, 157, 153, 0);
+}
+
+.day-night-label-span .moon.dark { 
+    background: rgba(245, 222, 159, 1);
+}
+
+.divider {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color:  var(--text-color-dropdown);
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+
+}
+
+.user-menu-span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85em;
+     margin-top: 0.45em;
+    margin-right: 1.5em;
+
+}
+
+.user-menu-text {
+    color: var(--text-color-alt);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.75px;
+    margin-right: 0.5em;
+
+}
+
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+   
+    margin-right: 0.75em;
+    margin-left:  1.5em;
+}
+
+.logout-label {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--text-color-dropdown);
+    font-size: 0.95rem;
+    letter-spacing: 1.75px;
+    text-align: center;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    margin-top: 0.75em;
+    margin-bottom: 1.5em;
+
+}
+
+.option-description {
+    margin-bottom: 1.5em;
+}
+
+.dropdown-description-default {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-color-dropdown);
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+  padding-top: 0 em;
+  padding-bottom: 1.25em;
+  margin-top: 0;
+  margin-bottom: 0; 
+    border-bottom: 5px double var(--minor-accent-color-2b);
+
+}

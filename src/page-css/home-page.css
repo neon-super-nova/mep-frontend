@@ -3,35 +3,12 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
 }
 
 .home-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-/* Header */
-.home-page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f2e2ce;
-  padding: 5px 10px;
-  border-bottom: 10px solid #528082;
-}
-
-.home-page-logo {
-  width: auto;
-  height: 5.25vh;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-.home-page-user-dropdown select {
-  padding: 5px;
-  font-size: 1rem;
 }
 
 /* Main Content */
@@ -48,17 +25,28 @@ html {
   justify-content: start;
   align-items: center;
   padding: 20px;
-  border-right: 5px double #528082;
-  background-color: rgba(242, 226, 206, 0.15);
+  border-right: 5px double var(--main-accent-color-alt);
+  background-color: var(--bg-color);
 }
 
-.home-page-panel-title {
+.home-page-left-panel-title {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-variation-settings: "wdth" 87.5;
   letter-spacing: 0.2rem;
-  color: #3b4a4d;
+  color: var(--text-color-alt);
+  font-size: 1.75rem;
+  margin-top: 40px;
+}
+
+.home-page-right-panel-title {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-variation-settings: "wdth" 87.5;
+  letter-spacing: 0.2rem;
+  color: var(--text-color);
   font-size: 1.75rem;
   margin-top: 40px;
 }
@@ -86,7 +74,8 @@ html {
   font-weight: 800;
   font-style: normal;
   font-size: 1.5rem;
-  color: black;
+  color: var(--text-color);
+  letter-spacing: 0.12rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -105,7 +94,7 @@ html {
   font-style: italic;
   font-variation-settings: "wdth" 75;
   font-size: 0.75rem;
-  color: #3b4a4d;
+  color: var(--text-color-alt);
 }
 
 .home-page-left-panel-advanced-search-bold {
@@ -115,7 +104,7 @@ html {
   font-style: italic;
   font-variation-settings: "wdth" 75;
   font-size: 0.9rem;
-  color: #3b4a4d;
+  color: var(--text-color-alt);
 }
 
 /* Right Panel */
@@ -126,13 +115,13 @@ html {
   justify-content: start;
   align-items: center;
   padding: 20px;
-  background-color: #f2e2ce;
+  background-color: var(--bg-panel-color);
 }
 
 /* Footer */
 .home-page-footer {
-  background-color: #3b4a4d;
+  background-color: var(--minor-accent-color-2b);
   text-align: center;
   padding: 10px 20px;
-  border-top: 10px solid #528082;
+  border-top: 10px solid var(--main-accent-color-alt);
 }

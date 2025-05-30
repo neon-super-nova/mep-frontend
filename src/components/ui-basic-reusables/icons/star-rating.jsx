@@ -2,7 +2,7 @@ import "./star-rating.css";
 
 function StarRating({ rating }) {
   const starCount = 5;
-  const letterSpacing = 0.24; // in rem
+  const letterSpacing = 0.2; // in rem
   const roundedRating = Math.round(rating * 10) / 10;
   const overlayWidth = `calc(${(roundedRating / starCount) * 100}% - ${
     (roundedRating - 1) * letterSpacing

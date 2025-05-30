@@ -6,6 +6,11 @@ import HomePage from "../pages/Home-Page";
 import ForgotScreen from "../pages/Forgot-PW";
 import ResetScreen from "../pages/Reset-PW";
 import AdvancedSearchPage from "../pages/Advanced-Search-Page";
+import UserPage from "../pages/User-Page";
+import SettingsPage from "../pages/Settings-Page";
+import RecipeBoxPage from "../pages/Recipe-Box-Page";
+import ReportPage from "../pages/Submit-Report-Page";
+import RecipePage from "../pages/Recipe-Page";
 
 const AppRoutes = () => {
   return (
@@ -16,6 +21,11 @@ const AppRoutes = () => {
       <Route path="/forgotpassword" element={<ForgotScreen />} />
       <Route path="/resetpassword" element={<ResetScreen />} />
       <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
+      <Route path="/profile" element={<UserPage />} />
+      <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/recipebox" element={<RecipeBoxPage />} />
+      <Route path="/submitreport" element={<ReportPage />} />
+      <Route path="/recipe/:name" element={<RecipePage />} />
     </Routes>
   );
 };

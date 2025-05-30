@@ -3,7 +3,6 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
 }
 
 .advanced-search-page {
@@ -15,29 +14,13 @@ html {
 .advanced-search-page-title {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 900;
   font-style: normal;
-  color: #171717;
+    letter-spacing: 0.035rem;
+    color: var(--text-color);
   font-size: 1.5rem;
   margin-top: 40px;
   margin-bottom: 30px;
-}
-
-/* Header */
-.advanced-search-page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f2e2ce;
-  padding: 5px 10px;
-  border-bottom: 10px solid #528082;
-}
-
-.advanced-search-page-logo {
-  width: auto;
-  height: 5.25vh;
-  max-width: 100%;
-  object-fit: contain;
 }
 
 /* Main Content */
@@ -54,8 +37,8 @@ html {
   justify-content: start;
   align-items: center;
   padding: 20px;
-  border-right: 5px double #528082;
-  background-color: rgb(242, 226, 206, 1);
+  border-right: 5px double var(--main-accent-color-alt);
+  background-color: var(--bg-panel-color);
 }
 /* Filtering category */
 .advanced-search-page-filter-box {
@@ -74,15 +57,16 @@ html {
   font-style: italic;
   font-variation-settings: "wdth" 75;
   font-size: 0.8rem;
-  color: #171717;
+  letter-spacing: 0.02rem;
+  color: var(--text-color);
 }
 
 /* Filtering categories and subcategories */
 .advanced-search-page-filter-list {
   list-style: none;
   padding: 5px;
-  background: rgba(245, 222, 159, 1);
-  border: #000000 0.5px solid;
+  background: var(--subcat-filter-box);
+  border: #171717 0.5px solid;
 }
 
 .advanced-search-page-filter-has-submenu {
@@ -90,6 +74,7 @@ html {
   margin-left: 5px;
   padding: 2px;
   font-size: 0.75rem;
+   letter-spacing: 0.01rem;
 }
 
 .label-checkbox {
@@ -103,6 +88,10 @@ html {
   padding: 1px;
 }
 
+.submenu-arrow{
+ color: #3b4a4d;
+}
+  
 .input-checkbox {
   display: none;
 }
@@ -111,8 +100,8 @@ html {
   width: 0.75rem;
   height: 0.75rem;
   margin-right: 5px;
-  background-color: rgba(245, 222, 159, 1);
-  border: 0.5px solid #000000;
+  background-color: var(--inner-check-box);
+  border: 0.5px solid #171717;
   position: relative;
   flex-shrink: 0;
 }
@@ -128,7 +117,7 @@ html {
 }
 
 .input-checkbox:checked + .custom-box + .checkbox-text {
-  color: #db6443;
+  color: var(--text-color-check);
 }
 
 .advanced-search-page-filter-submenu {
@@ -138,7 +127,7 @@ html {
   margin-left: -10rem;
   padding: 5px;
   list-style: none;
-  background-color: rgba(245, 222, 159, 1);
+  background-color: var(--subcat-filter-box);
   border: #000000 0.5px solid;
   min-width: 8rem;
   z-index: 10;
@@ -156,5 +145,5 @@ html {
   justify-content: start;
   align-items: center;
   padding: 20px;
-  background-color: rgba(242, 226, 206, 0.15);
+  background-color: var(--bg-color);
 }
