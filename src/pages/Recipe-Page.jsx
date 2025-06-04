@@ -19,10 +19,11 @@ function RecipePage() {
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
 
-const renameProtein = (protein) => {
-  if (protein === "Other animal based") return "Meat - other / mixed";
-  return protein;
-};
+  const renameProtein = (protein) => {
+    if (protein === "Other animal based") return "Meat - other / mixed";
+    return protein;
+  };
+  
   useEffect(() => {
     async function fetchRecipe() {
       console.log("Fetching recipe from:", `/api/recipes/name/${name}`);
@@ -41,11 +42,13 @@ const renameProtein = (protein) => {
   if (recipe === null) return <div>Loading...</div>;
   if (!recipe || recipe.length === 0) return <div>Recipe not found.</div>;
 
-const noTags =
-  (!recipe[0].cuisineRegion || recipe[0].cuisineRegion === "Other") &&
-  (!recipe[0].dietaryRestriction || recipe[0].dietaryRestriction === "None") &&
-  (!recipe[0].proteinChoice || recipe[0].proteinChoice === "None") &&
-  (!recipe[0].religiousRestriction || recipe[0].religiousRestriction === "None");
+  const noTags =
+    (!recipe[0].cuisineRegion || recipe[0].cuisineRegion === "Other") &&
+    (!recipe[0].dietaryRestriction ||
+      recipe[0].dietaryRestriction === "None") &&
+    (!recipe[0].proteinChoice || recipe[0].proteinChoice === "None") &&
+    (!recipe[0].religiousRestriction ||
+      recipe[0].religiousRestriction === "None");
 
   const units = recipe[0].units || "US/Imperial";
 
@@ -115,31 +118,31 @@ const noTags =
                     <span className="bold">none</span>
                   ) : (
                     <>
-                      {recipe[0].cuisineRegion && 
-                       recipe[0].cuisineRegion!== "Other" && (
-                        <span className="reg cuisine">
-                          {recipe[0].cuisineRegion}
-                        </span>
-                      )}
-                      {recipe[0].dietaryRestriction && 
-                       recipe[0].dietaryRestriction!== "None" && (
-                        <span className="reg diet">
-                          {recipe[0].dietaryRestriction}
-                        </span>
-                      )}
-                 {recipe[0].proteinChoice &&
-  recipe[0].proteinChoice !== "None" && (
-    <span className="reg protein">
-      {renameProtein(recipe[0].proteinChoice)}
-    </span>
-)}
+                      {recipe[0].cuisineRegion &&
+                        recipe[0].cuisineRegion !== "Other" && (
+                          <span className="reg cuisine">
+                            {recipe[0].cuisineRegion}
+                          </span>
+                        )}
+                      {recipe[0].dietaryRestriction &&
+                        recipe[0].dietaryRestriction !== "None" && (
+                          <span className="reg diet">
+                            {recipe[0].dietaryRestriction}
+                          </span>
+                        )}
+                      {recipe[0].proteinChoice &&
+                        recipe[0].proteinChoice !== "None" && (
+                          <span className="reg protein">
+                            {renameProtein(recipe[0].proteinChoice)}
+                          </span>
+                        )}
 
-                      {recipe[0].religiousRestriction && 
-                       recipe[0].religiousRestriction !== "None" &&(
-                        <span className="reg religion">
-                          {recipe[0].religiousRestriction}
-                        </span>
-                      )}
+                      {recipe[0].religiousRestriction &&
+                        recipe[0].religiousRestriction !== "None" && (
+                          <span className="reg religion">
+                            {recipe[0].religiousRestriction}
+                          </span>
+                        )}
                     </>
                   )}
                 </h5>
@@ -237,15 +240,15 @@ const noTags =
             </div>
             <div className="reviews">
               <div className="review-small">
-              <h6>
-                <span className="reg">total likes:</span>
-                <span className="bold">{recipe[0].totalLikes}</span>
-              </h6>
-              
-              <h6>
-                <span className="reg">total reviews:</span>
-                <span className="bold">{recipe[0].totalReviews}</span>
-              </h6>
+                <h6>
+                  <span className="reg">total likes:</span>
+                  <span className="bold">{recipe[0].totalLikes}</span>
+                </h6>
+
+                <h6>
+                  <span className="reg">total reviews:</span>
+                  <span className="bold">{recipe[0].totalReviews}</span>
+                </h6>
               </div>
               <h4>REVIEWS:</h4>
               <p>

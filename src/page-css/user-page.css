@@ -59,9 +59,12 @@ html {
 
 .profile-page-panel-title {
   color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.name{
+.name {
   text-transform: capitalize;
 }
 
@@ -118,18 +121,18 @@ html {
   margin-left: 2rem;
 }
 
-.profile-top-panel-container-left > h2,
-.profile-top-panel-container-right > h2 {
+.profile-top-panel-container-left>h2,
+.profile-top-panel-container-right>h2 {
   width: 100%;
   text-align: center;
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 12.5%;
   object-fit: cover;
-
+  border: 1.5px solid var(--main-accent-color-alt);
 }
 
 .profile-top-panel .avatar {
@@ -137,8 +140,6 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 0.25rem;
-  border: 1.5px solid var(--main-accent-color-alt);
   align-items: center;
   padding: 0.5rem;
   margin-right: 1.75rem;
@@ -217,12 +218,16 @@ html {
   color: var(--star-coloring);
   font-size: 0.55rem;
 }
-.saves, .likes, .submit {
+
+.saves,
+.likes,
+.submit {
   width: 12px;
   height: 12px;
   border-radius: 10%;
   object-fit: cover;
 }
+
 .profile-bottom-panel {
   width: 87.5%;
   display: flex;

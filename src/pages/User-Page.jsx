@@ -1,44 +1,52 @@
 import "../page-css/user-page.css";
-import { useState, useEffect } from "react";
+// import { useState } from "react";
+// import { useEffect } from "react";
 import { useTheme } from "../context/theme-context";
+import hardcodedUser from "../context/hardcoded-user";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
-import avatar from "../components/img/user/default-user-light_web.png";
-import tinylikedlight from "../components/img/icons//icon-likes-small-light.png";
-import tinysavedlight from "../components/img/icons//icon-saves-small-light.png";
-import tinylikeddark from "../components/img/icons//icon-likes-small-dark.png";
-import tinysaveddark from "../components/img/icons//icon-saves-small-dark.png";
+import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
+import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
+import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
+import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
+import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
 import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png";
 import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
-import axios from "axios";
-import { getToken } from "../context/tokens.js";
+// import axios from "axios";
+// import { getToken } from "../context/tokens.js";
 
 function UserPage() {
   const { theme } = useTheme();
-  const [user, setUser] = useState({});
+  const user = hardcodedUser;
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const token = getToken();
-        const response = await axios.get("/api/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        });
-        setUser(response.data);
-        console.log("User data fetched:", response.data);
-      } catch (err) {
-        // Optionally handle error here if needed
-      }
-    }
-    fetchUser();
-  }, []);
+  // useEffect(() => {
+  // async function fetchUser() {
+  // try {
+  // const token = getToken();
+  //const response = await axios.get("/api/users/me", {
+  // headers: { Authorization: `Bearer ${token}` },
+  // withCredentials: true,
+  //});
+  //setUser(response.data);
+  //console.log("User data fetched:", response.data);
+  //} catch (err) {
+  // Optionally handle error here if needed
+  // }
+  // }
+  // fetchUser();
+  // }, []);
 
   // replace constants
   const username = user?.username || "username";
   const firstname = user?.firstName || "firstname";
   const lastname = user?.lastName || "lastname";
 
-  const signupDate = "signupDate(##/##/####)";
+  const signupDate = user?.signupDate
+    ? new Date(user.signupDate).toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+      })
+    : "signupDate(##/##/####)";
 
   const db_recipe_submitted = "000000";
   const db_recipe_saved = "000000";
@@ -47,7 +55,6 @@ function UserPage() {
   const user_recipe_liked = "000000";
   const favorite_global_cuisine = "favorite global cuisine";
   const favorite_etc = "favorite etc";
- 
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
@@ -62,7 +69,7 @@ function UserPage() {
               <h2 className="profile-page-panel-title">User Profile</h2>
               <div className="profile-top-panel left">
                 <div className="profile-top-panel avatar">
-                  <img src={avatar} alt="landing" className="profile-image" />
+                    <Avatar className="profile-image" />
                 </div>
                 <div className="profile-top-panel info">
                   <div className="desc-row">

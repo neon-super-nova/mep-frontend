@@ -5,8 +5,8 @@ import { getToken, deleteToken } from "../../../context/tokens.js";
 import { useNavigate } from "react-router-dom";
 import { Sun, Moon, ChevronDown } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
-import userDark from "../../img/user/default-user-dark_web.png";
-import userLight from "../../img/user/default-user-light_web.png";
+import Avatar from "../icons/avatar.jsx";
+
 
 function UserDropdown() {
   const navigate = useNavigate();
@@ -14,6 +14,10 @@ function UserDropdown() {
   const [open, setOpen] = useState(false);
   const optionRefs = useRef([]);
   const { theme, toggleTheme } = useTheme();
+
+
+  // TODO: Replace this mock user with actual user data from context, props, or API
+
 
   const options = [
     {
@@ -49,7 +53,9 @@ function UserDropdown() {
             strokeWidth={1.5}
             size={28}
           />
-          <span className={`mode-label ${theme === "dark" ? "dark" : "light"}`}>Mode</span>
+          <span className={`mode-label ${theme === "dark" ? "dark" : "light"}`}>
+            Mode
+          </span>
         </span>
       ),
       labelClass: "day-night-label",
@@ -99,7 +105,7 @@ function UserDropdown() {
     setOpen(false);
     if (value === "logout") handleLogout();
     if (value === "lightdark") toggleTheme();
-    if (value === "profile") navigate("/profile");
+    if (value === "profile") navigate(`/profile`);
     if (value === "settings") navigate("/settings");
     if (value === "recipebox") navigate("/recipebox");
     if (value === "submitreport") navigate("/submitreport");
@@ -124,65 +130,62 @@ function UserDropdown() {
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-  <div className="dropdown-trigger-wrapper">
-      <button
-        className="dropdown-trigger"
-        onClick={() => setOpen((o) => !o)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-      >
-        <span className="user-menu-span">
-          <img
-            src={theme === "dark" ? userDark : userLight}
-            alt="User Avatar"
-            className="user-avatar"
-          />
-          <span className="user-menu-text">User Menu</span>
-          <ChevronDown
-            color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
-            strokeWidth={5}
-            size={12}
-          />
-        </span>
-      </button>
-      {open && (
-        <div
-          className="custom-dropdown-menu"
-          role="listbox"
-          tabIndex={0}
-          aria-activedescendant={`dropdown-option-${selectedIdx}`}
-          onFocus={() => setOpen(true)}
-          onBlur={() => setOpen(false)}
-          onKeyDown={handleKeyDown}
+      <div className="dropdown-trigger-wrapper">
+        <button
+          className="dropdown-trigger"
+          onClick={() => setOpen((o) => !o)}
+          aria-haspopup="listbox"
+          aria-expanded={open}
         >
-          {options.map((option, idx) => (
-            <div
-              key={option.value}
-              id={`dropdown-option-${idx}`}
-              role="option"
-              aria-selected={selectedIdx === idx}
-              tabIndex={-1}
-              ref={(el) => (optionRefs.current[idx] = el)}
-              className={selectedIdx === idx ? "selected" : ""}
-              onClick={() => handleSelect(option.value, idx)}
-            >
-              <div className={`option-label ${option.labelClass || ""}`}>
-                {option.label}
-              </div>
-              {option.description && (
-                <div
-                  className={`option-description ${
-                    option.descriptionClass || ""
-                  }`}
-                >
-                  {option.description}
+          <span className="user-menu-span">
+         <Avatar className="user-avatar" />
+             
+            <span className="user-menu-text">User Menu</span>
+            <ChevronDown
+              color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
+              strokeWidth={5}
+              size={12}
+            />
+          </span>
+        </button>
+        {open && (
+          <div
+            className="custom-dropdown-menu"
+            role="listbox"
+            tabIndex={0}
+            aria-activedescendant={`dropdown-option-${selectedIdx}`}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setOpen(false)}
+            onKeyDown={handleKeyDown}
+          >
+            {options.map((option, idx) => (
+              <div
+                key={option.value}
+                id={`dropdown-option-${idx}`}
+                role="option"
+                aria-selected={selectedIdx === idx}
+                tabIndex={-1}
+                ref={(el) => (optionRefs.current[idx] = el)}
+                className={selectedIdx === idx ? "selected" : ""}
+                onClick={() => handleSelect(option.value, idx)}
+              >
+                <div className={`option-label ${option.labelClass || ""}`}>
+                  {option.label}
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+                {option.description && (
+                  <div
+                    className={`option-description ${
+                      option.descriptionClass || ""
+                    }`}
+                  >
+                    {option.description}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

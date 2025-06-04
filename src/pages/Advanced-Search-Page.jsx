@@ -3,6 +3,9 @@ import { cuisineData } from "../data/cuisineData";
 import "../page-css/advanced-search-page.css";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import { useTheme } from "../context/theme-context";
+import { SearchOptionsProvider } from "../context/search-options-context";
+import AdvancedSearchBarEnum from "../components/ui-basic-reusables/other/advance-search-bar-enum";
+import AdvancedSearchBarType from "../components/ui-basic-reusables/other/advance-search-bar-type";
 
 function AdvancedSearchPage() {
   const { theme } = useTheme();
@@ -10,6 +13,19 @@ function AdvancedSearchPage() {
   const handleActiveCategories = (category) => {
     setActiveCategories(activeCategories === category ? null : category);
   };
+
+  const sortOptions = [
+  "Salmon Croquettes",
+  "Tuna Salad",
+  "Chicken Alfredo"
+];
+
+  const displayOptions = [
+  "Salmon Croquettes",
+  "Tuna Salad",
+  "Chicken Alfredo"
+];
+
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <div className="advanced-search-page">
@@ -69,7 +85,19 @@ function AdvancedSearchPage() {
             </div>
           </div>
           {/* Right Panel */}
-          <div className="advanced-search-page-right-panel"></div>
+          <div className="advanced-search-page-right-panel">
+              <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
+<div className="advanced-search-page-search-bar">
+  <span className="advanced-search-page-search-bar-label"><h5>label</h5><AdvancedSearchBarType /></span>
+     <span className="advanced-search-page-search-bar-label"><h5>label</h5>      <SearchOptionsProvider options={sortOptions}>
+      <AdvancedSearchBarEnum />
+    </SearchOptionsProvider></span>
+     <span className="advanced-search-page-search-bar-label"><h5>label</h5>    <SearchOptionsProvider options={displayOptions}>
+      <AdvancedSearchBarEnum />
+    </SearchOptionsProvider>
+</span>
+ </div>
+          </div>
         </main>
       </div>
     </div>

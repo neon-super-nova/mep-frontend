@@ -1,7 +1,7 @@
 /*HTML Styles*/
 
 
-h1 {
+.signup-App h1 {
  font-family: "Inter", sans-serif;
  font-optical-sizing: auto;
  font-weight: 600;
@@ -14,7 +14,7 @@ h1 {
 }
 
 
-p {
+.signup-App p {
  font-size: 1rem;
  color: #171717;
 }

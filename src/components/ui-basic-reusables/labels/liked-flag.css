@@ -1,0 +1,17 @@
+.liked-flag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1.5px solid var(--text-color-alt);
+    border-bottom: 1.5px solid var(--text-color-alt);
+}
+.liked-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    border-radius: 2.5%;
+}
+
+.liked-false {
+    display: none;
+}

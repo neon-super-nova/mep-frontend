@@ -1,44 +1,162 @@
 body,
-html {
+html,
+#root {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-.recipe-page {
+.recipe-box-page {
   display: flex;
-  flex-direction: column;
   background-color: var(--bg-color);
+  flex-direction: column;
   min-height: 100vh;
 }
 
-
-.recipe-page-main-content {
+.recipe-box-page-main-content {
   display: flex;
+  flex-direction: column;
   flex: 1;
-  justify-content: center;
+}
+
+.recipe-box-page-header-panel {
+  display: flex;
   align-items: center;
-}
-
-.recipe-page-left-panel {
-  flex: 1;
-  text-align: center;
+  justify-content: center;
+  gap: 2.5rem;
   padding: 1rem;
+  margin-top: 3.5rem;
+  margin-bottom: 3rem;
+}
+
+.recipe-box-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 0%;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  background-color: var(--bg-color);
+}
+
+.recipe-box-page-panel-title {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 2.35rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.35rem;
+    margin-bottom: 0.5rem;
+}
+.recipe-box-page-header-panel .text-box {
+  margin-bottom: 0rem;
+}
+.recipe-box-page-header-panel .text-box .bold {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.85rem;
 }
 
 
-.recipe-page-panel-title {
+.recipe-box-page-header-panel .text-box .reg {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+}
+
+.recipe-box-page-submitted-panel {
+   border-bottom: 5px double var(--main-accent-color-alt);
+}
+
+.recipe-box-page-submitted-panel,
+.recipe-box-page-saved-panel {
+  display: flex;
+  width: 98%;
+  flex-direction: column;
+   align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 2rem;
+  margin-bottom: 3.5rem;
+  margin-left: 1rem;
+  gap: 1rem;
+}
+
+.recipe-box-page-submitted-panel-heading, 
+.recipe-box-page-saved-panel-heading {
+  display: flex;
+  width: 98%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+    margin-left: 1rem;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
+}
+
+.recipe-box-page-submitted-panel-heading h3,
+.recipe-box-page-saved-panel-heading h3 {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--text-color);
+  text-transform: uppercase;
+  margin-bottom: -0.5rem;
   letter-spacing: 0.05rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
-.recipe-page-panel-desc {
+.recipe-box-page-submitted-panel-heading h6,
+.recipe-box-page-saved-panel-heading h6 {
+  margin-bottom: -0.95rem;
+
+}
+
+.recipe-box-page-submitted-panel-heading h6 .bold,
+.recipe-box-page-saved-panel-heading h6 .bold {
+    font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-variation-settings: "wdth" 87.5;
+  font-size: 0.85rem;
+
+}
+
+.recipe-box-page-submitted-panel-heading h6 .reg,
+.recipe-box-page-saved-panel-heading h6 .reg { 
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+}
+
+.recipe-box-page-submitted-panel-cards, 
+.recipe-box-page-saved-panel-cards {
+  display: flex;
+  width: 98%;
+  flex-direction: row;
+   align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+
+
+.recipe-box-page-panel-desc {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -49,17 +167,7 @@ html {
   margin-top: 40px;
 }
 
-.recipe-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  background-color: lightcoral;
-}
-
-
-.recipe-page-footer {
+.recipe-box-page-footer {
   background-color: var(--minor-accent-color-2b);
   text-align: center;
   padding: 10px 20px;

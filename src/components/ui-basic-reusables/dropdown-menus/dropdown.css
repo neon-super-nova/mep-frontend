@@ -144,11 +144,11 @@
 }
 
 .user-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
     object-fit: cover;
-   
+     border: 1.5px solid var(--main-accent-color-alt);
     margin-right: 0.75em;
     margin-left:  1.5em;
 }

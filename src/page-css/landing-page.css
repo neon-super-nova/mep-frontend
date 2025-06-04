@@ -1,7 +1,7 @@
 /*HTML Styles*/
 
 
-h1 {
+.landing-App h1 {
  font-family: "Inter", sans-serif;
  font-optical-sizing: auto;
  font-weight: 600;
@@ -13,7 +13,7 @@ h1 {
 }
 
 
-p {
+.landing-App p {
  font-size: 1rem;
  color: #171717;
 }
