@@ -13,5 +13,5 @@ export const getToken = () => {
 };
 
 export function isLoggedIn() {
- return !!getToken();
+  return !!getToken();
 }

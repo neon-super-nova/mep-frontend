@@ -1,6 +1,5 @@
 import "../page-css/user-page.css";
-// import { useState } from "react";
-// import { useEffect } from "react";
+import { useState } from "react";
 import { useTheme } from "../context/theme-context";
 import hardcodedUser from "../context/hardcoded-user";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
@@ -11,34 +10,112 @@ import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
 import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
 import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png";
 import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
-// import axios from "axios";
-// import { getToken } from "../context/tokens.js";
+import axios from "axios";
+import { getUserFromToken } from "../context/decodeToken.js";
+import { useEffect } from "react";
+// import { useScript } from "react-apple-signin-auth";
 
 function UserPage() {
   const { theme } = useTheme();
   const user = hardcodedUser;
 
-  // useEffect(() => {
-  // async function fetchUser() {
-  // try {
-  // const token = getToken();
-  //const response = await axios.get("/api/users/me", {
-  // headers: { Authorization: `Bearer ${token}` },
-  // withCredentials: true,
-  //});
-  //setUser(response.data);
-  //console.log("User data fetched:", response.data);
-  //} catch (err) {
-  // Optionally handle error here if needed
-  // }
-  // }
-  // fetchUser();
-  // }, []);
+  // fetching users collection: username, first name, and last name
+  const [username, setUsername] = useState("");
+  const [fullname, setFullname] = useState("");
 
-  // replace constants
-  const username = user?.username || "username";
-  const firstname = user?.firstName || "firstname";
-  const lastname = user?.lastName || "lastname";
+  useEffect(() => {
+    const getUser = async () => {
+      const { userId } = getUserFromToken() || {};
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`api/users/${userId}`, {
+          Headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const { username, firstName, lastName } = response.data.userInfo;
+        setUsername(username);
+        setFullname(`${firstName} ${lastName}`);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+    };
+    getUser();
+  }, []);
+
+  // fetching user recipe and like count
+  const [recipeCount, setRecipeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
+
+  useEffect(() => {
+    const getCount = async () => {
+      const { userId } = getUserFromToken() || {};
+      if (!userId) return;
+      try {
+        const recipeResult = await axios.get(
+          `api/users/${userId}/recipe-count`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const likeResult = await axios.get(`api/users/${userId}/like-count`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const { recipeCount } = recipeResult.data;
+        const { likeCount } = likeResult.data;
+        console.log(recipeCount);
+        console.log(likeCount);
+        setRecipeCount(recipeCount);
+        setLikeCount(likeCount);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+    };
+    getCount();
+  }, []);
+
+  // fetching user-info collection: favorite cuisine, meal, dish, and dietary restrictions
+
+  const [userInfo, setUserInfo] = useState({
+    favoriteCuisine: "",
+    favoriteMeal: "",
+    favoriteDish: "",
+    dietaryRestriction: [],
+  });
+
+  const { favoriteCuisine, favoriteMeal, favoriteDish, dietaryRestriction } =
+    userInfo;
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { userId } = getUserFromToken() || {};
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`api/users/user-info/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const responseUserInfo = response.data.userInfo;
+        setUserInfo(responseUserInfo);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+    };
+    getUserInfo();
+  }, []);
 
   const signupDate = user?.signupDate
     ? new Date(user.signupDate).toLocaleDateString("en-US", {
@@ -48,13 +125,9 @@ function UserPage() {
       })
     : "signupDate(##/##/####)";
 
-  const db_recipe_submitted = "000000";
   const db_recipe_saved = "000000";
   const db_recipe_liked = "000000";
   const user_recipe_saved = "000000";
-  const user_recipe_liked = "000000";
-  const favorite_global_cuisine = "favorite global cuisine";
-  const favorite_etc = "favorite etc";
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
@@ -69,7 +142,7 @@ function UserPage() {
               <h2 className="profile-page-panel-title">User Profile</h2>
               <div className="profile-top-panel left">
                 <div className="profile-top-panel avatar">
-                    <Avatar className="profile-image" />
+                  <Avatar className="profile-image" />
                 </div>
                 <div className="profile-top-panel info">
                   <div className="desc-row">
@@ -79,9 +152,7 @@ function UserPage() {
                   <div className="desc-row"></div>
                   <div className="desc-row">
                     <p className="desc-bold">Full Name:</p>
-                    <p className="desc-reg name">
-                      {firstname} {lastname}
-                    </p>
+                    <p className="desc-reg name">{fullname}</p>
                   </div>
                   <div style={{ height: "0.25rem" }}></div>
                   <div className="desc-row">
@@ -100,7 +171,7 @@ function UserPage() {
                       className="submit"
                     />
                     <p className="micro-bold">Submitted: </p>
-                    <p className="micro-reg">{db_recipe_submitted}</p>
+                    <p className="micro-reg">{recipeCount}</p>
                   </div>
                   <div className="micro-desc">
                     <img
@@ -131,7 +202,7 @@ function UserPage() {
                       className="likes"
                     />
                     <p className="micro-bold">Recipes Liked: </p>
-                    <p className="micro-reg">{user_recipe_liked}</p>
+                    <p className="micro-reg">{likeCount}</p>
                     <p className="micro-div"> | </p>
                     <img
                       src={theme === "dark" ? tinysaveddark : tinysavedlight}
@@ -147,28 +218,30 @@ function UserPage() {
             <div className="profile-top-panel-container-right">
               <h2 className="profile-page-panel-title">User Profile</h2>
               <div className="profile-top-panel right">
-                <div className="profile-top-panel info">
-                  <div className="desc-row">
-                    <p className="desc-bold">Favorite Global Cuisine:</p>
-                    <p className="desc-reg">{favorite_global_cuisine}</p>
+                {userInfo ? (
+                  <div className="profile-top-panel info">
+                    <div className="desc-row">
+                      <p className="desc-bold">Favorite Global Cuisine:</p>
+                      <p className="desc-reg">{favoriteCuisine}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Favorite Meal:</p>
+                      <p className="desc-reg">{favoriteMeal}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Favorite Dish:</p>
+                      <p className="desc-reg">{favoriteDish}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Dietary Restriction: </p>
+                      <p className="desc-reg">
+                        {dietaryRestriction.join(", ")}
+                      </p>
+                    </div>
                   </div>
-                  <div className="desc-row">
-                    <p className="desc-bold">Favorite Etc:</p>
-                    <p className="desc-reg">{favorite_etc}</p>
-                  </div>
-                  <div className="desc-row">
-                    <p className="desc-bold">Favorite Etc:</p>
-                    <p className="desc-reg">{favorite_etc}</p>
-                  </div>
-                  <div className="desc-row">
-                    <p className="desc-bold">Favorite Etc:</p>
-                    <p className="desc-reg">{favorite_etc}</p>
-                  </div>
-                  <div className="desc-row">
-                    <p className="desc-bold">Favorite Etc:</p>
-                    <p className="desc-reg">{favorite_etc}</p>
-                  </div>
-                </div>
+                ) : (
+                  <p>Loading</p>
+                )}
               </div>
             </div>
           </div>
