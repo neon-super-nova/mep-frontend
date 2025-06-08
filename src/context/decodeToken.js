@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "./tokens";
 
-export function getUserFromToken() {
+function getUserFromToken() {
   const token = getToken();
   if (!token) {
     return null;
@@ -13,4 +13,9 @@ export function getUserFromToken() {
     console.log(err);
     return null;
   }
+}
+
+export function getUserId() {
+  const { userId } = getUserFromToken() || {};
+  return userId;
 }

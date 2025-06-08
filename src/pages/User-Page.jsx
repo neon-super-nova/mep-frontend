@@ -11,26 +11,25 @@ import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
 import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png";
 import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
 import axios from "axios";
-import { getUserFromToken } from "../context/decodeToken.js";
+import { getUserId } from "../context/decodeToken.js";
 import { useEffect } from "react";
 // import { useScript } from "react-apple-signin-auth";
 
 function UserPage() {
   const { theme } = useTheme();
   const user = hardcodedUser;
-
   // fetching users collection: username, first name, and last name
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
-      const { userId } = getUserFromToken() || {};
+      const userId = getUserId();
       if (!userId) return;
 
       try {
         const response = await axios.get(`api/users/${userId}`, {
-          Headers: {
+          headers: {
             "Content-Type": "application/json",
           },
         });
@@ -52,8 +51,9 @@ function UserPage() {
 
   useEffect(() => {
     const getCount = async () => {
-      const { userId } = getUserFromToken() || {};
+      const userId = getUserId();
       if (!userId) return;
+
       try {
         const recipeResult = await axios.get(
           `api/users/${userId}/recipe-count`,
@@ -97,7 +97,7 @@ function UserPage() {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const { userId } = getUserFromToken() || {};
+      const userId = getUserId();
       if (!userId) return;
 
       try {
