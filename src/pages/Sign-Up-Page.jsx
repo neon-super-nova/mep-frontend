@@ -55,7 +55,7 @@ function SignUpPage() {
           <div className="signup-App-container">
             <div className="signup-left-block">
               <div className="signup-wrapper signup">
-                <p className="signup-welcome">Join Us!</p>
+                <h1 className="signup-welcome">Join Us!</h1>
                 <p className="signup-text">
                   Create an account to share your recipes,
                   <br />

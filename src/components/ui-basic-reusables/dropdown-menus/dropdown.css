@@ -46,9 +46,9 @@
     text-align: center;
     padding: 0.5em 1em;
     text-transform: uppercase;
-      padding-top: 1.5em;
-  padding-bottom: 0;
-  margin-bottom: 0;
+    padding-top: 1.5em;
+    padding-bottom: 0;
+    margin-bottom: 0;
 
 }
 
@@ -95,19 +95,19 @@
     text-transform: uppercase;
 }
 
-.day-night-label-span .sun.light { 
+.day-night-label-span .sun.light {
     background: rgba(130, 157, 153, 1);
 }
 
-.day-night-label-span .sun.dark { 
+.day-night-label-span .sun.dark {
     background: rgba(245, 222, 159, 0);
 }
 
-.day-night-label-span .moon.light { 
+.day-night-label-span .moon.light {
     background: rgba(130, 157, 153, 0);
 }
 
-.day-night-label-span .moon.dark { 
+.day-night-label-span .moon.dark {
     background: rgba(245, 222, 159, 1);
 }
 
@@ -116,7 +116,7 @@
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    color:  var(--text-color-dropdown);
+    color: var(--text-color-dropdown);
     font-size: 1.5rem;
     letter-spacing: 0.5px;
     text-align: center;
@@ -127,7 +127,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.85em;
-     margin-top: 0.45em;
+    margin-top: 0.45em;
     margin-right: 1.5em;
 
 }
@@ -148,9 +148,9 @@
     height: 30px;
     border-radius: 100%;
     object-fit: cover;
-     border: 1.5px solid var(--main-accent-color-alt);
+    border: 1.5px solid var(--main-accent-color-alt);
     margin-right: 0.75em;
-    margin-left:  1.5em;
+    margin-left: 1.5em;
 }
 
 .logout-label {
@@ -182,10 +182,17 @@
     font-size: 0.7rem;
     letter-spacing: 0.5px;
     text-align: center;
-  padding-top: 0 em;
-  padding-bottom: 1.25em;
-  margin-top: 0;
-  margin-bottom: 0; 
+    padding-top: 0 em;
+    padding-bottom: 1.25em;
+    margin-top: 0;
+    margin-bottom: 0;
     border-bottom: 5px double var(--minor-accent-color-2b);
 
+}
+
+.dropdown-notifications-panel-wrapper-open {
+    border-top: 5px solid var(--main-accent-color-alt);
+    margin-top: -0.3rem;
+    margin-bottom: -0.3rem;
+    border-bottom: 5px double var(--minor-accent-color-2b);
 }

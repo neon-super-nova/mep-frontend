@@ -1,7 +1,6 @@
 import "../page-css/user-page.css";
 import { useState } from "react";
 import { useTheme } from "../context/theme-context";
-import hardcodedUser from "../context/hardcoded-user";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
@@ -17,10 +16,10 @@ import { useEffect } from "react";
 
 function UserPage() {
   const { theme } = useTheme();
-  const user = hardcodedUser;
-  // fetching users collection: username, first name, and last name
+  const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
+ 
 
   useEffect(() => {
     const getUser = async () => {
@@ -33,6 +32,7 @@ function UserPage() {
             "Content-Type": "application/json",
           },
         });
+        setUser(response.data.userInfo); 
         const { username, firstName, lastName } = response.data.userInfo;
         setUsername(username);
         setFullname(`${firstName} ${lastName}`);
@@ -48,6 +48,7 @@ function UserPage() {
   // fetching user recipe and like count
   const [recipeCount, setRecipeCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
+  const [globalLikeCount, setGlobalLikeCount] = useState(0);
 
   useEffect(() => {
     const getCount = async () => {
@@ -68,12 +69,26 @@ function UserPage() {
             "Content-Type": "application/json",
           },
         });
+
+        const globalLikeResult = await axios.get(
+          `api/users/${userId}/global-like-count`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
         const { recipeCount } = recipeResult.data;
         const { likeCount } = likeResult.data;
+        const { globalLikeCount } = globalLikeResult.data;
         console.log(recipeCount);
         console.log(likeCount);
+        console.log(globalLikeCount);
+        setGlobalLikeCount(globalLikeCount);
         setRecipeCount(recipeCount);
         setLikeCount(likeCount);
+
       } catch (err) {
         if (err.response) {
           alert(err.response.data.error);
@@ -126,7 +141,7 @@ function UserPage() {
     : "signupDate(##/##/####)";
 
   const db_recipe_saved = "000000";
-  const db_recipe_liked = "000000";
+  //const db_recipe_liked = "000000";
   const user_recipe_saved = "000000";
 
   return (
@@ -180,7 +195,7 @@ function UserPage() {
                       className="likes"
                     />
                     <p className="micro-bold">Global Likes: </p>
-                    <p className="micro-reg">{db_recipe_liked}</p>
+                    <p className="micro-reg">{globalLikeCount}</p>
                     <p className="micro-div"> | </p>
                     <img
                       src={theme === "dark" ? tinysaveddark : tinysavedlight}
@@ -190,28 +205,7 @@ function UserPage() {
                     <p className="micro-bold">Global Saves: </p>
                     <p className="micro-reg">{db_recipe_saved}</p>
                   </div>
-                  <div style={{ height: "0.25rem" }}></div>
-                  <div className="desc-row">
-                    <p className="desc-bold">Recipe Box:</p>
-                  </div>
-                  <div style={{ height: "0.005rem" }}></div>
-                  <div className="micro-desc">
-                    <img
-                      src={theme === "dark" ? tinylikeddark : tinylikedlight}
-                      alt="likes"
-                      className="likes"
-                    />
-                    <p className="micro-bold">Recipes Liked: </p>
-                    <p className="micro-reg">{likeCount}</p>
-                    <p className="micro-div"> | </p>
-                    <img
-                      src={theme === "dark" ? tinysaveddark : tinysavedlight}
-                      alt="saves"
-                      className="saves"
-                    />
-                    <p className="micro-bold">Recipe Saved: </p>
-                    <p className="micro-reg">{user_recipe_saved}</p>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -233,17 +227,58 @@ function UserPage() {
                       <p className="desc-reg">{favoriteDish}</p>
                     </div>
                     <div className="desc-row">
-                      <p className="desc-bold">Dietary Restriction: </p>
+                      <p className="desc-bold">Diet Restrictions: </p>
                       <p className="desc-reg">
                         {dietaryRestriction.join(", ")}
                       </p>
                     </div>
+                    <div style={{ height: "0.25rem" }}></div>
+                  <div className="desc-row">
+                    <p className="desc-bold">Recipe Box:</p>
+                  </div>
+                  <div style={{ height: "0.005rem" }}></div>
+                  <div className="micro-desc">
+                    <img
+                      src={theme === "dark" ? tinylikeddark : tinylikedlight}
+                      alt="likes"
+                      className="likes"
+                    />
+                    <p className="micro-bold">Recipes Liked: </p>
+                    <p className="micro-reg">{likeCount}</p>
+                    <p className="micro-div"> | </p>
+                    <img
+                      src={theme === "dark" ? tinysaveddark : tinysavedlight}
+                      alt="saves"
+                      className="saves"
+                    />
+                    <p className="micro-bold">Recipe Saved: </p>
+                    <p className="micro-reg">{user_recipe_saved}</p>
+                  </div>
                   </div>
                 ) : (
                   <p>Loading</p>
                 )}
               </div>
             </div>
+          </div>
+          <div className="profile-bottom-panel">
+            <h3 className="profile-page-panel-title">Author Biography</h3>
+            <p className="profile-page-panel-desc">
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+              quae ab illo inventore veritatis et quasi architecto beatae vitae
+              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+              eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
+              est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+              velit, sed quia non numquam eius modi tempora incidunt ut labore
+              et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
+              veniam, quis nostrum exercitationem ullam corporis suscipit
+              laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
+              vel eum iure reprehenderit qui in ea voluptate velit esse quam
+              nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
+              voluptas nulla pariatur?"
+            </p>
           </div>
           <div className="profile-bottom-panel">
             <h3 className="profile-page-panel-title">Author Biography</h3>

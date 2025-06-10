@@ -12,6 +12,10 @@ html {
 }
 
 .recipe-page h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;
@@ -100,12 +104,13 @@ html {
     text-align: center;
     line-height: 1.2;
 }
+
 .recipe-page .top .image {
-        display: flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-     width: 90%;
+    width: 90%;
     margin-bottom: 3rem;
     border: 1.5px solid var(--main-accent-color-alt);
     background-color: var(--text-color);
@@ -184,7 +189,7 @@ html {
     letter-spacing: 0.05rem;
     line-height: 1.2;
     margin-bottom: 0.25rem;
-    padding: 0.25rem  0.5rem;
+    padding: 0.25rem 0.5rem;
 }
 
 .recipe-page .reg.cuisine {
@@ -196,7 +201,7 @@ html {
 
 .recipe-page .reg.diet {
     background-color: var(--minor-accent-color-2);
-    color: var( --accent-color-neutral-white);
+    color: var(--accent-color-neutral-white);
     border: 1.75px solid var(--minor-accent-color-2-invert);
 }
 
@@ -331,7 +336,7 @@ html {
 
 .recipe-page .middle .recipe-notes .right .times,
 .recipe-page .middle .recipe-notes .right .serves {
-      flex: 1;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
@@ -361,7 +366,7 @@ html {
     color: var(--text-color);
     letter-spacing: -0.005rem;
     text-transform: uppercase;
- margin-left: 0.15rem;
+    margin-left: 0.15rem;
 }
 
 
@@ -376,7 +381,7 @@ html {
     color: var(--text-color);
     text-transform: capitalize;
     letter-spacing: 0.015rem;
-     margin-left: 0.15rem; 
+    margin-left: 0.15rem;
 }
 
 .recipe-page .middle .recipe-details {
@@ -384,8 +389,8 @@ html {
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-        margin-bottom: 2.5rem; 
-           gap: 1rem;
+    margin-bottom: 2.5rem;
+    gap: 1rem;
 }
 
 .recipe-page .middle .recipe-details .left {
@@ -404,12 +409,12 @@ html {
     color: var(--text-color);
     text-transform: uppercase;
     letter-spacing: 0.015rem;
-     margin-bottom: 1.75rem; 
+    margin-bottom: 1.75rem;
 }
 
 .recipe-details .left ul {
-  list-style-type: disc;  
-  padding-left: 0.5rem;     
+    list-style-type: disc;
+    padding-left: 0.5rem;
 }
 
 .recipe-details .left ul li {
@@ -419,12 +424,12 @@ html {
     font-style: normal;
     font-size: 0.875rem;
     color: var(--text-color);
-    padding-left: 0.75em; 
+    padding-left: 0.75em;
     letter-spacing: 0.015rem;
 }
 
 .recipe-details .left ul li::marker {
-       font-family: "Work Sans", sans-serif;
+    font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -433,8 +438,8 @@ html {
 }
 
 .recipe-details .right ol {
-  list-style-type: decimal;   
-  padding-left: 1.5rem;
+    list-style-type: decimal;
+    padding-left: 1.5rem;
 }
 
 .recipe-details .right ol li {
@@ -444,13 +449,13 @@ html {
     font-style: normal;
     font-size: 0.875rem;
     color: var(--text-color);
-    padding-left: 0.25em; 
+    padding-left: 0.25em;
     letter-spacing: 0.015rem;
     margin-bottom: 0.75rem;
 }
 
 .recipe-details .right ol li::marker {
-   font-family: "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 700;
     font-style: normal;
@@ -476,38 +481,38 @@ html {
     color: var(--text-color);
     text-transform: uppercase;
     letter-spacing: 0.015rem;
-     margin-bottom: 1.75rem; 
+    margin-bottom: 1.75rem;
 }
 
 .recipe-page .middle .recipe-details .right p {
-          color: var(--text-color);
+    color: var(--text-color);
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
     font-size: 0.875rem;
     color: var(--text-color);
-    padding-left: 0.75em; 
+    padding-left: 0.75em;
     letter-spacing: 0.015rem;
-     margin-bottom: 2.25rem; 
+    margin-bottom: 2.25rem;
 }
 
 .recipe-page .bottom {
-     width: 100vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+
 }
 
 .recipe-page .bottom .author-notes {
     width: 90%;
-            display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-  padding-top:2rem; 
-      margin-bottom: 2.75rem;
-        border-top: 5px double var(--main-accent-color-alt);
+    padding-top: 2rem;
+    margin-bottom: 2.75rem;
+    border-top: 5px double var(--main-accent-color-alt);
 }
 
 .recipe-page .bottom .author-notes h3 {
@@ -541,7 +546,7 @@ html {
 }
 
 .recipe-page .bottom .reviews h4 {
-   font-family: "Open Sans", sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -562,7 +567,7 @@ html {
 }
 
 .recipe-page .bottom .reviews p {
-       font-family: "Work Sans", sans-serif;
+    font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -585,7 +590,7 @@ html {
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
-      font-variation-settings: "wdth" 87.5;
+    font-variation-settings: "wdth" 87.5;
     font-style: normal;
     font-size: 0.95rem;
     letter-spacing: 0.05rem;

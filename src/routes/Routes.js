@@ -9,7 +9,7 @@ import AdvancedSearchPage from "../pages/Advanced-Search-Page";
 import UserPage from "../pages/User-Page";
 import SettingsPage from "../pages/Settings-Page";
 import RecipeBoxPage from "../pages/Recipe-Box-Page";
-import ReportPage from "../pages/Submit-Report-Page";
+import NotificationsPage from "../pages/Notifications-Page";
 import RecipePage from "../pages/Recipe-Page";
 
 const AppRoutes = () => {
@@ -24,8 +24,8 @@ const AppRoutes = () => {
       <Route path="/profile" element={<UserPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/recipebox" element={<RecipeBoxPage />} />
-      <Route path="/submitreport" element={<ReportPage />} />
-      <Route path="/recipe/:name" element={<RecipePage />} />
+      <Route path="/notifications" element={<NotificationsPage />} />
+      <Route path="/recipe/:recipeId" element={<RecipePage />} />
     </Routes>
   );
 };

@@ -6,17 +6,18 @@ import { useNavigate } from "react-router-dom";
 import { Sun, Moon, ChevronDown } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
 import Avatar from "../icons/avatar.jsx";
+import ModalReport from "../modals/modal-report.jsx";
+import NotificationsPanel from "../inline/notifications-panel.jsx"; 
 
 
 function UserDropdown() {
+
   const navigate = useNavigate();
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [open, setOpen] = useState(false);
   const optionRefs = useRef([]);
   const { theme, toggleTheme } = useTheme();
-
-
-  // TODO: Replace this mock user with actual user data from context, props, or API
+  const [modalOpen, setModalOpen] = useState(null);
 
 
   const options = [
@@ -28,8 +29,8 @@ function UserDropdown() {
       descriptionClass: "dropdown-description-default",
     },
     {
-      value: "settings",
-      label: "Settings",
+      value: "notifications",
+      label: "Notifications",
       description: "Customize user blah blah blah",
       labelClass: "dropdown-label-default",
       descriptionClass: "dropdown-description-default",
@@ -106,9 +107,12 @@ function UserDropdown() {
     if (value === "logout") handleLogout();
     if (value === "lightdark") toggleTheme();
     if (value === "profile") navigate(`/profile`);
-    if (value === "settings") navigate("/settings");
     if (value === "recipebox") navigate("/recipebox");
-    if (value === "submitreport") navigate("/submitreport");
+    if (value === "submitreport") setModalOpen("modal-report"); 
+    if (value === "notifications") {
+        setModalOpen("modal-notifications");
+        setOpen(true);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -129,64 +133,75 @@ function UserDropdown() {
   };
 
   return (
-    <div className={theme === "dark" ? "dark" : ""}>
-      <div className="dropdown-trigger-wrapper">
-        <button
-          className="dropdown-trigger"
-          onClick={() => setOpen((o) => !o)}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-        >
-          <span className="user-menu-span">
-         <Avatar className="user-avatar" />
-             
-            <span className="user-menu-text">User Menu</span>
-            <ChevronDown
-              color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
-              strokeWidth={5}
-              size={12}
-            />
-          </span>
-        </button>
-        {open && (
-          <div
-            className="custom-dropdown-menu"
-            role="listbox"
-            tabIndex={0}
-            aria-activedescendant={`dropdown-option-${selectedIdx}`}
-            onFocus={() => setOpen(true)}
-            onBlur={() => setOpen(false)}
-            onKeyDown={handleKeyDown}
-          >
-            {options.map((option, idx) => (
+    <>
+      <div className={theme === "dark" ? "dark" : ""}>
+        <div className="dropdown-trigger-wrapper">
+          <button
+            className="dropdown-trigger"
+            onClick={() => setOpen((o) => !o)}
+            aria-haspopup="listbox"
+            aria-expanded={open}
+           >
+            <span className="user-menu-span">
+            <Avatar className="user-avatar" />
+              <span className="user-menu-text">User Menu</span>
+              <ChevronDown
+                color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
+                strokeWidth={5}
+                size={12}
+              />
+            </span>
+          </button>
+          {open && (
               <div
-                key={option.value}
-                id={`dropdown-option-${idx}`}
-                role="option"
-                aria-selected={selectedIdx === idx}
-                tabIndex={-1}
-                ref={(el) => (optionRefs.current[idx] = el)}
-                className={selectedIdx === idx ? "selected" : ""}
-                onClick={() => handleSelect(option.value, idx)}
-              >
-                <div className={`option-label ${option.labelClass || ""}`}>
-                  {option.label}
-                </div>
-                {option.description && (
-                  <div
-                    className={`option-description ${
-                      option.descriptionClass || ""
-                    }`}
-                  >
-                    {option.description}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+    className="custom-dropdown-menu"
+    role="listbox"
+    tabIndex={0}
+    aria-activedescendant={`dropdown-option-${selectedIdx}`}
+    onFocus={() => setOpen(true)}
+    onBlur={() => setOpen(false)}
+    onKeyDown={handleKeyDown}
+  >
+  {options.map((option, idx) => (
+   <React.Fragment key={option.value}>
+    <div
+      id={`dropdown-option-${idx}`}
+      role="option"
+      aria-selected={selectedIdx === idx}
+      tabIndex={-1}
+      ref={(el) => (optionRefs.current[idx] = el)}
+      className={selectedIdx === idx ? "selected" : ""}
+      onClick={() => handleSelect(option.value, idx)}
+      >
+      <div className={`option-label ${option.labelClass || ""}`}>
+        {option.label}
       </div>
+      {option.description && (
+        <div
+          className={`option-description ${
+            option.descriptionClass || ""
+          }`}
+        >
+          {option.description}
+        </div>
+      )}
     </div>
+    {/* Inline notifications panel */}
+{option.value === "notifications" && modalOpen === "modal-notifications" && (
+  <div className={modalOpen ? "dropdown-notifications-panel-wrapper-open" : "dropdown-notifications-panel-wrapper"}>
+    <NotificationsPanel onClose={() => setModalOpen(null)} />
+  </div>
+)}
+  </React.Fragment>
+))}
+
+  </div>
+)}
+        </div>
+      </div>
+
+      <ModalReport open={modalOpen === "modal-report"} onClose={() => setModalOpen(null)} />
+    </>
   );
 }
 

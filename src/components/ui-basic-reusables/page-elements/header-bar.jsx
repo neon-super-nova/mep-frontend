@@ -10,6 +10,7 @@ function HeaderBar() {
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <header className="comp-header">
+        <div className="comp-header-left">
         <Link to="/home" className="comp-logo-link">
           <img
             src={theme === "dark" ? logoDarkModeWeb : logoLightModeWeb}
@@ -17,7 +18,10 @@ function HeaderBar() {
             className="comp-logo"
           />
         </Link>
+        </div>
+        <div className="comp-header-right">
         <UserDropdown />
+        </div>
       </header>
     </div>
   );

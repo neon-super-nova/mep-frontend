@@ -3,14 +3,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
-  --bg-color: rgb(242, 226, 206, 0.25);
+  --bg-color: rgba(242, 226, 206, 0.25);
   --bg-panel-color: #f2e2ce;
   --bg-color-alt: #f2e2ce;
+  --bg-panel-color-alt: #f5f5f5;
+
   --text-color: #171717;
   --text-color-invert: #f5f5f5;
   --text-color-dropdown: #171717;
   --text-color-alt: #3b4a4d;
   --text-color-check: #db6443;
+  --text-color-report: #f5f5f5;
 
   --main-accent-color: #f2e2ce;
   --main-accent-color-alt: #528082;
@@ -26,22 +29,27 @@
 
   --inner-check-box: #f8da70;
   --subcat-filter-box: #f5de9f;
+  --textarea-panel-box: rgba(242, 226, 206, 0.25);
 
   --accent-color-neutral-white: #f5f5f5;
   --accent-color-neutral-charcoal: #2c2d2d;
   --accent-color-neutral-black: #171717;
-  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-elevated: 0 4px 16px rgba(23, 23, 23, 0.15);
+  --shadow-elevated-modal: 0 1px 4px rgba(23, 23, 23, 0.15);
 }
 
 .dark {
   --bg-color: #3b4a4d;
   --bg-panel-color: #528082;
   --bg-color-alt:  #3b4a4d;
+  --bg-panel-color-alt: #3b4a4d;
+
   --text-color: #f5f5f5;
   --text-color-invert: #171717;
   --text-color-dropdown: #3b4a4d;
   --text-color-alt:  #f2e2ce;
   --text-color-check: #f2e2ce;
+  --text-color-report: #db6443;
 
   --main-accent-color:  #db6443;
   --main-accent-color-alt: #f8da70;
@@ -57,11 +65,13 @@
 
   --inner-check-box: #c2c5b7;
   --subcat-filter-box: #829d99;
+  --textarea-panel-box: rgba(130, 157, 153, 0.25);
 
   --accent-color-neutral-white: #f5f5f5;
   --accent-color-neutral-charcoal: #2c2d2d;
   --accent-color-neutral-black: #171717;
-  --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 4px 16px rgba(23, 23, 23, 0.3);
+  --shadow-elevated-modal: 0 1px 4px rgba(23, 23, 23, 0.3);
 }
 
 body {

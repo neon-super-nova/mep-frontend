@@ -1,0 +1,81 @@
+.notifications-panel {
+    position: relative;
+    width: 100%;
+
+    margin-top: -0.1rem;
+}
+
+
+
+.notifications-panel-body {
+    background-color:  var(--minor-accent-color-2b);
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+}
+
+.notification-item {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--accent-color-neutral-white);
+    font-size: 0.775rem;
+    letter-spacing: 0.025rem;
+    margin-top: 0.5em;
+    margin-bottom: 1.75em;
+    padding: 0.5em 1em;
+}
+
+.notification-item,
+.notifications-panel-close {
+    display: inline-block;
+    
+
+}
+
+.notification-item svg,
+.notifications-panel-close svg {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+.notification-item span,
+.notification-item-text,
+.notifications-panel-close span,
+.notifications-panel-close text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.notification-link {
+    vertical-align: middle;
+    background-color: var(--text-color-alt);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.15rem;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    color: var(--accent-color-neutral-white);
+    text-transform: uppercase;
+    font-size: 0.775rem;
+    letter-spacing: 0.025rem;
+}
+
+.notifications-panel-close {
+    width: 100%;
+    text-align: center;
+    color: var(--accent-color-neutral-white);
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.075rem;
+padding: 0.2em 0.5em;
+    margin-bottom: 0.25em;
+    text-transform: uppercase;
+}

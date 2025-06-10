@@ -83,7 +83,7 @@ function LandingPage() {
          <div className="landing-App-container">
            <div className="landing-left-block">
              <div className="landing-wrapper landing">
-               <p className="landing-welcome">Welcome!</p>
+               <h1 className="landing-welcome">Welcome!</h1>
                <p className="landing-text">
                  Share your recipes, discover cooking tips,
                  <br /> and inspire others!

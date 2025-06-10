@@ -4,7 +4,7 @@ html {
   padding: 0;
 }
 
-.report-page {
+.notifications-page {
   display: flex;
   flex-direction: column;
   background-color: var(--bg-color);
@@ -12,21 +12,21 @@ html {
 }
 
 
-.report-page-main-content {
+.notifications-page-main-content {
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
 }
 
-.report-page-left-panel {
+.notifications-page-left-panel {
   flex: 1;
   text-align: center;
   padding: 1rem;
 }
 
 
-.report-page-panel-title {
+.notifications-page-panel-title {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
@@ -38,18 +38,18 @@ html {
   margin-bottom: 1rem;
 }
 
-.report-page-panel-desc {
+.notifications-page-panel-desc {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-variation-settings: "wdth" 87.5;
+
   letter-spacing: 0.05rem;
   color: var(--text-color);
   font-size: 1.15rem;
   margin-top: 40px;
 }
 
-.report-image {
+.notifications-image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -59,7 +59,7 @@ html {
 }
 
 
-.report-page-footer {
+.notifications-page-footer {
   background-color: var(--minor-accent-color-2b);
   text-align: center;
   padding: 10px 20px;

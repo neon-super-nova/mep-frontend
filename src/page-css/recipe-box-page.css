@@ -47,11 +47,13 @@ html,
   color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.35rem;
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
+
 .recipe-box-page-header-panel .text-box {
   margin-bottom: 0rem;
 }
+
 .recipe-box-page-header-panel .text-box .bold {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
@@ -73,7 +75,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel {
-   border-bottom: 5px double var(--main-accent-color-alt);
+  border-bottom: 5px double var(--main-accent-color-alt);
 }
 
 .recipe-box-page-submitted-panel,
@@ -81,7 +83,7 @@ html,
   display: flex;
   width: 98%;
   flex-direction: column;
-   align-items: flex-start;
+  align-items: flex-start;
   justify-content: center;
   padding-bottom: 2rem;
   margin-bottom: 3.5rem;
@@ -89,14 +91,14 @@ html,
   gap: 1rem;
 }
 
-.recipe-box-page-submitted-panel-heading, 
+.recipe-box-page-submitted-panel-heading,
 .recipe-box-page-saved-panel-heading {
   display: flex;
   width: 98%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-    margin-left: 1rem;
+  margin-left: 1rem;
   margin-bottom: 1.75rem;
   gap: 1rem;
 }
@@ -111,7 +113,7 @@ html,
   color: var(--text-color);
   text-transform: uppercase;
   margin-bottom: -0.5rem;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.1rem;
 }
 
 .recipe-box-page-submitted-panel-heading h6,
@@ -122,7 +124,7 @@ html,
 
 .recipe-box-page-submitted-panel-heading h6 .bold,
 .recipe-box-page-saved-panel-heading h6 .bold {
-    font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
   text-transform: uppercase;
@@ -134,7 +136,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel-heading h6 .reg,
-.recipe-box-page-saved-panel-heading h6 .reg { 
+.recipe-box-page-saved-panel-heading h6 .reg {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -143,12 +145,12 @@ html,
   font-size: 0.90rem;
 }
 
-.recipe-box-page-submitted-panel-cards, 
+.recipe-box-page-submitted-panel-cards,
 .recipe-box-page-saved-panel-cards {
   display: flex;
   width: 98%;
   flex-direction: row;
-   align-items: center;
+  align-items: center;
   justify-content: flex-start;
   margin-bottom: 1rem;
   gap: 1rem;

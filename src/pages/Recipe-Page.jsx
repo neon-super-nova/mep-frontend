@@ -15,7 +15,7 @@ import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
 import dummyV2 from "../components/img/dummy/placeholder_2.jpg";
 
 function RecipePage() {
-  const { name } = useParams();
+  const { recipeId } = useParams();
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
 
@@ -23,41 +23,38 @@ function RecipePage() {
     if (protein === "Other animal based") return "Meat - other / mixed";
     return protein;
   };
-  
+
   useEffect(() => {
     async function fetchRecipe() {
-      console.log("Fetching recipe from:", `/api/recipes/name/${name}`);
       try {
-        const response = await axios.get(`/api/recipes/name/${name}`);
+        const response = await axios.get(`/api/recipes/${recipeId}`);
         console.log("Fetched recipe data:", response.data);
-        setRecipe(response.data);
+        setRecipe(response.data.recipe); 
       } catch (err) {
         console.error("Error fetching recipe:", err);
         setRecipe(null);
       }
     }
     fetchRecipe();
-  }, [name]);
+  }, [recipeId]);
 
   if (recipe === null) return <div>Loading...</div>;
-  if (!recipe || recipe.length === 0) return <div>Recipe not found.</div>;
+  if (!recipe) return <div>Recipe not found.</div>;
 
   const noTags =
-    (!recipe[0].cuisineRegion || recipe[0].cuisineRegion === "Other") &&
-    (!recipe[0].dietaryRestriction ||
-      recipe[0].dietaryRestriction === "None") &&
-    (!recipe[0].proteinChoice || recipe[0].proteinChoice === "None") &&
-    (!recipe[0].religiousRestriction ||
-      recipe[0].religiousRestriction === "None");
+    (!recipe.cuisineRegion || recipe.cuisineRegion === "Other") &&
+    (!recipe.dietaryRestriction || recipe.dietaryRestriction === "None") &&
+    (!recipe.proteinChoice || recipe.proteinChoice === "None") &&
+    (!recipe.religiousRestriction || recipe.religiousRestriction === "None");
 
-  const units = recipe[0].units || "US/Imperial";
+  const units = recipe.units || "US/Imperial";
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
       <div className="recipe-page">
         <HeaderBar />
         <header>
-          <h1>{recipe[0].name}</h1>
+          <h1>{recipe.name}</h1>
         </header>
         <main>
           <div className="top">
@@ -68,13 +65,12 @@ function RecipePage() {
                 <span className="reg">name by user id, </span>
               </h6>
               <div style={{ width: "1.75rem" }}></div>
-
               <h6>
                 <span className="bold">submitted on: </span>
                 <span style={{ width: "0.25rem" }}></span>
                 <span className="reg">
                   {" "}
-                  {new Date(recipe[0].createdAt).toLocaleDateString("en-US", {
+                  {new Date(recipe.createdAt).toLocaleDateString("en-US", {
                     month: "2-digit",
                     day: "2-digit",
                     year: "numeric",
@@ -92,11 +88,11 @@ function RecipePage() {
             </div>
             <div className="image">
               <img
-                src={!recipe[0].imageUrl ? dummyV1 : recipe[0].imageUrl}
-                alt={recipe[0].name}
+                src={!recipe.imageUrl ? dummyV1 : recipe.imageUrl}
+                alt={recipe.name}
               />
-              <img src={dummyV2} alt={recipe[0].name} />
-              <img src={dummyV1} alt={recipe[0].name} />
+              <img src={dummyV2} alt={recipe.name} />
+              <img src={dummyV1} alt={recipe.name} />
             </div>
           </div>
           <div className="middle">
@@ -105,11 +101,11 @@ function RecipePage() {
                 <h6>
                   <span className="text">User Rating:</span>
                   <span className="star">
-                    <StarRating rating={recipe[0].averageRating}></StarRating>
+                    <StarRating rating={recipe.averageRating}></StarRating>
                   </span>
                   <span className="rate">
                     {" "}
-                    {recipe[0].averageRating} / 5 stars
+                    {recipe.averageRating} / 5 stars
                   </span>
                 </h6>
                 <h5 className="tags-row">
@@ -118,29 +114,28 @@ function RecipePage() {
                     <span className="bold">none</span>
                   ) : (
                     <>
-                      {recipe[0].cuisineRegion &&
-                        recipe[0].cuisineRegion !== "Other" && (
+                      {recipe.cuisineRegion &&
+                        recipe.cuisineRegion !== "Other" && (
                           <span className="reg cuisine">
-                            {recipe[0].cuisineRegion}
+                            {recipe.cuisineRegion}
                           </span>
                         )}
-                      {recipe[0].dietaryRestriction &&
-                        recipe[0].dietaryRestriction !== "None" && (
+                      {recipe.dietaryRestriction &&
+                        recipe.dietaryRestriction !== "None" && (
                           <span className="reg diet">
-                            {recipe[0].dietaryRestriction}
+                            {recipe.dietaryRestriction}
                           </span>
                         )}
-                      {recipe[0].proteinChoice &&
-                        recipe[0].proteinChoice !== "None" && (
+                      {recipe.proteinChoice &&
+                        recipe.proteinChoice !== "None" && (
                           <span className="reg protein">
-                            {renameProtein(recipe[0].proteinChoice)}
+                            {renameProtein(recipe.proteinChoice)}
                           </span>
                         )}
-
-                      {recipe[0].religiousRestriction &&
-                        recipe[0].religiousRestriction !== "None" && (
+                      {recipe.religiousRestriction &&
+                        recipe.religiousRestriction !== "None" && (
                           <span className="reg religion">
-                            {recipe[0].religiousRestriction}
+                            {recipe.religiousRestriction}
                           </span>
                         )}
                     </>
@@ -156,7 +151,7 @@ function RecipePage() {
                       className="timer-icon"
                     />
                     <span className="bold">cook time:</span>
-                    <span className="reg"> {recipe[0].cookTime} minutes</span>
+                    <span className="reg"> {recipe.cookTime} minutes</span>
                   </h6>
                   <h6>
                     <img
@@ -165,7 +160,7 @@ function RecipePage() {
                       className="timer-icon"
                     />
                     <span className="bold"> prep time: </span>
-                    <span className="reg"> {recipe[0].prepTime} minutes</span>
+                    <span className="reg"> {recipe.prepTime} minutes</span>
                   </h6>
                   <h6>
                     <img
@@ -174,7 +169,7 @@ function RecipePage() {
                       className="timer-icon"
                     />
                     <span className="bold"> total time:</span>
-                    <span className="reg">{recipe[0].totalTime} minutes </span>
+                    <span className="reg">{recipe.totalTime} minutes </span>
                   </h6>
                 </div>
                 <div className="serves">
@@ -185,7 +180,7 @@ function RecipePage() {
                       className="cutlery-icon"
                     />
                     <span className="bold"> yield:</span>
-                    <span className="reg"> {recipe[0].servings} servings</span>
+                    <span className="reg"> {recipe.servings} servings</span>
                   </h6>
                   <h6>
                     <img
@@ -203,7 +198,7 @@ function RecipePage() {
               <div className="left">
                 <h4>Ingredients</h4>
                 <ul>
-                  {recipe[0].ingredients.map((ingredient, index) => (
+                  {recipe.ingredients.map((ingredient, index) => (
                     <li key={index}>{ingredient}</li>
                   ))}
                 </ul>
@@ -220,7 +215,7 @@ function RecipePage() {
                 <div className="instruct">
                   <h4>Instructions</h4>
                   <ol>
-                    {recipe[0].instructions.map((instructions, index) => (
+                    {recipe.instructions.map((instructions, index) => (
                       <li key={index}>{instructions}</li>
                     ))}
                   </ol>
@@ -242,12 +237,11 @@ function RecipePage() {
               <div className="review-small">
                 <h6>
                   <span className="reg">total likes:</span>
-                  <span className="bold">{recipe[0].totalLikes}</span>
+                  <span className="bold">{recipe.totalLikes}</span>
                 </h6>
-
                 <h6>
                   <span className="reg">total reviews:</span>
-                  <span className="bold">{recipe[0].totalReviews}</span>
+                  <span className="bold">{recipe.totalReviews}</span>
                 </h6>
               </div>
               <h4>REVIEWS:</h4>
