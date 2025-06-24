@@ -36,6 +36,8 @@ function RecipeBoxPage() {
   const pagedsaved = savedRecipes.slice(savedStart, savedEnd);
 
   return (
+    console.log(Array.isArray(submittedRecipes), submittedRecipes),
+
     <div className={theme === "dark" ? "dark-mode" : ""}>
       <div className="recipe-box-page">
         <HeaderBar />
@@ -58,6 +60,14 @@ function RecipeBoxPage() {
               <h6>
                 <span className="bold">subheading2:</span>
                 <span className="reg"> subheading contents2</span>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+              </h6>
+                       <h6>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
               </h6>
             </div>
           </div>
@@ -70,10 +80,7 @@ function RecipeBoxPage() {
                 <span className="bold">subheading:</span>
                 <span className="reg"> subheading contents</span>
               </h6>
-              <h6>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
-              </h6>
+
             </div>
             <div className="recipe-box-page-submitted-panel-cards">
               <button
@@ -114,10 +121,7 @@ function RecipeBoxPage() {
                 <span className="bold">subheading:</span>
                 <span className="reg"> subheading contents</span>
               </h6>
-              <h6>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
-              </h6>
+
             </div>
             <div className="recipe-box-page-saved-panel-cards">
               <button

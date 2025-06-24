@@ -247,14 +247,14 @@ html {
     line-height: 1.5;
 }
 
-.star-layout {
+.recipe-page .star-layout {
     visibility: hidden;
     font-size: 1rem;
     letter-spacing: 0.13rem;
     user-select: none;
 }
 
-.star-layer {
+.recipe-page .star-layer {
     position: absolute;
     top: 0;
     left: 0;
@@ -263,14 +263,14 @@ html {
     white-space: nowrap;
 }
 
-.star-background-bottom {
+.recipe-page .star-background-bottom {
     color: var(--minor-accent-color-1);
     z-index: 0;
     font-size: 1rem;
 }
 
-.star-background-top,
-.star-overlay {
+.recipe-page .star-background-top,
+.recipe-page .star-overlay {
     z-index: 1;
     top: 1.3px;
     left: 1.15px;
@@ -279,13 +279,13 @@ html {
     color: var(--star-coloring);
 }
 
-.star-overlay {
+.recipe-page .star-overlay {
     z-index: 2;
     overflow: hidden;
     color: var(--minor-accent-color-1);
 }
 
-.rating-number {
+.recipe-page .rating-number {
     margin-left: 0.5rem;
     width: 100%;
 }

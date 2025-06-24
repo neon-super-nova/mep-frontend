@@ -82,9 +82,7 @@ function UserPage() {
         const { recipeCount } = recipeResult.data;
         const { likeCount } = likeResult.data;
         const { globalLikeCount } = globalLikeResult.data;
-        console.log(recipeCount);
-        console.log(likeCount);
-        console.log(globalLikeCount);
+
         setGlobalLikeCount(globalLikeCount);
         setRecipeCount(recipeCount);
         setLikeCount(likeCount);
@@ -174,6 +172,25 @@ function UserPage() {
                     <p className="desc-bold">Signup Date:</p>
                     <p className="desc-reg">{signupDate}</p>
                   </div>
+                    <div style={{ height: "0.25rem" }}></div>
+                          <div className="desc-row">
+                      <p className="desc-bold">Favorite Global Cuisine:</p>
+                      <p className="desc-reg">{favoriteCuisine}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Favorite Meal:</p>
+                      <p className="desc-reg">{favoriteMeal}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Favorite Dish:</p>
+                      <p className="desc-reg">{favoriteDish}</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Diet Restrictions: </p>
+                      <p className="desc-reg">
+                        {dietaryRestriction.join(", ")}
+                      </p>
+                    </div>
                   <div style={{ height: "0.25rem" }}></div>
                   <div className="desc-row">
                     <p className="desc-bold">User Recipes:</p>
@@ -205,34 +222,7 @@ function UserPage() {
                     <p className="micro-bold">Global Saves: </p>
                     <p className="micro-reg">{db_recipe_saved}</p>
                   </div>
-                  
-                </div>
-              </div>
-            </div>
-            <div className="profile-top-panel-container-right">
-              <h2 className="profile-page-panel-title">User Profile</h2>
-              <div className="profile-top-panel right">
-                {userInfo ? (
-                  <div className="profile-top-panel info">
-                    <div className="desc-row">
-                      <p className="desc-bold">Favorite Global Cuisine:</p>
-                      <p className="desc-reg">{favoriteCuisine}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Favorite Meal:</p>
-                      <p className="desc-reg">{favoriteMeal}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Favorite Dish:</p>
-                      <p className="desc-reg">{favoriteDish}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Diet Restrictions: </p>
-                      <p className="desc-reg">
-                        {dietaryRestriction.join(", ")}
-                      </p>
-                    </div>
-                    <div style={{ height: "0.25rem" }}></div>
+                                      <div style={{ height: "0.25rem" }}></div>
                   <div className="desc-row">
                     <p className="desc-bold">Recipe Box:</p>
                   </div>
@@ -254,6 +244,54 @@ function UserPage() {
                     <p className="micro-bold">Recipe Saved: </p>
                     <p className="micro-reg">{user_recipe_saved}</p>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div className="profile-top-panel-container-right">
+              <h2 className="profile-page-panel-title">User Settings</h2>
+              <div className="profile-top-panel right">
+                {userInfo ? (
+                  <div className="profile-top-panel info">
+                    <div className="desc-row">
+                      <p className="desc-bold">Email Updates</p>
+                      <p className="desc-reg">yes or no boolean</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Newsletter</p>
+                      <p className="desc-reg">yes or no boolean</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Notification Settings</p>
+                      <p className="desc-reg">email, pings for likes</p>
+                    </div>
+                    <div className="desc-row">
+                      <p className="desc-bold">Delete Account </p>
+                      <p className="desc-reg">
+                        go to subpage
+                      </p>
+                    </div>
+                    <div style={{ height: "0.25rem" }}></div>
+                  <div className="desc-row">
+                    <p className="desc-bold">Privacy Settings:</p>
+                  </div>
+                  <div style={{ height: "0.005rem" }}></div>
+                  <div className="micro-desc">
+                    <img
+                      src={theme === "dark" ? tinylikeddark : tinylikedlight}
+                      alt="likes"
+                      className="likes"
+                    />
+                    <p className="micro-bold">Visibility: </p>
+                    <p className="micro-reg">other sub settings</p>
+                    <p className="micro-div"> | </p>
+                    <img
+                      src={theme === "dark" ? tinysaveddark : tinysavedlight}
+                      alt="saves"
+                      className="saves"
+                    />
+                    <p className="micro-bold">Blocked Users: </p>
+                    <p className="micro-reg">mapped out list, unblock button</p>
+                  </div>
                   </div>
                 ) : (
                   <p>Loading</p>
@@ -261,25 +299,7 @@ function UserPage() {
               </div>
             </div>
           </div>
-          <div className="profile-bottom-panel">
-            <h3 className="profile-page-panel-title">Author Biography</h3>
-            <p className="profile-page-panel-desc">
-              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo inventore veritatis et quasi architecto beatae vitae
-              dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-              aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-              eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
-              est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-              velit, sed quia non numquam eius modi tempora incidunt ut labore
-              et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima
-              veniam, quis nostrum exercitationem ullam corporis suscipit
-              laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-              vel eum iure reprehenderit qui in ea voluptate velit esse quam
-              nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo
-              voluptas nulla pariatur?"
-            </p>
-          </div>
+
           <div className="profile-bottom-panel">
             <h3 className="profile-page-panel-title">Author Biography</h3>
             <p className="profile-page-panel-desc">

@@ -27,7 +27,10 @@ function RecipeBlock({ recipe, type }) {
             : dummyImgLight
       }
       alt={recipe.name}
-    
+        onError={e => {
+      e.target.onerror = null; 
+      e.target.src = theme === "dark" ? dummyImgDark : dummyImgLight;
+    }}
     />
       </div>
       <div className="recipe-block-text">

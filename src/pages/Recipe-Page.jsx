@@ -18,6 +18,7 @@ function RecipePage() {
   const { recipeId } = useParams();
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
+  const [user, setUser] = useState(null);
 
   const renameProtein = (protein) => {
     if (protein === "Other animal based") return "Meat - other / mixed";
@@ -25,18 +26,26 @@ function RecipePage() {
   };
 
   useEffect(() => {
-    async function fetchRecipe() {
+    async function fetchRecipeInfo() {
       try {
-        const response = await axios.get(`/api/recipes/${recipeId}`);
-        console.log("Fetched recipe data:", response.data);
-        setRecipe(response.data.recipe); 
-      } catch (err) {
-        console.error("Error fetching recipe:", err);
-        setRecipe(null);
+      const response = await axios.get(`/api/recipes/${recipeId}`);
+      console.log("Fetched recipe data:", response.data);
+      const recipeData = response.data.recipe;
+      setRecipe(recipeData);
+
+      if (recipeData && recipeData.userId) {
+        const userResponse = await axios.get(`/api/users/${recipeData.userId}`);
+        setUser(userResponse.data.userInfo);
+        console.log("User response:", userResponse.data);
       }
+    } catch (err) {
+      console.error("Error fetching recipe info:", err);
+      setRecipe(null);
+      setUser(null);
     }
-    fetchRecipe();
-  }, [recipeId]);
+  }
+  fetchRecipeInfo();
+}, [recipeId]);
 
   if (recipe === null) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found.</div>;
@@ -59,15 +68,17 @@ function RecipePage() {
         <main>
           <div className="top">
             <div className="small">
-              <h6>
-                <span className="bold">pull up author: </span>
-                <span style={{ width: "0.25rem" }}></span>
-                <span className="reg">name by user id, </span>
-              </h6>
+          <h6>
+  <span className="bold">Author: </span>
+  <span style={{ width: "0.5rem" }}></span>
+  <span className="reg">
+    {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
+  </span>
+</h6>
               <div style={{ width: "1.75rem" }}></div>
               <h6>
                 <span className="bold">submitted on: </span>
-                <span style={{ width: "0.25rem" }}></span>
+                <span style={{ width: "0.5rem" }}></span>
                 <span className="reg">
                   {" "}
                   {new Date(recipe.createdAt).toLocaleDateString("en-US", {
@@ -90,6 +101,10 @@ function RecipePage() {
               <img
                 src={!recipe.imageUrl ? dummyV1 : recipe.imageUrl}
                 alt={recipe.name}
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = dummyV1;
+                }}
               />
               <img src={dummyV2} alt={recipe.name} />
               <img src={dummyV1} alt={recipe.name} />

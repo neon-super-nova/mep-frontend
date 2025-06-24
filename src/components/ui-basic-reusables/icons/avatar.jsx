@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 function Avatar({ className }) {
   const { theme } = useTheme();
   const user = hardcodedUser;
+  console.log('Avatar URL:', user?.pictureUrl);
 
   const [userAvatarUrl, setUserAvatarUrl] = useState("");
   // need to add this to avoid seeing default picture for a brief moment upon reload of page
@@ -23,7 +24,7 @@ function Avatar({ className }) {
       }
 
       try {
-        const response = await axios.get(`api/users/${userId}/picture-url`, {
+        const response = await axios.get(`/api/users/${userId}/picture-url`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -33,8 +34,8 @@ function Avatar({ className }) {
           setUserAvatarUrl(imageUrl);
         }
       } catch (err) {
-        console.warn("Failed to fetch user avatar");
-        alert("Failed to fetch user avatar");
+        // console.warn("Failed to fetch user avatar");
+        // alert("Failed to fetch user avatar");
       } finally {
         setPicLoadingStatus(true);
       }

@@ -6,12 +6,12 @@
 
 .custom-dropdown-menu {
     position: absolute;
-    top: 36px;
-    right: 0px;
+    top: 3.75rem;
+    right: -0.75rem;
     z-index: 2000;
     min-width: 325px;
     background-color: var(--main-accent-color-alt);
-    border-radius: 8px;
+    border-radius: 0 0 0px 8px;
     box-shadow: var(--shadow-elevated);
 }
 

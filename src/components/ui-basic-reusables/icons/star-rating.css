@@ -4,12 +4,14 @@
   font-size: 1rem;
   line-height: 1;
 }
+
 .star-layout {
-  visibility: hidden; 
-  font-size: 0.88rem; 
+  visibility: hidden;
+  font-size: 0.88rem;
   letter-spacing: 0.13rem;
   user-select: none;
 }
+
 .star-layer {
   position: absolute;
   top: 0;
@@ -22,7 +24,7 @@
 .star-background-bottom {
   color: var(--minor-accent-color-1);
   z-index: 0;
-  font-size: 0.88rem; 
+  font-size: 0.88rem;
 
 }
 
@@ -34,7 +36,7 @@
   font-size: 0.67rem;
   letter-spacing: 0.225rem;
   color: var(--star-coloring);
-  
+
 }
 
 .star-overlay {
@@ -43,6 +45,7 @@
   color: var(--minor-accent-color-1);
 
 }
+
 .rating-number {
   margin-left: 0.5rem;
   width: 100%;

@@ -73,9 +73,9 @@ html {
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   color: var(--text-color);
-  letter-spacing: 0.12rem;
+  letter-spacing: 0.05rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -90,7 +90,7 @@ html {
 .home-page-left-panel-advanced-search-reg {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 200;
+  font-weight: 300;
   font-style: italic;
   font-variation-settings: "wdth" 75;
   font-size: 0.75rem;

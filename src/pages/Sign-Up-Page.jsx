@@ -126,7 +126,7 @@ function SignUpPage() {
                     />
                     <div className="signup-login-button-container">
                       <button
-                        onClick={handleSignUp}
+                        //onClick={handleSignUp}
                         className="btn-lg-skinny"
                         aria-label="Sign Up"
                       >
