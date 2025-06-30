@@ -6,6 +6,10 @@ import avatar from "../components/img/user/default-user-light_web.png";
 function NotificationsPage() {
   const { theme } = useTheme();
 
+  const Username = "User"; 
+  const userAvatar = avatar; 
+  const Event = "You have a new message!";
+  const thumbnail = avatar; 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
       <div className="notifications-page">
@@ -20,27 +24,16 @@ function NotificationsPage() {
           <div
             className="notifications-page-left-panel"
             style={{ textAlign: "center" }} >
-            <h2 className="notifications-page-panel-title">notifications</h2>
-            <img src={avatar} alt="landing" className="notifications-image" />
+            <h2 className="notifications-page-panel-title">Notifications</h2>
+      
           </div>
           <div
             className="notifications-page-left-panel"
-            style={{ textAlign: "center" }}>
-            <h2 className="notifications-page-panel-title">notifications</h2>
-            <p className="notifications-page-panel-desc">Left panel content goes here.</p>
+            >
+            <h3 className="notifications-page-panel-title">Yesterday</h3>
+            <p className="notifications-page-panel-desc">   <img src={userAvatar} alt="avatar" className="user-image"/>{Username}{Event}<img src={thumbnail}  alt="thumbnail" className="event-image"/></p>
           </div>
-          <div
-            className="notifications-page-left-panel"
-            style={{ textAlign: "center" }}>
-            <h2 className="notifications-page-panel-title">notifications</h2>
-            <p className="notifications-page-panel-desc">Left panel content goes here.</p>
-          </div>
-          <div
-            className="notifications-page-left-panel"
-            style={{ textAlign: "center" }}>
-            <h2 className="notifications-page-panel-title">notifications</h2>
-            <p className="notifications-page-panel-desc">Left panel content goes here.</p>
-          </div>
+   
         </main>
         <footer className="notifications-page-footer">
           <p>Footer Content</p>

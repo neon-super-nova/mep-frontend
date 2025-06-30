@@ -13,6 +13,7 @@ function BrowseBlocks({ subheading, blocks }) {
               onClick={block.onClick}
             >
               <span className="browse-blocks-block-label">{block.label}</span>
+              <img src={block.image} alt={block.label} className="browse-blocks-block-image" />
             </div>
           ))}
         </div>

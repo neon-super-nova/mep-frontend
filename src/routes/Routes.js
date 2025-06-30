@@ -5,6 +5,7 @@ import SignUpPage from "../pages/Sign-Up-Page";
 import HomePage from "../pages/Home-Page";
 import ForgotScreen from "../pages/Forgot-PW";
 import ResetScreen from "../pages/Reset-PW";
+import VerifyScreen from "../pages/Verify-Email";
 import AdvancedSearchPage from "../pages/Advanced-Search-Page";
 import UserPage from "../pages/User-Page";
 import SettingsPage from "../pages/Settings-Page";
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/home" element={<HomePage />} />
       <Route path="/forgotpassword" element={<ForgotScreen />} />
       <Route path="/resetpassword" element={<ResetScreen />} />
+      <Route path="/verifyemail" element={<VerifyScreen />} />
       <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
       <Route path="/profile" element={<UserPage />} />
       <Route path="/settings" element={<SettingsPage />} />

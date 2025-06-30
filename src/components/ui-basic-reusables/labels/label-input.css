@@ -23,7 +23,7 @@
   position: relative;
   width: 100%;
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 /* Eye icon button */
@@ -90,4 +90,66 @@
 .label-input-reset .label-input-field {
   background-color: #3b4a4d;
   color: #f5f5f5;
+}
+
+/* FOOD TAGS STYLES */
+
+.food.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+h5.food.tags-row {
+  font-size: 0.85rem;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
+}
+
+.food.bold {
+  /* "NO TAGS" */
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+
+.food.reg {
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.8rem;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.food.cuisine {
+  background-color: var(--minor-accent-color-1);
+  color: var(--text-color-invert);
+  border: 1.25px solid var(--minor-accent-color-2);
+}
+
+.food.diet {
+  background-color: #3b4a4d;
+  color:  #f5f5f5;
+  border: 1.25px solid  #528082;
+}
+
+.food.protein {
+  background-color: var(--minor-accent-color-3);
+  color: var(--text-color-invert);
+  border: 1.25px solid var(--star-coloring);
+}
+
+.food.religion {
+  background-color: var(--star-coloring);
+  color: var(--text-color);
+  border: 1.25px solid var(--minor-accent-color-3);
 }

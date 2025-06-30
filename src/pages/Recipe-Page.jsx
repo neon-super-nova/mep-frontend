@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
 import StarRating from "../components/ui-basic-reusables/icons/star-rating";
+import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
 import lightcutlery from "../components/img/icons/icon-cutlery-light.png";
 import lighttimer from "../components/img/icons/icon-timer-light.png";
 import lightmeasure from "../components/img/icons/icon-measure-light.png";
@@ -20,41 +21,36 @@ function RecipePage() {
   const [recipe, setRecipe] = useState(null);
   const [user, setUser] = useState(null);
 
-  const renameProtein = (protein) => {
-    if (protein === "Other animal based") return "Meat - other / mixed";
-    return protein;
-  };
+
 
   useEffect(() => {
     async function fetchRecipeInfo() {
       try {
-      const response = await axios.get(`/api/recipes/${recipeId}`);
-      console.log("Fetched recipe data:", response.data);
-      const recipeData = response.data.recipe;
-      setRecipe(recipeData);
+        const response = await axios.get(`/api/recipes/${recipeId}`);
+        console.log("Fetched recipe data:", response.data);
+        const recipeData = response.data.recipe;
+        setRecipe(recipeData);
 
-      if (recipeData && recipeData.userId) {
-        const userResponse = await axios.get(`/api/users/${recipeData.userId}`);
-        setUser(userResponse.data.userInfo);
-        console.log("User response:", userResponse.data);
+        if (recipeData && recipeData.userId) {
+          const userResponse = await axios.get(
+            `/api/users/${recipeData.userId}`
+          );
+          setUser(userResponse.data.userInfo);
+          console.log("User response:", userResponse.data);
+        }
+      } catch (err) {
+        console.error("Error fetching recipe info:", err);
+        setRecipe(null);
+        setUser(null);
       }
-    } catch (err) {
-      console.error("Error fetching recipe info:", err);
-      setRecipe(null);
-      setUser(null);
     }
-  }
-  fetchRecipeInfo();
-}, [recipeId]);
+    fetchRecipeInfo();
+  }, [recipeId]);
 
   if (recipe === null) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found.</div>;
 
-  const noTags =
-    (!recipe.cuisineRegion || recipe.cuisineRegion === "Other") &&
-    (!recipe.dietaryRestriction || recipe.dietaryRestriction === "None") &&
-    (!recipe.proteinChoice || recipe.proteinChoice === "None") &&
-    (!recipe.religiousRestriction || recipe.religiousRestriction === "None");
+
 
   const units = recipe.units || "US/Imperial";
 
@@ -68,13 +64,13 @@ function RecipePage() {
         <main>
           <div className="top">
             <div className="small">
-          <h6>
-  <span className="bold">Author: </span>
-  <span style={{ width: "0.5rem" }}></span>
-  <span className="reg">
-    {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
-  </span>
-</h6>
+              <h6>
+                <span className="bold">Author: </span>
+                <span style={{ width: "0.5rem" }}></span>
+                <span className="reg">
+                  {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
+                </span>
+              </h6>
               <div style={{ width: "1.75rem" }}></div>
               <h6>
                 <span className="bold">submitted on: </span>
@@ -102,7 +98,7 @@ function RecipePage() {
                 src={!recipe.imageUrl ? dummyV1 : recipe.imageUrl}
                 alt={recipe.name}
                 onError={(e) => {
-                  e.target.onerror = null; 
+                  e.target.onerror = null;
                   e.target.src = dummyV1;
                 }}
               />
@@ -123,39 +119,7 @@ function RecipePage() {
                     {recipe.averageRating} / 5 stars
                   </span>
                 </h6>
-                <h5 className="tags-row">
-                  Tags:
-                  {noTags ? (
-                    <span className="bold">none</span>
-                  ) : (
-                    <>
-                      {recipe.cuisineRegion &&
-                        recipe.cuisineRegion !== "Other" && (
-                          <span className="reg cuisine">
-                            {recipe.cuisineRegion}
-                          </span>
-                        )}
-                      {recipe.dietaryRestriction &&
-                        recipe.dietaryRestriction !== "None" && (
-                          <span className="reg diet">
-                            {recipe.dietaryRestriction}
-                          </span>
-                        )}
-                      {recipe.proteinChoice &&
-                        recipe.proteinChoice !== "None" && (
-                          <span className="reg protein">
-                            {renameProtein(recipe.proteinChoice)}
-                          </span>
-                        )}
-                      {recipe.religiousRestriction &&
-                        recipe.religiousRestriction !== "None" && (
-                          <span className="reg religion">
-                            {recipe.religiousRestriction}
-                          </span>
-                        )}
-                    </>
-                  )}
-                </h5>
+                <RecipeTags recipe={recipe}/>
               </div>
               <div className="right">
                 <div className="times">

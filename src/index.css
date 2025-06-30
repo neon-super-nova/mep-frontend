@@ -24,8 +24,11 @@
   --minor-accent-color-3: #db6443;
   --star-coloring: #f8da70;
   --recipe-block-bg: #c2c5b7;
+  --home-page-block: rgba(130, 157, 153, 0.5);
+  --home-page-block-alt:  rgba(193, 202, 198, 0.75);
 
   --button-color-yellow: #f8da70;
+  --button-notifications: #528082;
 
   --inner-check-box: #f8da70;
   --subcat-filter-box: #f5de9f;
@@ -60,8 +63,11 @@
   --minor-accent-color-3: #f8da70;
   --star-coloring:  #db6443;
   --recipe-block-bg: rgba(82, 128, 130, 0.35);
+  --home-page-block: rgba(245, 222, 159, 0.5);
+  --home-page-block-alt: rgba(152, 148, 122, 0.75);
 
   --button-color-yellow: #f8da70;
+  --button-notifications: #528082;
 
   --inner-check-box: #c2c5b7;
   --subcat-filter-box: #829d99;

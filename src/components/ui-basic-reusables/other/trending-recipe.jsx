@@ -1,12 +1,16 @@
 import StarRating from "../icons/star-rating";
 import "./trending-recipe.css";
+import RecipeTags from "../labels/label-tag-food";
 
 function TrendingRecipe({
   recipeImage,
   recipeName,
   recipeRating,
   recipeDescription,
-  recipeTags,
+  cuisineRegion,
+  dietaryRestriction,
+  proteinChoice,
+  religiousRestriction,
 }) {
   return (
     <div className="trending-recipe-container">
@@ -19,13 +23,14 @@ function TrendingRecipe({
           <p className="user-rating-label">{recipeRating}/ 5 stars</p>
         </div>
         <p className="recipe-description">{recipeDescription}</p>
-        <div className="trending-recipe-tags">
-          {recipeTags.map((tag, index) => (
-            <p className="recipe-tag" key={index}>
-              {tag.toUpperCase()}
-            </p>
-          ))}
-        </div>
+        <RecipeTags
+          recipe={{
+            cuisineRegion,
+            dietaryRestriction,
+            proteinChoice,
+            religiousRestriction,
+          }}
+        />
       </div>
     </div>
   );

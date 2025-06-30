@@ -11,9 +11,9 @@ function NotificationsPanel({ onClose }) {
       <div className="notifications-panel-body">
         <div className="notification-item">
           <Bell
-            color="var(--text-color-dropdown)"
-            fill="var(--star-coloring)"
-            strokeWidth={0.5}
+   
+            fill="var(--subcat-filter-box)"
+            strokeWidth={0.75}
             size={12}
           />
           <span style={{ width: "0.15rem" }}></span>

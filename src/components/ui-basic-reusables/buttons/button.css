@@ -128,12 +128,12 @@
   background-color: #333333;
 }
 
-.reset-button {
+.reset-button, .verify-button {
   height: 30px;
   width: 130px;
-  background-color: #f8da70;
+
   border-radius: 7.5px;
-  color: #2c2d2d;
+
   font-family: "Inter", sans-serif;
   font-weight: 800;
   font-size: 0.825rem;
@@ -145,8 +145,22 @@
   align-items: center;
   justify-content: center;
 }
+.reset-button {
+  background-color: #f8da70;
+  color: #2c2d2d;
+}
 
 .reset-button:hover {
+  background-color: #db6443;
+  color: #f5de9f;
+}
+
+.verify-button {
+  background-color: #528082;
+  color: #f5f5f5;
+}
+
+.verify-button:hover {
   background-color: #db6443;
   color: #f5de9f;
 }

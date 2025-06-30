@@ -8,7 +8,7 @@
 
 
 .notifications-panel-body {
-    background-color:  var(--minor-accent-color-2b);
+    background-color: var(--minor-accent-color-2b);
     display: inline-block;
     vertical-align: middle;
     width: 100%;
@@ -28,10 +28,11 @@
     padding: 0.5em 1em;
 }
 
+
 .notification-item,
 .notifications-panel-close {
     display: inline-block;
-    
+
 
 }
 
@@ -52,7 +53,7 @@
 
 .notification-link {
     vertical-align: middle;
-    background-color: var(--text-color-alt);
+    background-color: var(--text-color-dropdown);
     padding: 0.25rem 0.5rem;
     border-radius: 0.15rem;
     font-family: "Inter", sans-serif;
@@ -75,7 +76,7 @@
     font-style: italic;
     font-size: 0.75rem;
     letter-spacing: 0.075rem;
-padding: 0.2em 0.5em;
+    padding: 0.2em 0.5em;
     margin-bottom: 0.25em;
     text-transform: uppercase;
 }

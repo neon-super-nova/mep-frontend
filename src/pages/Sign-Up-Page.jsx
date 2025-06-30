@@ -36,7 +36,7 @@ function SignUpPage() {
       });
       const response = result.data;
       if (response.message === "User successfully registered") {
-        navigate("/");
+        navigate("/verifyemail");
       } else {
         alert(response.error || "Try again");
       }
