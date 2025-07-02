@@ -1,6 +1,6 @@
 import "../page-css/sign-up-page.css";
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import LabelLogin from "../components/ui-basic-reusables/labels/label-input-login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import landing1b_web from "../components/img/landing-1b_web.png";
@@ -13,7 +13,6 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const navigate = useNavigate();
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const handleSignUp = async () => {
@@ -36,7 +35,7 @@ function SignUpPage() {
       });
       const response = result.data;
       if (response.message === "User successfully registered") {
-        navigate("/verifyemail");
+        alert("Check you email inbox to verify your email");
       } else {
         alert(response.error || "Try again");
       }
