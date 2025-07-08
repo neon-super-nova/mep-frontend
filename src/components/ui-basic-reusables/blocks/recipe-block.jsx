@@ -6,32 +6,31 @@ import dummyImgLight from "../../img/recipe-box/dummybeige.jpg";
 import { useTheme } from "../../../context/theme-context.js";
 
 function RecipeBlock({ recipe, type }) {
-
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(recipe.pageURL || "/");
-  };
 
   return (
-    <div className="recipe-block-container" onClick={handleClick}>
+    <div
+      className="recipe-block-container"
+      onClick={() => navigate(`/recipe/${recipe._id}`)}
+    >
       <LikedFlag liked={recipe.userLiked} />
       <div className="recipe-block-image">
-         <img
-           className="recipe-block-thumbnail"
-      src={
-        recipe.imageUrl
-          ? recipe.imageUrl
-          : theme === "dark"
-            ? dummyImgDark
-            : dummyImgLight
-      }
-      alt={recipe.name}
-        onError={e => {
-      e.target.onerror = null; 
-      e.target.src = theme === "dark" ? dummyImgDark : dummyImgLight;
-    }}
-    />
+        <img
+          className="recipe-block-thumbnail"
+          src={
+            recipe.imageUrl
+              ? recipe.imageUrl
+              : theme === "dark"
+              ? dummyImgDark
+              : dummyImgLight
+          }
+          alt={recipe.name}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = theme === "dark" ? dummyImgDark : dummyImgLight;
+          }}
+        />
       </div>
       <div className="recipe-block-text">
         <h3 className="recipe-block-title">{recipe.name}</h3>
@@ -39,14 +38,10 @@ function RecipeBlock({ recipe, type }) {
           <span>{type === "submitted" ? "Submitted by" : "Saved by"}</span>{" "}
         </p>
         <p className="recipe-block-name">
-          <span className="author">
-            {recipe.firstName} {recipe.lastName}
-          </span>
+          <span className="author">{recipe.userFullName}</span>
         </p>
         <p className="recipe-block-name">
-          <span className="author">
-            ({recipe.username})
-          </span>
+          <span className="author">({recipe.username})</span>
         </p>
       </div>
     </div>
