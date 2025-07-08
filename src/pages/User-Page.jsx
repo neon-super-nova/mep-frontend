@@ -12,6 +12,11 @@ import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
 import axios from "axios";
 import { getUserId } from "../context/decodeToken.js";
 import { Pencil } from "lucide-react";
+import {
+  deleteUserAvatar,
+  getUserAvatar,
+  saveUserAvatar,
+} from "../context/tokens.js";
 
 function UserPage() {
   const { theme } = useTheme();
@@ -47,11 +52,7 @@ function UserPage() {
         const { username, firstName, lastName } = response.data.userInfo;
         setUsername(username);
         setFullname(`${firstName} ${lastName}`);
-      } catch (err) {
-        if (err.response) {
-          alert(err.response.data.error);
-        }
-      }
+      } catch (err) {}
     };
     getUser();
   }, []);
@@ -69,10 +70,16 @@ function UserPage() {
     };
 
     try {
-      await axios.post("/api/users/image", formData, { headers });
+      const upload = await axios.post("/api/users/image", formData, {
+        headers,
+      });
+      if (getUserAvatar() !== upload.data.pictureUrl) {
+        deleteUserAvatar();
+        saveUserAvatar(upload.data.pictureUrl);
+      }
       setAvatarRefresh((v) => v + 1);
     } catch (err) {
-      alert(err.response?.data?.error || "Failed to upload avatar.");
+      alert(err.response.error || "Failed to upload avatar.");
     }
   };
 
@@ -117,11 +124,7 @@ function UserPage() {
         setGlobalLikeCount(globalLikeCount);
         setRecipeCount(recipeCount);
         setLikeCount(likeCount);
-      } catch (err) {
-        if (err.response) {
-          alert(err.response.data.error);
-        }
-      }
+      } catch (err) {}
     };
     getCount();
   }, []);
@@ -147,8 +150,7 @@ function UserPage() {
           },
         });
         const responseUserInfo = response.data.userInfo;
-        console.log("Fetched userInfo:", responseUserInfo);
-        console.log("userInfo.userId:", responseUserInfo?.userId);
+
         setUserInfo(responseUserInfo);
         setEditFields({
           favoriteCuisine: responseUserInfo?.favoriteCuisine || "",
@@ -158,11 +160,7 @@ function UserPage() {
             ", "
           ),
         });
-      } catch (err) {
-        if (err.response) {
-          alert(err.response.data.error);
-        }
-      }
+      } catch (err) {}
     };
     getUserInfo();
   }, []);
@@ -183,12 +181,6 @@ function UserPage() {
       setEditingField(null);
       return;
     }
-    const allFields = [
-      "favoriteCuisine",
-      "favoriteMeal",
-      "favoriteDish",
-      "dietaryRestriction",
-    ];
     const isArrayField = (f) => f === "dietaryRestriction";
     const patchBody = {
       [field]: isArrayField(field)
@@ -204,9 +196,19 @@ function UserPage() {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
     try {
-      const response = await axios.patch(`/api/users/user-info/`, patchBody, {
-        headers,
-      });
+      let response = "";
+      if (
+        (await axios.get(`api/users/user-info/${userId}`, { headers })) ===
+        "Empty user info"
+      ) {
+        response = await axios.post(`/api/users/user-info/`, patchBody, {
+          headers,
+        });
+      } else {
+        response = await axios.patch(`/api/users/user-info/`, patchBody, {
+          headers,
+        });
+      }
       let updated = response.data?.userInfo;
       if (!updated && response.data && typeof response.data === "object") {
         updated = response.data;
@@ -222,10 +224,7 @@ function UserPage() {
           console.warn("Failed to fetch userInfo after PATCH/POST:", fetchErr);
         }
       }
-      if (!updated) {
-        console.warn("PATCH/POST response missing userInfo:", response.data);
-      }
-      console.log("Updated userInfo after PATCH/POST:", updated);
+
       setUserInfo(updated);
       setEditFields({
         favoriteCuisine: updated?.favoriteCuisine || "",
@@ -234,48 +233,7 @@ function UserPage() {
         dietaryRestriction: (updated?.dietaryRestriction || []).join(", "),
       });
       setEditingField(null);
-    } catch (err) {
-      const errorMsg = err.response?.data?.error;
-      if (errorMsg && errorMsg.toLowerCase() === "empty user info") {
-        try {
-          const postBody = { userId };
-          allFields.forEach((f) => {
-            if (f === field) {
-              postBody[f] = isArrayField(f)
-                ? value
-                    .split(",")
-                    .map((s) => s.trim())
-                    .filter(Boolean)
-                : value;
-            } else if (isArrayField(f)) {
-              postBody[f] = [""];
-            } else {
-              postBody[f] = "";
-            }
-          });
-          const response = await axios.post(`/api/users/user-info`, postBody, {
-            headers,
-          });
-          console.log("POST response.data:", response.data);
-          const updated = response.data.userInfo || response.data;
-          setUserInfo(updated);
-          setEditFields({
-            favoriteCuisine: updated?.favoriteCuisine || "",
-            favoriteMeal: updated?.favoriteMeal || "",
-            favoriteDish: updated?.favoriteDish || "",
-            dietaryRestriction: (updated?.dietaryRestriction || []).join(", "),
-          });
-          setEditingField(null);
-        } catch (postErr) {
-          alert(
-            postErr.response?.data?.error ||
-              "Failed to create user info. Please try again."
-          );
-        }
-      } else {
-        alert(errorMsg || "Failed to update user info. Please try again.");
-      }
-    }
+    } catch (err) {}
   };
 
   const signupDate = user?.signupDate

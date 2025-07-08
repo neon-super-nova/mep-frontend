@@ -1,24 +1,25 @@
 import React, { useState, useRef } from "react";
 import "./dropdown.css";
 import axios from "axios";
-import { getToken, deleteToken } from "../../../context/tokens.js";
+import {
+  getToken,
+  deleteToken,
+  deleteUserAvatar,
+} from "../../../context/tokens.js";
 import { useNavigate } from "react-router-dom";
 import { Sun, Moon, ChevronDown } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
 import Avatar from "../icons/avatar.jsx";
 import ModalReport from "../modals/modal-report.jsx";
-import NotificationsPanel from "../inline/notifications-panel.jsx"; 
-
+import NotificationsPanel from "../inline/notifications-panel.jsx";
 
 function UserDropdown() {
-
   const navigate = useNavigate();
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [open, setOpen] = useState(false);
   const optionRefs = useRef([]);
   const { theme, toggleTheme } = useTheme();
   const [modalOpen, setModalOpen] = useState(null);
-
 
   const options = [
     {
@@ -95,6 +96,7 @@ function UserDropdown() {
         }
       );
       deleteToken(currToken);
+      deleteUserAvatar();
       navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
@@ -108,10 +110,10 @@ function UserDropdown() {
     if (value === "lightdark") toggleTheme();
     if (value === "profile") navigate(`/profile`);
     if (value === "recipebox") navigate("/recipebox");
-    if (value === "submitreport") setModalOpen("modal-report"); 
+    if (value === "submitreport") setModalOpen("modal-report");
     if (value === "notifications") {
-        setModalOpen("modal-notifications");
-        setOpen(true);
+      setModalOpen("modal-notifications");
+      setOpen(true);
     }
   };
 
@@ -141,9 +143,9 @@ function UserDropdown() {
             onClick={() => setOpen((o) => !o)}
             aria-haspopup="listbox"
             aria-expanded={open}
-           >
+          >
             <span className="user-menu-span">
-            <Avatar className="user-avatar" />
+              <Avatar className="user-avatar" />
               <span className="user-menu-text">User Menu</span>
               <ChevronDown
                 color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
@@ -153,54 +155,65 @@ function UserDropdown() {
             </span>
           </button>
           {open && (
-              <div
-    className="custom-dropdown-menu"
-    role="listbox"
-    tabIndex={0}
-    aria-activedescendant={`dropdown-option-${selectedIdx}`}
-    onFocus={() => setOpen(true)}
-    onBlur={() => setOpen(false)}
-    onKeyDown={handleKeyDown}
-  >
-  {options.map((option, idx) => (
-   <React.Fragment key={option.value}>
-    <div
-      id={`dropdown-option-${idx}`}
-      role="option"
-      aria-selected={selectedIdx === idx}
-      tabIndex={-1}
-      ref={(el) => (optionRefs.current[idx] = el)}
-      className={selectedIdx === idx ? "selected" : ""}
-      onClick={() => handleSelect(option.value, idx)}
-      >
-      <div className={`option-label ${option.labelClass || ""}`}>
-        {option.label}
-      </div>
-      {option.description && (
-        <div
-          className={`option-description ${
-            option.descriptionClass || ""
-          }`}
-        >
-          {option.description}
+            <div
+              className="custom-dropdown-menu"
+              role="listbox"
+              tabIndex={0}
+              aria-activedescendant={`dropdown-option-${selectedIdx}`}
+              onFocus={() => setOpen(true)}
+              onBlur={() => setOpen(false)}
+              onKeyDown={handleKeyDown}
+            >
+              {options.map((option, idx) => (
+                <React.Fragment key={option.value}>
+                  <div
+                    id={`dropdown-option-${idx}`}
+                    role="option"
+                    aria-selected={selectedIdx === idx}
+                    tabIndex={-1}
+                    ref={(el) => (optionRefs.current[idx] = el)}
+                    className={selectedIdx === idx ? "selected" : ""}
+                    onClick={() => handleSelect(option.value, idx)}
+                  >
+                    <div className={`option-label ${option.labelClass || ""}`}>
+                      {option.label}
+                    </div>
+                    {option.description && (
+                      <div
+                        className={`option-description ${
+                          option.descriptionClass || ""
+                        }`}
+                      >
+                        {option.description}
+                      </div>
+                    )}
+                  </div>
+                  {/* Inline notifications panel */}
+                  {option.value === "notifications" &&
+                    modalOpen === "modal-notifications" && (
+                      <div
+                        className={
+                          modalOpen
+                            ? "dropdown-notifications-panel-wrapper-open"
+                            : "dropdown-notifications-panel-wrapper"
+                        }
+                      >
+                        <NotificationsPanel
+                          onClose={() => setModalOpen(null)}
+                        />
+                      </div>
+                    )}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-    {/* Inline notifications panel */}
-{option.value === "notifications" && modalOpen === "modal-notifications" && (
-  <div className={modalOpen ? "dropdown-notifications-panel-wrapper-open" : "dropdown-notifications-panel-wrapper"}>
-    <NotificationsPanel onClose={() => setModalOpen(null)} />
-  </div>
-)}
-  </React.Fragment>
-))}
-
-  </div>
-)}
-        </div>
       </div>
 
-      <ModalReport open={modalOpen === "modal-report"} onClose={() => setModalOpen(null)} />
+      <ModalReport
+        open={modalOpen === "modal-report"}
+        onClose={() => setModalOpen(null)}
+      />
     </>
   );
 }

@@ -4,6 +4,11 @@ import userLight from "../../img/user/default-user-light_web.png";
 import { getUserId } from "../../../context/decodeToken";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import {
+  getUserAvatar,
+  isAvatarSaved,
+  saveUserAvatar,
+} from "../../../context/tokens";
 
 function Avatar({ className, refreshTrigger }) {
   const { theme } = useTheme();
@@ -21,16 +26,10 @@ function Avatar({ className, refreshTrigger }) {
           },
         });
         setUser(response.data.userInfo);
-      } catch (err) {
-        // if (err.response) {
-        //   alert(err.response.data.error);
-        // }
-      }
+      } catch (err) {}
     };
     getUser();
   }, []);
-
-  // console.log("Avatar URL:", user?.pictureUrl);
 
   const [userAvatarUrl, setUserAvatarUrl] = useState("");
   // need to add this to avoid seeing default picture for a brief moment upon reload of page
@@ -39,7 +38,8 @@ function Avatar({ className, refreshTrigger }) {
   useEffect(() => {
     const getUserPictureUrl = async () => {
       const userId = getUserId();
-      if (!userId) {
+      if (isAvatarSaved() && !refreshTrigger) {
+        setUserAvatarUrl(getUserAvatar());
         setPicLoadingStatus(true);
         return;
       }
@@ -53,10 +53,9 @@ function Avatar({ className, refreshTrigger }) {
         const imageUrl = response.data.pictureUrl;
         if (typeof imageUrl === "string") {
           setUserAvatarUrl(imageUrl);
+          saveUserAvatar(imageUrl);
         }
       } catch (err) {
-        // console.warn("Failed to fetch user avatar");
-        // alert("Failed to fetch user avatar");
       } finally {
         setPicLoadingStatus(true);
       }
