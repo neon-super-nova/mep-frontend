@@ -24,7 +24,6 @@ function RecipeBoxPage() {
 
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
-  const [/*fullname*/, setFullname] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,9 +37,8 @@ function RecipeBoxPage() {
           },
         });
         setUser(response.data.userInfo);
-        const { username, firstName, lastName } = response.data.userInfo;
+        const username = response.data.userInfo.username;
         setUsername(username);
-        setFullname(`${firstName} ${lastName}`);
       } catch (err) {
         if (err.response) {
           alert(err.response.data.error);
@@ -60,19 +58,13 @@ function RecipeBoxPage() {
 
   const PAGE_SIZE = 7;
 
-  const submittedRecipes = hardcodedUser.userSubmittedRecipes;
-  const submittedStart = (submittedPage - 1) * PAGE_SIZE;
-  const submittedEnd = submittedStart + PAGE_SIZE;
-  const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
-
   const savedRecipes = hardcodedUser.userSavedRecipes;
   const savedStart = (savedPage - 1) * PAGE_SIZE;
   const savedEnd = savedStart + PAGE_SIZE;
   const pagedsaved = savedRecipes.slice(savedStart, savedEnd);
 
-  const [/*recipeCount*/, setRecipeCount] = useState(0);
+  const [recipeCount, setRecipeCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
-  const [/*globalLikeCount*/, setGlobalLikeCount] = useState(0);
 
   useEffect(() => {
     const getCount = async () => {
@@ -93,21 +85,9 @@ function RecipeBoxPage() {
             "Content-Type": "application/json",
           },
         });
-
-        const globalLikeResult = await axios.get(
-          `api/users/${userId}/global-like-count`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
         const { recipeCount } = recipeResult.data;
         const { likeCount } = likeResult.data;
-        const { globalLikeCount } = globalLikeResult.data;
 
-        setGlobalLikeCount(globalLikeCount);
         setRecipeCount(recipeCount);
         setLikeCount(likeCount);
       } catch (err) {
@@ -119,155 +99,183 @@ function RecipeBoxPage() {
     getCount();
   }, []);
 
+  const [submittedRecipes, setSubmittedRecipes] = useState([]);
+
+  useEffect(() => {
+    const getSubmittedRecipes = async () => {
+      const userId = getUserId();
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`api/users/${userId}/recipes`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setSubmittedRecipes(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getSubmittedRecipes();
+  }, []);
+
+  // const submittedRecipes = hardcodedUser.userSubmittedRecipes;
+  const submittedStart = (submittedPage - 1) * PAGE_SIZE;
+  const submittedEnd = submittedStart + PAGE_SIZE;
+  const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
+
   return (
-    console.log(Array.isArray(submittedRecipes), submittedRecipes),
-    (
-      <div className={theme === "dark" ? "dark-mode" : ""}>
-        <div className="recipe-box-page">
-          <HeaderBar />
-          <main className="recipe-box-page-main-content">
-            <div className="recipe-box-page-header-panel">
-              <img
-                src={theme === "dark" ? iconImgDark : iconImgLight}
-                alt="landing"
-                className="recipe-box-image"
-              />
-              <div className="text-box">
-                <h2 className="recipe-box-page-panel-title">RECIPE BOX</h2>
-                <h6>
-                  <span className="bold">username:</span>
-                  <span className="reg"> {username}</span>
-                  <span style={{ marginLeft: "1rem" }}> </span>
-                  <span className="bold">sign up date:</span>
-                  <span className="reg"> {signupDate}</span>
-                </h6>
-                <h6>
-                  <span className="bold">subheading2:</span>
-                  <span className="reg"> subheading contents2</span>
-                  <span className="bold">subheading2:</span>
-                  <span className="reg"> subheading contents2</span>
-                  <div className="micro-desc">
-                    <img
-                      src={theme === "dark" ? tinylikeddark : tinylikedlight}
-                      alt="likes"
-                      className="likes"
-                    />
-                    <p className="micro-bold">Recipes Liked: </p>
-                    <p className="micro-reg">{likeCount}</p>
-                    <p className="micro-div"> | </p>
-                    <img
-                      src={theme === "dark" ? tinysaveddark : tinysavedlight}
-                      alt="saves"
-                      className="saves"
-                    />
-                  </div>
-                </h6>
-                <h6>
-                  <span className="bold">subheading2:</span>
-                  <span className="reg"> subheading contents2</span>
-                  <span className="bold">subheading2:</span>
-                  <span className="reg"> subheading contents2</span>
-                </h6>
-              </div>
+    // console.log(Array.isArray(submittedRecipes), submittedRecipes),
+    <div className={theme === "dark" ? "dark-mode" : ""}>
+      <div className="recipe-box-page">
+        <HeaderBar />
+        <main className="recipe-box-page-main-content">
+          <div className="recipe-box-page-header-panel">
+            <img
+              src={theme === "dark" ? iconImgDark : iconImgLight}
+              alt="landing"
+              className="recipe-box-image"
+            />
+            <div className="text-box">
+              <h2 className="recipe-box-page-panel-title">RECIPE BOX</h2>
+              <h6>
+                <span className="bold">username:</span>
+                <span className="reg"> {username}</span>
+                <span style={{ marginLeft: "1rem" }}> </span>
+                <span className="bold">sign up date:</span>
+                <span className="reg"> {signupDate}</span>
+              </h6>
+              <h6>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+                <div className="micro-desc">
+                  <img
+                    src={theme === "dark" ? tinylikeddark : tinylikedlight}
+                    alt="likes"
+                    className="likes"
+                  />
+                  <p className="micro-bold">Recipes Liked: </p>
+                  <p className="micro-reg">{likeCount}</p>
+                  <p className="micro-div"> | </p>
+                  <img
+                    src={theme === "dark" ? tinysaveddark : tinysavedlight}
+                    alt="saves"
+                    className="saves"
+                  />
+                </div>
+              </h6>
+              <h6>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+                <span className="bold">subheading2:</span>
+                <span className="reg"> subheading contents2</span>
+              </h6>
             </div>
-            <div className="recipe-box-page-submitted-panel">
-              <div className="recipe-box-page-submitted-panel-heading">
-                <h3 className="recipe-box-page-submitted-title">
-                  submitted recipes
-                </h3>
-                <h6>
-                  <span className="bold">subheading:</span>
-                  <span className="reg"> subheading contents</span>
-                </h6>
-                <h6>
-                  <span className="bold">submit a recipe:</span>
-                  <span className="reg">
-                    <Link
-                      to="/submit-recipe"
-                      className="home-page-left-panel-advanced-search-bold"
-                    >
-                      Submit your recipe
-                    </Link>
-                  </span>
-                </h6>
-              </div>
-              <div className="recipe-box-page-submitted-panel-cards">
-                <button
-                  disabled={submittedPage === 1}
-                  onClick={() => setSubmittedPage(submittedPage - 1)}
-                >
-                  {submittedPage !== 1 ? (
-                    <ArrowLeft
-                      color="var(--text-color)"
-                      strokeWidth={1.5}
-                      size={20}
-                    />
-                  ) : null}
-                </button>
+          </div>
+          <div className="recipe-box-page-submitted-panel">
+            <div className="recipe-box-page-submitted-panel-heading">
+              <h3 className="recipe-box-page-submitted-title">
+                submitted recipes
+              </h3>
+              <h6>
+                <span className="bold">subheading:</span>
+                <span className="reg"> subheading contents</span>
+              </h6>
+              <h6>
+                <span className="bold">submit a recipe:</span>
+                <span className="reg">
+                  <Link
+                    to="/submit-recipe"
+                    className="home-page-left-panel-advanced-search-bold"
+                  >
+                    Submit your recipe
+                  </Link>
+                </span>
+              </h6>
+            </div>
+            <div className="recipe-box-page-submitted-panel-cards">
+              <button
+                disabled={recipeCount === 1}
+                onClick={() => setSubmittedPage(recipeCount - 1)}
+              >
+                {recipeCount !== 1 ? (
+                  <ArrowLeft
+                    color="var(--text-color)"
+                    strokeWidth={1.5}
+                    size={20}
+                  />
+                ) : null}
+              </button>
 
-                {pagedSubmitted.map((recipe, idx) => (
+              {pagedSubmitted.length > 0 ? (
+                pagedSubmitted.map((recipe, idx) => (
                   <RecipeBlock key={idx} recipe={recipe} type="submitted" />
-                ))}
+                ))
+              ) : (
+                <p>No recipes submitted yet.</p>
+              )}
 
-                <button
-                  disabled={submittedEnd >= submittedRecipes.length}
-                  onClick={() => setSubmittedPage(submittedPage + 1)}
-                >
-                  {submittedEnd < submittedRecipes.length ? (
-                    <ArrowRight
-                      color="var(--text-color)"
-                      strokeWidth={1.5}
-                      size={20}
-                    />
-                  ) : null}
-                </button>
-              </div>
+              <button
+                disabled={submittedEnd >= submittedRecipes.length}
+                onClick={() => setSubmittedPage(submittedPage + 1)}
+              >
+                {submittedEnd < submittedRecipes.length ? (
+                  <ArrowRight
+                    color="var(--text-color)"
+                    strokeWidth={1.5}
+                    size={20}
+                  />
+                ) : null}
+              </button>
             </div>
-            <div className="recipe-box-page-saved-panel">
-              <div className="recipe-box-page-saved-panel-heading">
-                <h3 className="recipe-box-page-saved-title">saved recipes</h3>
-                <h6>
-                  <span className="bold">subheading:</span>
-                  <span className="reg"> subheading contents</span>
-                </h6>
-              </div>
-              <div className="recipe-box-page-saved-panel-cards">
-                <button
-                  disabled={savedPage === 1}
-                  onClick={() => setSavedPage(savedPage - 1)}
-                >
-                  {savedPage !== 1 ? (
-                    <ArrowLeft
-                      color="var(--text-color)"
-                      strokeWidth={1.5}
-                      size={20}
-                    />
-                  ) : null}
-                </button>
-                {pagedsaved.map((recipe, idx) => (
-                  <RecipeBlock key={idx} recipe={recipe} type="saved" />
-                ))}
-                <button
-                  disabled={savedEnd >= savedRecipes.length}
-                  onClick={() => setSavedPage(savedPage + 1)}
-                >
-                  {savedEnd < savedRecipes.length ? (
-                    <ArrowRight
-                      color="var(--text-color)"
-                      strokeWidth={1.5}
-                      size={20}
-                    />
-                  ) : null}
-                </button>
-              </div>
+          </div>
+          <div className="recipe-box-page-saved-panel">
+            <div className="recipe-box-page-saved-panel-heading">
+              <h3 className="recipe-box-page-saved-title">saved recipes</h3>
+              <h6>
+                <span className="bold">subheading:</span>
+                <span className="reg"> subheading contents</span>
+              </h6>
             </div>
-          </main>
-          <footer className="recipe-box-page-footer">
-            <p>Footer Content</p>
-          </footer>
-        </div>
+            <div className="recipe-box-page-saved-panel-cards">
+              <button
+                disabled={savedPage === 1}
+                onClick={() => setSavedPage(savedPage - 1)}
+              >
+                {savedPage !== 1 ? (
+                  <ArrowLeft
+                    color="var(--text-color)"
+                    strokeWidth={1.5}
+                    size={20}
+                  />
+                ) : null}
+              </button>
+              {pagedsaved.map((recipe, idx) => (
+                <RecipeBlock key={idx} recipe={recipe} type="saved" />
+              ))}
+              <button
+                disabled={savedEnd >= savedRecipes.length}
+                onClick={() => setSavedPage(savedPage + 1)}
+              >
+                {savedEnd < savedRecipes.length ? (
+                  <ArrowRight
+                    color="var(--text-color)"
+                    strokeWidth={1.5}
+                    size={20}
+                  />
+                ) : null}
+              </button>
+            </div>
+          </div>
+        </main>
+        <footer className="recipe-box-page-footer">
+          <p>Footer Content</p>
+        </footer>
       </div>
-    )
+    </div>
   );
 }
 

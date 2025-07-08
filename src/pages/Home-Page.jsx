@@ -7,8 +7,8 @@ import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
 import TrendingRecipe from "../components/ui-basic-reusables/other/trending-recipe";
 import TopRatedRecipe from "../components/ui-basic-reusables/other/top-rated-recipe";
 import axios from "axios";
-import bananaBread from "../components/img/dummy/bananabread.jpg";
-import macncheese from "../components/img/dummy/macncheese.jpg";
+// import bananaBread from "../components/img/dummy/bananabread.jpg";
+// import macncheese from "../components/img/dummy/macncheese.jpg";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 
@@ -17,7 +17,7 @@ function HomePage() {
   //const { recipeId } = useParams();
 
   const [trendingRecipes, setTrendingRecipes] = useState([]);
-  const [/*topRatedRecipes*/, setTopRatedRecipes] = useState([]);
+  const [topRatedRecipes, setTopRatedRecipes] = useState([]);
 
   //const [user, setUser] = useState(null);
 
@@ -25,7 +25,7 @@ function HomePage() {
     async function fetchTrendingRecipes() {
       try {
         const response = await axios.get("/api/recipes/trending");
-        setTrendingRecipes(response.data);
+        setTrendingRecipes(response.data.trendingRecipes);
       } catch (err) {
         console.error("Error fetching all recipes:", err);
         setTrendingRecipes([]);
@@ -38,7 +38,7 @@ function HomePage() {
     async function fetchTopRatedRecipes() {
       try {
         const response = await axios.get("/api/recipes/top-rated");
-        setTopRatedRecipes(response.data);
+        setTopRatedRecipes(response.data.topRatedRecipes);
       } catch (err) {
         console.error("Error fetching all recipes:", err);
         setTopRatedRecipes([]);
@@ -353,38 +353,63 @@ function HomePage() {
           {/* Right Panel */}
           <div className="home-page-right-panel">
             <h2 className="home-page-right-panel-title">TRENDING</h2>
-
-            {Array.isArray(trendingRecipes) &&
-              trendingRecipes.map((recipe, idx) => (
-                <TrendingRecipe
-                  key={idx}
-                  recipeImage={recipe.recipeImage}
-                  recipeName={recipe.recipeName}
-                  recipeDescription={recipe.recipeDescription}
-                />
-              ))}
+            {trendingRecipes.length > 0 ? (
+              trendingRecipes.map((trendingRecipe) => {
+                return (
+                  <TrendingRecipe
+                    recipeId={trendingRecipe._id}
+                    recipeName={trendingRecipe.name}
+                    recipeImage={trendingRecipe.imageUrl}
+                    recipeDescription={trendingRecipe.description}
+                  />
+                );
+              })
+            ) : (
+              <p>Loading ...</p>
+            )}
 
             <h2 className="home-page-right-panel-title">TOP RATED</h2>
-            <TopRatedRecipe
-              recipeImage={bananaBread}
-              recipeName="Banana Bread"
-              recipeRating={4.8}
-              recipeDescription="A moist, delicious banana bread recipe perfect for any time of day."
-              cuisineRegion="North American"
-              dietaryRestriction="Dairy-Free"
-              proteinChoice="None"
-              religiousRestriction="Kosher"
-            />
-            <TopRatedRecipe
-              recipeImage={macncheese}
-              recipeName="Mac & Cheese Supreme"
-              recipeRating={3.8}
-              recipeDescription="Creamy, cheesy, and oven-baked to perfection. This is a comfort food classic with a gourmet twist."
-              cuisineRegion="North American"
-              dietaryRestriction="Vegetarian"
-              proteinChoice="Eggs"
-              religiousRestriction="None"
-            />
+            {topRatedRecipes.length > 0 ? (
+              topRatedRecipes.map((topRatedRecipe) => {
+                return (
+                  <TopRatedRecipe
+                    recipeId={topRatedRecipe.id}
+                    recipeImage={topRatedRecipe.imageUrl}
+                    recipeName={topRatedRecipe.name}
+                    recipeRating={topRatedRecipe.rating}
+                    recipeDescription={topRatedRecipe.description}
+                    cuisineRegion={topRatedRecipe.cuisineRegion}
+                    dietaryRestriction={topRatedRecipe.dietaryRestriction}
+                    proteinChoice={topRatedRecipe.proteinChoice}
+                    religiousRestriction={topRatedRecipe.religiousRestriction}
+                  />
+                );
+              })
+            ) : (
+              <div>
+                <p>Loading ...</p>
+                {/* <TopRatedRecipe
+                  recipeImage={bananaBread}
+                  recipeName="Banana Bread"
+                  recipeRating={4.8}
+                  recipeDescription="A moist, delicious banana bread recipe perfect for any time of day."
+                  cuisineRegion="North American"
+                  dietaryRestriction="Dairy-Free"
+                  proteinChoice="None"
+                  religiousRestriction="Kosher"
+                />
+                <TopRatedRecipe
+                  recipeImage={macncheese}
+                  recipeName="Mac & Cheese Supreme"
+                  recipeRating={3.8}
+                  recipeDescription="Creamy, cheesy, and oven-baked to perfection. This is a comfort food classic with a gourmet twist."
+                  cuisineRegion="North American"
+                  dietaryRestriction="Vegetarian"
+                  proteinChoice="Eggs"
+                  religiousRestriction="None"
+                /> */}
+              </div>
+            )}
           </div>
         </main>
 

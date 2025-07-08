@@ -7,7 +7,7 @@
   font-family: "Work Sans", sans-serif;
   letter-spacing: 0.75px;
   width: 30rem;
-  height: 8.75rem;
+  height: 11.5rem;
 }
 
 .top-rated-recipe-img {
@@ -16,6 +16,7 @@
   margin-right: 0.75rem;
   border: var(--minor-accent-color-1) solid 0.2rem;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .top-rated-recipe-right-side {
