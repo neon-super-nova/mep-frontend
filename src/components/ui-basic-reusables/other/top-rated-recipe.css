@@ -1,28 +1,31 @@
-.trending-recipe-container {
+.top-rated-recipe-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   border: none;
-  margin: 0.05rem;
+  margin: 0.5rem;
   margin-top: 1.5rem;
-  padding: 0.025rem;
+  padding: 0.625rem;
   font-family: "Work Sans", sans-serif;
   letter-spacing: 0.75px;
-  width: 24rem;
-  height: auto;
+  width: 30rem;
+  height: 8.75rem;
 }
 
-.trending-recipe-img {
-  width: 24rem;
-  height: 18rem;
-  margin-bottom: 0.75rem;
+.top-rated-recipe-img {
+  width: 25%;
+  height: 98%;
+  margin-right: 0.75rem;
   border: var(--minor-accent-color-1) solid 0.2rem;
   object-fit: cover;
 }
 
+.top-rated-recipe-right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
 
-.trending-recipe-title {
+.top-rated-recipe-title {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
@@ -32,7 +35,7 @@
   color: var(--text-color);
 }
 
-.trending-recipe-user-rating {
+.top-rated-recipe-user-rating {
   display: flex;
   align-items: center;
   margin-bottom: 0.25rem;
@@ -43,7 +46,7 @@
   flex-wrap: wrap;
 }
 
-.trending-user-rating-label {
+.top-rated-user-rating-label {
   font-size: 0.75rem;
   font-family: "Work Sans", sans-serif;
   letter-spacing: 0.5px;
@@ -53,7 +56,7 @@
   color: var(--text-color);
 }
 
-.trending-recipe-description {
+.top-rated-recipe-description {
   font-size: 0.75rem;
   font-family: "Work Sans", sans-serif;
   letter-spacing: 0.5px;
@@ -65,13 +68,13 @@
   line-height: 1.2;
 }
 
-.trending-recipe-tags {
+.top-rated-recipe-tags {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
 }
 
-.trending-recipe-tag {
+.top-rated-recipe-tag {
   padding: 0.25rem;
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;

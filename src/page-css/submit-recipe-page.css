@@ -1,0 +1,34 @@
+.submit-recipe-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-color, #faf9f6);
+}
+
+.submit-recipe-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.submit-recipe-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--main-accent-color-alt, #2a5d4d);
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.submit-recipe-footer {
+  background: var(--minor-accent-color-2b, #eaeaea);
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 4px solid var(--main-accent-color-alt, #2a5d4d);
+  font-size: 1rem;
+  color: var(--text-color, #333);
+}

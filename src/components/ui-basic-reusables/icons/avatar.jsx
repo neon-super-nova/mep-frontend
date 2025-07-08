@@ -1,15 +1,36 @@
 import { useTheme } from "../../../context/theme-context";
-import hardcodedUser from "../../../context/hardcoded-user";
 import userDark from "../../img/user/default-user-dark_web.png";
 import userLight from "../../img/user/default-user-light_web.png";
 import { getUserId } from "../../../context/decodeToken";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function Avatar({ className }) {
+function Avatar({ className, refreshTrigger }) {
   const { theme } = useTheme();
-  const user = hardcodedUser;
-  console.log('Avatar URL:', user?.pictureUrl);
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const getUser = async () => {
+      const userId = getUserId();
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`api/users/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setUser(response.data.userInfo);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+    };
+    getUser();
+  }, []);
+
+  console.log("Avatar URL:", user?.pictureUrl);
 
   const [userAvatarUrl, setUserAvatarUrl] = useState("");
   // need to add this to avoid seeing default picture for a brief moment upon reload of page
@@ -41,7 +62,7 @@ function Avatar({ className }) {
       }
     };
     getUserPictureUrl();
-  }, []);
+  }, [refreshTrigger]); 
 
   return picLoadingStatus ? (
     userAvatarUrl ? (
@@ -49,7 +70,7 @@ function Avatar({ className }) {
     ) : (
       <img
         src={
-          user.pictureUrl
+          user && user.pictureUrl
             ? user.pictureUrl
             : theme === "dark"
             ? userDark

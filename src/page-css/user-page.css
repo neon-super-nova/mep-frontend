@@ -164,11 +164,11 @@ html {
   letter-spacing: 0.025rem;
   color: var(--text-color);
   font-size: 0.85rem;
-    white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-    max-width: 15rem;
-  display: block;  
+  max-width: 15rem;
+  display: block;
 }
 
 .profile-top-panel .desc-reg {
@@ -178,9 +178,8 @@ html {
   letter-spacing: 0.025rem;
   color: var(--text-color);
   font-size: 0.90rem;
-
-      max-width: 12rem;
-  display: block;  
+  max-width: 12rem;
+  display: block;
 }
 
 .desc-row {
@@ -189,6 +188,168 @@ html {
   gap: 0.5rem;
   align-items: flex-start;
   margin-bottom: -0.65rem;
+}
+
+/*
+
+
+edit-pencil-icon
+edit-user-info-form
+edit-user-info-save
+edit-user-info-cancel
+avatar-upload-form
+avatar-upload-label
+avatar-upload-input
+avatar-upload-btn
+
+*/
+
+.spacer-quarter {
+  height: 0.25rem;
+  width: 100%;
+}
+
+.spacer-eighth {
+  height: 0.125rem;
+  width: 100%;
+}
+
+.personal-preferences-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: -0.5rem;
+}
+
+.personal-preferences-title {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--main-accent-color-alt);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+
+.edit-toggle-link {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--main-accent-color-alt);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.edit-user-info-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.25rem;
+  transform: translateY(-0.35rem);
+}
+
+.edit-user-info-form .desc-reg {
+  background-color: var(--main-accent-color-alt);
+  border: 1.75px solid var(--minor-accent-color-2b);
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color-invert);
+  font-size: 0.775rem;
+  padding: 0.125rem 0.25rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 12rem;
+
+}
+
+.edit-user-info-save {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--text-color-alt);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.edit-user-info-cancel {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--minor-accent-color-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.avatar-upload-form {
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  margin-right: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.avatar-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0;
+  margin-left: 1.75rem;
+}
+
+.avatar-upload-input {
+  width: 100%;
+  min-height: unset;
+  margin-bottom: 0.5rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+
+}
+
+.avatar-upload-btn {
+  margin-bottom: 0.5rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.015rem;
+  color: var(--text-color);
+  font-size: 0.80rem;
+
+  cursor: pointer;
+}
+
+.avatar-upload-filename {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--main-accent-color-alt);
+  word-break: break-all;
+  background: none;
+  text-align: center;
+  width: 100%;
 }
 
 .micro-desc {

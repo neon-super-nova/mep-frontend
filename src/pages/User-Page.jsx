@@ -1,5 +1,5 @@
 import "../page-css/user-page.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
@@ -11,15 +11,26 @@ import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png
 import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
 import axios from "axios";
 import { getUserId } from "../context/decodeToken.js";
-import { useEffect } from "react";
-// import { useScript } from "react-apple-signin-auth";
+import { Pencil } from "lucide-react";
 
 function UserPage() {
   const { theme } = useTheme();
   const [user, setUser] = useState(null);
+  const [avatarRefresh, setAvatarRefresh] = useState(0);
+
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
- 
+
+  const [editingField, setEditingField] = useState(null);
+  const [editFields, setEditFields] = useState({
+    favoriteCuisine: "",
+    favoriteMeal: "",
+    favoriteDish: "",
+    dietaryRestriction: "",
+  });
+
+  const [showPencils, setShowPencils] = useState(false);
+  const [selectedAvatarFile, setSelectedAvatarFile] = useState("");
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,7 +43,7 @@ function UserPage() {
             "Content-Type": "application/json",
           },
         });
-        setUser(response.data.userInfo); 
+        setUser(response.data.userInfo);
         const { username, firstName, lastName } = response.data.userInfo;
         setUsername(username);
         setFullname(`${firstName} ${lastName}`);
@@ -44,6 +55,26 @@ function UserPage() {
     };
     getUser();
   }, []);
+
+  // Avatar upload handler
+  const handleAvatarUpload = async (file) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    try {
+      await axios.post("/api/users/image", formData, { headers });
+      setAvatarRefresh((v) => v + 1);
+    } catch (err) {
+      alert(err.response?.data?.error || "Failed to upload avatar.");
+    }
+  };
 
   // fetching user recipe and like count
   const [recipeCount, setRecipeCount] = useState(0);
@@ -86,7 +117,6 @@ function UserPage() {
         setGlobalLikeCount(globalLikeCount);
         setRecipeCount(recipeCount);
         setLikeCount(likeCount);
-
       } catch (err) {
         if (err.response) {
           alert(err.response.data.error);
@@ -96,7 +126,7 @@ function UserPage() {
     getCount();
   }, []);
 
-  // fetching user-info collection: favorite cuisine, meal, dish, and dietary restrictions
+  // fetching user-info collection
 
   const [userInfo, setUserInfo] = useState({
     favoriteCuisine: "",
@@ -104,9 +134,6 @@ function UserPage() {
     favoriteDish: "",
     dietaryRestriction: [],
   });
-
-  const { favoriteCuisine, favoriteMeal, favoriteDish, dietaryRestriction } =
-    userInfo;
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -120,7 +147,17 @@ function UserPage() {
           },
         });
         const responseUserInfo = response.data.userInfo;
+        console.log("Fetched userInfo:", responseUserInfo);
+        console.log("userInfo.userId:", responseUserInfo?.userId);
         setUserInfo(responseUserInfo);
+        setEditFields({
+          favoriteCuisine: responseUserInfo?.favoriteCuisine || "",
+          favoriteMeal: responseUserInfo?.favoriteMeal || "",
+          favoriteDish: responseUserInfo?.favoriteDish || "",
+          dietaryRestriction: (responseUserInfo?.dietaryRestriction || []).join(
+            ", "
+          ),
+        });
       } catch (err) {
         if (err.response) {
           alert(err.response.data.error);
@@ -129,6 +166,117 @@ function UserPage() {
     };
     getUserInfo();
   }, []);
+
+  const displayOrPlaceholder = (val) =>
+    val && (Array.isArray(val) ? val.length > 0 : val !== "")
+      ? Array.isArray(val)
+        ? val.join(", ")
+        : val
+      : "Not filled out";
+
+  const handleFieldEdit = async (e, field) => {
+    e.preventDefault();
+    const userId = getUserId();
+    if (!userId) return;
+    const value = editFields[field];
+    if (!value || value === "Not filled out") {
+      setEditingField(null);
+      return;
+    }
+    const allFields = [
+      "favoriteCuisine",
+      "favoriteMeal",
+      "favoriteDish",
+      "dietaryRestriction",
+    ];
+    const isArrayField = (f) => f === "dietaryRestriction";
+    const patchBody = {
+      [field]: isArrayField(field)
+        ? value
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : value,
+    };
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+    try {
+      const response = await axios.patch(`/api/users/user-info/`, patchBody, {
+        headers,
+      });
+      let updated = response.data?.userInfo;
+      if (!updated && response.data && typeof response.data === "object") {
+        updated = response.data;
+      }
+      if (!updated || updated.message) {
+        try {
+          const userInfoResp = await axios.get(
+            `api/users/user-info/${userId}`,
+            { headers }
+          );
+          updated = userInfoResp.data.userInfo;
+        } catch (fetchErr) {
+          console.warn("Failed to fetch userInfo after PATCH/POST:", fetchErr);
+        }
+      }
+      if (!updated) {
+        console.warn("PATCH/POST response missing userInfo:", response.data);
+      }
+      console.log("Updated userInfo after PATCH/POST:", updated);
+      setUserInfo(updated);
+      setEditFields({
+        favoriteCuisine: updated?.favoriteCuisine || "",
+        favoriteMeal: updated?.favoriteMeal || "",
+        favoriteDish: updated?.favoriteDish || "",
+        dietaryRestriction: (updated?.dietaryRestriction || []).join(", "),
+      });
+      setEditingField(null);
+    } catch (err) {
+      const errorMsg = err.response?.data?.error;
+      if (errorMsg && errorMsg.toLowerCase() === "empty user info") {
+        try {
+          const postBody = { userId };
+          allFields.forEach((f) => {
+            if (f === field) {
+              postBody[f] = isArrayField(f)
+                ? value
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean)
+                : value;
+            } else if (isArrayField(f)) {
+              postBody[f] = [""];
+            } else {
+              postBody[f] = "";
+            }
+          });
+          const response = await axios.post(`/api/users/user-info`, postBody, {
+            headers,
+          });
+          console.log("POST response.data:", response.data);
+          const updated = response.data.userInfo || response.data;
+          setUserInfo(updated);
+          setEditFields({
+            favoriteCuisine: updated?.favoriteCuisine || "",
+            favoriteMeal: updated?.favoriteMeal || "",
+            favoriteDish: updated?.favoriteDish || "",
+            dietaryRestriction: (updated?.dietaryRestriction || []).join(", "),
+          });
+          setEditingField(null);
+        } catch (postErr) {
+          alert(
+            postErr.response?.data?.error ||
+              "Failed to create user info. Please try again."
+          );
+        }
+      } else {
+        alert(errorMsg || "Failed to update user info. Please try again.");
+      }
+    }
+  };
 
   const signupDate = user?.signupDate
     ? new Date(user.signupDate).toLocaleDateString("en-US", {
@@ -155,7 +303,40 @@ function UserPage() {
               <h2 className="profile-page-panel-title">User Profile</h2>
               <div className="profile-top-panel left">
                 <div className="profile-top-panel avatar">
-                  <Avatar className="profile-image" />
+                  <Avatar
+                    className="profile-image"
+                    refreshTrigger={avatarRefresh}
+                  />
+                  {showPencils && (
+                    <form className="avatar-upload-form">
+                      <label
+                        htmlFor="avatar-upload"
+                        className="avatar-upload-label"
+                      >
+                        <input
+                          id="avatar-upload"
+                          type="file"
+                          accept="image/*"
+                          className="avatar-upload-input"
+                          onChange={(e) => {
+                            if (e.target.files && e.target.files[0]) {
+                              handleAvatarUpload(e.target.files[0]);
+                              setSelectedAvatarFile(e.target.files[0].name);
+                              e.target.value = "";
+                            } else {
+                              setSelectedAvatarFile("");
+                            }
+                          }}
+                        />
+                        <span className="avatar-upload-btn">Change Avatar</span>
+                        {selectedAvatarFile && (
+                          <div className="avatar-upload-filename">
+                            {selectedAvatarFile}
+                          </div>
+                        )}
+                      </label>
+                    </form>
+                  )}
                 </div>
                 <div className="profile-top-panel info">
                   <div className="desc-row">
@@ -167,35 +348,91 @@ function UserPage() {
                     <p className="desc-bold">Full Name:</p>
                     <p className="desc-reg name">{fullname}</p>
                   </div>
-                  <div style={{ height: "0.25rem" }}></div>
                   <div className="desc-row">
                     <p className="desc-bold">Signup Date:</p>
                     <p className="desc-reg">{signupDate}</p>
                   </div>
-                    <div style={{ height: "0.25rem" }}></div>
-                          <div className="desc-row">
-                      <p className="desc-bold">Favorite Global Cuisine:</p>
-                      <p className="desc-reg">{favoriteCuisine}</p>
+                  <div className="spacer-quarter" />
+                  <div className="personal-preferences-row">
+                    <h4 className="personal-preferences-title">
+                      Personal Preferences
+                    </h4>
+                  </div>
+                  <div className="spacer-quarter" />
+                  {[
+                    "favoriteCuisine",
+                    "favoriteMeal",
+                    "favoriteDish",
+                    "dietaryRestriction",
+                  ].map((field) => (
+                    <div className="desc-row" key={field}>
+                      <label className="desc-bold">
+                        {field === "favoriteCuisine" &&
+                          "Favorite Global Cuisine:"}
+                        {field === "favoriteMeal" && "Favorite Meal:"}
+                        {field === "favoriteDish" && "Favorite Dish:"}
+                        {field === "dietaryRestriction" && "Diet Restrictions:"}
+                      </label>
+                      {showPencils && editingField === field ? (
+                        <form
+                          onSubmit={(e) => handleFieldEdit(e, field)}
+                          className="edit-user-info-form"
+                        >
+                          <input
+                            className="desc-reg"
+                            type="text"
+                            value={editFields[field]}
+                            onChange={(e) =>
+                              setEditFields((f) => ({
+                                ...f,
+                                [field]: e.target.value,
+                              }))
+                            }
+                          />
+                          <button type="submit" className="edit-user-info-save">
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            className="edit-user-info-cancel"
+                            onClick={() => setEditingField(null)}
+                          >
+                            Cancel
+                          </button>
+                        </form>
+                      ) : (
+                        <>
+                          <span className="desc-reg">
+                            {displayOrPlaceholder(userInfo?.[field])}
+                          </span>
+                          {showPencils && (
+                            <Pencil
+                              className="edit-pencil-icon"
+                              color="var(--main-accent-color-alt)"
+                              fill="var(--main-accent-color)"
+                              strokeWidth={1.5}
+                              size={14}
+                              title="Edit"
+                              onClick={() => setEditingField(field)}
+                            />
+                          )}
+                        </>
+                      )}
                     </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Favorite Meal:</p>
-                      <p className="desc-reg">{favoriteMeal}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Favorite Dish:</p>
-                      <p className="desc-reg">{favoriteDish}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Diet Restrictions: </p>
-                      <p className="desc-reg">
-                        {dietaryRestriction.join(", ")}
-                      </p>
-                    </div>
-                  <div style={{ height: "0.25rem" }}></div>
+                  ))}
+                  <div className="spacer-quarter" />
+                  <h5
+                    className="edit-toggle-link"
+                    style={{ cursor: "pointer", textAlign: "right", margin: 0 }}
+                    onClick={() => setShowPencils((v) => !v)}
+                  >
+                    {showPencils ? "Hide" : "Edit"}
+                  </h5>
+                  <div className="spacer-quarter" />
                   <div className="desc-row">
                     <p className="desc-bold">User Recipes:</p>
                   </div>
-                  <div style={{ height: "0.005rem" }}></div>
+                  <div className="spacer-eighth" />
                   <div className="micro-desc">
                     <img
                       src={theme === "dark" ? tinysubmitdark : tinysubmitlight}
@@ -222,11 +459,11 @@ function UserPage() {
                     <p className="micro-bold">Global Saves: </p>
                     <p className="micro-reg">{db_recipe_saved}</p>
                   </div>
-                                      <div style={{ height: "0.25rem" }}></div>
+                  <div className="spacer-quarter" />
                   <div className="desc-row">
                     <p className="desc-bold">Recipe Box:</p>
                   </div>
-                  <div style={{ height: "0.005rem" }}></div>
+                  <div className="spacer-eighth" />
                   <div className="micro-desc">
                     <img
                       src={theme === "dark" ? tinylikeddark : tinylikedlight}
@@ -250,31 +487,28 @@ function UserPage() {
             <div className="profile-top-panel-container-right">
               <h2 className="profile-page-panel-title">User Settings</h2>
               <div className="profile-top-panel right">
-                {userInfo ? (
-                  <div className="profile-top-panel info">
-                    <div className="desc-row">
-                      <p className="desc-bold">Email Updates</p>
-                      <p className="desc-reg">yes or no boolean</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Newsletter</p>
-                      <p className="desc-reg">yes or no boolean</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Notification Settings</p>
-                      <p className="desc-reg">email, pings for likes</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Delete Account </p>
-                      <p className="desc-reg">
-                        go to subpage
-                      </p>
-                    </div>
-                    <div style={{ height: "0.25rem" }}></div>
+                <div className="profile-top-panel info">
+                  <div className="desc-row">
+                    <p className="desc-bold">Email Updates</p>
+                    <p className="desc-reg">yes or no boolean</p>
+                  </div>
+                  <div className="desc-row">
+                    <p className="desc-bold">Newsletter</p>
+                    <p className="desc-reg">yes or no boolean</p>
+                  </div>
+                  <div className="desc-row">
+                    <p className="desc-bold">Notification Settings</p>
+                    <p className="desc-reg">email, pings for likes</p>
+                  </div>
+                  <div className="desc-row">
+                    <p className="desc-bold">Delete Account </p>
+                    <p className="desc-reg">go to subpage</p>
+                  </div>
+                  <div className="spacer-quarter" />
                   <div className="desc-row">
                     <p className="desc-bold">Privacy Settings:</p>
                   </div>
-                  <div style={{ height: "0.005rem" }}></div>
+                  <div className="spacer-eighth" />
                   <div className="micro-desc">
                     <img
                       src={theme === "dark" ? tinylikeddark : tinylikedlight}
@@ -292,10 +526,7 @@ function UserPage() {
                     <p className="micro-bold">Blocked Users: </p>
                     <p className="micro-reg">mapped out list, unblock button</p>
                   </div>
-                  </div>
-                ) : (
-                  <p>Loading</p>
-                )}
+                </div>
               </div>
             </div>
           </div>

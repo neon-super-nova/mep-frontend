@@ -19,9 +19,9 @@ function AdvancedBlocks({ subheading, blocks }) {
                 className="advanced-browse-blocks-block"
                 onClick={onClick}
               >
-                <div className="recipe-block-image">
+                <div className="advanced-recipe-block-image">
                   <img
-                    className="recipe-block-thumbnail"
+                    className="advanced-recipe-block-thumbnail"
                     src={
                       recipe.imageUrl
                         ? recipe.imageUrl
@@ -30,6 +30,11 @@ function AdvancedBlocks({ subheading, blocks }) {
                         : dummyImgLight
                     }
                     alt={recipe.name}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        theme === "dark" ? dummyImgDark : dummyImgLight;
+                    }}
                   />
                 </div>
                 <div className="recipe-block-text">

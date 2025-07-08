@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { cuisineData } from "../data/cuisineData";
 import "../page-css/advanced-search-page.css";
@@ -16,14 +17,8 @@ function AdvancedSearchPage() {
   const [allRecipes, setAllRecipes] = useState([]);
   const navigate = useNavigate();
 
-  const recipeBlocks = allRecipes.map((recipe) => ({
-    recipe,
-    onClick: () => navigate(`/recipes/${recipe._id}`),
-    type: "submitted",
-  }));
-
   const handleActiveCategories = (category) => {
-    setActiveCategories(activeCategories === category ? null : category);
+    setActiveCategories((prev) => (prev === category ? null : category));
   };
 
   const sortOptions = ["Salmon Croquettes", "Tuna Salad", "Chicken Alfredo"];
@@ -34,7 +29,12 @@ function AdvancedSearchPage() {
     async function fetchAllRecipes() {
       try {
         const response = await axios.get("/api/recipes");
-        setAllRecipes(response.data); // assuming response.data.recipes is an array
+        // Use .recipes if present, otherwise fallback to response.data
+        setAllRecipes(
+          Array.isArray(response.data)
+            ? response.data
+            : response.data.recipes || []
+        );
       } catch (err) {
         console.error("Error fetching all recipes:", err);
         setAllRecipes([]);
@@ -42,6 +42,14 @@ function AdvancedSearchPage() {
     }
     fetchAllRecipes();
   }, []);
+
+  const recipeBlocks = Array.isArray(allRecipes)
+    ? allRecipes.map((recipe) => ({
+        recipe,
+        onClick: () => navigate(`/recipe/${recipe._id}`),
+        type: "submitted",
+      }))
+    : [];
 
   /*
 const uniqueCuisineRegions = [
@@ -55,14 +63,10 @@ const uniqueDietaryRestrictions = [
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <div className="advanced-search-page">
-        {/* Header */}
         <HeaderBar />
-        {/* Main Content */}
         <main className="advanced-search-page-main-content">
-          {/* Left Panel */}
           <div className="advanced-search-page-left-panel">
             <h2 className="advanced-search-page-title">FILTERS</h2>
-            {/* Cuisine Region Filter */}
             <div className="advanced-search-page-filter-box">
               <p className="advanced-search-page-filter-name">CUISINE REGION</p>
               <ul className="advanced-search-page-filter-list">
@@ -112,7 +116,7 @@ const uniqueDietaryRestrictions = [
               </ul>
             </div>
           </div>
-          {/* Right Panel */}
+
           <div className="advanced-search-page-right-panel">
             <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
             <div className="advanced-search-page-search-bar">
@@ -137,23 +141,22 @@ const uniqueDietaryRestrictions = [
               <span className="advanced-search-page-tags-label">
                 <h5>label</h5>
               </span>
-                 </div>
-              <div className="advanced-search-page-tags">
-                <span className="advanced-search-page-tag">Tag 1</span>
-                <span className="advanced-search-page-tag">Tag 2</span>
-                <span className="advanced-search-page-tag">Tag 3</span>
-              </div>
-           <div className="advanced-search-page-advanced-blocks">
-  {allRecipes.length > 0 ? (
-    <AdvancedBlocks
-      subheading="Browse by Cuisine Region"
-      blocks={recipeBlocks}
-    />
-  ) : (
-    <div>No recipes found.</div>
-  )}
-</div>
-         
+            </div>
+            <div className="advanced-search-page-tags">
+              <span className="advanced-search-page-tag">Tag 1</span>
+              <span className="advanced-search-page-tag">Tag 2</span>
+              <span className="advanced-search-page-tag">Tag 3</span>
+            </div>
+            <div className="advanced-search-page-advanced-blocks">
+              {Array.isArray(allRecipes) && allRecipes.length > 0 ? (
+                <AdvancedBlocks
+                  subheading="Browse by Cuisine Region"
+                  blocks={recipeBlocks}
+                />
+              ) : (
+                <div>No recipes found.</div>
+              )}
+            </div>
           </div>
         </main>
       </div>
