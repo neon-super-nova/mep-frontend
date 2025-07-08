@@ -19,8 +19,8 @@
   margin-bottom: 0.75rem;
   border: var(--minor-accent-color-1) solid 0.2rem;
   object-fit: cover;
+  cursor: pointer;
 }
-
 
 .trending-recipe-title {
   font-family: "Inter", sans-serif;

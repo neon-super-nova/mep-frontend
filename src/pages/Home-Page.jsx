@@ -357,6 +357,7 @@ function HomePage() {
               trendingRecipes.map((trendingRecipe) => {
                 return (
                   <TrendingRecipe
+                    recipeId={trendingRecipe._id}
                     recipeName={trendingRecipe.name}
                     recipeImage={trendingRecipe.imageUrl}
                     recipeDescription={trendingRecipe.description}
@@ -372,6 +373,7 @@ function HomePage() {
               topRatedRecipes.map((topRatedRecipe) => {
                 return (
                   <TopRatedRecipe
+                    recipeId={topRatedRecipe.id}
                     recipeImage={topRatedRecipe.imageUrl}
                     recipeName={topRatedRecipe.name}
                     recipeRating={topRatedRecipe.rating}

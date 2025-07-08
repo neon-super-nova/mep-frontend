@@ -22,15 +22,15 @@ function Avatar({ className, refreshTrigger }) {
         });
         setUser(response.data.userInfo);
       } catch (err) {
-        if (err.response) {
-          alert(err.response.data.error);
-        }
+        // if (err.response) {
+        //   alert(err.response.data.error);
+        // }
       }
     };
     getUser();
   }, []);
 
-  console.log("Avatar URL:", user?.pictureUrl);
+  // console.log("Avatar URL:", user?.pictureUrl);
 
   const [userAvatarUrl, setUserAvatarUrl] = useState("");
   // need to add this to avoid seeing default picture for a brief moment upon reload of page
@@ -62,7 +62,7 @@ function Avatar({ className, refreshTrigger }) {
       }
     };
     getUserPictureUrl();
-  }, [refreshTrigger]); 
+  }, [refreshTrigger]);
 
   return picLoadingStatus ? (
     userAvatarUrl ? (
