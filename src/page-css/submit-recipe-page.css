@@ -8,10 +8,10 @@
 .submit-recipe-main-content {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
 .submit-recipe-title {
@@ -19,10 +19,86 @@
   font-size: 2rem;
   font-weight: 700;
   color: var(--main-accent-color-alt, #2a5d4d);
-  margin-bottom: 2rem;
+  margin: 1.5rem 0 0.25rem 0;
   text-align: center;
   letter-spacing: 0.05em;
 }
+
+.submit-recipe-major-left {
+  background-color: chocolate;
+display: flex;
+flex-direction: column;
+width: 50vw;
+height: 75vh;
+}
+
+.submit-recipe-small {
+background-color: cornflowerblue;
+}
+
+.submit-recipe-small .bold {
+background-color: yellowgreen;
+}
+
+.submit-recipe-small .reg {
+background-color: lightblue;
+}
+
+.submit-recipe-headline {
+background-color: green;
+}
+
+.submit-recipe-image {
+background-color: lightcoral;
+display: flex;
+flex-direction: row;
+width: 100%;
+}
+
+.submit-recipe-image img {
+    width: 33.3%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+.submit-recipe-major-right {
+background-color: lightseagreen;
+display: flex;
+flex-direction: column;
+width: 50vw;
+height: 75vh;
+}
+
+.submit-recipe-notes {
+  background-color: lightyellow;
+}
+.submit-recipe-notes .left {
+  background-color: yellow;
+}
+.submit-recipe-notes .right {
+  background-color: lightgreen;
+}
+
+.submit-recipe-details {
+  background-color: lightgray;
+}
+
+.submit-recipe-details .left {
+  background-color: cyan;
+}
+.submit-recipe-details .right {
+  background-color: magenta;
+}
+
+.submit-recipe-bottom {
+  background-color: lightpink;
+}
+
+.submit-recipe-author-notes {
+  background-color: orange;
+}
+
 
 .submit-recipe-footer {
   background: var(--minor-accent-color-2b, #eaeaea);

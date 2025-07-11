@@ -37,8 +37,8 @@
   --accent-color-neutral-white: #f5f5f5;
   --accent-color-neutral-charcoal: #2c2d2d;
   --accent-color-neutral-black: #171717;
-  --shadow-elevated: 0 4px 16px rgba(23, 23, 23, 0.15);
-  --shadow-elevated-modal: 0 1px 4px rgba(23, 23, 23, 0.15);
+  --shadow-elevated: 0 4px 16px rgba(23, 23, 23, 0.25);
+  --shadow-elevated-modal: 0 1px 4px rgba(23, 23, 23, 0.25);
 }
 
 .dark {

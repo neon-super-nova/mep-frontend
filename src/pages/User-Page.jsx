@@ -25,7 +25,6 @@ function UserPage() {
 
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
-
   const [editingField, setEditingField] = useState(null);
   const [editFields, setEditFields] = useState({
     favoriteCuisine: "",
@@ -236,16 +235,8 @@ function UserPage() {
     } catch (err) {}
   };
 
-  const signupDate = user?.signupDate
-    ? new Date(user.signupDate).toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "numeric",
-      })
-    : "signupDate(##/##/####)";
-
   const db_recipe_saved = "000000";
-  //const db_recipe_liked = "000000";
+
   const user_recipe_saved = "000000";
 
   return (
@@ -301,6 +292,7 @@ function UserPage() {
                     <p className="desc-bold">Username:</p>
                     <p className="desc-reg">{username}</p>
                   </div>
+                  <div className="spacer-eighth" />
                   <div className="desc-row"></div>
                   <div className="desc-row">
                     <p className="desc-bold">Full Name:</p>
@@ -308,7 +300,15 @@ function UserPage() {
                   </div>
                   <div className="desc-row">
                     <p className="desc-bold">Signup Date:</p>
-                    <p className="desc-reg">{signupDate}</p>
+                    <p className="desc-reg">
+                      {user && user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                          })
+                        : "Loading..."}
+                    </p>
                   </div>
                   <div className="spacer-quarter" />
                   <div className="personal-preferences-row">
@@ -323,41 +323,94 @@ function UserPage() {
                     "favoriteDish",
                     "dietaryRestriction",
                   ].map((field) => (
-                    <div className="desc-row" key={field}>
-                      <label className="desc-bold">
+                    <div
+                      className={
+                        "desc-row" +
+                        (field === "dietaryRestriction"
+                          ? " dietary-desc-row"
+                          : "")
+                      }
+                      key={field}
+                    >
+                      <span className="desc-bold">
                         {field === "favoriteCuisine" &&
                           "Favorite Global Cuisine:"}
                         {field === "favoriteMeal" && "Favorite Meal:"}
                         {field === "favoriteDish" && "Favorite Dish:"}
-                        {field === "dietaryRestriction" && "Diet Restrictions:"}
-                      </label>
+                        {field === "dietaryRestriction" &&
+                          "Dietary Restriction:"}
+                      </span>
                       {showPencils && editingField === field ? (
                         <form
                           onSubmit={(e) => handleFieldEdit(e, field)}
                           className="edit-user-info-form"
                         >
-                          <input
-                            className="desc-reg"
-                            type="text"
-                            value={editFields[field]}
-                            onChange={(e) =>
-                              setEditFields((f) => ({
-                                ...f,
-                                [field]: e.target.value,
-                              }))
-                            }
-                          />
-                          <button type="submit" className="edit-user-info-save">
-                            Save
-                          </button>
-                          <button
-                            type="button"
-                            className="edit-user-info-cancel"
-                            onClick={() => setEditingField(null)}
-                          >
-                            Cancel
-                          </button>
+                          {field === "dietaryRestriction" ? (
+                            <textarea
+                              className="desc-reg"
+                              value={editFields[field]}
+                              onChange={(e) =>
+                                setEditFields((f) => ({
+                                  ...f,
+                                  [field]: e.target.value,
+                                }))
+                              }
+                              rows={4}
+                              style={{ resize: "vertical" }}
+                            />
+                          ) : (
+                            <input
+                              className="desc-reg"
+                              type="text"
+                              value={editFields[field]}
+                              onChange={(e) =>
+                                setEditFields((f) => ({
+                                  ...f,
+                                  [field]: e.target.value,
+                                }))
+                              }
+                            />
+                          )}
+                          <div className="user-button-container">
+                            <button
+                              type="submit"
+                              className="edit-user-info-save"
+                            >
+                              Save
+                            </button>
+                            <button
+                              type="button"
+                              className="edit-user-info-cancel"
+                              onClick={() => setEditingField(null)}
+                            >
+                              Cancel
+                            </button>
+                          </div>
                         </form>
+                      ) : field === "dietaryRestriction" ? (
+                        <>
+                          <ul className="dietary-list">
+                            {Array.isArray(userInfo?.dietaryRestriction) &&
+                            userInfo.dietaryRestriction.length > 0
+                              ? userInfo.dietaryRestriction.map((item, i) => (
+                                  <li key={i} className="dietary-list-item">
+                                    {item}
+                                  </li>
+                                ))
+                              : null}
+                          </ul>
+                          {showPencils && (
+                            <Pencil
+                              className="edit-pencil-icon"
+                              color="var(--main-accent-color-alt)"
+                              fill="var(--main-accent-color)"
+                              strokeWidth={1.5}
+                              size={14}
+                              title="Edit"
+                              onClick={() => setEditingField(field)}
+                            />
+                          )}
+                        </>
                       ) : (
                         <>
                           <span className="desc-reg">

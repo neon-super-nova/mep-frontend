@@ -21,6 +21,8 @@ function UserDropdown() {
   const { theme, toggleTheme } = useTheme();
   const [modalOpen, setModalOpen] = useState(null);
 
+  const [avatarRefresh] = useState(0);
+
   const options = [
     {
       value: "profile",
@@ -145,7 +147,8 @@ function UserDropdown() {
             aria-expanded={open}
           >
             <span className="user-menu-span">
-              <Avatar className="user-avatar" />
+              <Avatar className="user-avatar" 
+               refreshTrigger={avatarRefresh}/>
               <span className="user-menu-text">User Menu</span>
               <ChevronDown
                 color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}

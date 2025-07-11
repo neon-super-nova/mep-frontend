@@ -20,7 +20,7 @@ function Avatar({ className, refreshTrigger }) {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`api/users/${userId}`, {
+        const response = await axios.get(`/api/users/${userId}`, {
           headers: {
             "Content-Type": "application/json",
           },

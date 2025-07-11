@@ -23,7 +23,7 @@ html {
     font-size: 1.65rem;
     color: var(--text-color);
     text-transform: uppercase;
-    letter-spacing: 0.175rem;
+    letter-spacing: 0.025rem;
     margin-top: 6rem;
     margin-bottom: 4.25rem;
 }

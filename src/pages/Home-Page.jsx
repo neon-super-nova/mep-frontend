@@ -354,9 +354,10 @@ function HomePage() {
           <div className="home-page-right-panel">
             <h2 className="home-page-right-panel-title">TRENDING</h2>
             {trendingRecipes.length > 0 ? (
-              trendingRecipes.map((trendingRecipe) => {
+              trendingRecipes.map((trendingRecipe, idx) => {
                 return (
                   <TrendingRecipe
+                    key={trendingRecipe._id || idx}
                     recipeId={trendingRecipe._id}
                     recipeName={trendingRecipe.name}
                     recipeImage={trendingRecipe.imageUrl}
@@ -370,13 +371,13 @@ function HomePage() {
 
             <h2 className="home-page-right-panel-title">TOP RATED</h2>
             {topRatedRecipes.length > 0 ? (
-              topRatedRecipes.map((topRatedRecipe) => {
+              topRatedRecipes.map((topRatedRecipe, idx) => {
                 return (
-                  <TopRatedRecipe
+                    <TopRatedRecipe key={topRatedRecipe.recipeId || idx} 
                     recipeId={topRatedRecipe.id}
                     recipeImage={topRatedRecipe.imageUrl}
                     recipeName={topRatedRecipe.name}
-                    recipeRating={topRatedRecipe.rating}
+                    recipeRating={topRatedRecipe.averageRating}
                     recipeDescription={topRatedRecipe.description}
                     cuisineRegion={topRatedRecipe.cuisineRegion}
                     dietaryRestriction={topRatedRecipe.dietaryRestriction}

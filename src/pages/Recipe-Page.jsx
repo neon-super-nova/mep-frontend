@@ -87,10 +87,7 @@ function RecipePage() {
             </div>
             <div className="headline">
               <p>
-                {" "}
-                Headline: At vero eos et accusamus et iusto odio dignissimos
-                ducimi s qui blanditiis praesentium voluptatum deleniti atque
-                corrupti quos{" "}
+               {recipe.description || "No description available."}
               </p>
             </div>
             <div className="image">

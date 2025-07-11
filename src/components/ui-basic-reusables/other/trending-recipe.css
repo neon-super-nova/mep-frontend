@@ -4,19 +4,17 @@
   align-items: center;
   justify-content: center;
   border: none;
-  margin: 0.05rem;
-  margin-top: 1.5rem;
-  padding: 0.025rem;
+  margin: 1.75rem 0.05rem;
   font-family: "Work Sans", sans-serif;
-  letter-spacing: 0.75px;
-  width: 24rem;
+  letter-spacing: 0.75rem;
+  width: 26rem;
   height: auto;
 }
 
 .trending-recipe-img {
-  width: 24rem;
+  width: 26rem;
   height: 18rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
   border: var(--minor-accent-color-1) solid 0.2rem;
   object-fit: cover;
   cursor: pointer;
@@ -27,60 +25,28 @@
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: var(--text-color);
-}
+  font-size: 0.95rem;
+  letter-spacing: 0.025rem;
+  margin-right: 0.5rem;
 
-.trending-recipe-user-rating {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.25rem;
-  gap: 0.5rem;
   color: var(--text-color);
-  font-size: 0.85rem;
-  letter-spacing: 0.25px;
-  flex-wrap: wrap;
 }
 
 .trending-user-rating-label {
-  font-size: 0.75rem;
-  font-family: "Work Sans", sans-serif;
-  letter-spacing: 0.5px;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  color: var(--text-color);
+  font-size: 0.9rem;
 }
 
 .trending-recipe-description {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-family: "Work Sans", sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.025rem;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   color: var(--text-color-alt);
-  margin: 0 0 0.75rem;
-  line-height: 1.2;
-}
-
-.trending-recipe-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.trending-recipe-tag {
-  padding: 0.25rem;
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-variation-settings: "wdth" 75;
-  font-size: 0.65rem;
-  letter-spacing: 0.05px;
-  background-color: #f8da70;
-  border: #db6443 solid 1px;
-  color: #2c2d2d;
-  text-transform: uppercase;
+    display: -webkit-box;
+  -webkit-line-clzamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: clip;
 }

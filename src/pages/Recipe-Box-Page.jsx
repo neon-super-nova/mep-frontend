@@ -48,13 +48,6 @@ function RecipeBoxPage() {
     getUser();
   }, []);
 
-  const signupDate = user?.signupDate
-    ? new Date(user.signupDate).toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "numeric",
-      })
-    : "signupDate(##/##/####)";
 
   const PAGE_SIZE = 7;
 
@@ -120,7 +113,6 @@ function RecipeBoxPage() {
     getSubmittedRecipes();
   }, []);
 
-  // const submittedRecipes = hardcodedUser.userSubmittedRecipes;
   const submittedStart = (submittedPage - 1) * PAGE_SIZE;
   const submittedEnd = submittedStart + PAGE_SIZE;
   const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
@@ -144,13 +136,16 @@ function RecipeBoxPage() {
                 <span className="reg"> {username}</span>
                 <span style={{ marginLeft: "1rem" }}> </span>
                 <span className="bold">sign up date:</span>
-                <span className="reg"> {signupDate}</span>
+                <span className="reg"> {user && user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                          })
+                        : "Loading..."}</span>
               </h6>
               <h6>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
+               
                 <div className="micro-desc">
                   <img
                     src={theme === "dark" ? tinylikeddark : tinylikedlight}
@@ -181,11 +176,11 @@ function RecipeBoxPage() {
                 submitted recipes
               </h3>
               <h6>
-                <span className="bold">subheading:</span>
-                <span className="reg"> subheading contents</span>
+                <span className="bold">Modify submitted recipes: </span>
+                <span className="reg"> (toggle edit field for recipe)</span>
               </h6>
               <h6>
-                <span className="bold">submit a recipe:</span>
+                <span className="bold">submit a recipe: </span>
                 <span className="reg">
                   <Link
                     to="/submit-recipe"
@@ -198,10 +193,10 @@ function RecipeBoxPage() {
             </div>
             <div className="recipe-box-page-submitted-panel-cards">
               <button
-                disabled={recipeCount === 1}
-                onClick={() => setSubmittedPage(recipeCount - 1)}
+                disabled={submittedPage === 1}
+                onClick={() => setSubmittedPage(submittedPage - 1)}
               >
-                {recipeCount !== 1 ? (
+                {submittedPage !== 1 ? (
                   <ArrowLeft
                     color="var(--text-color)"
                     strokeWidth={1.5}
@@ -212,7 +207,11 @@ function RecipeBoxPage() {
 
               {pagedSubmitted.length > 0 ? (
                 pagedSubmitted.map((recipe, idx) => (
-                  <RecipeBlock key={idx} recipe={recipe} type="submitted" />
+                  <RecipeBlock
+                    key={recipe.recipeId || idx}
+                    recipe={recipe}
+                    type="submitted"
+                  />
                 ))
               ) : (
                 <p>No recipes submitted yet.</p>
@@ -236,8 +235,8 @@ function RecipeBoxPage() {
             <div className="recipe-box-page-saved-panel-heading">
               <h3 className="recipe-box-page-saved-title">saved recipes</h3>
               <h6>
-                <span className="bold">subheading:</span>
-                <span className="reg"> subheading contents</span>
+                <span className="bold">Modify Likes:</span>
+                <span className="reg"> (toggle x button over card to remove from saved)</span>
               </h6>
             </div>
             <div className="recipe-box-page-saved-panel-cards">
