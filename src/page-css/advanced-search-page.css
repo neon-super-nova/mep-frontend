@@ -16,8 +16,8 @@ html {
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
-    letter-spacing: 0.05rem;
-    color: var(--text-color);
+  letter-spacing: 0.05rem;
+  color: var(--text-color);
   font-size: 1.45rem;
   margin-top: 40px;
   margin-bottom: 30px;
@@ -74,7 +74,7 @@ html {
   margin-left: 5px;
   padding: 2px;
   font-size: 0.75rem;
-   letter-spacing: 0.01rem;
+  letter-spacing: 0.01rem;
 }
 
 .label-checkbox {
@@ -88,10 +88,10 @@ html {
   padding: 1px;
 }
 
-.submenu-arrow{
- color: #3b4a4d;
+.submenu-arrow {
+  color: #3b4a4d;
 }
-  
+
 .input-checkbox {
   display: none;
 }
@@ -118,6 +118,16 @@ html {
 
 .input-checkbox:checked + .custom-box + .checkbox-text {
   color: var(--text-color-check);
+}
+
+.input-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  appearance: none; /* <-- important for Safari */
 }
 
 .advanced-search-page-filter-submenu {
@@ -167,7 +177,7 @@ html {
 .advanced-search-page-search-bar {
   width: 100%;
   margin: 10px 0;
-    display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;

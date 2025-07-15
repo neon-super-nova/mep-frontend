@@ -27,7 +27,6 @@ export const cuisineData = {
   },
   proteinChoice: [
     "Plant-Based",
-    "Dairy-Based",
     "Chicken",
     "Fish",
     "Shellfish",
