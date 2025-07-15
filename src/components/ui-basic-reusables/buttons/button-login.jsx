@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './button-main'; // Import the Button class component
+import Button from './button-main'; 
 
 const LoginButton = ({ onPress, className = '' }) => {
   console.log('LoginButton component loaded');

@@ -8,6 +8,8 @@ import { useTheme } from "../context/theme-context";
 import { SearchOptionsProvider } from "../context/search-options-context";
 import AdvancedSearchBarEnum from "../components/ui-basic-reusables/other/advance-search-bar-enum";
 import AdvancedSearchBarType from "../components/ui-basic-reusables/other/advance-search-bar-type";
+import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
+
 import AdvancedBlocks from "../components/ui-basic-reusables/blocks/advanced-block";
 import axios from "axios";
 
@@ -16,14 +18,21 @@ function AdvancedSearchPage() {
   const [activeCategories, setActiveCategories] = useState(null);
   const [allRecipes, setAllRecipes] = useState([]);
   const navigate = useNavigate();
+  const matches = Array.isArray(allRecipes) ? allRecipes.length : 0;
 
   const handleActiveCategories = (category) => {
     setActiveCategories((prev) => (prev === category ? null : category));
   };
 
-  const sortOptions = ["Salmon Croquettes", "Tuna Salad", "Chicken Alfredo"];
+  // const [selectedCuisineRegion, setSelectedCuisineRegion] = useState(null);
+  const [selectedDietaryRestriction, setSelectedDietaryRestriction] =
+    useState(null);
+  const [selectedProteinChoice, setSelectedProteinChoice] = useState(null);
+  const [selectedReligiousRestriction, setSelectedReligiousRestriction] =
+    useState(null);
 
-  const displayOptions = ["Salmon Croquettes", "Tuna Salad", "Chicken Alfredo"];
+  const sortOptions = ["most popular", "newest", "trending?"];
+  const displayOptions = ["small thumbnails", "large thumbnails", "list view"];
 
   useEffect(() => {
     async function fetchAllRecipes() {
@@ -70,7 +79,7 @@ const uniqueDietaryRestrictions = [
             <div className="advanced-search-page-filter-box">
               <p className="advanced-search-page-filter-name">CUISINE REGION</p>
               <ul className="advanced-search-page-filter-list">
-                {Object.entries(cuisineData).map(
+                {Object.entries(cuisineData.cuisineRegion).map(
                   ([category, subcategories]) => (
                     <li
                       key={category}
@@ -115,23 +124,111 @@ const uniqueDietaryRestrictions = [
                 )}
               </ul>
             </div>
+            <div className="advanced-search-page-filter-box">
+              <p className="advanced-search-page-filter-name">PROTEIN CHOICE</p>
+              <ul className="advanced-search-page-filter-list">
+                {Array.isArray(cuisineData.proteinChoice)
+                  ? cuisineData.proteinChoice.map((protein) => (
+                      <li
+                        key={protein}
+                        className="advanced-search-page-filter-no-submenu"
+                      >
+                        <label className="label-checkbox">
+                          <input
+                            type="checkbox"
+                            name="protein"
+                            value={protein.toLowerCase()}
+                            className="input-checkbox"
+                            onChange={() => {
+                              handleActiveCategories(protein);
+                              setSelectedProteinChoice(protein);
+                            }}
+                          />
+                          <span className="custom-box"></span>
+                          <span className="checkbox-text">{protein}</span>
+                        </label>
+                      </li>
+                    ))
+                  : null}
+              </ul>
+            </div>
+            <div className="advanced-search-page-filter-box">
+              <p className="advanced-search-page-filter-name">
+                Dietary Restriction
+              </p>
+              <ul className="advanced-search-page-filter-list">
+                {Array.isArray(cuisineData.dietaryRestriction)
+                  ? cuisineData.dietaryRestriction.map((diet) => (
+                      <li
+                        key={diet}
+                        className="advanced-search-page-filter-no-submenu"
+                      >
+                        <label className="label-checkbox">
+                          <input
+                            type="checkbox"
+                            name="diet"
+                            value={diet.toLowerCase()}
+                            className="input-checkbox"
+                            onChange={() => {
+                              handleActiveCategories(diet);
+                              setSelectedDietaryRestriction(diet);
+                            }}
+                          />
+                          <span className="custom-box"></span>
+                          <span className="checkbox-text">{diet}</span>
+                        </label>
+                      </li>
+                    ))
+                  : null}
+              </ul>
+            </div>
+            <div className="advanced-search-page-filter-box">
+              <p className="advanced-search-page-filter-name">
+                religious restriction
+              </p>
+              <ul className="advanced-search-page-filter-list">
+                {Array.isArray(cuisineData.religiousRestriction)
+                  ? cuisineData.religiousRestriction.map((religion) => (
+                      <li
+                        key={religion}
+                        className="advanced-search-page-filter-no-submenu"
+                      >
+                        <label className="label-checkbox">
+                          <input
+                            type="checkbox"
+                            name="religion"
+                            value={religion.toLowerCase()}
+                            className="input-checkbox"
+                            onChange={() => {
+                              handleActiveCategories(religion);
+                              setSelectedReligiousRestriction(religion);
+                            }}
+                          />
+                          <span className="custom-box"></span>
+                          <span className="checkbox-text">{religion}</span>
+                        </label>
+                      </li>
+                    ))
+                  : null}
+              </ul>
+            </div>
           </div>
 
           <div className="advanced-search-page-right-panel">
             <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
             <div className="advanced-search-page-search-bar">
               <span className="advanced-search-page-search-bar-label">
-                <h5>label</h5>
+                <h5>search for:</h5>
                 <AdvancedSearchBarType />
               </span>
               <span className="advanced-search-page-search-bar-label">
-                <h5>label</h5>{" "}
+                <h5>sort by</h5>{" "}
                 <SearchOptionsProvider options={sortOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
               </span>
               <span className="advanced-search-page-search-bar-label">
-                <h5>label</h5>{" "}
+                <h5>view as:</h5>{" "}
                 <SearchOptionsProvider options={displayOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
@@ -139,20 +236,23 @@ const uniqueDietaryRestrictions = [
             </div>
             <div className="tags-container">
               <span className="advanced-search-page-tags-label">
-                <h5>label</h5>
+                <h5>{matches} matches found</h5>
               </span>
             </div>
             <div className="advanced-search-page-tags">
-              <span className="advanced-search-page-tag">Tag 1</span>
-              <span className="advanced-search-page-tag">Tag 2</span>
-              <span className="advanced-search-page-tag">Tag 3</span>
+              <RecipeTags
+                recipe={{
+                  cuisineRegion: "Other",
+                  dietaryRestriction: selectedDietaryRestriction || "None",
+                  proteinChoice: selectedProteinChoice || "None",
+                  religiousRestriction: selectedReligiousRestriction || "None",
+                }}
+              />
+          
             </div>
             <div className="advanced-search-page-advanced-blocks">
               {Array.isArray(allRecipes) && allRecipes.length > 0 ? (
-                <AdvancedBlocks
-                  subheading="Browse by Cuisine Region"
-                  blocks={recipeBlocks}
-                />
+                <AdvancedBlocks blocks={recipeBlocks} />
               ) : (
                 <div>No recipes found.</div>
               )}

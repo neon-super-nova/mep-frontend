@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-color, #faf9f6);
+  background: var(--bg-color);
 }
 
 .submit-recipe-main-content {
@@ -16,79 +16,255 @@
 
 .submit-recipe-title {
   font-family: "Open Sans", sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--main-accent-color-alt, #2a5d4d);
-  margin: 1.5rem 0 0.25rem 0;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.65rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.225rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
   text-align: center;
-  letter-spacing: 0.05em;
 }
 
 .submit-recipe-major-left {
   background-color: chocolate;
-display: flex;
-flex-direction: column;
-width: 50vw;
-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 75vh;
 }
 
 .submit-recipe-small {
-background-color: cornflowerblue;
+  background-color: cornflowerblue;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.submit-recipe-span {
+  display: flex;
+  flex-direction: row;
+    align-items: center;
+  justify-content: flex-start;
+
 }
 
 .submit-recipe-small .bold {
-background-color: yellowgreen;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.035rem;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 15rem;
+  display: block;
 }
 
 .submit-recipe-small .reg {
-background-color: lightblue;
+  background-color: lightblue;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+  max-width: 20rem;
+  
+}
+
+.submit-recipe-small .reg-input {
+  display: flex;
+  flex-direction: row;
+    align-items: center;
+  justify-content: flex-start;
+
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+ 
+  gap: 0.5rem;
+}
+
+.submit-recipe-small .reg-input input {
+  flex: 1 1 0;
+  min-width: 16rem;
+height: auto;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--text-color);
+  border-radius: 0.15rem;
+}
+
+.submit-recipe-small .reg-input .button-clear {
+  background-color: teal;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 0.5rem;
+  gap: 0.25rem;
+  width: auto;
 }
 
 .submit-recipe-headline {
-background-color: green;
+  background-color: green;
+  color: var(--text-color);
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
 }
 
 .submit-recipe-image {
-background-color: lightcoral;
-display: flex;
-flex-direction: row;
-width: 100%;
+  background-color: lightcoral;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .submit-recipe-image img {
-    width: 33.3%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
+  width: 33.3%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
-.submit-recipe-major-right {
-background-color: lightseagreen;
-display: flex;
-flex-direction: column;
-width: 50vw;
-height: 75vh;
-}
+
+
 
 .submit-recipe-notes {
   background-color: lightyellow;
+    width: 100%;
+      display: flex;
+  flex-direction: row;
 }
+
 .submit-recipe-notes .left {
   background-color: yellow;
+    width: 100%;
+          display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
+
+.submit-recipe-notes .left .reg-input .bold{
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.035rem;
+  color: var(--text-color);
+  font-size: 0.775rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    
+}
+
+.submit-recipe-tag-input {
+  background-color: lightblue;
+
+    max-width: 10rem;  
+margin-left: 0.75rem;
+    font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+}
+
 .submit-recipe-notes .right {
   background-color: lightgreen;
+    width: 100%;
+}
+
+.submit-recipe-major-right {
+  background-color: lightseagreen;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 75vh;
 }
 
 .submit-recipe-details {
   background-color: lightgray;
+    width: 100%;
 }
 
 .submit-recipe-details .left {
   background-color: cyan;
+    width: 100%;
 }
+
 .submit-recipe-details .right {
   background-color: magenta;
+  width: 100%;
+  text-align: center;
+}
+
+.submit-recipe-details .submit-recipe-ingredients-input, .submit-recipe-instructions-input {
+  background-color: lightyellow;
+  width: 98%;
+  margin: 0 auto;
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 0.25rem;
+    font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.90rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--text-color);
+  border-radius: 0.15rem;
+}
+.submit-recipe-details .align-right{
+  background-color: lightcyan;
+  display:inline-flex;
+  justify-content:flex-end;
+  width:100%;
+  margin:0;
+}
+
+.submit-button-clear {
+  background-color: teal;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  gap: 0.25rem;
+  width: auto;
+    font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.0725rem;
+
+  text-align: center;
 }
 
 .submit-recipe-bottom {
@@ -97,8 +273,18 @@ height: 75vh;
 
 .submit-recipe-author-notes {
   background-color: orange;
+  color: var(--text-color);
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
 }
-
+.submit-recipe-button-container{
+  display:flex;
+}
 
 .submit-recipe-footer {
   background: var(--minor-accent-color-2b, #eaeaea);

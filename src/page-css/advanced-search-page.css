@@ -137,6 +137,23 @@ html {
   margin: 1px;
 }
 
+.advanced-search-page-no-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: -10rem;
+  padding: 5px;
+  list-style: none;
+  background-color: var(--subcat-filter-box);
+  border: #000000 0.5px solid;
+  min-width: 8rem;
+  z-index: 10;
+}
+
+.advanced-search-page-no-submenu li {
+  margin: 1px;
+}
+
 /* Right Panel */
 .advanced-search-page-right-panel {
   flex: 8;
