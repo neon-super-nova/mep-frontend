@@ -74,12 +74,11 @@ function AdvancedBlocks({ subheading, blocks }) {
                   <h3 className="recipe-block-title">{recipe.name} </h3>
                   <p className="recipe-block-name">
                     <span className="recipe-block-name"> by </span>{" "}
-                    <span className="author">
-                      {recipe.firstName} {recipe.lastName}
-                    </span>
+                    <span className="author">{recipe.authorName}</span>
                   </p>
                   <p className="recipe-block-name">
-                    <span className="author">({recipe.username})</span>
+                    {/* endpoint does not return username, can add that though */}
+                    {/* <span className="author">({recipe.username})</span> */}
                   </p>
                 </div>
               </div>

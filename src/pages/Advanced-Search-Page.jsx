@@ -82,9 +82,6 @@ function AdvancedSearchPage() {
 
   const runFilteredSearch = async () => {
     const queryParams = getSelectedFilters();
-    console.log(queryParams);
-    console.log("Selected Cuisine Region:", selectedCuisineRegion);
-
     try {
       const response = await axios.get(`api/recipes/search?${queryParams}`);
       const foundRecipes = response.data.recipes;

@@ -41,7 +41,7 @@ function RecipeBlock({ recipe, type }) {
           <span className="author">{recipe.userFullName}</span>
         </p>
         <p className="recipe-block-name">
-          <span className="author">({recipe.username})</span>
+          <span className="author">{recipe.username}</span>
         </p>
       </div>
     </div>
