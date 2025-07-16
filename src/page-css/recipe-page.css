@@ -195,7 +195,7 @@ html {
 .recipe-page .reg.cuisine {
     background-color: var(--minor-accent-color-1);
     color: var(--text-color-invert);
-    border: 1.75px solid var(--minor-accent-color-2);
+    border: 0.75px solid var(--text-color-3-4);
 }
 
 

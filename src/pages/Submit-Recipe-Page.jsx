@@ -3,6 +3,7 @@ import "../page-css/submit-recipe-page.css";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
 import dummyV2 from "../components/img/dummy/placeholder_2.jpg";
 import SubmitButton from "../components/ui-basic-reusables/buttons/button-submit";
+import FileUploadLabel from "../components/ui-basic-reusables/labels/label-file-upload";
 import { useTheme } from "../context/theme-context";
 import { useState, useEffect } from "react";
 import { getUserId } from "../context/decodeToken.js";
@@ -44,11 +45,9 @@ function SubmitRecipePage() {
   }, []);
 
   const [recipeTitle, setRecipeTitle] = useState("");
-  //"Add a brief description of your recipe here."
   const [image1Url, setImage1Url] = useState("");
   //const [image2Url, setImage2Url] = useState("");
   //const [image3Url, setImage3Url] = useState("");
-  const uploadUrl = "https://example.com/upload";
   const [ingredients, setIngredients] = useState([""]);
   const [instructions, setInstructions] = useState([""]);
   const [cuisineRegion, setCuisineRegion] = useState(
@@ -147,7 +146,7 @@ function SubmitRecipePage() {
                     onChange={(e) => setRecipeTitle(e.target.value)}
                   />
                   <button
-                    className="submit-button-clear"
+                    className="submit-button-title-clear"
                     onClick={() => {
                       if (recipeTitle.length !== 0) setRecipeTitle("");
                     }}
@@ -178,54 +177,52 @@ function SubmitRecipePage() {
               </h6>
             </div>
             <div className="submit-recipe-headline">
-                 <span className="bold">description: </span>
-                <span className="reg">
-                  <textarea
-                    className="submit-recipe-description-input"
-                    placeholder="Add a brief description of your recipe here."
-                    rows={3}
-                    maxLength={500}
-                    value={description}
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                      }
-                    }}
-                  />
-                </span>
-          
+              <span className="bold">description: </span>
+              <span className="reg">
+                <textarea
+                  className="submit-recipe-description-input"
+                  placeholder="Add a brief description of your recipe here."
+                  rows={3}
+                  maxLength={500}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </span>
             </div>
             <div className="submit-recipe-image">
               <img
-                src={!uploadUrl ? dummyV1 : uploadUrl}
-                alt={uploadUrl}
+                src={!image1Url ? dummyV1 : image1Url}
+                alt={image1Url}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = dummyV1;
                 }}
               />
-              <img src={dummyV2} alt={uploadUrl} />
-              <img src={dummyV1} alt={uploadUrl} />
+              <img src={dummyV2} alt={dummyV2} />
+              <img src={dummyV1} alt={dummyV1} />
             </div>
             <p className="submit-recipe-image-link">
-              Upload an image of your recipe here.(link, up to 3)
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  if (e.target.files && e.target.files[0]) {
-                    setImage1Url(URL.createObjectURL(e.target.files[0]));
-                  }
-                }}
-              />
+              Upload an image of your recipe here.(link, up to 3){" "}
             </p>
-             <div className="submit-recipe-notes">
+            <FileUploadLabel
+              label="Choose Image"
+              className="submit-upload"
+              onFileSelect={(file) => setImage1Url(URL.createObjectURL(file))}
+            />
+
+            <div className="submit-recipe-notes">
               <div className="left">
                 <div className="reg-input">
-                  <span className="bold">Global Region: </span>
+                  <span className="submit-recipe-tag-bold">
+                    Global Region:{" "}
+                  </span>
                   <select
                     value={cuisineRegion}
                     className="submit-recipe-tag-input"
@@ -239,8 +236,10 @@ function SubmitRecipePage() {
                       )
                     )}
                   </select>
-                  <span style={{ width: "0.5rem" }}></span>
-                  <span className="bold">Protein: </span>
+                </div>
+                <span style={{ width: "0.5rem" }}></span>
+                <div className="reg-input">
+                  <span className="submit-recipe-tag-bold">Protein: </span>
                   <select
                     value={proteinChoice}
                     className="submit-recipe-tag-input"
@@ -254,8 +253,27 @@ function SubmitRecipePage() {
                       )
                     )}
                   </select>
-                  <span style={{ width: "0.5rem" }}></span>
-                  <span className="bold">Diet: </span>
+                </div>
+                <span style={{ width: "0.5rem" }}></span>
+                <div className="reg-input">
+                  <span className="submit-recipe-tag-bold">Protein: </span>
+                  <select
+                    value={proteinChoice}
+                    className="submit-recipe-tag-input"
+                    onChange={(e) => setProteinChoice(Number(e.target.value))}
+                  >
+                    {Object.entries(PROTEIN_CHOICE_ENUM).map(
+                      ([label, value]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+                <span style={{ width: "0.5rem" }}></span>
+                <div className="reg-input">
+                  <span className="submit-recipe-tag-bold">Diet: </span>
                   <select
                     value={dietaryRestriction}
                     className="submit-recipe-tag-input"
@@ -271,8 +289,10 @@ function SubmitRecipePage() {
                       )
                     )}
                   </select>
-                  <span style={{ width: "0.5rem" }}></span>
-                  <span className="bold">Religion: </span>
+                </div>
+                <span style={{ width: "0.5rem" }}></span>
+                <div className="reg-input">
+                  <span className="submit-recipe-tag-bold">Religion: </span>
                   <select
                     value={religiousRestriction}
                     className="submit-recipe-tag-input"
@@ -288,25 +308,24 @@ function SubmitRecipePage() {
                       )
                     )}
                   </select>
-                  <span style={{ width: "0.5rem" }}></span>
                 </div>
               </div>
               <div className="right">
-                <p>cook, prep, total time and number of servings from recipe</p>
                 <div className="reg-input">
                   <span className="bold">Cook Time: </span>
                   <input
                     className="submit-recipe-time-input"
                     type="number"
                     step="10"
-                    placeholder="How long to cook?"
+                    placeholder="#"
                     min={0}
                     max={999}
                     value={cookTime}
                     onChange={(e) => setCookTime(e.target.value)}
                   />
+                  <span className="bold">minutes</span>
                   <button
-                    className="submit-button-clear"
+                    className="submit-time-button-clear"
                     onClick={() => {
                       if (cookTime !== 0) setCookTime(0);
                     }}
@@ -318,20 +337,23 @@ function SubmitRecipePage() {
                     />
                     Clear
                   </button>
-                  <span style={{ height: "0.5rem" }}></span>
+                </div>
+                <span style={{ height: "0.5rem" }}></span>
+                <div className="reg-input">
                   <span className="bold">Prep Time: </span>
                   <input
                     className="submit-recipe-time-input"
                     type="number"
                     step="10"
-                    placeholder="How long to prep?"
+                    placeholder="#"
                     min={0}
                     max={999}
                     value={prepTime}
                     onChange={(e) => setPrepTime(e.target.value)}
                   />
+                  <span className="bold">minutes</span>
                   <button
-                    className="submit-button-clear"
+                    className="submit-time-button-clear"
                     onClick={() => {
                       if (prepTime !== 0) setPrepTime(0);
                     }}
@@ -343,25 +365,29 @@ function SubmitRecipePage() {
                     />
                     Clear
                   </button>
-                  <span style={{ height: "0.5rem" }}></span>
+                </div>
+                <span style={{ height: "0.5rem" }}></span>
+                <div className="reg-input">
                   <span className="bold">Total Time: </span>
-                  <span className="reg">
+                  <span className="reg-total">
                     {totalTime !== "0" ? `${totalTime}` : "0"} minutes
                   </span>
-                  <span style={{ height: "0.5rem" }}></span>
+                </div>
+                <span style={{ height: "0.5rem" }}></span>
+                <div className="reg-input">
                   <span className="bold">Servings: </span>
                   <input
                     className="submit-recipe-time-input"
                     type="number"
                     step="1"
-                    placeholder="Number of servings"
+                    placeholder="#"
                     min={1}
                     max={100}
                     value={servings}
                     onChange={(e) => setServings(e.target.value)}
                   />
                   <button
-                    className="submit-button-clear"
+                    className="submit-time-button-clear"
                     onClick={() => {
                       if (servings !== 0) setServings(0);
                     }}
@@ -376,9 +402,28 @@ function SubmitRecipePage() {
                 </div>
               </div>
             </div>
+            <div className="submit-recipe-special-equipment">
+              <span className="bold">Special Equipment (Optional) </span>
+              <span className="reg">
+                <textarea
+                  className="submit-recipe-special-equipment-input"
+                  placeholder="Add any special equipment needed for this recipe."
+                  rows={2}
+                  maxLength={500}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </span>
+            </div>
           </div>
           <div className="submit-recipe-major-right">
-    
             <div className="submit-recipe-details">
               <div className="left">
                 <span className="bold">Ingredients: </span>
@@ -462,17 +507,28 @@ function SubmitRecipePage() {
               </div>
             </div>
             <div className="submit-recipe-author-notes">
-              <h3> Author Notes</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
+              <span className="bold">Author Notes (Optional) </span>
+              <span className="reg">
+                <textarea
+                  className="submit-recipe-author-notes-input"
+                  placeholder="Add any final details."
+                  rows={2}
+                  maxLength={500}
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </span>
             </div>
-              <div className="submit-recipe-button-container">
-                 <SubmitButton onClick={handleSubmit} aria-label="Submit" />
-                    </div>
+            <div className="submit-recipe-button-container">
+              <SubmitButton onClick={handleSubmit} aria-label="Submit" className="submit-upload" />
+            </div>
           </div>
         </main>
         <footer className="submit-recipe-footer">

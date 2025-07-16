@@ -13,6 +13,7 @@ import RecipeBoxPage from "../pages/Recipe-Box-Page";
 import NotificationsPage from "../pages/Notifications-Page";
 import RecipePage from "../pages/Recipe-Page";
 import SubmitRecipePage from "../pages/Submit-Recipe-Page";
+import ModifyRecipePage from "../pages/Modify-Recipe-Page";
 
 const AppRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
       <Route path="/recipebox" element={<RecipeBoxPage />} />
       <Route path="/notifications" element={<NotificationsPage />} />
       <Route path="/recipe/:recipeId" element={<RecipePage />} />
+      <Route path="/modify-recipe/:recipeId" element={<ModifyRecipePage />} />
       <Route path="/submit-recipe" element={<SubmitRecipePage />} />
     </Routes>
   );
