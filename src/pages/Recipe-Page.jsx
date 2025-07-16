@@ -13,7 +13,6 @@ import darkmeasure from "../components/img/icons/icon-measure-dark.png";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
-import dummyV2 from "../components/img/dummy/placeholder_2.jpg";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -110,6 +109,16 @@ function RecipePage() {
             <div className="image">
               <img
                 src={
+                  recipe.imageUrls.length > 1 ? recipe.imageUrls[1] : dummyV1
+                }
+                alt={recipe.name}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = dummyV1;
+                }}
+              />
+              <img
+                src={
                   recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
                 }
                 alt={recipe.name}
@@ -118,8 +127,16 @@ function RecipePage() {
                   e.target.src = dummyV1;
                 }}
               />
-              <img src={dummyV2} alt={recipe.name} />
-              <img src={dummyV1} alt={recipe.name} />
+              <img
+                src={
+                  recipe.imageUrls.length > 2 ? recipe.imageUrls[2] : dummyV1
+                }
+                alt={recipe.name}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = dummyV1;
+                }}
+              />
             </div>
           </div>
           <div className="middle">
