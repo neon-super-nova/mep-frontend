@@ -1,618 +1,610 @@
 body,
 html {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .recipe-page {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--bg-color);
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  min-height: 100vh;
 }
 
 .recipe-page h1 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 1.65rem;
-    color: var(--text-color);
-    text-transform: uppercase;
-    letter-spacing: 0.025rem;
-    margin-top: 6rem;
-    margin-bottom: 4.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 1.65rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  margin-top: 6rem;
+  margin-bottom: 4.25rem;
 }
 
 .recipe-page-panel-tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--bg-panel-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--bg-panel-color);
 }
 
 .recipe-page .top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .recipe-page .top .small {
-    width: 100vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.35rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.35rem;
 }
 
 .recipe-page .top .small h6 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .recipe-page .top .small h6 .bold,
 .recipe-page .top .small h6 .reg {
-    line-height: 1.2;
-    vertical-align: baseline;
-    margin: 0.5 0rem;
+  line-height: 1.2;
+  vertical-align: baseline;
+  margin: 0.5 0rem;
 }
 
 .recipe-page .top .small h6 .bold {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--text-color);
-    letter-spacing: 0.045rem;
-    text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  letter-spacing: 0.045rem;
+  text-transform: uppercase;
 }
 
 .recipe-page .top .small h6 .reg {
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    letter-spacing: 0.05rem;
-    text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  letter-spacing: 0.05rem;
+  text-transform: capitalize;
 }
 
 .recipe-page .top .headline {
-    margin-bottom: 2.75rem;
-    width: 800px;
+  margin-bottom: 2.75rem;
+  width: 800px;
 }
 
 .recipe-page .top .headline p {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 0.95rem;
-    color: var(--text-color);
-    text-align: center;
-    line-height: 1.2;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--text-color);
+  text-align: center;
+  line-height: 1.2;
 }
 
 .recipe-page .top .image {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    margin-bottom: 3rem;
-    border: 1.5px solid var(--main-accent-color-alt);
-    background-color: var(--text-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin-bottom: 3rem;
+  border: 1.5px solid var(--main-accent-color-alt);
+  background-color: var(--text-color);
 }
 
 .recipe-page .top .image img {
-    width: 33.3%;
-    height: 325px;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
-    background-color: var(--text-color);
+  width: 33.3%;
+  height: 325px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  background-color: var(--text-color);
 }
 
 .recipe-page .middle .recipe-notes {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1.75rem;
-    margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  margin-bottom: 3rem;
 }
 
 .recipe-page .middle .recipe-notes .left {
-    width: 45%;
-    padding: 1rem;
-    border-right: 5px double var(--main-accent-color-alt);
+  width: 45%;
+  padding: 1rem;
+  border-right: 5px double var(--main-accent-color-alt);
 }
 
 .recipe-page .middle .recipe-notes .left h5 {
-
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    letter-spacing: -0.005rem;
-    text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  letter-spacing: -0.005rem;
+  text-transform: uppercase;
 }
 
 .recipe-page .middle .recipe-notes .left h5 .row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .recipe-page .middle .recipe-notes .left h5 .sect {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .recipe-page .middle .recipe-notes .left h5 .bold {
-
-    color: var(--text-color);
-    text-transform: capitalize;
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: italic;
-    font-variation-settings: "wdth" 75;
-    letter-spacing: 0.05rem;
-
+  color: var(--text-color);
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
 }
 
 .recipe-page .middle .recipe-notes .left h5 .reg {
-    text-transform: capitalize;
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: italic;
-    font-variation-settings: "wdth" 75;
-    letter-spacing: 0.05rem;
-    line-height: 1.2;
-    margin-bottom: 0.25rem;
-    padding: 0.25rem 0.5rem;
+  text-transform: capitalize;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.05rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .recipe-page .reg.cuisine {
-    background-color: var(--minor-accent-color-1);
-    color: var(--text-color-invert);
-    border: 0.75px solid var(--text-color-3-4);
+  background-color: var(--minor-accent-color-1);
+  color: var(--text-color-invert);
+  border: 0.75px solid var(--text-color-3-4);
 }
 
-
 .recipe-page .reg.diet {
-    background-color: var(--minor-accent-color-2);
-    color: var(--accent-color-neutral-white);
-    border: 1.75px solid var(--minor-accent-color-2-invert);
+  background-color: var(--minor-accent-color-2);
+  color: var(--accent-color-neutral-white);
+  border: 1.75px solid var(--minor-accent-color-2-invert);
 }
 
 .recipe-page .reg.protein {
-    background-color: var(--minor-accent-color-3);
-    color: var(--text-color-invert);
-    border: 1.75px solid var(--star-coloring);
+  background-color: var(--minor-accent-color-3);
+  color: var(--text-color-invert);
+  border: 1.75px solid var(--star-coloring);
 }
 
 .recipe-page .reg.religion {
-    background-color: var(--star-coloring);
-    color: var(--text-color);
-    border: 1.75px solid var(--minor-accent-color-3);
+  background-color: var(--star-coloring);
+  color: var(--text-color);
+  border: 1.75px solid var(--minor-accent-color-3);
 }
 
 .recipe-page .middle .recipe-notes .left h6 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    line-height: 1.25;
-    margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
 }
 
 .recipe-page .middle .recipe-notes .left h6 .text {
-    display: flex;
-    flex-direction: row;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    letter-spacing: -0.005rem;
-    text-transform: uppercase;
-    margin-right: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  letter-spacing: -0.005rem;
+  text-transform: uppercase;
+  margin-right: 0.75rem;
 }
 
 /* Custom styles for StarRating only on the recipe page */
 
 .recipe-page .star-rating {
-    font-size: 1rem;
-    line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .recipe-page .star-layout {
-    visibility: hidden;
-    font-size: 1rem;
-    letter-spacing: 0.13rem;
-    user-select: none;
+  visibility: hidden;
+  font-size: 1rem;
+  letter-spacing: 0.13rem;
+  user-select: none;
 }
 
 .recipe-page .star-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
-    white-space: nowrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .recipe-page .star-background-bottom {
-    color: var(--minor-accent-color-1);
-    z-index: 0;
-    font-size: 1rem;
+  color: var(--minor-accent-color-1);
+  z-index: 0;
+  font-size: 1rem;
 }
 
 .recipe-page .star-background-top,
 .recipe-page .star-overlay {
-    z-index: 1;
-    top: 1.3px;
-    left: 1.15px;
-    font-size: 0.87rem;
-    letter-spacing: 0.115rem;
-    color: var(--star-coloring);
+  z-index: 1;
+  top: 1.3px;
+  left: 1.15px;
+  font-size: 0.87rem;
+  letter-spacing: 0.115rem;
+  color: var(--star-coloring);
 }
 
 .recipe-page .star-overlay {
-    z-index: 2;
-    overflow: hidden;
-    color: var(--minor-accent-color-1);
+  z-index: 2;
+  overflow: hidden;
+  color: var(--minor-accent-color-1);
 }
 
 .recipe-page .rating-number {
-    margin-left: 0.5rem;
-    width: 100%;
+  margin-left: 0.5rem;
+  width: 100%;
 }
 
 .recipe-page .middle .recipe-notes .left h6 .rate {
-    display: flex;
-    flex-direction: row;
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    text-transform: capitalize;
-    letter-spacing: 0.015rem;
-    margin-left: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  text-transform: capitalize;
+  letter-spacing: 0.015rem;
+  margin-left: 0.5rem;
 }
 
 .recipe-page .middle .recipe-notes .left h5 .sect.hidden {
-    display: none;
+  display: none;
 }
 
 .recipe-page .middle .recipe-notes .left .tags-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: baseline;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: baseline;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .recipe-page .middle .recipe-notes .right {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    width: 45%;
-    padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 45%;
+  padding: 1rem;
 }
 
 .recipe-page .middle .recipe-notes .right h6 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem;
-    margin-bottom: 0.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .recipe-page .middle .recipe-notes .right .times,
 .recipe-page .middle .recipe-notes .right .serves {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-page .middle .recipe-notes .right .serves {
-    margin-left: 1.5rem;
+  margin-left: 1.5rem;
 }
 
 .recipe-page .middle .recipe-notes .right .timer-icon,
 .recipe-page .middle .recipe-notes .right .cutlery-icon,
 .recipe-page .middle .recipe-notes .right .measure-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 10%;
-    object-fit: contain;
-    line-height: 1;
+  width: 16px;
+  height: 16px;
+  border-radius: 10%;
+  object-fit: contain;
+  line-height: 1;
 }
 
 .recipe-page .middle .recipe-notes .right h6 .bold {
-    display: flex;
-    flex-direction: row;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    letter-spacing: -0.005rem;
-    text-transform: uppercase;
-    margin-left: 0.15rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  letter-spacing: -0.005rem;
+  text-transform: uppercase;
+  margin-left: 0.15rem;
 }
 
-
 .recipe-page .middle .recipe-notes .right h6 .reg {
-    display: flex;
-    flex-direction: row;
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    text-transform: capitalize;
-    letter-spacing: 0.015rem;
-    margin-left: 0.15rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  text-transform: capitalize;
+  letter-spacing: 0.015rem;
+  margin-left: 0.15rem;
 }
 
 .recipe-page .middle .recipe-details {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    margin-bottom: 2.5rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  gap: 1rem;
 }
 
 .recipe-page .middle .recipe-details .left {
-    width: 45%;
-    padding: 1rem;
+  width: 45%;
+  padding: 1rem;
 }
 
 .recipe-page .middle .recipe-details .left h4 {
-    display: flex;
-    flex-direction: row;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 1.05rem;
-    color: var(--text-color);
-    text-transform: uppercase;
-    letter-spacing: 0.015rem;
-    margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: row;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 1.05rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.015rem;
+  margin-bottom: 1.75rem;
 }
 
 .recipe-details .left ul {
-    list-style-type: disc;
-    padding-left: 0.5rem;
+  list-style-type: disc;
+  padding-left: 0.5rem;
 }
 
 .recipe-details .left ul li {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    padding-left: 0.75em;
-    letter-spacing: 0.015rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  padding-left: 0.75em;
+  letter-spacing: 0.015rem;
 }
 
 .recipe-details .left ul li::marker {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.5rem;
-    color: var(--text-color);
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.5rem;
+  color: var(--text-color);
 }
 
 .recipe-details .right ol {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
+  list-style-type: decimal;
+  padding-left: 1.5rem;
 }
 
 .recipe-details .right ol li {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    padding-left: 0.25em;
-    letter-spacing: 0.015rem;
-    margin-bottom: 0.75rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  padding-left: 0.25em;
+  letter-spacing: 0.015rem;
+  margin-bottom: 0.75rem;
 }
 
 .recipe-details .right ol li::marker {
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--text-color-check);
-    text-transform: uppercase;
-    letter-spacing: 0.015rem;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 0.85rem;
+  color: var(--text-color-check);
+  text-transform: uppercase;
+  letter-spacing: 0.015rem;
 }
 
-
-
 .recipe-page .middle .recipe-details .right {
-    width: 45%;
-    padding: 1rem;
+  width: 45%;
+  padding: 1rem;
 }
 
 .recipe-page .middle .recipe-details .right h4 {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 1.05rem;
-    color: var(--text-color);
-    text-transform: uppercase;
-    letter-spacing: 0.015rem;
-    margin-bottom: 1.75rem;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 1.05rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.015rem;
+  margin-bottom: 1.75rem;
 }
 
 .recipe-page .middle .recipe-details .right p {
-    color: var(--text-color);
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: var(--text-color);
-    padding-left: 0.75em;
-    letter-spacing: 0.015rem;
-    margin-bottom: 2.25rem;
+  color: var(--text-color);
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  padding-left: 0.75em;
+  letter-spacing: 0.015rem;
+  margin-bottom: 2.25rem;
 }
 
 .recipe-page .bottom {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .recipe-page .bottom .author-notes {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2rem;
-    margin-bottom: 2.75rem;
-    border-top: 5px double var(--main-accent-color-alt);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  margin-bottom: 2.75rem;
+  border-top: 5px double var(--main-accent-color-alt);
 }
 
 .recipe-page .bottom .author-notes h3 {
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 2.5rem;
-    text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
 }
 
 .recipe-page .bottom .author-notes p {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.95rem;
-    color: var(--text-color-alt);
-    margin-bottom: 2rem;
-    padding: 0 2rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--text-color-alt);
+  margin-bottom: 0.75rem;
+  padding: 0 2rem;
 }
 
 .recipe-page .bottom .reviews {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .recipe-page .bottom .reviews h4 {
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
 }
 
 .recipe-page .bottom .reviews h6 {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1rem;
-    color: var(--text-color-alt);
-    margin-bottom: 1.5rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  color: var(--text-color-alt);
+  margin-bottom: 1.5rem;
 }
 
 .recipe-page .bottom .reviews p {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 0.95rem;
-    color: var(--text-color-alt);
-    margin-bottom: 4rem;
-    padding: 0 2rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.95rem;
+  color: var(--text-color-alt);
+  margin-bottom: 4rem;
+  padding: 0 2rem;
 }
 
 .recipe-page .bottom .reviews .review-small {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
 .recipe-page .bottom .reviews .review-small .reg {
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-variation-settings: "wdth" 87.5;
-    font-style: normal;
-    font-size: 0.95rem;
-    letter-spacing: 0.05rem;
-    color: var(--text-color);
-    margin-right: 0.5rem;
-    text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-variation-settings: "wdth" 87.5;
+  font-style: normal;
+  font-size: 0.95rem;
+  letter-spacing: 0.05rem;
+  color: var(--text-color);
+  margin-right: 0.5rem;
+  text-transform: uppercase;
 }
 
 .recipe-page .bottom .reviews .review-small .bold {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    color: var(--text-color);
-    text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  color: var(--text-color);
+  text-transform: uppercase;
 }
 
 .recipe-page-footer {
-    background-color: var(--minor-accent-color-2b);
-    text-align: center;
-    padding: 10px 20px;
-    border-top: 10px solid var(--main-accent-color-alt);
+  background-color: var(--minor-accent-color-2b);
+  text-align: center;
+  padding: 10px 20px;
+  border-top: 10px solid var(--main-accent-color-alt);
 }

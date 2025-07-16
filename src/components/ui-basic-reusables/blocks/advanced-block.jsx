@@ -56,8 +56,9 @@ function AdvancedBlocks({ subheading, blocks }) {
                   <img
                     className="advanced-recipe-block-thumbnail"
                     src={
-                      recipe.imageUrl
-                        ? recipe.imageUrl
+                      Array.isArray(recipe.imageUrls) &&
+                      recipe.imageUrls.length > 0
+                        ? recipe.imageUrls[0]
                         : theme === "dark"
                         ? dummyImgDark
                         : dummyImgLight

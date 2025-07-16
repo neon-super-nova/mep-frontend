@@ -48,7 +48,6 @@ function RecipeBoxPage() {
     getUser();
   }, []);
 
-
   const PAGE_SIZE = 7;
 
   const savedRecipes = hardcodedUser.userSavedRecipes;
@@ -136,16 +135,18 @@ function RecipeBoxPage() {
                 <span className="reg"> {username}</span>
                 <span style={{ marginLeft: "1rem" }}> </span>
                 <span className="bold">sign up date:</span>
-                <span className="reg"> {user && user.createdAt
-                        ? new Date(user.createdAt).toLocaleDateString("en-US", {
-                            month: "2-digit",
-                            day: "2-digit",
-                            year: "numeric",
-                          })
-                        : "Loading..."}</span>
+                <span className="reg">
+                  {" "}
+                  {user && user.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })
+                    : "Loading..."}
+                </span>
               </h6>
               <h6>
-               
                 <div className="micro-desc">
                   <img
                     src={theme === "dark" ? tinylikeddark : tinylikedlight}
@@ -236,7 +237,10 @@ function RecipeBoxPage() {
               <h3 className="recipe-box-page-saved-title">saved recipes</h3>
               <h6>
                 <span className="bold">Modify Likes:</span>
-                <span className="reg"> (toggle x button over card to remove from saved)</span>
+                <span className="reg">
+                  {" "}
+                  (toggle x button over card to remove from saved)
+                </span>
               </h6>
             </div>
             <div className="recipe-box-page-saved-panel-cards">

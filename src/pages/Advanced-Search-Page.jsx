@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../page-css/advanced-search-page.css";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
@@ -37,23 +36,6 @@ function AdvancedSearchPage() {
 
   const sortOptions = ["most popular", "newest", "trending?"];
   const displayOptions = ["small thumbnails", "large thumbnails", "list view"];
-
-  // useEffect(() => {
-  //   async function fetchAllRecipes() {
-  //     try {
-  //       const response = await axios.get("/api/recipes");
-  //       // Use .recipes if present, otherwise fallback to response.data
-  //       setAllRecipes(
-  //         Array.isArray(response.data)
-  //           ? response.data
-  //           : response.data.recipes || []
-  //       );
-  //     } catch (err) {
-  //       setAllRecipes([]);
-  //     }
-  //   }
-  //   fetchAllRecipes();
-  // }, []);
 
   const recipeBlocks = Array.isArray(allRecipes)
     ? allRecipes.map((recipe) => ({

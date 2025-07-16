@@ -20,14 +20,16 @@ function RecipePage() {
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
   const [user, setUser] = useState(null);
-
-
+  const [recipeStats, setRecipeStats] = useState({
+    averageReview: 0,
+    reviewCount: 0,
+    likeCount: 0,
+  });
 
   useEffect(() => {
     async function fetchRecipeInfo() {
       try {
         const response = await axios.get(`/api/recipes/${recipeId}`);
-        console.log("Fetched recipe data:", response.data);
         const recipeData = response.data.recipe;
         setRecipe(recipeData);
 
@@ -36,10 +38,8 @@ function RecipePage() {
             `/api/users/${recipeData.userId}`
           );
           setUser(userResponse.data.userInfo);
-          console.log("User response:", userResponse.data);
         }
       } catch (err) {
-        console.error("Error fetching recipe info:", err);
         setRecipe(null);
         setUser(null);
       }
@@ -47,10 +47,29 @@ function RecipePage() {
     fetchRecipeInfo();
   }, [recipeId]);
 
+  useEffect(() => {
+    async function fetchRecipeStats() {
+      try {
+        const response = await axios.get(
+          `/api/recipes/${recipeId}/recipe-stats`
+        );
+        console.log(response.data);
+        setRecipeStats({
+          averageReview: response.data.averageReview
+            ? response.data.averageReview
+            : 0,
+          reviewCount: response.data.reviewCount
+            ? response.data.reviewCount
+            : 0,
+          likeCount: response.data.likeCount ? response.data.likeCount : 0,
+        });
+      } catch (err) {}
+    }
+    fetchRecipeStats();
+  }, [recipeId]);
+
   if (recipe === null) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found.</div>;
-
-
 
   const units = recipe.units || "US/Imperial";
 
@@ -86,13 +105,13 @@ function RecipePage() {
               </h6>
             </div>
             <div className="headline">
-              <p>
-               {recipe.description || "No description available."}
-              </p>
+              <p>{recipe.description || "No description available."}</p>
             </div>
             <div className="image">
               <img
-                src={!recipe.imageUrl ? dummyV1 : recipe.imageUrl}
+                src={
+                  recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
+                }
                 alt={recipe.name}
                 onError={(e) => {
                   e.target.onerror = null;
@@ -109,14 +128,14 @@ function RecipePage() {
                 <h6>
                   <span className="text">User Rating:</span>
                   <span className="star">
-                    <StarRating rating={recipe.averageRating}></StarRating>
+                    <StarRating rating={recipeStats.averageReview}></StarRating>
                   </span>
                   <span className="rate">
                     {" "}
                     {recipe.averageRating} / 5 stars
                   </span>
                 </h6>
-                <RecipeTags recipe={recipe}/>
+                <RecipeTags recipe={recipe} />
               </div>
               <div className="right">
                 <div className="times">
@@ -182,11 +201,15 @@ function RecipePage() {
               <div className="right">
                 <div className="equip">
                   <h4>Special Equipment</h4>
-                  <p>
-                    maybe add to schema later to include things like
-                    corrianders, stand mixer panels (vs handheld electric
-                    mixers), dutch ovens or other specialty equipment?
-                  </p>
+
+                  {Array.isArray(recipe.equipment) &&
+                  recipe.equipment.length > 0 ? (
+                    recipe.equipment.map((equipment, index) => {
+                      return <p key={index}>{equipment}</p>;
+                    })
+                  ) : (
+                    <p>None specified</p>
+                  )}
                 </div>
                 <div className="instruct">
                   <h4>Instructions</h4>
@@ -202,22 +225,23 @@ function RecipePage() {
           <div className="bottom">
             <div className="author-notes">
               <h3> Author Notes</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.{" "}
-              </p>
+              {recipe.authorNotes.length > 0 ? (
+                recipe.authorNotes.map((note, index) => {
+                  return <p key={index}>{note} </p>;
+                })
+              ) : (
+                <p>Enjoy!</p>
+              )}
             </div>
             <div className="reviews">
               <div className="review-small">
                 <h6>
                   <span className="reg">total likes:</span>
-                  <span className="bold">{recipe.totalLikes}</span>
+                  <span className="bold">{recipeStats.likeCount}</span>
                 </h6>
                 <h6>
                   <span className="reg">total reviews:</span>
-                  <span className="bold">{recipe.totalReviews}</span>
+                  <span className="bold">{recipeStats.reviewCount}</span>
                 </h6>
               </div>
               <h4>REVIEWS:</h4>

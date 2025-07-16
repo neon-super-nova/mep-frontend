@@ -1,5 +1,4 @@
 import "../page-css/home-page.css";
-// import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "../components/ui-basic-reusables/other/search-bar";
@@ -7,19 +6,15 @@ import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
 import TrendingRecipe from "../components/ui-basic-reusables/other/trending-recipe";
 import TopRatedRecipe from "../components/ui-basic-reusables/other/top-rated-recipe";
 import axios from "axios";
-// import bananaBread from "../components/img/dummy/bananabread.jpg";
-// import macncheese from "../components/img/dummy/macncheese.jpg";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
+import placeholder1 from "../components/img/dummy/placeholder_1.jpg";
 
 function HomePage() {
   const { theme } = useTheme();
-  //const { recipeId } = useParams();
 
   const [trendingRecipes, setTrendingRecipes] = useState([]);
   const [topRatedRecipes, setTopRatedRecipes] = useState([]);
-
-  //const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function fetchTrendingRecipes() {
@@ -360,7 +355,11 @@ function HomePage() {
                     key={trendingRecipe._id || idx}
                     recipeId={trendingRecipe._id}
                     recipeName={trendingRecipe.name}
-                    recipeImage={trendingRecipe.imageUrl}
+                    recipeImage={
+                      trendingRecipe.imageUrls.length > 0
+                        ? trendingRecipe.imageUrls[0]
+                        : placeholder1
+                    }
                     recipeDescription={trendingRecipe.description}
                   />
                 );
@@ -373,9 +372,14 @@ function HomePage() {
             {topRatedRecipes.length > 0 ? (
               topRatedRecipes.map((topRatedRecipe, idx) => {
                 return (
-                    <TopRatedRecipe key={topRatedRecipe.recipeId || idx} 
+                  <TopRatedRecipe
+                    key={topRatedRecipe.recipeId || idx}
                     recipeId={topRatedRecipe.id}
-                    recipeImage={topRatedRecipe.imageUrl}
+                    recipeImage={
+                      topRatedRecipe.imageUrls.length > 0
+                        ? topRatedRecipe.imageUrls[0]
+                        : placeholder1
+                    }
                     recipeName={topRatedRecipe.name}
                     recipeRating={topRatedRecipe.averageRating}
                     recipeDescription={topRatedRecipe.description}
@@ -389,26 +393,6 @@ function HomePage() {
             ) : (
               <div>
                 <p>Loading ...</p>
-                {/* <TopRatedRecipe
-                  recipeImage={bananaBread}
-                  recipeName="Banana Bread"
-                  recipeRating={4.8}
-                  recipeDescription="A moist, delicious banana bread recipe perfect for any time of day."
-                  cuisineRegion="North American"
-                  dietaryRestriction="Dairy-Free"
-                  proteinChoice="None"
-                  religiousRestriction="Kosher"
-                />
-                <TopRatedRecipe
-                  recipeImage={macncheese}
-                  recipeName="Mac & Cheese Supreme"
-                  recipeRating={3.8}
-                  recipeDescription="Creamy, cheesy, and oven-baked to perfection. This is a comfort food classic with a gourmet twist."
-                  cuisineRegion="North American"
-                  dietaryRestriction="Vegetarian"
-                  proteinChoice="Eggs"
-                  religiousRestriction="None"
-                /> */}
               </div>
             )}
           </div>

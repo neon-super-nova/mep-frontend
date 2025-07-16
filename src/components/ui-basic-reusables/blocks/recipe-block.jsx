@@ -19,8 +19,8 @@ function RecipeBlock({ recipe, type }) {
         <img
           className="recipe-block-thumbnail"
           src={
-            recipe.imageUrl
-              ? recipe.imageUrl
+            Array.isArray(recipe.imageUrls) && recipe.imageUrls.length > 0
+              ? recipe.imageUrls[0]
               : theme === "dark"
               ? dummyImgDark
               : dummyImgLight
