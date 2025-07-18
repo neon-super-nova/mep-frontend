@@ -445,10 +445,10 @@ width: 100%;
 
 .submit-recipe-footer {
   margin-top: 5rem;
-  background: var(--minor-accent-color-2b, #eaeaea);
+  background: var(--minor-accent-color-2b);
   text-align: center;
   padding: 1rem 0;
-  border-top: 4px solid var(--main-accent-color-alt, #2a5d4d);
+  border-top: 4px solid var(--main-accent-color-alt);
   font-size: 1rem;
   color: var(--text-color, #333);
 }

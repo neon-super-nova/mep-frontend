@@ -1,0 +1,37 @@
+[
+  {
+    "username": "gourmand_guru",
+    "avatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "rating": 4.4,
+    "comment": "Good eats! The flavors were well balanced, but I felt it could use a bit more spice. Overall, a solid recipe. Going to repeat it: Good eats! The flavors were well balanced, but I felt it could use a bit more spice. Overall, a solid recipe.",
+    "createdAt": "2025-06-23T20:36:53.949+00:00"
+  },
+  {
+    "username": "culinary_critic",
+    "avatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "rating": 4.8,
+    "comment": "Absolutely delightful! The combination of ingredients was perfect, and the cooking time was spot on. Will definitely make this again.",
+    "createdAt": "2025-06-24T15:12:45.123+00:00"
+  },
+  {
+    "username": "kitchen_enthusiast",
+    "avatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "rating": 5.0,
+    "comment": "This recipe is a game changer! The instructions were clear, and the dish turned out beautifully. Highly recommend!",
+    "createdAt": "2025-06-24T18:45:12.789+00:00"
+  },
+  {
+    "username": "foodie_fanatic",
+    "avatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "rating": 4.2,
+    "comment": "Very tasty! I loved the texture and the flavors, but I think it could be improved with a bit more seasoning.",
+    "createdAt": "2025-06-25T08:20:15.321+00:00"
+  },
+  {
+    "username": "home_cook",
+    "avatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "rating": 3.5,
+    "comment": "It was okay. The recipe was easy to follow, but I found it a bit bland. I added some extra herbs to enhance the flavor.",
+    "createdAt": "2025-06-25T10:05:30.456+00:00"
+  }
+]

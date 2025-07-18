@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
-import hardcodedUser from "../context/hardcoded-user";
+import dummySaved from "../context/submittedRecipes.json";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import iconImgDark from "../components/img/recipe-box/recipesDark.png";
@@ -50,7 +50,7 @@ function RecipeBoxPage() {
 
   const PAGE_SIZE = 7;
 
-  const savedRecipes = hardcodedUser.userSavedRecipes;
+  const savedRecipes = dummySaved || [];
   const savedStart = (savedPage - 1) * PAGE_SIZE;
   const savedEnd = savedStart + PAGE_SIZE;
   const pagedsaved = savedRecipes.slice(savedStart, savedEnd);

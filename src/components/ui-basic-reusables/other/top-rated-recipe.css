@@ -42,7 +42,7 @@
   font-weight: 800;
   font-style: normal;
   font-size: 1rem;
-  letter-spacing: 0.5px;
+   letter-spacing: 0.025rem; 
   color: var(--text-color);
   margin-top: -0.125rem;
 }
@@ -56,22 +56,24 @@
   font-size: 0.85rem;
   letter-spacing: 0.25px;
   flex-wrap: wrap;
+    font-family: "Open Sans", sans-serif;
 }
 
 .top-rated-user-rating-label {
   font-size: 0.75rem;
   font-family: "Work Sans", sans-serif;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.015rem; 
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+  margin-left: -0.5rem;
   color: var(--text-color);
 }
 
 .top-rated-recipe-description {
   font-size: 0.75rem;
   font-family: "Work Sans", sans-serif;
-  letter-spacing: 0.5px;
+    letter-spacing: 0.015rem; 
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;

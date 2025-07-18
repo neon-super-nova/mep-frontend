@@ -7,6 +7,8 @@ html {
 .notifications-page {
   display: flex;
   flex-direction: column;
+    justify-content: center;
+  align-items: center;
   background-color: var(--bg-color);
   min-height: 100vh;
 }
@@ -17,12 +19,17 @@ html {
   flex: 1;
   justify-content: center;
   align-items: center;
+  background-color: aqua;
+     width: 70%;
 }
 
 .notifications-page-left-panel {
   flex: 1;
   text-align: center;
   padding: 1rem;
+  background-color: forestgreen;
+   height: 100%;
+   width: 60%;
 }
 
 
@@ -36,6 +43,7 @@ html {
   letter-spacing: 0.05rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  background-color: fuchsia;
 }
 
 .notifications-page-panel-desc {
@@ -47,6 +55,7 @@ html {
   color: var(--text-color);
   font-size: 1.15rem;
   margin-top: 40px;
+    background-color: lightblue;
 }
 
 .notifications-image {
@@ -64,4 +73,5 @@ html {
   text-align: center;
   padding: 10px 20px;
   border-top: 10px solid var(--main-accent-color-alt);
+     width: 100vw;
 }

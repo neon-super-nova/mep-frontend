@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
 import StarRating from "../components/ui-basic-reusables/icons/star-rating";
+import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
 import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
 import lightcutlery from "../components/img/icons/icon-cutlery-light.png";
 import lighttimer from "../components/img/icons/icon-timer-light.png";
@@ -13,6 +14,9 @@ import darkmeasure from "../components/img/icons/icon-measure-dark.png";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
+import dummyReviews from "../context/recipeReview.json";
+import avatarLight from "../components/img/user/default-user-light_web.png";
+import avatarDark from "../components/img/user/default-user-dark_web.png";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -144,13 +148,21 @@ function RecipePage() {
               <div className="left">
                 <h6>
                   <span className="text">User Rating:</span>
-                  <span className="star">
-                    <StarRating rating={recipeStats.averageReview}></StarRating>
-                  </span>
-                  <span className="rate">
-                    {" "}
-                    {recipe.averageRating} / 5 stars
-                  </span>
+                  {recipeStats.averageReview ? (
+                    <>
+                      <span className="star">
+                        <NewStarRating
+                          rating={recipeStats.averageReview}
+                        ></NewStarRating>
+                      </span>
+                      <span className="rate">
+                        {" "}
+                        {recipeStats.averageReview} / 5 stars
+                      </span>
+                    </>
+                  ) : (
+                    <span className="no-rating">(Recipe not yet rated)</span>
+                  )}
                 </h6>
                 <RecipeTags recipe={recipe} />
               </div>
@@ -243,11 +255,15 @@ function RecipePage() {
             <div className="author-notes">
               <h3> Author Notes</h3>
               {recipe.authorNotes.length > 0 ? (
-                recipe.authorNotes.map((note, index) => {
-                  return <p key={index}>{note} </p>;
-                })
+                <p>
+                  {recipe.authorNotes.map((note, index) => (
+                    <span className="author-notes-true" key={index}>
+                      {note}
+                    </span>
+                  ))}
+                </p>
               ) : (
-                <p>Enjoy!</p>
+                <p className="author-notes-false">Enjoy!</p>
               )}
             </div>
             <div className="reviews">
@@ -262,10 +278,70 @@ function RecipePage() {
                 </h6>
               </div>
               <h4>REVIEWS:</h4>
-              <p>
-                will create the hash map for later (need to import other
-                database)
-              </p>
+              {recipeStats.reviewCount ? (
+                <div className="reviews-true">
+                  {dummyReviews.map((review) => (
+                    <div className="review-item" key={review.createdAt}>
+                      <div className="reviews-true-top">
+                        <div className="reviews-true-person">
+                          <span className="reviews-true-avatar">
+                            <img
+                              src={
+                                review.avatarUrl
+                                  ? review.avatarUrl
+                                  : theme === "dark"
+                                  ? avatarDark
+                                  : avatarLight
+                              }
+                              alt={`${review.username}'s avatar`}
+                              className="reviews-true-avatar-image"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src =
+                                  theme === "dark" ? avatarDark : avatarLight;
+                              }}
+                            />
+                          </span>
+                          <span className="reviews-true-username">
+                            {review.username}
+                          </span>
+                        </div>
+                        <span className="reviews-true-date">
+                          {new Date(review.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "2-digit",
+                              day: "2-digit",
+                              year: "numeric",
+                            }
+                          )}{" "}
+                          at{" "}
+                          {new Date(review.createdAt).toLocaleTimeString(
+                            "en-US",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            }
+                          )}
+                        </span>
+                      </div>
+                      <span className="reviews-true-rating">
+                        <span className="star">
+                          <StarRating rating={review.rating} />
+                        </span>
+                        <span className="text-rate"> {review.rating} / 5 stars</span>
+                      </span>
+                      <span className="reviews-true-comment">
+                        {review.comment}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="reviews-false">(This recipe has not yet been reviewed by other Mise en Plate users...)</p>
+              )}
+              {/* will create the hash map for later (need to import other database) */}
             </div>
           </div>
         </main>
