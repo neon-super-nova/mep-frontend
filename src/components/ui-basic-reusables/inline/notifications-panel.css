@@ -51,7 +51,7 @@
     vertical-align: middle;
 }
 
-.notification-link {
+.notifications-panel .notification-link {
     vertical-align: middle;
     background-color: var(--text-color-dropdown);
     padding: 0.25rem 0.5rem;

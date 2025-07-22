@@ -1,7 +1,7 @@
 import React from "react";
 import "./label-input.css";
 
-function RecipeTags({ recipe }) {
+function RecipeTags({ recipe, noTagsText = "none" } ) {
   const renameProtein = (protein) => {
     if (protein === "Other animal based") return "Meat - other / mixed";
     return protein;
@@ -16,7 +16,7 @@ function RecipeTags({ recipe }) {
     <h5 className="food tags-row">
       {/* Tags: */}
       {noTags ? (
-        <span className="food bold">none</span>
+        <span className="food bold">{noTagsText}</span>
       ) : (
         <>
           {recipe.cuisineRegion && recipe.cuisineRegion !== "Other" && (

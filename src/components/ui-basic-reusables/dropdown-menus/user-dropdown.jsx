@@ -151,7 +151,7 @@ function UserDropdown() {
                refreshTrigger={avatarRefresh}/>
               <span className="user-menu-text">User Menu</span>
               <ChevronDown
-                color={theme === "dark" ? "#f2e2ce" : "#3b4a4d"}
+                color="var(--text-color-alt)"
                 strokeWidth={5}
                 size={12}
               />

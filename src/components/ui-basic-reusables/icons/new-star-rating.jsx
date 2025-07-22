@@ -1,6 +1,5 @@
 import { Star, StarHalf } from "lucide-react";
 
-
 function NewStarRating({ rating }) {
   const starCount = 5;
   const stars = [];

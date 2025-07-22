@@ -1,0 +1,52 @@
+[
+  {
+    "eventUsername": "gourmand_guru",
+    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "eventType": "liked",
+    "object": "recipe",
+    "objectId": "68532a4db6313cee97a62930",
+    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
+    "objectName": "Pancakes",
+    "happenedAt": "2025-06-23T20:36:53.949+00:00"
+  },
+  {
+    "eventUsername": "culinary_critic",
+    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "eventType": "reviewed",
+    "object": "recipe",
+    "objectId": "68532baab6313cee97a62933",
+    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
+    "objectName": "Stuffed Peppers",
+    "happenedAt": "2025-06-24T15:12:45.123+00:00"
+  },
+  {
+    "eventUsername": "kitchen_enthusiast",
+    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "eventType": "followed",
+    "object": "user",
+    "objectId": "",
+    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
+    "objectName": "",
+    "happenedAt": "2025-06-24T18:45:12.789+00:00"
+  },
+  {
+    "eventUsername": "foodie_fanatic",
+    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "eventType": "liked",
+    "object": "recipe",
+    "objectId": "68532bf2b6313cee97a62938",
+    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
+    "objectName": "Garlic Shrimp Kebabs",
+    "happenedAt": "2025-06-25T08:20:15.321+00:00"
+  },
+  {
+    "eventUsername": "home_cook",
+    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
+    "eventType": "reviewed",
+    "object": "recipe",
+    "objectId": "68532bf2b6313cee97a62938",
+    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
+    "objectName": "Garlic Shrimp Kebabs",
+    "happenedAt": "2025-06-25T08:20:15.321+00:00"
+  }
+]

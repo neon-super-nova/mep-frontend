@@ -128,11 +128,10 @@ function AdvancedSearchPage() {
               </span>
             </div>
             <div className="tags-container">
-              <span className="advanced-search-page-tags-label">
-                <h5>{matches} matches found</h5>
-              </span>
-            </div>
             <div className="advanced-search-page-tags">
+                 <span className="advanced-search-page-tags-label">
+                <h5>{matches === 1 ? <span className="food-bold">{matches} match found</span> : <span className="food-bold">{matches} matches found</span>} </h5>
+              </span>
               <RecipeTags
                 recipe={{
                   cuisineRegion: selectedCuisineRegion?.value,
@@ -140,7 +139,9 @@ function AdvancedSearchPage() {
                   proteinChoice: selectedProteinChoice,
                   religiousRestriction: selectedReligiousRestriction,
                 }}
+                noTagsText={<span className="advanced-no-tags-text">(No filters selected)</span>}
               />
+                  </div>
             </div>
             <div className="advanced-search-page-advanced-blocks">
               {Array.isArray(allRecipes) && allRecipes.length > 0 ? (

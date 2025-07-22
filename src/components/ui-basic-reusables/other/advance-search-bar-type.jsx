@@ -6,7 +6,7 @@ function AdvancedSearchBarType() {
   return (
     <div className="advanced-shared-content-wrapper">
       <div className="advanced-page-left-panel-search-wrapper">
-        <Search color="#999" strokeWidth={2.5} size={15} />
+        <Search className='search-icon' strokeWidth={2.5} size={15} />
         <input
           className="advanced-page-left-panel-searchbar"
           type="search"

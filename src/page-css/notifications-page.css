@@ -9,7 +9,7 @@ html {
   flex-direction: column;
     justify-content: center;
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: var(--main-accent-color-alt);
   min-height: 100vh;
 }
 
@@ -19,54 +19,144 @@ html {
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
-     width: 70%;
+  background-color:var(--bg-color-alt-2);
+     width: 80%;
 }
 
 .notifications-page-left-panel {
   flex: 1;
   text-align: center;
   padding: 1rem;
-  background-color: forestgreen;
+
    height: 100%;
    width: 60%;
 }
 
 
-.notifications-page-panel-title {
-  font-family: "Inter", sans-serif;
+ h2.notifications-page-panel-title {
+  
+    font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.65rem;
+  color: var(--text-color);
+  letter-spacing: 0.10rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  border-bottom: 5px double var(--main-accent-color-alt);
+    padding-bottom: 0.25rem;
+}
+
+
+h3.notifications-page-panel-title {
+font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
-  font-size: 1.5rem;
-  color: var(--text-color);
-  letter-spacing: 0.05rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  background-color: fuchsia;
+  font-size: 1.25rem;
+  color: var(--text-color-invert);
+  background-color: var(--main-accent-color-alt);
+  letter-spacing: 0.075rem;
+  margin-bottom: 1.75rem;
+  text-transform: uppercase;
 }
 
 .notifications-page-panel-desc {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.10rem;
   color: var(--text-color);
-  font-size: 1.15rem;
-  margin-top: 40px;
-    background-color: lightblue;
+    font-size: 0.95rem;
 }
 
-.notifications-image {
-  width: 120px;
-  height: 120px;
+.notifications-page .notification-link {
+   font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  letter-spacing: 0.10rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.notifications-page-panel-item {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+  padding:  0.5rem 0.25rem;
+    border-bottom: 0.75px solid var(--main-accent-color-alt);
+
+}
+
+.notifications-page .event-liked-group {
+  position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.notifications-page .event-image-liked {
+  width: 65px;
+  height: 55px;
+  object-fit: cover;
+  margin-left: 1.5rem;
+    z-index: 0;
+}
+
+.notifications-page .event-image-liked-frame {
+   width: 76px;
+  height: 64px;
+    position: absolute;
+  top: -0.19rem;
+  left: 0.95rem;
+    z-index: 2;
+}
+
+.notifications-page .event-reviewed-group {
+  position: relative;
+      margin-bottom: 0.5rem;
+}
+
+.notifications-page .event-image-reviewed {
+  width: 64px;
+  height: 55px;
+  object-fit: cover;
+  margin-left: 1.5rem;
+      z-index: 0;
+}
+
+.notifications-page .event-image-reviewed-frame {
+  width: 75px;
+  height: 65px;
+      position: absolute;
+  top: -0.5rem;
+  left: 1.25rem;
+    z-index: 2;
+}
+
+.notifications-page .event-image-followed {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-left: 1.5rem;
+   
+}
+
+
+.notifications-page .user-image {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 1rem;
-  background-color: lightcoral;
-}
+  margin-right: 10px;
 
+  border: 1px solid var(--main-accent-color-alt);
+}
 
 .notifications-page-footer {
   background-color: var(--minor-accent-color-2b);
