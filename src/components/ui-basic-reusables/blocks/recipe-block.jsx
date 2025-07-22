@@ -35,10 +35,10 @@ function RecipeBlock({ recipe, type }) {
       <div className="recipe-block-text">
         <h3 className="recipe-block-title">{recipe.name}</h3>
         <p className="recipe-block-name">
-          <span>{type === "submitted" ? "Submitted by" : "Saved by"}</span>{" "}
+          <span>Submitted by</span>{" "}
         </p>
         <p className="recipe-block-name">
-          <span className="author">{recipe.userFullName}</span>
+          <span className="author">{recipe.authorName}</span>
         </p>
         <p className="recipe-block-name">
           <span className="author">{recipe.username}</span>

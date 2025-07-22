@@ -1,11 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../page-css/recipe-box-page.css";
 import { useTheme } from "../context/theme-context";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
-
-import dummySaved from "../context/submittedRecipes.json";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import iconImgDark from "../components/img/recipe-box/recipesDark.png";
@@ -26,9 +25,10 @@ function RecipeBoxPage() {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
 
+  const userId = getUserId();
+
   useEffect(() => {
     const getUser = async () => {
-      const userId = getUserId();
       if (!userId) return;
 
       try {
@@ -51,17 +51,11 @@ function RecipeBoxPage() {
 
   const PAGE_SIZE = 7;
 
-  const savedRecipes = dummySaved || [];
-  const savedStart = (savedPage - 1) * PAGE_SIZE;
-  const savedEnd = savedStart + PAGE_SIZE;
-  const pagedsaved = savedRecipes.slice(savedStart, savedEnd);
-
   const [recipeCount, setRecipeCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
     const getCount = async () => {
-      const userId = getUserId();
       if (!userId) return;
 
       try {
@@ -90,13 +84,16 @@ function RecipeBoxPage() {
       }
     };
     getCount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [submittedRecipes, setSubmittedRecipes] = useState([]);
+  const submittedStart = (submittedPage - 1) * PAGE_SIZE;
+  const submittedEnd = submittedStart + PAGE_SIZE;
+  const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
 
   useEffect(() => {
     const getSubmittedRecipes = async () => {
-      const userId = getUserId();
       if (!userId) return;
 
       try {
@@ -113,9 +110,28 @@ function RecipeBoxPage() {
     getSubmittedRecipes();
   }, []);
 
-  const submittedStart = (submittedPage - 1) * PAGE_SIZE;
-  const submittedEnd = submittedStart + PAGE_SIZE;
-  const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
+  const [likedRecipes, setLikedRecipes] = useState([]);
+  // const savedRecipes = dummySaved || [];
+  const savedStart = (savedPage - 1) * PAGE_SIZE;
+  const savedEnd = savedStart + PAGE_SIZE;
+  const pagedsaved = likedRecipes.slice(savedStart, savedEnd);
+
+  useEffect(() => {
+    const getLikedRecipes = async () => {
+      if (!userId) return;
+      try {
+        const result = await axios.get(`api/users/${userId}/liked-recipes`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setLikedRecipes(result.data.likedRecipes);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getLikedRecipes();
+  }, []);
 
   return (
     // console.log(Array.isArray(submittedRecipes), submittedRecipes),
@@ -162,6 +178,8 @@ function RecipeBoxPage() {
                     alt="saves"
                     className="saves"
                   />
+                  <p className="micro-bold">Recipes submitted: </p>
+                  <p className="micro-reg">{recipeCount}</p>
                 </div>
               </h6>
               <h6>
@@ -235,7 +253,7 @@ function RecipeBoxPage() {
           </div>
           <div className="recipe-box-page-saved-panel">
             <div className="recipe-box-page-saved-panel-heading">
-              <h3 className="recipe-box-page-saved-title">saved recipes</h3>
+              <h3 className="recipe-box-page-saved-title">liked recipes</h3>
               <h6>
                 <span className="bold">Modify Likes:</span>
                 <span className="reg">
@@ -261,10 +279,10 @@ function RecipeBoxPage() {
                 <RecipeBlock key={idx} recipe={recipe} type="saved" />
               ))}
               <button
-                disabled={savedEnd >= savedRecipes.length}
+                disabled={savedEnd >= likedRecipes.length}
                 onClick={() => setSavedPage(savedPage + 1)}
               >
-                {savedEnd < savedRecipes.length ? (
+                {savedEnd < likedRecipes.length ? (
                   <ArrowRight
                     color="var(--text-color)"
                     strokeWidth={1.5}
