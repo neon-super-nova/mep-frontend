@@ -30,11 +30,11 @@ html,
 }
 
 .recipe-box-image {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border-radius: 0%;
   object-fit: contain;
-  margin-bottom: 1rem;
+
   background-color: var(--bg-color);
 }
 
@@ -79,7 +79,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel,
-.recipe-box-page-saved-panel {
+.recipe-box-page-liked-panel {
   display: flex;
   width: 98%;
   flex-direction: column;
@@ -92,7 +92,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel-heading,
-.recipe-box-page-saved-panel-heading {
+.recipe-box-page-liked-panel-heading {
   display: flex;
   width: 98%;
   flex-direction: column;
@@ -104,7 +104,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel-heading h3,
-.recipe-box-page-saved-panel-heading h3 {
+.recipe-box-page-liked-panel-heading h3 {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
@@ -117,13 +117,13 @@ html,
 }
 
 .recipe-box-page-submitted-panel-heading h6,
-.recipe-box-page-saved-panel-heading h6 {
+.recipe-box-page-liked-panel-heading h6 {
   margin-bottom: -0.95rem;
 
 }
 
 .recipe-box-page-submitted-panel-heading h6 .bold,
-.recipe-box-page-saved-panel-heading h6 .bold {
+.recipe-box-page-liked-panel-heading h6 .bold {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -136,7 +136,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel-heading h6 .reg,
-.recipe-box-page-saved-panel-heading h6 .reg {
+.recipe-box-page-liked-panel-heading h6 .reg {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
@@ -146,7 +146,7 @@ html,
 }
 
 .recipe-box-page-submitted-panel-cards,
-.recipe-box-page-saved-panel-cards {
+.recipe-box-page-liked-panel-cards {
   display: flex;
   width: 98%;
   flex-direction: row;

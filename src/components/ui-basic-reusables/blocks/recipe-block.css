@@ -56,6 +56,13 @@
   text-transform: uppercase;
   letter-spacing: 0.02rem;
   line-height: 1.2;
+    margin-bottom: 0.125rem;
+}
+
+
+.recipe-block-container.submit .recipe-block-text h3 {
+  margin-top: 0.125rem;
+  margin-bottom: 0.25rem;
 }
 
 .recipe-block-text p {
@@ -68,9 +75,18 @@
   font-variation-settings: "wdth" 75;
   letter-spacing: 0.01rem;
   line-height: 1.2;
+    margin-top: 0.125rem;
+
 }
 
-.recipe-block-text p .author {
+.recipe-block-container.submit .recipe-block-text p {
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+.recipe-block-text p .author, .recipe-block-text p .author-username, .recipe-block-text p .date {
   font-weight: 700;
+}
+.recipe-block-text p .author, .recipe-block-text p .date {
   text-transform: capitalize;
 }

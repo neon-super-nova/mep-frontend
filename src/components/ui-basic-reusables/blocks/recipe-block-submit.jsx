@@ -5,13 +5,13 @@ import dummyImgDark from "../../img/recipe-box/dummydarkgreen.jpg";
 import dummyImgLight from "../../img/recipe-box/dummybeige.jpg";
 import { useTheme } from "../../../context/theme-context.js";
 
-function RecipeBlock({ recipe, type }) {
+function RecipeBlockSubmit({ recipe }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
 
   return (
     <div
-      className="recipe-block-container"
+      className="recipe-block-container submit"
       onClick={() => navigate(`/recipe/${recipe._id}`)}
     >
       <LikedFlag liked={recipe.userLiked} />
@@ -35,17 +35,21 @@ function RecipeBlock({ recipe, type }) {
       <div className="recipe-block-text">
         <h3 className="recipe-block-title">{recipe.name}</h3>
         <p className="recipe-block-name">
-          <span>Submitted by</span>{" "}
+          <span>Submitted on</span>{" "}
         </p>
         <p className="recipe-block-name">
-          <span className="author">{recipe.authorName}</span>
-        </p>
-        <p className="recipe-block-name">
-          <span className="author-username">({recipe.username})</span>
+          <span className="date">
+            {" "}
+            {new Date(recipe.createdAt).toLocaleDateString("en-US", {
+              month: "2-digit",
+              day: "2-digit",
+              year: "numeric",
+            })}
+          </span>
         </p>
       </div>
     </div>
   );
 }
 
-export default RecipeBlock;
+export default RecipeBlockSubmit;

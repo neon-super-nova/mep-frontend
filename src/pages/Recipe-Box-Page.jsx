@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
+import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-block-submit";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import iconImgDark from "../components/img/recipe-box/recipesDark.png";
 import iconImgLight from "../components/img/recipe-box/recipesLight.png";
@@ -20,7 +21,7 @@ import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
 function RecipeBoxPage() {
   const { theme } = useTheme();
   const [submittedPage, setSubmittedPage] = useState(1);
-  const [savedPage, setSavedPage] = useState(1);
+  const [likedPage, setLikedPage] = useState(1);
 
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
@@ -32,7 +33,7 @@ function RecipeBoxPage() {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`api/users/${userId}`, {
+        const response = await axios.get(`/api/users/${userId}`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -67,7 +68,7 @@ function RecipeBoxPage() {
             },
           }
         );
-        const likeResult = await axios.get(`api/users/${userId}/like-count`, {
+        const likeResult = await axios.get(`/api/users/${userId}/like-count`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -97,7 +98,7 @@ function RecipeBoxPage() {
       if (!userId) return;
 
       try {
-        const response = await axios.get(`api/users/${userId}/recipes`, {
+        const response = await axios.get(`/api/users/${userId}/recipes`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -111,16 +112,16 @@ function RecipeBoxPage() {
   }, []);
 
   const [likedRecipes, setLikedRecipes] = useState([]);
-  // const savedRecipes = dummySaved || [];
-  const savedStart = (savedPage - 1) * PAGE_SIZE;
-  const savedEnd = savedStart + PAGE_SIZE;
-  const pagedsaved = likedRecipes.slice(savedStart, savedEnd);
+  // const likedRecipes = dummyliked || [];
+  const likedStart = (likedPage - 1) * PAGE_SIZE;
+  const likedEnd = likedStart + PAGE_SIZE;
+  const pagedliked = likedRecipes.slice(likedStart, likedEnd);
 
   useEffect(() => {
     const getLikedRecipes = async () => {
       if (!userId) return;
       try {
-        const result = await axios.get(`api/users/${userId}/liked-recipes`, {
+        const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -170,23 +171,19 @@ function RecipeBoxPage() {
                     alt="likes"
                     className="likes"
                   />
-                  <p className="micro-bold">Recipes Liked: </p>
-                  <p className="micro-reg">{likeCount}</p>
+                  <p className="bold">Recipes Liked: </p>
+                  <p className="reg">{likeCount}</p>
+                  <span style={{ marginLeft: "0.25rem" }}> </span>
                   <p className="micro-div"> | </p>
+                  <span style={{ marginRight: "0.125rem" }}> </span>
                   <img
                     src={theme === "dark" ? tinysaveddark : tinysavedlight}
                     alt="saves"
                     className="saves"
                   />
-                  <p className="micro-bold">Recipes submitted: </p>
-                  <p className="micro-reg">{recipeCount}</p>
+                  <p className="bold">Recipes submitted: </p>
+                  <p className="reg">{recipeCount}</p>
                 </div>
-              </h6>
-              <h6>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
-                <span className="bold">subheading2:</span>
-                <span className="reg"> subheading contents2</span>
               </h6>
             </div>
           </div>
@@ -227,7 +224,7 @@ function RecipeBoxPage() {
 
               {pagedSubmitted.length > 0 ? (
                 pagedSubmitted.map((recipe, idx) => (
-                  <RecipeBlock
+                  <RecipeBlockSubmit
                     key={recipe.recipeId || idx}
                     recipe={recipe}
                     type="submitted"
@@ -251,23 +248,23 @@ function RecipeBoxPage() {
               </button>
             </div>
           </div>
-          <div className="recipe-box-page-saved-panel">
-            <div className="recipe-box-page-saved-panel-heading">
-              <h3 className="recipe-box-page-saved-title">liked recipes</h3>
+          <div className="recipe-box-page-liked-panel">
+            <div className="recipe-box-page-liked-panel-heading">
+              <h3 className="recipe-box-page-liked-title">liked recipes</h3>
               <h6>
                 <span className="bold">Modify Likes:</span>
                 <span className="reg">
                   {" "}
-                  (toggle x button over card to remove from saved)
+                  (toggle x button over card to remove from liked)
                 </span>
               </h6>
             </div>
-            <div className="recipe-box-page-saved-panel-cards">
+            <div className="recipe-box-page-liked-panel-cards">
               <button
-                disabled={savedPage === 1}
-                onClick={() => setSavedPage(savedPage - 1)}
+                disabled={likedPage === 1}
+                onClick={() => setLikedPage(likedPage - 1)}
               >
-                {savedPage !== 1 ? (
+                {likedPage !== 1 ? (
                   <ArrowLeft
                     color="var(--text-color)"
                     strokeWidth={1.5}
@@ -275,14 +272,14 @@ function RecipeBoxPage() {
                   />
                 ) : null}
               </button>
-              {pagedsaved.map((recipe, idx) => (
-                <RecipeBlock key={idx} recipe={recipe} type="saved" />
+              {pagedliked.map((recipe, idx) => (
+                <RecipeBlock key={idx} recipe={recipe} type="liked" />
               ))}
               <button
-                disabled={savedEnd >= likedRecipes.length}
-                onClick={() => setSavedPage(savedPage + 1)}
+                disabled={likedEnd >= likedRecipes.length}
+                onClick={() => setLikedPage(likedPage + 1)}
               >
-                {savedEnd < likedRecipes.length ? (
+                {likedEnd < likedRecipes.length ? (
                   <ArrowRight
                     color="var(--text-color)"
                     strokeWidth={1.5}
