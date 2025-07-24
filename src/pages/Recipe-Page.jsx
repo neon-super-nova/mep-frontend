@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
-import StarRating from "../components/ui-basic-reusables/icons/star-rating";
 import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
 import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
@@ -21,9 +20,10 @@ import darkmeasure from "../components/img/icons/icon-measure-dark.png";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
-import dummyReviews from "../context/recipeReview.json";
+// import dummyReviews from "../context/recipeReview.json";
 import avatarLight from "../components/img/user/default-user-light_web.png";
 import avatarDark from "../components/img/user/default-user-dark_web.png";
+import RecipeBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -40,6 +40,7 @@ function RecipePage() {
   const [likedRecipes, setLikedRecipes] = useState([]);
   const likedStatus = likedRecipes.some((r) => r._id === recipe._id);
   const [toastMsg, setToastMsg] = useState("");
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -151,6 +152,19 @@ function RecipePage() {
       }
     }
   };
+
+  useEffect(() => {
+    const getRecipeReviews = async () => {
+      try {
+        const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
+        setReviews(response.data);
+      } catch (err) {
+        setReviews([]);
+        console.error(err);
+      }
+    };
+    getRecipeReviews();
+  }, [recipeId]);
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -400,67 +414,17 @@ function RecipePage() {
                 </h6>
               </div>
               <h4>REVIEWS:</h4>
-              {recipeStats.reviewCount ? (
+              {recipeStats.reviewCount && reviews.length > 0 ? (
                 <div className="reviews-true">
-                  {dummyReviews.map((review) => (
-                    <div className="review-item" key={review.createdAt}>
-                      <div className="reviews-true-top">
-                        <div className="reviews-true-person">
-                          <span className="reviews-true-avatar">
-                            <img
-                              src={
-                                review.avatarUrl
-                                  ? review.avatarUrl
-                                  : theme === "dark"
-                                  ? avatarDark
-                                  : avatarLight
-                              }
-                              alt={`${review.username}'s avatar`}
-                              className="reviews-true-avatar-image"
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src =
-                                  theme === "dark" ? avatarDark : avatarLight;
-                              }}
-                            />
-                          </span>
-                          <span className="reviews-true-username">
-                            {review.username}
-                          </span>
-                        </div>
-                        <span className="reviews-true-date">
-                          {new Date(review.createdAt).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "2-digit",
-                              day: "2-digit",
-                              year: "numeric",
-                            }
-                          )}{" "}
-                          at{" "}
-                          {new Date(review.createdAt).toLocaleTimeString(
-                            "en-US",
-                            {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                              hour12: true,
-                            }
-                          )}
-                        </span>
-                      </div>
-                      <span className="reviews-true-rating">
-                        <span className="star">
-                          <StarRating rating={review.rating} />
-                        </span>
-                        <span className="text-rate">
-                          {" "}
-                          {review.rating} / 5 stars
-                        </span>
-                      </span>
-                      <span className="reviews-true-comment">
-                        {review.comment}
-                      </span>
-                    </div>
+                  {reviews.map((review) => (
+                    <RecipeBlock
+                      key={review.createdAt}
+                      createdAt={review.createdAt}
+                      pictureUrl={review.pictureUrl}
+                      username={review.username}
+                      rating={review.rating}
+                      comment={review.comment}
+                    />
                   ))}
                 </div>
               ) : (
