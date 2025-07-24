@@ -17,6 +17,7 @@ function AdvancedSearchPage() {
   const navigate = useNavigate();
 
   const [matches, setMatches] = useState(0);
+
   const [selectedCuisineRegion, setSelectedCuisineRegion] = useState(null);
   const [selectedDietaryRestriction, setSelectedDietaryRestriction] =
     useState(null);
@@ -48,7 +49,9 @@ function AdvancedSearchPage() {
   const getSelectedFilters = () => {
     const params = {};
     if (selectedCuisineRegion?.value) {
-      params.cuisineRegion = selectedCuisineRegion.value.toLowerCase();
+      selectedCuisineRegion.type === "parent"
+        ? (params.cuisineRegion = selectedCuisineRegion.value.toLowerCase())
+        : (params.cuisineSubregion = selectedCuisineRegion.value.toLowerCase());
     }
     if (selectedProteinChoice) {
       params.proteinChoice = selectedProteinChoice.toLowerCase();
@@ -64,15 +67,17 @@ function AdvancedSearchPage() {
 
   const runFilteredSearch = async () => {
     const queryParams = getSelectedFilters();
-    try {
-      const response = await axios.get(`api/recipes/search?${queryParams}`);
-      const foundRecipes = response.data.recipes;
-      const numberOfFoundRecipes = foundRecipes.length;
-      setAllRecipes(foundRecipes);
-      setMatches(numberOfFoundRecipes);
-    } catch (err) {
+    console.log("query params are " + queryParams);
+
+    const response = await axios.get(`api/recipes/search?${queryParams}`);
+    const foundRecipes = response.data.recipes;
+    const numberOfFoundRecipes = foundRecipes.length;
+    if (response.error) {
       setAllRecipes([]);
+      setMatches(0);
     }
+    setAllRecipes(foundRecipes);
+    setMatches(numberOfFoundRecipes);
   };
 
   return (
@@ -111,37 +116,53 @@ function AdvancedSearchPage() {
             <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
             <div className="advanced-search-page-search-bar">
               <span>
-                <h5 className="advanced-search-page-search-bar-label">search for:</h5>
+                <h5 className="advanced-search-page-search-bar-label">
+                  search for:
+                </h5>
                 <AdvancedSearchBarType />
               </span>
-              <span >
-                <h5 className="advanced-search-page-search-bar-label">sort by</h5>{" "}
+              <span>
+                <h5 className="advanced-search-page-search-bar-label">
+                  sort by
+                </h5>{" "}
                 <SearchOptionsProvider options={sortOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
               </span>
               <span>
-                <h5 className="advanced-search-page-search-bar-label">view as:</h5>{" "}
+                <h5 className="advanced-search-page-search-bar-label">
+                  view as:
+                </h5>{" "}
                 <SearchOptionsProvider options={displayOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
               </span>
             </div>
             <div className="tags-container">
-            <div className="advanced-search-page-tags">
-                 <span className="advanced-search-page-tags-label">
-                <h5>{matches === 1 ? <span className="food-bold">{matches} match found</span> : <span className="food-bold">{matches} matches found</span>} </h5>
-              </span>
-              <RecipeTags
-                recipe={{
-                  cuisineRegion: selectedCuisineRegion?.value,
-                  dietaryRestriction: selectedDietaryRestriction,
-                  proteinChoice: selectedProteinChoice,
-                  religiousRestriction: selectedReligiousRestriction,
-                }}
-                noTagsText={<span className="advanced-no-tags-text">(No filters selected)</span>}
-              />
-                  </div>
+              <div className="advanced-search-page-tags">
+                <span className="advanced-search-page-tags-label">
+                  <h5>
+                    {matches === 1 ? (
+                      <span className="food-bold">{matches} match found</span>
+                    ) : (
+                      <span className="food-bold">{matches} matches found</span>
+                    )}{" "}
+                  </h5>
+                </span>
+                <RecipeTags
+                  recipe={{
+                    cuisineRegion: selectedCuisineRegion?.value,
+                    dietaryRestriction: selectedDietaryRestriction,
+                    proteinChoice: selectedProteinChoice,
+                    religiousRestriction: selectedReligiousRestriction,
+                  }}
+                  noTagsText={
+                    <span className="advanced-no-tags-text">
+                      (No filters selected)
+                    </span>
+                  }
+                />
+              </div>
             </div>
             <div className="advanced-search-page-advanced-blocks">
               {Array.isArray(allRecipes) && allRecipes.length > 0 ? (
