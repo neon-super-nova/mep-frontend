@@ -212,10 +212,11 @@ html {
   font-weight: 600;
   font-style: normal;
   font-size: 0.825rem;
-  color:green; 
+  color: var(--text-color);
   letter-spacing: 0.03rem;
   text-transform: uppercase;
   margin-bottom: 0.25rem;
+  margin-left: 0.125rem;
   }
 
 .advanced-search-page-tags .food-bold {

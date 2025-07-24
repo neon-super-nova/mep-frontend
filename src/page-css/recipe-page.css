@@ -44,6 +44,11 @@ html {
     align-items: center;
 }
 
+.recipe-page-like-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
 .recipe-page .top .small {
     width: 100vw;
     display: flex;

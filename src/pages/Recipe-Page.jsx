@@ -2,9 +2,16 @@ import "../page-css/recipe-page.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
+import { getUserId } from "../context/decodeToken.js";
 import StarRating from "../components/ui-basic-reusables/icons/star-rating";
 import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
 import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
+import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
+import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
+import tinylikedlight25 from "../components/img/icons/icon-likes-small-light-25.png";
+import tinylikeddark25 from "../components/img/icons/icon-likes-small-dark-25.png";
+//import biglikedlight from "../components/img/icons/icon-likes-large-light.png";
+//import biglikeddark from "../components/img/icons/icon-likes-large-dark.png";
 import lightcutlery from "../components/img/icons/icon-cutlery-light.png";
 import lighttimer from "../components/img/icons/icon-timer-light.png";
 import lightmeasure from "../components/img/icons/icon-measure-light.png";
@@ -23,11 +30,36 @@ function RecipePage() {
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
   const [user, setUser] = useState(null);
+  const userId = getUserId();
   const [recipeStats, setRecipeStats] = useState({
     averageReview: 0,
     reviewCount: 0,
     likeCount: 0,
   });
+
+  const [likedRecipes, setLikedRecipes] = useState([]);
+  const likedStatus = likedRecipes.some((r) => r._id === recipe._id);
+  const [toastMsg, setToastMsg] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      if (!userId) return;
+
+      try {
+        const response = await axios.get(`/api/users/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setUser(response.data.userInfo);
+      } catch (err) {
+        if (err.response) {
+          alert(err.response.data.error);
+        }
+      }
+    };
+    getUser();
+  }, [userId]);
 
   useEffect(() => {
     async function fetchRecipeInfo() {
@@ -71,6 +103,59 @@ function RecipePage() {
     fetchRecipeStats();
   }, [recipeId]);
 
+  useEffect(() => {
+    const getLikedRecipes = async () => {
+      if (!userId) return;
+      try {
+        const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        setLikedRecipes(result.data.likedRecipes);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getLikedRecipes();
+  }, [userId]);
+
+  const handleLikeRecipe = async () => {
+    if (!recipe) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    if (likedStatus === false) {
+      try {
+        const response = await axios.post(
+          `/api/recipes/${recipeId}/like`,
+          {},
+          { headers }
+        );
+        console.log(response.data);
+        setLikedRecipes([...likedRecipes, recipe]);
+      } catch (err) {
+        console.error("Error liking recipe:", err);
+      }
+    } else {
+      try {
+        const response = await axios.post(`/api/recipes/${recipeId}/unlike`);
+        console.log(response.data);
+        setLikedRecipes(likedRecipes.filter((r) => r._id !== recipe._id));
+      } catch (err) {
+        console.error("Error unliking recipe:", err);
+      }
+    }
+  };
+
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(""), 2000);
+  };
   if (recipe === null) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found.</div>;
 
@@ -104,6 +189,43 @@ function RecipePage() {
                     day: "2-digit",
                     year: "numeric",
                   })}
+                </span>
+              </h6>
+              <span style={{ width: "1.75rem" }}></span>
+              <h6>
+                <span className="bold">Liked? </span>
+                <span style={{ width: "0.5rem" }}></span>
+                <span className="reg">
+                  <button
+                    className="like-btn"
+                    onClick={() => {
+                      handleLikeRecipe();
+                      showToast(
+                        likedStatus ? "Recipe unliked!" : "Recipe liked!"
+                      );
+                    }}
+                    style={{ background: "none", border: "none", padding: 0 }}
+                  >
+                    <img
+                      src={
+                        likedStatus
+                          ? theme === "dark"
+                            ? tinylikeddark
+                            : tinylikedlight
+                          : theme === "dark"
+                          ? tinylikeddark25
+                          : tinylikedlight25
+                      }
+                      alt="Like icon and button"
+                      className="recipe-page-like-icon"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          theme === "dark" ? avatarDark : avatarLight;
+                      }}
+                    />
+                  </button>
+                  {toastMsg && <div className="toast">{toastMsg}</div>}
                 </span>
               </h6>
             </div>
@@ -330,7 +452,10 @@ function RecipePage() {
                         <span className="star">
                           <StarRating rating={review.rating} />
                         </span>
-                        <span className="text-rate"> {review.rating} / 5 stars</span>
+                        <span className="text-rate">
+                          {" "}
+                          {review.rating} / 5 stars
+                        </span>
                       </span>
                       <span className="reviews-true-comment">
                         {review.comment}
@@ -339,7 +464,10 @@ function RecipePage() {
                   ))}
                 </div>
               ) : (
-                <p className="reviews-false">(This recipe has not yet been reviewed by other Mise en Plate users...)</p>
+                <p className="reviews-false">
+                  (This recipe has not yet been reviewed by other Mise en Plate
+                  users...)
+                </p>
               )}
               {/* will create the hash map for later (need to import other database) */}
             </div>

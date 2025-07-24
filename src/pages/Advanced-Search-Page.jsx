@@ -110,18 +110,18 @@ function AdvancedSearchPage() {
           <div className="advanced-search-page-right-panel">
             <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
             <div className="advanced-search-page-search-bar">
-              <span className="advanced-search-page-search-bar-label">
-                <h5>search for:</h5>
+              <span>
+                <h5 className="advanced-search-page-search-bar-label">search for:</h5>
                 <AdvancedSearchBarType />
               </span>
-              <span className="advanced-search-page-search-bar-label">
-                <h5>sort by</h5>{" "}
+              <span >
+                <h5 className="advanced-search-page-search-bar-label">sort by</h5>{" "}
                 <SearchOptionsProvider options={sortOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
               </span>
-              <span className="advanced-search-page-search-bar-label">
-                <h5>view as:</h5>{" "}
+              <span>
+                <h5 className="advanced-search-page-search-bar-label">view as:</h5>{" "}
                 <SearchOptionsProvider options={displayOptions}>
                   <AdvancedSearchBarEnum />
                 </SearchOptionsProvider>
