@@ -159,8 +159,12 @@ function RecipePage() {
         const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
         setReviews(response.data);
       } catch (err) {
-        setReviews([]);
-        console.error(err);
+            if (err.response && err.response.status === 404) {
+              setReviews([]);
+            } else {
+              setReviews([]);
+              console.error(err);
+            }
       }
     };
     getRecipeReviews();
@@ -413,7 +417,7 @@ function RecipePage() {
                   <span className="bold">{recipeStats.reviewCount}</span>
                 </h6>
               </div>
-              <h4>REVIEWS:</h4>
+              <h4 id="reviews">REVIEWS:</h4>
               {recipeStats.reviewCount && reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (

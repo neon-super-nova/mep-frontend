@@ -9,7 +9,14 @@ export const cuisineData = {
       "Other",
     ],
     Caribbean: ["Jamaican", "Haitian", "Dominican", "Other"],
-    "North American": ["Southern American", "Tex-Mex", "Cajun", "Other"],
+    "North American": [
+      "Southern American",
+      "Tex-Mex",
+      "Cajun",
+      "American",
+      "Canadian",
+      "Other",
+    ],
     "Middle Eastern": ["Turkish", "Lebanese", "Persian", "Other"],
     "East Asian": ["Chinese", "Japanese", "Korean", "Other"],
     "Southeast Asian": ["Thai", "Vietnamese", "Filipino", "Other"],
@@ -33,6 +40,7 @@ export const cuisineData = {
     "Beef",
     "Pork",
     "Lamb",
+    "Egg",
     "Meat - Other / Mixed",
   ],
   dietaryRestriction: [
@@ -52,10 +60,12 @@ export const cuisineData = {
     "Kosher",
     "Kosher Parve",
     "Hindu (Satvik)",
+    /*  
     "Ahimsa (Buddhist)*",
     "Ahimsa (Jain)*",
     "Jhatka*",
     "Lenten?*",
+    */
   ],
 };
 
@@ -66,11 +76,25 @@ export const CUISINE_REGION_ENUM = Object.freeze({
   Caribbean: 3,
   "Middle Eastern": 4,
   "East Asian": 5,
-  "Southeast Asian": 5,
-  "South Asian": 6,
-  European: 7,
-  African: 8,
-  "Hawaiian / Pacific Islands": 9,
+  "Southeast Asian": 6,
+  "South Asian": 7,
+  European: 8,
+  African: 9,
+  "Hawaiian / Pacific Islands": 10,
+});
+
+export const CUISINE_SUBREGION_ENUM = Object.freeze({
+  0: ["None"],
+  1: ["Southern American", "Tex-Mex", "Cajun", "American", "Canadian", "Other"],
+  2: ["Peruvian", "Mexican", "Brazilian", "Colombian", "Cuban", "Other"],
+  3: ["Jamaican", "Haitian", "Dominican", "Other"],
+  4: ["Turkish", "Lebanese", "Persian", "Other"],
+  5: ["Chinese", "Japanese", "Korean", "Other"],
+  6: ["Thai", "Vietnamese", "Filipino", "Other"],
+  7: ["Nepali", "Indian", "Pakistani", "Other"],
+  8: ["Italian", "French", "Spanish", "German", "Greek", "Other"],
+  9: ["Ethiopian", "Nigerian", "Moroccan", "Ghanian", "Egyptian", "Other"],
+  10: ["Hawaiian", "Fijian", "Other"],
 });
 
 export const PROTEIN_CHOICE_ENUM = Object.freeze({
@@ -83,7 +107,8 @@ export const PROTEIN_CHOICE_ENUM = Object.freeze({
   Beef: 6,
   Pork: 7,
   Lamb: 8,
-  "Meat - Other / Mixed": 9,
+  "Egg": 9,
+  "Meat - Other / Mixed": 10,
 });
 
 export const DIETARY_RESTRICTION_ENUM = Object.freeze({

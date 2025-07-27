@@ -2,12 +2,12 @@ import React from 'react';
 import Button from './button-main'; 
 
 const SubmitButton = ({ onPress, className = '' }) => {
-  console.log('SubmitButton component loaded');
 
+  console.log("SubmitButton onPress:", onPress);
   return (
     <Button
       label="Submit" 
-      onPress={onPress} 
+            onPress={onPress} 
       className={`submit-button ${className}`} 
     />
   );

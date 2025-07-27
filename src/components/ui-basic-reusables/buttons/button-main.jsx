@@ -15,7 +15,6 @@ class Button extends React.Component {
     render() {
       const { label, onPress, to, className = '' } = this.props;
   
-      console.log('Button component loaded');
       const buttonClass = className || 'btn-std';
   
       if (to) {
