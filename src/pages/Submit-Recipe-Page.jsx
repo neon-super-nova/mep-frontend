@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import "../page-css/submit-recipe-page.css";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
@@ -17,15 +18,16 @@ import {
   DIETARY_RESTRICTION_ENUM,
   RELIGIOUS_RESTRICTION_ENUM,
 } from "../data/cuisineData.js";
+import { useNavigate } from "react-router-dom";
 
 function SubmitRecipePage() {
-
   const { theme } = useTheme();
 
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
@@ -48,56 +50,104 @@ function SubmitRecipePage() {
     getUser();
   }, []);
 
-  const [recipeTitle, setRecipeTitle] = useState("");
-  const [image1Url, setImage1Url] = useState("");
-  const [image2Url, setImage2Url] = useState("");
-  const [image3Url, setImage3Url] = useState("");
-  //const [imageArray, setImageArray] = useState([
-   // image1Url,
-    //image2Url,
-   // image3Url,
-  //]);
-  //useEffect(() => {
-    //setImageArray([image1Url, image2Url, image3Url]);
-  //}, [image1Url, image2Url, image3Url]);
+  // defining formData object to append all entries for recipe doc
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    prepTime: 0,
+    cookTime: 0,
+    servings: 0,
+    cuisineRegion: "",
+    cuisineSubregion: "",
+    proteinChoice: "",
+    dietaryRestriction: "",
+    religiousRestriction: "",
+  });
 
-  const [ingredients, setIngredients] = useState([]);
-  const [instructions, setInstructions] = useState([]);
   const [cuisineRegion, setCuisineRegion] = useState(0);
   const cuisineRegionLabel = Object.keys(CUISINE_REGION_ENUM).find(
     (key) => CUISINE_REGION_ENUM[key] === cuisineRegion
   );
   const [cuisineSubRegion, setCuisineSubRegion] = useState("None");
-  const [proteinChoice, setProteinChoice] = useState("None");
-  const [dietaryRestriction, setDietaryRestriction] = useState("None");
-  const [religiousRestriction, setReligiousRestriction] = useState("None");
-  const [prepTime, setPrepTime] = useState(1);
-  const [cookTime, setCookTime] = useState(1);
-  const totalTime =
-    prepTime && cookTime ? Number(prepTime) + Number(cookTime) : "0";
-  const [servings, setServings] = useState(1);
-  const [description, setDescription] = useState("");
-  const currentDate = new Date();
-  const currentDatePrint = currentDate.toLocaleDateString("en-US", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  });
-  const [authorNotes, setAuthorNotes] = useState([]);
-  const [equipment, setEquipment] = useState([]);
+  const [proteinChoice, setProteinChoice] = useState("");
+  const [religiousRestriction, setReligiousRestriction] = useState("");
+  const [dietaryRestriction, setDietaryRestriction] = useState("");
 
+  // ingredients, instructions, authorNotes, equipment, imageUrls
+  const [ingredientsText, setIngredientsText] = useState("");
+  const [instructionsText, setInstructionsText] = useState("");
+  const [authorNotesText, setAuthorNotesText] = useState("");
+  const [equipmentText, setEquipmentText] = useState("");
+
+  // setting the aid functions to populate arrays
+
+  const processMultilineInput = (input) => {
+    if (typeof input !== "string") {
+      return [];
+    }
+    return input
+      .split(/[\n,]+/) // split by newlines or commas
+      .map((line) => line.trim()) // trim whitespace
+      .filter((line) => line.length);
+  };
+
+  //images
+  const [images, setImages] = useState([null, null, null]);
+  const [imagePreview, setImagesPreview] = useState(["", "", ""]);
+
+  const handleImageUpload = (file) => {
+    const previewUrl = URL.createObjectURL(file);
+    const firstAvailableIdx = images.findIndex((url) => !url);
+    if (firstAvailableIdx !== -1) {
+      // save images as file for backend and for preview
+      setImages((prev) => {
+        const array = [...prev];
+        array[firstAvailableIdx] = file;
+        return array;
+      });
+      setImagesPreview((prev) => {
+        const array = [...prev];
+        array[firstAvailableIdx] = previewUrl;
+        return array;
+      });
+    } else {
+      alert(
+        "All image slots are filled. Please clear a slot before uploading a new image."
+      );
+    }
+  };
+
+  const clearImage = (slot) => {
+    const idx = slot - 1; // slots are 1-based
+    setImages((prev) => {
+      const array = [...prev];
+      array[idx] = null;
+      return array;
+    });
+    setImagesPreview((prev) => {
+      const array = [...prev];
+      array[idx] = "";
+      return array;
+    });
+  };
+
+  // putting it all together and sending it to the backend aka big boy
   const handleSubmit = async () => {
     console.log("handleSubmit triggered");
 
+    const ingredientsArray = processMultilineInput(ingredientsText);
+    const instructionsArray = processMultilineInput(instructionsText);
+    const equipmentArray = processMultilineInput(equipmentText);
+    const authorNotesArray = processMultilineInput(authorNotesText);
+
     if (
-      !recipeTitle ||
-      !ingredients ||
-      !instructions ||
-      !prepTime ||
-      !cookTime ||
-      !totalTime ||
-      !servings ||
-      !description
+      !formData.name ||
+      !formData.prepTime ||
+      !formData.cookTime ||
+      !formData.servings ||
+      !formData.description ||
+      !ingredientsArray.length ||
+      !instructionsArray
     ) {
       alert("Please fill out all fields.");
       return;
@@ -108,41 +158,46 @@ function SubmitRecipePage() {
       return;
     }
 
-    const recipeData = {
-      name: recipeTitle,
-      prepTime: Number(prepTime),
-      cookTime: Number(cookTime),
-      totalTime: Number(totalTime),
-      servings: Number(servings),
-      ingredients: ingredients.filter((item) => item && item.trim() !== ""),
-      instructions: instructions.filter((item) => item && item.trim() !== ""),
-      //imageUrls: imageArray.filter(url => url && url.trim() !== ""),
-      imageUrls: ["https://images.unsplash.com/photo-1663465374413-83cba00bff6f"],
-      cuisineSubRegion,
-      ...(!cuisineRegionLabel
-        ? { cuisineRegion }
-        : { cuisineRegion: cuisineRegionLabel }),
-      proteinChoice,
-      dietaryRestriction,
-      religiousRestriction,
-      createdAt: currentDate,
-      description,
-      authorNotes: authorNotes.filter((item) => item && item.trim() !== ""),
-      equipment: equipment.filter((item) => item && item.trim() !== ""),
-    };
+    const bigBoy = new FormData();
+
+    bigBoy.append("name", formData.name);
+    bigBoy.append("description", formData.description);
+    bigBoy.append("prepTime", formData.prepTime);
+    bigBoy.append("cookTime", formData.cookTime);
+    bigBoy.append("servings", formData.servings);
+
+    // enums
+    bigBoy.append("cuisineRegion", cuisineRegion);
+    bigBoy.append("cuisineSubregion", cuisineSubRegion);
+    bigBoy.append("proteinChoice", proteinChoice);
+    bigBoy.append("dietaryRestriction", dietaryRestriction);
+    bigBoy.append("religiousRestriction", religiousRestriction);
+
+    // stringified arrays
+    bigBoy.append("ingredients", JSON.stringify(ingredientsArray));
+    bigBoy.append("instructions", JSON.stringify(instructionsArray));
+    bigBoy.append("equipment", JSON.stringify(equipmentArray));
+    bigBoy.append("authorNotes", JSON.stringify(authorNotesArray));
+
+    // images
+    images.forEach((file) => {
+      if (file) bigBoy.append("images", file);
+    });
+
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      console.log("Submitting recipeData:", recipeData);
-      const result = await axios.post("/api/recipes", recipeData, {
+      const result = await axios.post("/api/recipes", bigBoy, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
       const response = result.data;
+      const recipeId = result.data.recipeId;
+      console.log(recipeId);
       if (response.message === "Recipe successfully added") {
         alert("Recipe submitted successfully!");
+        navigate(`/recipe/${recipeId}`);
       } else {
         alert(response.error || "Try again");
       }
@@ -151,34 +206,6 @@ function SubmitRecipePage() {
       if (err.response) {
         alert(err.response.data.error);
       }
-    }
-  };
-
-  const handleImageUpload = (file) => {
-    const imageUrl = URL.createObjectURL(file);
-    if (!image1Url) {
-      console.log("Image 1 uploaded:", imageUrl);
-      setImage1Url(imageUrl);
-    } else if (!image2Url) {
-      console.log("Image 2 uploaded:", imageUrl);
-      setImage2Url(imageUrl);
-    } else if (!image3Url) {
-      console.log("Image 3 uploaded:", imageUrl);
-      setImage3Url(imageUrl);
-    } else {
-      alert(
-        "All image slots are filled. Please clear a slot before uploading a new image."
-      );
-    }
-  };
-
-  const clearImage = (slot) => {
-    if (slot === 1) {
-      setImage1Url("");
-    } else if (slot === 2) {
-      setImage2Url("");
-    } else if (slot === 3) {
-      setImage3Url("");
     }
   };
 
@@ -198,17 +225,19 @@ function SubmitRecipePage() {
                     className="submit-recipe-title-input"
                     placeholder="Title Your Recipe Here"
                     maxLength={80}
-                    value={recipeTitle}
                     onChange={(e) =>
                       console.log("Recipe Title changed:", e.target.value) ||
-                      setRecipeTitle(e.target.value)
+                      setFormData((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
                     }
                   />
                   <button
                     className="submit-button-title-clear"
-                    onClick={() => {
-                      if (recipeTitle.length !== 0) setRecipeTitle("");
-                    }}
+                    // onClick={() => {
+                    //   if (recipeTitle.length !== 0) setRecipeTitle("");
+                    // }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -232,7 +261,7 @@ function SubmitRecipePage() {
                 <span style={{ width: "1.75rem" }}></span>
                 <span className="bold">date submitting: </span>
                 <span style={{ width: "0.5rem" }}></span>
-                <span className="reg"> {currentDatePrint}</span>
+                {/* <span className="reg"> {currentDatePrint}</span> */}
               </h6>
             </div>
             <div className="submit-recipe-headline">
@@ -243,10 +272,12 @@ function SubmitRecipePage() {
                   placeholder="Add a brief description of your recipe here."
                   rows={3}
                   maxLength={500}
-                  value={description}
                   onChange={(e) => {
                     console.log("Description changed:", e.target.value);
-                    setDescription(e.target.value);
+                    setFormData((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    }));
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -256,31 +287,32 @@ function SubmitRecipePage() {
                 />
               </span>
             </div>
+            {/* images */}
             <div className="submit-recipe-image">
-              <XFlag clear={() => clearImage(1)} show={!!image1Url} />
+              <XFlag clear={() => clearImage(1)} show={!!imagePreview[0]} />
               <img
-                src={!image1Url ? dummyV1 : image1Url}
-                alt={image1Url}
+                src={!imagePreview[0] ? dummyV1 : imagePreview[0]}
+                alt={imagePreview[0]}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = dummyV1;
                   console.log("Image 1 failed to load:", e.target.src);
                 }}
               />
-              <XFlag clear={() => clearImage(2)} show={!!image2Url} />
+              <XFlag clear={() => clearImage(2)} show={!!imagePreview[1]} />
               <img
-                src={!image2Url ? dummyV2 : image2Url}
-                alt={image2Url}
+                src={!imagePreview[1] ? dummyV2 : imagePreview[1]}
+                alt={imagePreview[1]}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = dummyV2;
                   console.log("Image 2 failed to load:", e.target.src);
                 }}
               />
-              <XFlag clear={() => clearImage(3)} show={!!image3Url} />
+              <XFlag clear={() => clearImage(3)} show={!!imagePreview[2]} />
               <img
-                src={!image3Url ? dummyV1 : image3Url}
-                alt={image3Url}
+                src={!imagePreview[2] ? dummyV1 : imagePreview[2]}
+                alt={imagePreview[2]}
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = dummyV1;
@@ -296,6 +328,7 @@ function SubmitRecipePage() {
               className="submit-upload"
               onFileSelect={(file) => handleImageUpload(file)}
             />
+            {/* end of images */}
 
             <div className="submit-recipe-notes">
               <div className="left">
@@ -415,19 +448,21 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={0}
                     max={999}
-                    value={cookTime}
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       console.log("Cook time changed:", val);
-                      setCookTime(val < 1 ? 1 : val);
+                      setFormData((prev) => ({
+                        ...prev,
+                        cookTime: val,
+                      }));
                     }}
                   />
                   <span className="bold">minutes</span>
                   <button
                     className="submit-time-button-clear"
-                    onClick={() => {
-                      if (cookTime !== 0) setCookTime(0);
-                    }}
+                    // onClick={() => {
+                    //   if (cookTime !== 0) setCookTime(0);
+                    // }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -447,19 +482,21 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={0}
                     max={999}
-                    value={prepTime}
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       console.log("Prep time changed:", val);
-                      setPrepTime(val < 1 ? 1 : val);
+                      setFormData((prev) => ({
+                        ...prev,
+                        prepTime: val,
+                      }));
                     }}
                   />
                   <span className="bold">minutes</span>
                   <button
                     className="submit-time-button-clear"
-                    onClick={() => {
-                      if (prepTime !== 0) setPrepTime(0);
-                    }}
+                    // onClick={() => {
+                    //   if (prepTime !== 0) setPrepTime(0);
+                    // }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -471,10 +508,10 @@ function SubmitRecipePage() {
                 </div>
                 <span style={{ height: "0.5rem" }}></span>
                 <div className="reg-input">
-                  <span className="bold">Total Time: </span>
+                  {/* <span className="bold">Total Time: </span>
                   <span className="reg-total">
-                    {totalTime !== "0" ? `${totalTime}` : "0"} minutes
-                  </span>
+                    {Number(formData.prepTime + formData.cookTime)} minutes
+                  </span> */}
                 </div>
                 <span style={{ height: "0.5rem" }}></span>
                 <div className="reg-input">
@@ -486,18 +523,20 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={1}
                     max={100}
-                    value={servings}
                     onChange={(e) => {
                       const val = Number(e.target.value);
                       console.log("Servings changed:", val);
-                      setServings(val < 1 ? 1 : val);
+                      setFormData((prev) => ({
+                        ...prev,
+                        servings: val,
+                      }));
                     }}
                   />
                   <button
                     className="submit-time-button-clear"
-                    onClick={() => {
-                      if (servings !== 0) setServings(0);
-                    }}
+                    // onClick={() => {
+                    //   if (servings !== 0) setServings(0);
+                    // }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -517,10 +556,9 @@ function SubmitRecipePage() {
                   placeholder="Add any special equipment needed for this recipe."
                   rows={2}
                   maxLength={500}
-                  value={equipment.join(",")}
+                  value={equipmentText}
                   onChange={(e) => {
-                    console.log("Special equipment changed:", e.target.value);
-                    setEquipment(e.target.value.split(","));
+                    setEquipmentText(e.target.value);
                   }}
                 />
               </span>
@@ -536,10 +574,9 @@ function SubmitRecipePage() {
                     placeholder="Specify ingredients"
                     rows={8}
                     maxLength={1500}
-                    value={ingredients.join(",")}
+                    value={ingredientsText}
                     onChange={(e) => {
-                      console.log("Ingredients changed:", e.target.value);
-                      setIngredients(e.target.value.split(/[\n,]+/));
+                      setIngredientsText(e.target.value);
                     }}
                   />
                 </span>
@@ -548,7 +585,7 @@ function SubmitRecipePage() {
                     className="submit-button-clear"
                     onClick={() => {
                       console.log("Clear ingredients");
-                      if (ingredients[0].length !== 0) setIngredients([""]);
+                      setIngredientsText("");
                     }}
                   >
                     <X
@@ -568,10 +605,9 @@ function SubmitRecipePage() {
                     placeholder="Specify instructions and special equipment callout"
                     rows={8}
                     maxLength={3000}
-                    value={instructions.join(",")}
+                    value={instructionsText}
                     onChange={(e) => {
-                      console.log("Instructions changed:", e.target.value);
-                      setInstructions(e.target.value.split(/[\n,]+/));
+                      setInstructionsText(e.target.value);
                     }}
                   />
                 </span>
@@ -580,7 +616,8 @@ function SubmitRecipePage() {
                     className="submit-button-clear"
                     onClick={() => {
                       console.log("Clear instructions");
-                      if (instructions[0].length !== 0) setInstructions([""]);
+                      setInstructionsText("");
+                      setFormData((prev) => ({ ...prev, instructions: [] }));
                     }}
                   >
                     <X
@@ -601,10 +638,9 @@ function SubmitRecipePage() {
                   placeholder="Add any final details."
                   rows={2}
                   maxLength={500}
-                  value={authorNotes.join(",")}
+                  value={authorNotesText}
                   onChange={(e) => {
-                    console.log("Author notes changed:", e.target.value);
-                    setAuthorNotes(e.target.value.split(/[\n,]+/));
+                    setAuthorNotesText(e.target.value);
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
