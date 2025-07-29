@@ -134,13 +134,6 @@ function SubmitRecipePage() {
     if (!token) return;
     try {
       console.log("Submitting recipeData:", recipeData);
-      console.log({
-        ingredients: recipeData.ingredients.length,
-        instructions: recipeData.instructions.length,
-        imageUrls: recipeData.imageUrls.length,
-        authorNotes: recipeData.authorNotes.length,
-        equipment: recipeData.equipment.length,
-      });
       const result = await axios.post("/api/recipes", recipeData, {
         headers: {
           "Content-Type": "application/json",

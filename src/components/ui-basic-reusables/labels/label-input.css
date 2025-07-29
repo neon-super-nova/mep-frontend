@@ -112,6 +112,7 @@ h5.food.tags-row {
   /* "NO TAGS" */
   text-transform: capitalize;
   font-family: "Open Sans", sans-serif;
+    font-variation-settings: "wdth" 75;
   font-optical-sizing: auto;
   font-weight: 400;
 }
@@ -122,9 +123,9 @@ h5.food.tags-row {
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-variation-settings: "wdth" 75;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.075rem;
   line-height: 1.2;
   margin-bottom: 0.25rem;
   padding: 0.25rem 0.5rem;

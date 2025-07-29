@@ -1,6 +1,8 @@
 import "./advanced-block.css";
 import dummyImgDark from "../../img/recipe-box/dummydarkgreen.jpg";
 import dummyImgLight from "../../img/recipe-box/dummybeige.jpg";
+import { ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
 import { useState } from "react";
 
@@ -23,22 +25,34 @@ function AdvancedBlocks({ subheading, blocks }) {
       {blocks.length > pageSize && (
         <div className="advanced-browse-blocks-pagination">
           <button
+            className="advanced-blocks-left-button"
             onClick={handlePrev}
             disabled={!canGoLeft}
             aria-label="Previous page"
           >
-            ←
+            <ChevronLeft
+              color="var(--text-color)"
+              strokeWidth={2.5}
+              size={16}
+            />
+            <span className="advanced-blocks-left-button-label">Previous</span>
           </button>
-          <span>
+          <span className="advanced-blocks-hide-label">
             Showing {start + 1}–{Math.min(start + pageSize, blocks.length)} of{" "}
             {blocks.length}
           </span>
           <button
+            className="advanced-blocks-right-button"
             onClick={handleNext}
             disabled={!canGoRight}
             aria-label="Next page"
           >
-            →
+            <span className="advanced-blocks-right-button-label">Next</span>
+            <ChevronRight
+              color="var(--text-color)"
+              strokeWidth={2.5}
+              size={16}
+            />
           </button>
         </div>
       )}

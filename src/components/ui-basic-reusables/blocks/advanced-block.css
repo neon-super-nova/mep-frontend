@@ -64,3 +64,53 @@
   font-size: 0.75rem;
   text-transform: uppercase;
 }
+
+.advanced-block {
+  margin-top: auto;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+    letter-spacing: 0.02rem;
+  font-style: normal;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+
+.advanced-blocks-left-button, .advanced-blocks-right-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.advanced-blocks-left-button-label, .advanced-blocks-right-button-label {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--text-color);
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+}
+
+.advanced-blocks-left-button:disabled,
+.advanced-blocks-right-button:disabled {
+  opacity: 0;
+  cursor: not-allowed;
+}
+
+.advanced-blocks-hide-label{
+  display: none;
+}
+
+.advanced-browse-blocks-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.5rem;
+}

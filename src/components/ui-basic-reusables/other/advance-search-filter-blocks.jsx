@@ -26,8 +26,9 @@ function FilterBlock({
     <div className="advanced-search-page-filter-box">
       <p className="advanced-search-page-filter-name">{filterName}</p>
       <ul className="advanced-search-page-filter-list">
-        {Array.isArray(cuisineData[filterCategory])
-          ? cuisineData[filterCategory].map((category) => (
+        {Array.isArray(cuisineData[filterCategory]) ? (
+          cuisineData[filterCategory].length > 0 ? (
+            cuisineData[filterCategory].map((category) => (
               <li
                 key={category}
                 className="advanced-search-page-filter-no-submenu"
@@ -48,7 +49,12 @@ function FilterBlock({
                 </label>
               </li>
             ))
-          : Object.entries(cuisineData[filterCategory]).map(
+          ) : (
+            <li>No matches</li>
+          )
+        ) : cuisineData[filterCategory] && typeof cuisineData[filterCategory] === "object" ? (
+          Object.entries(cuisineData[filterCategory]).length > 0 ? (
+            Object.entries(cuisineData[filterCategory]).map(
               ([category, subcategories]) => {
                 const isParentSelected =
                   selectedFilter?.type === "parent" &&
@@ -85,12 +91,12 @@ function FilterBlock({
                       />
                       <span className="custom-box"></span>
                       <span className="checkbox-text">{category}</span>
-                      {subcategories.length > 0 && (
+                      {Array.isArray(subcategories) && subcategories.length > 0 && (
                         <span className="submenu-arrow">&nbsp;▸</span>
                       )}
                     </label>
 
-                    {isSubVisible && subcategories.length > 0 && (
+                    {isSubVisible && Array.isArray(subcategories) && subcategories.length > 0 && (
                       <ul className="advanced-search-page-filter-submenu">
                         {subcategories.map((sub) => {
                           const isSubSelected =
@@ -126,7 +132,13 @@ function FilterBlock({
                   </li>
                 );
               }
-            )}
+            )
+          ) : (
+            <li>No matches</li>
+          )
+        ) : (
+          <li>No matches</li>
+        )}
       </ul>
     </div>
   );
