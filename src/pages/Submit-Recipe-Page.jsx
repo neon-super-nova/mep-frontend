@@ -7,18 +7,12 @@ import dummyV2 from "../components/img/dummy/placeholder_2.jpg";
 import FileUploadLabel from "../components/ui-basic-reusables/labels/label-file-upload";
 import { useTheme } from "../context/theme-context";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUserId } from "../context/decodeToken.js";
 import { X } from "lucide-react";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import axios from "axios";
-import {
-  CUISINE_REGION_ENUM,
-  CUISINE_SUBREGION_ENUM,
-  PROTEIN_CHOICE_ENUM,
-  DIETARY_RESTRICTION_ENUM,
-  RELIGIOUS_RESTRICTION_ENUM,
-} from "../data/cuisineData.js";
-import { useNavigate } from "react-router-dom";
+import { cuisineData } from "../data/cuisineData.js";
 
 function SubmitRecipePage() {
   const { theme } = useTheme();
@@ -54,9 +48,9 @@ function SubmitRecipePage() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    prepTime: 0,
-    cookTime: 0,
-    servings: 0,
+    prepTimeStr: "",
+    cookTimeStr: "",
+    servingsStr: "",
     cuisineRegion: "",
     cuisineSubregion: "",
     proteinChoice: "",
@@ -64,11 +58,8 @@ function SubmitRecipePage() {
     religiousRestriction: "",
   });
 
-  const [cuisineRegion, setCuisineRegion] = useState(0);
-  const cuisineRegionLabel = Object.keys(CUISINE_REGION_ENUM).find(
-    (key) => CUISINE_REGION_ENUM[key] === cuisineRegion
-  );
-  const [cuisineSubRegion, setCuisineSubRegion] = useState("None");
+  const [cuisineRegion, setCuisineRegion] = useState("");
+  const [cuisineSubRegion, setCuisineSubRegion] = useState("");
   const [proteinChoice, setProteinChoice] = useState("");
   const [religiousRestriction, setReligiousRestriction] = useState("");
   const [dietaryRestriction, setDietaryRestriction] = useState("");
@@ -92,8 +83,8 @@ function SubmitRecipePage() {
   };
 
   //images
-  const [images, setImages] = useState([null, null, null]);
-  const [imagePreview, setImagesPreview] = useState(["", "", ""]);
+  const [images, setImages] = useState([null, null, null]); //files for backend
+  const [imagePreview, setImagesPreview] = useState(["", "", ""]); //images for display
 
   const handleImageUpload = (file) => {
     const previewUrl = URL.createObjectURL(file);
@@ -139,17 +130,24 @@ function SubmitRecipePage() {
     const instructionsArray = processMultilineInput(instructionsText);
     const equipmentArray = processMultilineInput(equipmentText);
     const authorNotesArray = processMultilineInput(authorNotesText);
+    const cookTime = Number(formData.cookTimeStr);
+    const prepTime = Number(formData.prepTimeStr);
+    const servings = Number(formData.servingsStr);
 
     if (
       !formData.name ||
-      !formData.prepTime ||
-      !formData.cookTime ||
-      !formData.servings ||
       !formData.description ||
       !ingredientsArray.length ||
-      !instructionsArray
+      !instructionsArray.length
     ) {
       alert("Please fill out all fields.");
+      return;
+    }
+
+    if (cookTime <= 0 || prepTime <= 0 || servings <= 0) {
+      alert(
+        "Cook time, prep time and servings must be valid numbers greater than 0."
+      );
       return;
     }
 
@@ -162,9 +160,9 @@ function SubmitRecipePage() {
 
     bigBoy.append("name", formData.name);
     bigBoy.append("description", formData.description);
-    bigBoy.append("prepTime", formData.prepTime);
-    bigBoy.append("cookTime", formData.cookTime);
-    bigBoy.append("servings", formData.servings);
+    bigBoy.append("prepTime", prepTime);
+    bigBoy.append("cookTime", cookTime);
+    bigBoy.append("servings", servings);
 
     // enums
     bigBoy.append("cuisineRegion", cuisineRegion);
@@ -225,6 +223,7 @@ function SubmitRecipePage() {
                     className="submit-recipe-title-input"
                     placeholder="Title Your Recipe Here"
                     maxLength={80}
+                    value={formData.name}
                     onChange={(e) =>
                       console.log("Recipe Title changed:", e.target.value) ||
                       setFormData((prev) => ({
@@ -235,9 +234,13 @@ function SubmitRecipePage() {
                   />
                   <button
                     className="submit-button-title-clear"
-                    // onClick={() => {
-                    //   if (recipeTitle.length !== 0) setRecipeTitle("");
-                    // }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData((prev) => ({
+                        ...prev,
+                        name: "",
+                      }));
+                    }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -259,8 +262,8 @@ function SubmitRecipePage() {
                   ({user ? `${username}` : "Loading..."})
                 </span>
                 <span style={{ width: "1.75rem" }}></span>
-                <span className="bold">date submitting: </span>
-                <span style={{ width: "0.5rem" }}></span>
+                {/* <span className="bold">date submitting: </span>
+                <span style={{ width: "0.5rem" }}></span> */}
                 {/* <span className="reg"> {currentDatePrint}</span> */}
               </h6>
             </div>
@@ -272,6 +275,7 @@ function SubmitRecipePage() {
                   placeholder="Add a brief description of your recipe here."
                   rows={3}
                   maxLength={500}
+                  value={formData.description}
                   onChange={(e) => {
                     console.log("Description changed:", e.target.value);
                     setFormData((prev) => ({
@@ -338,17 +342,18 @@ function SubmitRecipePage() {
                   </span>
 
                   <select
-                    value={cuisineRegion}
                     className="submit-recipe-tag-input"
+                    value={cuisineRegion}
                     onChange={(e) => {
-                      const val = Number(e.target.value);
-                      console.log("Cuisine Region changed:", val);
-                      setCuisineRegion(val);
+                      const region = e.target.value;
+                      console.log("cuisine region is set to " + region);
+                      setCuisineRegion(e.target.value);
                     }}
                   >
-                    {Object.entries(CUISINE_REGION_ENUM).map(
-                      ([label, value]) => (
-                        <option key={value} value={value}>
+                    <option value="">None</option>
+                    {Object.entries(cuisineData.cuisineRegion).map(
+                      ([label]) => (
+                        <option key={label} value={label}>
                           {label}
                         </option>
                       )
@@ -362,17 +367,17 @@ function SubmitRecipePage() {
                     value={cuisineSubRegion}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
-                      console.log("Sub-Region changed:", e.target.value);
-                      setCuisineSubRegion(e.target.value);
+                      const subregion = e.target.value;
+                      console.log("cuisine sub-region is set to " + subregion);
+                      setCuisineSubRegion(subregion);
                     }}
                   >
-                    {CUISINE_SUBREGION_ENUM[cuisineRegion]?.map(
-                      (subregion, index) => (
-                        <option key={index} value={subregion}>
-                          {subregion}
-                        </option>
-                      )
-                    )}
+                    <option value="">None</option>
+                    {cuisineData.cuisineRegion[cuisineRegion]?.map((value) => (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <span style={{ width: "0.5rem" }}></span>
@@ -382,13 +387,15 @@ function SubmitRecipePage() {
                     value={proteinChoice}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
-                      console.log("Protein choice changed:", e.target.value);
-                      setProteinChoice(e.target.value);
+                      const protein = e.target.value;
+                      console.log("Protein choice changed:", protein);
+                      setProteinChoice(protein);
                     }}
                   >
-                    {Object.entries(PROTEIN_CHOICE_ENUM).map(([label]) => (
-                      <option key={label} value={label}>
-                        {label}
+                    <option value="">None</option>
+                    {cuisineData.proteinChoice.map((item) => (
+                      <option key={item} value={item}>
+                        {item}
                       </option>
                     ))}
                   </select>
@@ -400,16 +407,15 @@ function SubmitRecipePage() {
                     value={dietaryRestriction}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
-                      console.log(
-                        "Dietary restriction changed:",
-                        e.target.value
-                      );
-                      setDietaryRestriction(e.target.value);
+                      const diet = e.target.value;
+                      console.log("Dietary restriction changed:", diet);
+                      setDietaryRestriction(diet);
                     }}
                   >
-                    {Object.entries(DIETARY_RESTRICTION_ENUM).map(([label]) => (
-                      <option key={label} value={label}>
-                        {label}
+                    <option value="">None</option>
+                    {cuisineData.dietaryRestriction.map((item) => (
+                      <option key={item} value={item}>
+                        {item}
                       </option>
                     ))}
                   </select>
@@ -421,20 +427,17 @@ function SubmitRecipePage() {
                     value={religiousRestriction}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
-                      console.log(
-                        "Religious restriction changed:",
-                        e.target.value
-                      );
-                      setReligiousRestriction(e.target.value);
+                      const religion = e.target.value;
+                      console.log("Religious restriction changed:", religion);
+                      setReligiousRestriction(religion);
                     }}
                   >
-                    {Object.entries(RELIGIOUS_RESTRICTION_ENUM).map(
-                      ([label]) => (
-                        <option key={label} value={label}>
-                          {label}
-                        </option>
-                      )
-                    )}
+                    <option value="">None</option>
+                    {cuisineData.religiousRestriction.map((item) => (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -448,21 +451,33 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={0}
                     max={999}
+                    value={formData.cookTimeStr ?? ""}
                     onChange={(e) => {
-                      const val = Number(e.target.value);
-                      console.log("Cook time changed:", val);
-                      setFormData((prev) => ({
-                        ...prev,
-                        cookTime: val,
-                      }));
+                      const val = e.target.value;
+                      console.log("cook time is set to " + val);
+                      if (val === "") {
+                        setFormData((prev) => ({
+                          ...prev,
+                          cookTimeStr: "",
+                        }));
+                      } else {
+                        setFormData((prev) => ({
+                          ...prev,
+                          cookTimeStr: val,
+                        }));
+                      }
                     }}
                   />
                   <span className="bold">minutes</span>
                   <button
                     className="submit-time-button-clear"
-                    // onClick={() => {
-                    //   if (cookTime !== 0) setCookTime(0);
-                    // }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData((prev) => ({
+                        ...prev,
+                        cookTimeStr: "",
+                      }));
+                    }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -482,21 +497,33 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={0}
                     max={999}
+                    value={formData.prepTimeStr ?? ""}
                     onChange={(e) => {
-                      const val = Number(e.target.value);
-                      console.log("Prep time changed:", val);
-                      setFormData((prev) => ({
-                        ...prev,
-                        prepTime: val,
-                      }));
+                      const val = e.target.value;
+                      console.log("prep time is set to " + val);
+                      if (val === "") {
+                        setFormData((prev) => ({
+                          ...prev,
+                          prepTimeStr: "",
+                        }));
+                      } else {
+                        setFormData((prev) => ({
+                          ...prev,
+                          prepTimeStr: val,
+                        }));
+                      }
                     }}
                   />
                   <span className="bold">minutes</span>
                   <button
                     className="submit-time-button-clear"
-                    // onClick={() => {
-                    //   if (prepTime !== 0) setPrepTime(0);
-                    // }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData((prev) => ({
+                        ...prev,
+                        prepTimeStr: "",
+                      }));
+                    }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"
@@ -523,20 +550,32 @@ function SubmitRecipePage() {
                     placeholder="#"
                     min={1}
                     max={100}
+                    value={formData.servingsStr ?? ""}
                     onChange={(e) => {
-                      const val = Number(e.target.value);
-                      console.log("Servings changed:", val);
-                      setFormData((prev) => ({
-                        ...prev,
-                        servings: val,
-                      }));
+                      const val = e.target.value;
+                      console.log("servings is set to " + val);
+                      if (val === "") {
+                        setFormData((prev) => ({
+                          ...prev,
+                          servingsStr: "",
+                        }));
+                      } else {
+                        setFormData((prev) => ({
+                          ...prev,
+                          servingsStr: val,
+                        }));
+                      }
                     }}
                   />
                   <button
                     className="submit-time-button-clear"
-                    // onClick={() => {
-                    //   if (servings !== 0) setServings(0);
-                    // }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData((prev) => ({
+                        ...prev,
+                        servingsStr: "",
+                      }));
+                    }}
                   >
                     <X
                       color="var(--minor-accent-color-3)"

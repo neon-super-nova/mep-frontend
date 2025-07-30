@@ -89,7 +89,6 @@ function RecipePage() {
         const response = await axios.get(
           `/api/recipes/${recipeId}/recipe-stats`
         );
-        console.log(response.data);
         setRecipeStats({
           averageReview: response.data.averageReview
             ? response.data.averageReview
@@ -159,12 +158,7 @@ function RecipePage() {
         const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
         setReviews(response.data);
       } catch (err) {
-            if (err.response && err.response.status === 404) {
-              setReviews([]);
-            } else {
-              setReviews([]);
-              console.error(err);
-            }
+        setReviews([]);
       }
     };
     getRecipeReviews();
