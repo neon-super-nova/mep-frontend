@@ -1,12 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@600&display=swap&ital=1");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 
 :root {
+
+
+  --lucide-radio-dot-size: 0.85rem;
+  --lucide-radio-circle-size: 0.85rem;
+
   --bg-color: rgba(242, 226, 206, 0.25);
+  --bg-color-2: rgba(242, 226, 206, 0.25);
   --bg-panel-color: #f2e2ce;
   --bg-color-alt: #f2e2ce;
-  --bg-color-alt-2: #fcf8f3; 
+  --bg-color-alt-2: #fcf8f3;
+  --bg-color-alt-3: #f8f3ea;
   --bg-panel-color-alt: #f5f5f5;
 
   --text-color: #171717;
@@ -46,9 +51,11 @@
 
 .dark {
   --bg-color: #3b4a4d;
+  --bg-color-2: #46575a;
   --bg-panel-color: #528082;
   --bg-color-alt:  #3b4a4d;
   --bg-color-alt-2:  #3b4a4d;
+  --bg-color-alt-3: #46575a;
   --bg-panel-color-alt: #3b4a4d;
 
   --text-color: #f5f5f5;

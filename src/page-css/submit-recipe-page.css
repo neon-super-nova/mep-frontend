@@ -488,6 +488,7 @@
   background-color: var(--minor-accent-color-2);
   color: var(--accent-color-neutral-white);
   border: 1.5px solid var(--text-color);
+  cursor: pointer; 
 }
 
 /*

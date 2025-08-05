@@ -566,7 +566,7 @@ html {
   flex-direction: column;
   align-items: center;
   padding: 1.75rem;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color-2);
   border: 5px solid var(--bg-panel-color);
   width: 100%;
 }
@@ -706,6 +706,99 @@ html {
   margin-top: 0.2rem;
 }
 
+.recipe-page .bottom .review-header {
+  /* background-color: fuchsia; */
+  margin-bottom: -0.5rem;
+
+} 
+
+.recipe-page .bottom .reviews .reg.review-first {
+  /* background-color: lime; */
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "wdth" 75;
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+  color: var(--text-color);
+  margin-top: -1.5rem;
+}
+.recipe-page .bottom .reviews .reg.review-reg {
+display: none; 
+}
+
+.recipe-page .bottom .reviews .review-input {
+background-color: var(--bg-panel-color); 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 1.75rem;
+  margin: 1.75rem 0rem;
+}
+
+
+.recipe-page .bottom .reviews .review-input .review-input-label,
+.recipe-page .bottom .reviews .comment-label {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.075rem;
+  color: var(--text-color);
+  font-variation-settings: "wdth" 75;
+  margin-left: -0.025rem;
+  text-transform: uppercase;
+}
+
+.recipe-page .bottom .reviews .review-input .review-input-label {
+margin-bottom: 1rem;
+}
+
+.recipe-page .bottom .reviews .comment-label {
+margin: 1rem 0rem 1.5rem 0rem;
+}
+.recipe-page .bottom .reviews .review-comment-input {
+background-color: var(--bg-color-alt-3);
+  border: 0.25px solid var(--text-color-3-8);
+  border-radius: 0.15rem;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: 0.025rem;
+  color: var(--text-color);
+  font-size: 0.85rem;
+  width: 100%; 
+  height: 6.25rem;
+  padding: 0.25rem;
+}
+
+.recipe-page .bottom .reviews .submit-review-button {
+
+align-self: center;
+  background-color: var(--minor-accent-color-1);
+  color: var(--text-color-invert);
+  border: 1.5px solid var(--text-color-alt);
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.075rem;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.25rem;
+margin-top: 1.75rem;
+}
+.recipe-page .bottom .reviews .submit-review-button:hover {
+  cursor: pointer;
+    background-color: var(--minor-accent-color-2);
+  color: var(--accent-color-neutral-white);
+  border: 1.5px solid var(--text-color);
+}
 .recipe-page-footer {
   background-color: var(--minor-accent-color-2b);
   text-align: center;

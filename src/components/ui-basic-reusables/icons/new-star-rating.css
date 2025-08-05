@@ -1,0 +1,22 @@
+/* new-star-rating.css */ß
+   .star-rating {
+     position: relative;
+   }
+
+   .star-rating .star-sub-rating {
+     display: flex;
+     flex-direction: row;
+   }
+
+   .star-rating .star-outline-layer {
+     display: flex;
+     flex-direction: row;
+   }
+
+   .star-rating .star-fill-layer {
+     display: flex;
+     flex-direction: row;
+     position: absolute;
+     top: 0;
+     left: 0;
+   }

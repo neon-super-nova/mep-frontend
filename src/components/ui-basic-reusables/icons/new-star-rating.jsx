@@ -1,4 +1,5 @@
 import { Star, StarHalf } from "lucide-react";
+import "./new-star-rating.css";
 
 function NewStarRating({ rating }) {
   const starCount = 5;
@@ -10,7 +11,7 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--minor-accent-color-1)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1}
+          strokeWidth={1.75}
           size={28}
           width={24}
           height={24}
@@ -22,7 +23,7 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--minor-accent-color-1)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1}
+          strokeWidth={1.75}
           size={28}
           width={24}
           height={24}
@@ -34,7 +35,7 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--star-coloring)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1}
+          strokeWidth={1.75}
           size={28}
           width={24}
           height={24}
@@ -44,34 +45,25 @@ function NewStarRating({ rating }) {
   }
 
   return (
-    <div className="star-rating" style={{ position: "relative" }}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div
-          className="star-outline-layer"
-          style={{ display: "flex", flexDirection: "row" }}
-        >
+    <div className="star-rating">
+      <div className="star-sub-rating">
+        <div className="star-outline-layer">
+        
           {[...Array(starCount)].map((_, i) => (
             <Star
               key={i}
               fill="var(--star-coloring)"
               stroke="var(--minor-accent-color-1)"
-              strokeWidth={1}
+              strokeWidth={1.75}
               size={28}
               width={24}
               height={24}
             />
           ))}
         </div>
-        {/* Top layer: filled/half stars */}
         <div
           className="star-fill-layer"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
+         
         >
           {stars}
         </div>

@@ -5,6 +5,7 @@ import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
 import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
 import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
+import handleLikeRecipe from "../components/ui-basic-reusables/util/handleLikeRecipe";
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
 import tinylikedlight25 from "../components/img/icons/icon-likes-small-light-25.png";
@@ -24,6 +25,8 @@ import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
 import avatarLight from "../components/img/user/default-user-light_web.png";
 import avatarDark from "../components/img/user/default-user-dark_web.png";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
+import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-radio-star.jsx";
+// import { Pencil } from "lucide-react";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -38,9 +41,19 @@ function RecipePage() {
   });
 
   const [likedRecipes, setLikedRecipes] = useState([]);
-  const likedStatus = likedRecipes.some((r) => r._id === recipe._id);
+  // Safely check likedStatus only if recipe is not null
+  const likedStatus = recipe && likedRecipes.some((r) => r._id === recipe._id);
   const [toastMsg, setToastMsg] = useState("");
+  const [alreadyReviewed, setAlreadyReviewed] = useState(false);
   const [reviews, setReviews] = useState([]);
+  // const [editingField, setEditingField] = useState(null);
+  // const [reviewInfo, setReviewInfo] = useState(null);
+  // const [editFields, setEditFields] = useState({
+  //   Rating: "",
+  //   Comment: "",
+  // });
+
+  // const [showPencils, setShowPencils] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -81,7 +94,7 @@ function RecipePage() {
       }
     }
     fetchRecipeInfo();
-  }, [recipeId]);
+  }, [recipeId, userId]);
 
   useEffect(() => {
     async function fetchRecipeStats() {
@@ -98,10 +111,23 @@ function RecipePage() {
             : 0,
           likeCount: response.data.likeCount ? response.data.likeCount : 0,
         });
+        console.log("Fetched recipe stats:", response.data);
       } catch (err) {}
     }
     fetchRecipeStats();
-  }, [recipeId]);
+    console.log(
+      "Fetching recipe stats for recipeId:",
+      recipeId,
+      recipeStats.averageReview,
+      recipeStats.reviewCount,
+      recipeStats.likeCount
+    );
+  }, [
+    recipeId,
+    recipeStats.averageReview,
+    recipeStats.reviewCount,
+    recipeStats.likeCount,
+  ]);
 
   useEffect(() => {
     const getLikedRecipes = async () => {
@@ -120,49 +146,210 @@ function RecipePage() {
     getLikedRecipes();
   }, [userId]);
 
-  const handleLikeRecipe = async () => {
-    if (!recipe) return;
-
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    if (likedStatus === false) {
-      try {
-        const response = await axios.post(
-          `/api/recipes/${recipeId}/like`,
-          {},
-          { headers }
-        );
-        console.log(response.data);
-        setLikedRecipes([...likedRecipes, recipe]);
-      } catch (err) {
-        console.error("Error liking recipe:", err);
-      }
-    } else {
-      try {
-        const response = await axios.post(`/api/recipes/${recipeId}/unlike`);
-        console.log(response.data);
-        setLikedRecipes(likedRecipes.filter((r) => r._id !== recipe._id));
-      } catch (err) {
-        console.error("Error unliking recipe:", err);
-      }
-    }
-  };
-
   useEffect(() => {
     const getRecipeReviews = async () => {
       try {
         const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
-        setReviews(response.data);
+        if (Array.isArray(response.data)) {
+          setReviews(response.data);
+          const userHasReviewed = response.data.some(
+            (r) => r.userId === userId
+          );
+          setAlreadyReviewed(userHasReviewed);
+          console.log("AlreadyReviewed?:", userHasReviewed);
+        } else {
+          setReviews([]);
+          setAlreadyReviewed(false);
+        }
+
+        console.log("Fetched recipe reviews:", response.data);
       } catch (err) {
         setReviews([]);
       }
     };
     getRecipeReviews();
-  }, [recipeId]);
+    console.log("Fetching recipe reviews for recipeId:", recipeId);
+  }, [recipeId, userId]);
+
+  const [formData, setFormData] = useState({
+    ratingStr: "",
+    comment: "",
+  });
+  const [comment, setComment] = useState("");
+
+  const handleReview = async () => {
+    const rating = Number(formData.ratingStr);
+    const trimmedComment = comment.trim();
+
+    if (
+      !trimmedComment ||
+      trimmedComment === "" ||
+      rating === null ||
+      rating === undefined ||
+      isNaN(rating) ||
+      rating < 1 ||
+      rating > 5
+    ) {
+      alert("Cannot submit an empty or incomplete review.");
+      console.log("Review submission blocked: null/empty values (final guard)");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      console.log("Current userId:", userId);
+      console.log("Current recipeId:", recipeId);
+      console.log("Current reviews fetched:", reviews);
+
+      if (reviews.some((r) => r.userId === userId)) {
+        alert("You have already reviewed this recipe.");
+        console.log(
+          "Review submission blocked: duplicate review by user",
+          userId
+        );
+        return;
+      }
+
+      const reviewBody = {
+        rating,
+        comment: trimmedComment,
+      };
+      console.log("Submitting review:", { ...reviewBody, recipeId, userId });
+      const response = await axios.post(
+        `/api/recipes/${recipeId}/review`,
+        reviewBody,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("POST /review response:", response);
+
+      if (
+        response.data &&
+        (response.data.message === "Review successfully added" ||
+          response.data.success === "Review posted")
+      ) {
+        alert("Review submitted successfully!");
+        console.log("Review successfully added for recipe", recipeId);
+        setFormData({ ratingStr: "", comment: "" });
+        setComment("");
+
+        const updatedReviews = await axios.get(
+          `/api/recipes/${recipeId}/reviews`
+        );
+        console.log(
+          "Fetched updated reviews after submission:",
+          updatedReviews.data
+        );
+        setReviews(updatedReviews.data);
+
+        setRecipeStats((prev) => ({
+          ...prev,
+          reviewCount: Array.isArray(updatedReviews.data)
+            ? updatedReviews.data.length
+            : 0,
+        }));
+      } else if (response.data && response.data.error) {
+        alert(response.data.error);
+        console.log(
+          "Review submission failed with error:",
+          response.data.error
+        );
+      } else {
+        alert("Unexpected response. Please try again.");
+        console.log("Unexpected review response:", response);
+      }
+    } catch (err) {
+      console.error("Error during submission:", err);
+      if (err.response && err.response.data && err.response.data.error) {
+        alert(err.response.data.error);
+        console.log(
+          "Review submission failed with error:",
+          err.response.data.error
+        );
+      } else {
+        alert("An error occurred. Please try again.");
+        console.log("Review submission failed with unknown error:", err);
+      }
+    }
+  };
+
+  // const handleEditReview = async (e, field) => {
+  //   e.preventDefault();
+  //   const userId = getUserId();
+  //   if (!userId) return;
+  //   const value = editFields[field];
+  //   if (!value || value === "Not filled out") {
+  //     setEditingField(null);
+  //     return;
+  //   }
+
+  //   const isArrayField = (f) => f === "dietaryRestriction";
+  //   const patchBody = {
+  //     [field]: isArrayField(field)
+  //       ? value
+  //           .split(",")
+  //           .map((s) => s.trim())
+  //           .filter(Boolean)
+  //       : value,
+  //   };
+
+  //   const token = localStorage.getItem("token");
+  //   const headers = {
+  //     "Content-Type": "application/json",
+  //     ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  //   };
+  //   try {
+  //     let response = "";
+  //     if (
+  //       (await axios.get(`/api/recipes/${recipeId}/reviews`, { headers })) ===
+  //       "No reviews to edit"
+  //     ) {
+  //       response = await axios.post(
+  //         `/api/recipes/${recipeId}/review`,
+  //         patchBody,
+  //         {
+  //           headers,
+  //         }
+  //       );
+  //     } else {
+  //       response = await axios.patch(
+  //         `/api/recipes/${recipeId}/review`,
+  //         patchBody,
+  //         {
+  //           headers,
+  //         }
+  //       );
+  //     }
+  //     let updated = response.data?.userInfo;
+  //     if (!updated && response.data && typeof response.data === "object") {
+  //       updated = response.data;
+  //     }
+  //     if (!updated || updated.message) {
+  //       try {
+  //         const reviewResp = await axios.get(
+  //           `/api/recipes/${recipeId}/reviews`,
+  //           { headers }
+  //         );
+  //         updated = reviewResp.data;
+  //       } catch (fetchErr) {
+  //         console.warn("Failed to fetch userInfo after PATCH/POST:", fetchErr);
+  //       }
+  //     }
+
+  //     setReviewInfo(updated);
+  //     setEditFields({
+  //       Rating: updated?.Rating || "",
+  //       Comment: updated?.Comment || "",
+  //     });
+  //     setEditingField(null);
+  //   } catch (err) {}
+  // };
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -211,7 +398,12 @@ function RecipePage() {
                   <button
                     className="like-btn"
                     onClick={() => {
-                      handleLikeRecipe();
+                      handleLikeRecipe(
+                        recipe,
+                        likedStatus,
+                        likedRecipes,
+                        setLikedRecipes
+                      );
                       showToast(
                         likedStatus ? "Recipe unliked!" : "Recipe liked!"
                       );
@@ -411,7 +603,49 @@ function RecipePage() {
                   <span className="bold">{recipeStats.reviewCount}</span>
                 </h6>
               </div>
-              <h4 id="reviews">REVIEWS:</h4>
+
+              <h4 id="reviews" className="review-header">
+                LEAVE A REVIEW:
+              </h4>
+              <span>
+                {!alreadyReviewed ? (
+                  <span className="reg review-first">
+                    Be the first to leave a review!
+                  </span>
+                ) : (
+                  <span className="reg review-reg">Leave a Review</span>
+                )}
+              </span>
+              <div className="review-input">
+                <h6 className="review-input-label">Rating (1-5): </h6>
+                <RadioStarRating
+                  value={Number(formData.ratingStr)}
+                  onChange={(val) => {
+                    setFormData({ ...formData, ratingStr: val });
+                    console.log("Rating updated:", val);
+                  }}
+                />
+                <h5 className="comment-label">Comment:</h5>
+                <textarea
+                  className="review-comment-input"
+                  placeholder="Write your review here..."
+                  rows={4}
+                  maxLength={1000}
+                  value={comment}
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                    console.log("Comment updated:", e.target.value);
+                  }}
+                />
+                <button
+                  className="submit-review-button"
+                  onClick={handleReview}
+                  aria-label="Submit Review"
+                >
+                  Submit Review
+                </button>
+              </div>
+              <h4 id="reviews">OTHER USER REVIEWS:</h4>
               {recipeStats.reviewCount && reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (
@@ -431,7 +665,6 @@ function RecipePage() {
                   users...)
                 </p>
               )}
-              {/* will create the hash map for later (need to import other database) */}
             </div>
           </div>
         </main>

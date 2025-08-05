@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
+import ToggleButton from "../components/ui-basic-reusables/buttons/button-toggle.jsx";
+import ButtonRadioGroup from "../components/ui-basic-reusables/buttons/button-radio-group.jsx";
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
@@ -238,6 +240,25 @@ function UserPage() {
   const db_recipe_saved = "000000";
 
   const user_recipe_saved = "000000";
+  const [notificationChoice, setNotificationChoice] = useState("");
+  const notificationChoices = [
+    {
+      value: "email-updates",
+      label:
+        "Update me through email when someone likes or comments on my recipes",
+    },
+    {
+      value: "text-message-updates",
+      label:
+        "Update me through text when someone likes or comments on my recipes",
+    },
+    {
+      value: "both",
+      label:
+        "Update me through both email and text when someone likes or comments on my recipes",
+    },
+    { value: "none", label: "Do none of the above" },
+  ];
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
@@ -502,14 +523,38 @@ function UserPage() {
                   <div className="desc-row">
                     <p className="desc-bold">Email Updates</p>
                     <p className="desc-reg">yes or no boolean</p>
+                    <ToggleButton
+                      onLabel="Yes"
+                      offLabel="No"
+                      onPress={(value) => console.log("Email Updates:", value)}
+                    />
                   </div>
                   <div className="desc-row">
                     <p className="desc-bold">Newsletter</p>
                     <p className="desc-reg">yes or no boolean</p>
+                    <ToggleButton
+                      onPress={(value) => console.log("Newsletter:", value)}
+                    />
                   </div>
-                  <div className="desc-row">
+                  <div className="notification-choices-row">
                     <p className="desc-bold">Notification Settings</p>
-                    <p className="desc-reg">email, pings for likes</p>
+                    <div className="spacer-quarter" />
+                    <div className="desc-choice">
+                      <div className="notification-radio-group">
+                        <ButtonRadioGroup
+                          options={notificationChoices}
+                          value={notificationChoice}
+                          onChange={setNotificationChoice}
+                          className="user-radio"
+                          circleDotColor="var(--main-accent-color-alt)"
+                          circleDotStrokeWidth={4}
+                          circleDotSize={10}
+                          circleColor="var(--text-color)"
+                          circleStrokeWidth={2.75}
+                          circleSize={10}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="desc-row">
                     <p className="desc-bold">Delete Account </p>

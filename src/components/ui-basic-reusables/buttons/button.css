@@ -189,6 +189,46 @@
   color: #db6443;
 }
 
+/* Radio Button Group Styles */
+
+.button-radio-group{
+  display: flex; 
+  flex-direction: column;
+}
+
+.button-radio-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.125em 0.25em;
+  background: none;
+  border: none;
+  margin: 0;
+  cursor: pointer;
+    width: auto;
+  flex: none;
+  max-width: 100%;
+}
+
+.button-radio-label {
+  max-width: 90%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left; 
+}
+
+.star-radio-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.star-radio-group .star-radio-cursor {
+  cursor: pointer;
+}
+
+.star-radio-group .star-radio-rating {
+  display: none; 
+}
 
 /* 
 

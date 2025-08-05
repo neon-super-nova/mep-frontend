@@ -4,6 +4,7 @@ import { useTheme } from "../context/theme-context";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import handleLikeRecipe from "../components/ui-basic-reusables/util/handleLikeRecipe";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
 import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-block-submit";
@@ -15,6 +16,8 @@ import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
 import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
+import { Pencil } from "lucide-react";
+import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 // import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png";
 // import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
 
@@ -22,6 +25,8 @@ function RecipeBoxPage() {
   const { theme } = useTheme();
   const [submittedPage, setSubmittedPage] = useState(1);
   const [likedPage, setLikedPage] = useState(1);
+  const [showPencils, setShowPencils] = useState(false);
+  const [showFlag, setShowFlag] = useState(false);
 
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
@@ -134,12 +139,20 @@ function RecipeBoxPage() {
     getLikedRecipes();
   }, []);
 
+// const [showPencils, setShowPencils] = useState(false);
+
+  // const [toastMsg, setToastMsg] = useState("");
+  // const showToast = (msg) => {
+  //   setToastMsg(msg);
+  //   setTimeout(() => setToastMsg(""), 2000);
+  // };
+
   return (
     // console.log(Array.isArray(submittedRecipes), submittedRecipes),
     <div className={theme === "dark" ? "dark-mode" : ""}>
       <div className="recipe-box-page">
         <HeaderBar />
-        <main className="recipe-box-page-main-content">
+        <div className="recipe-box-page-main-content">
           <div className="recipe-box-page-header-panel">
             <img
               src={theme === "dark" ? iconImgDark : iconImgLight}
@@ -194,7 +207,12 @@ function RecipeBoxPage() {
               </h3>
               <h6>
                 <span className="bold">Modify submitted recipes: </span>
-                <span className="reg"> (toggle edit field for recipe)</span>
+                <span className="home-page-left-panel-advanced-search-bold"> <span
+                    className="recipe-box-page-toggle-link"
+                    onClick={() => setShowPencils((v) => !v)}
+                  >
+                    {showPencils ? "Hide something something" : "Edit something something"}
+                  </span></span>
               </h6>
               <h6>
                 <span className="bold">submit a recipe: </span>
@@ -224,11 +242,24 @@ function RecipeBoxPage() {
 
               {pagedSubmitted.length > 0 ? (
                 pagedSubmitted.map((recipe, idx) => (
-                  <RecipeBlockSubmit
-                    key={recipe.recipeId || idx}
-                    recipe={recipe}
-                    type="submitted"
-                  />
+                  <div key={recipe.recipeId || idx} style={{ position: "relative", zIndex: 1 }}>
+                    <RecipeBlockSubmit
+                      recipe={recipe}
+                      type="submitted"
+                    />
+                    {showPencils && (
+                      <Link to={`/modify-recipe/${recipe._id || recipe.recipeId}`} style={{ marginLeft: 8 }}>
+                        <Pencil
+                          className="edit-pencil-icon"
+                          color="var(--text-color)"
+                          fill="var(--main-accent-color-alt)"
+                          strokeWidth={1.75}
+                          size={24}
+                          title="Edit"
+                        />
+                      </Link>
+                    )}
+                  </div>
                 ))
               ) : (
                 <p>No recipes submitted yet.</p>
@@ -252,10 +283,18 @@ function RecipeBoxPage() {
             <div className="recipe-box-page-liked-panel-heading">
               <h3 className="recipe-box-page-liked-title">liked recipes</h3>
               <h6>
-                <span className="bold">Modify Likes:</span>
-                <span className="reg">
-                  {" "}
-                  (toggle x button over card to remove from liked)
+
+                   <span className="bold">Modify liked recipes: </span>
+                <span className="home-page-left-panel-advanced-search-bold"> 
+              <span
+                    className="rbp-toggle-link"
+                    onClick={() => {
+                      setShowFlag((v) => !v);
+                      console.log("toggling showFlag", !showFlag);
+                    }}
+                  >
+                    {showFlag ? "Hide something something" : "Unlike something something"}
+                  </span>
                 </span>
               </h6>
             </div>
@@ -272,9 +311,21 @@ function RecipeBoxPage() {
                   />
                 ) : null}
               </button>
-              {pagedliked.map((recipe, idx) => (
-                <RecipeBlock key={idx} recipe={recipe} type="liked" />
-              ))}
+
+              {pagedliked.map((recipe, idx) => {
+                return (
+                  <div key={idx} className="recipe-box-page-liked-flag-wrapper">
+                    <RecipeBlock recipe={recipe} type="liked" />
+                    {showFlag && (
+                      <XFlag
+                        clear={() => handleLikeRecipe(recipe, true, likedRecipes, setLikedRecipes)}
+                        show={showFlag}
+                        className="recipe-box-page-liked-remove-icon"
+                      />
+                    )}
+                  </div>
+                );
+              })}
               <button
                 disabled={likedEnd >= likedRecipes.length}
                 onClick={() => setLikedPage(likedPage + 1)}
@@ -287,9 +338,10 @@ function RecipeBoxPage() {
                   />
                 ) : null}
               </button>
+            
             </div>
           </div>
-        </main>
+        </div>
         <footer className="recipe-box-page-footer">
           <p>Footer Content</p>
         </footer>

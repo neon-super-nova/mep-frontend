@@ -1,0 +1,71 @@
+     
+.toggle-btn-open, .toggle-btn-close {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    padding: 0.25rem;
+    transition: background-color 0.2s ease;
+
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+gap: 0.5rem;
+  height: 1.25rem; 
+width: 4.25rem;
+border-radius: 1rem;
+margin: 0.25rem;
+}
+
+
+
+.track.open-true, .track.open-false {
+  background-color: var(--subcat-filter-box-half);
+  display: flex;
+align-items: center;
+flex-direction: row;
+  height: 0.95rem; 
+  width: 1.75rem;
+border-radius: 1rem;
+border: 1.25px solid var(--text-color);
+}
+
+.track.open-true {
+justify-content:  flex-end;
+}
+
+.track.open-false {
+  justify-content: flex-start;
+}
+
+.thumb.toggle {
+  height: 0.95rem; 
+  width: 0.95rem; 
+}
+
+
+.toggle-label.open-true, .toggle-label.open-false {
+  height: 1.05rem; 
+  width: 1rem;
+   font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 0.775rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+
+} 
+
+.toggle-label.open-true  {
+
+ color: var(--text-color);
+}
+
+.toggle-label.open-false {
+
+color: var(--text-color-3-8);
+}
+
+     

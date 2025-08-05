@@ -6,7 +6,7 @@
 
 .custom-dropdown-menu {
     position: absolute;
-    top: 3.75rem;
+      top: calc(var(--above-component-height, 5.25vh) - 15px);
     right: -0.75rem;
     z-index: 2000;
     min-width: 325px;

@@ -4,12 +4,23 @@ import logoDarkModeWeb from "../../img/logos/logoDarkModeWeb.png";
 import UserDropdown from "../dropdown-menus/user-dropdown";
 import "../page-elements/header-bar.css";
 import { useTheme } from "../../../context/theme-context.js"; 
+import { useEffect, useRef } from "react";
 
 function HeaderBar() {
+    const aboveRef = useRef();
+  const dropdownRef = useRef();
+
+  useEffect(() => {
+    if (aboveRef.current && dropdownRef.current) {
+      const height = aboveRef.current.offsetHeight;
+      dropdownRef.current.style.setProperty('--above-component-height', `${height}px`);
+    }
+  }, []);
+
   const { theme } = useTheme();
   return (
     <div className={theme === "dark" ? "dark" : ""}>
-      <header className="comp-header">
+      <header ref={aboveRef} className="comp-header">
         <div className="comp-header-left">
         <Link to="/home" className="comp-logo-link">
           <img
@@ -19,7 +30,7 @@ function HeaderBar() {
           />
         </Link>
         </div>
-        <div className="comp-header-right">
+        <div ref={dropdownRef} className="comp-header-right">
         <UserDropdown />
         </div>
       </header>

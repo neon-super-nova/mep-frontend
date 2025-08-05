@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "./modal";
 import "./modal-report.css";
+import ButtonRadioGroup from "../buttons/button-radio-group.jsx";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import cautionDark from "../../img/icons/icon-caution-dark.png";
 import cautionLight from "../../img/icons/icon-caution-light.png";
@@ -88,22 +89,17 @@ function ModalReport({ open, onClose }) {
                   reporting rule violations. Please provide details about the
                   situation, and our team will promptly investigate the matter.
                 </p>
-                <div className="radio-group">
-                  {initialChoices.map((opt) => (
-                    <label key={opt.value}>
-                      <input
-                        type="radio"
-                        name="initial-choice"
-                        value={opt.value}
-                        checked={initialChoice === opt.value}
-                        onChange={() => setInitialChoice(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
+                                  <ButtonRadioGroup
+  options={initialChoices}
+  value={initialChoice}
+  onChange={setInitialChoice}
+  className="radio-group"
+  dotSize={10}
+  circleSize={10}
+/>
+                
                 <div className="buttons-container">
-                  <button onClick={onClose}>
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -121,6 +117,7 @@ function ModalReport({ open, onClose }) {
                       else if (initialChoice === "abuse") setStep(5);
                     }}
                     disabled={!initialChoice}
+                    className="fancy-button"
                   >
                     Next
                     <ArrowRight
@@ -166,7 +163,7 @@ function ModalReport({ open, onClose }) {
                   ))}
                 </div>
                 <div className="buttons-container">
-                  <button onClick={onClose}>
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -175,6 +172,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setInappropriateSubchoice("");
@@ -188,6 +186,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
+                    className="fancy-button"
                     onClick={() => {
                       if (inappropriateSubchoice === "other") setStep(6);
                       else setStep(7);
@@ -237,8 +236,8 @@ function ModalReport({ open, onClose }) {
                     </label>
                   ))}
                 </div>
-                <div className="buttons-container">
-                  <button onClick={onClose}>
+                <div className="buttons-container" >
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -247,6 +246,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
+                    className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setPrivacySubchoice("");
@@ -260,6 +260,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
+                    className="fancy-button"
                     onClick={() => {
                       if (privacySubchoice === "other") setStep(6);
                       else setStep(7);
@@ -313,7 +314,7 @@ function ModalReport({ open, onClose }) {
                   ))}
                 </div>
                 <div className="buttons-container">
-                  <button onClick={onClose}>
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -322,6 +323,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setIntpropSubchoice("");
@@ -335,6 +337,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       if (intpropSubchoice === "other") setStep(6);
                       else setStep(7);
@@ -385,7 +388,7 @@ function ModalReport({ open, onClose }) {
                   ))}
                 </div>
                 <div className="buttons-container">
-                  <button onClick={onClose}>
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -394,6 +397,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setAbuseSubchoice("");
@@ -407,6 +411,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       if (abuseSubchoice === "other") setStep(6);
                       else setStep(7);
@@ -452,7 +457,7 @@ function ModalReport({ open, onClose }) {
                   {300 - feedback.length} characters remaining
                 </div>
                 <div className="buttons-container">
-                  <button onClick={onClose}>
+                  <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
                       strokeWidth={1.5}
@@ -461,6 +466,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
+                  className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       if (feedback.length !== 0) setFeedback("");
@@ -475,9 +481,9 @@ function ModalReport({ open, onClose }) {
                   </button>
 
                   <button
+                    className="fancy-button submit-button"
                     onClick={() => setStep(7)}
                     disabled={feedback.length === 0}
-                    className="submit-button"
                   >
                     Submit
                   </button>
@@ -500,7 +506,7 @@ function ModalReport({ open, onClose }) {
                   Your report has been submitted.
                 </p>
                 <div className="buttons-container-end">
-                  <button onClick={onClose}>Close</button>
+                  <button onClick={onClose} className="fancy-button">Close</button>
                 </div>
               </div>
             </div>
