@@ -1,5 +1,5 @@
 import "../page-css/home-page.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "../components/ui-basic-reusables/other/search-bar";
 import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
@@ -12,6 +12,8 @@ import placeholder1 from "../components/img/dummy/placeholder_1.jpg";
 
 function HomePage() {
   const { theme } = useTheme();
+
+  const navigate = useNavigate();
 
   const [trendingRecipes, setTrendingRecipes] = useState([]);
   const [topRatedRecipes, setTopRatedRecipes] = useState([]);
@@ -83,7 +85,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-latin-american-orange.png"
                         : "/img/home-blocks-green/region-latin-american-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=latin american");
+                    },
                   },
                   {
                     label: "Caribbean",
@@ -91,7 +95,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-caribbean-orange.png"
                         : "/img/home-blocks-green/region-caribbean-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=caribbean");
+                    },
                   },
                   {
                     label: "North American",
@@ -99,7 +105,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-north-american-orange.png"
                         : "/img/home-blocks-green/region-north-american-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=north american");
+                    },
                   },
                   {
                     label: "Middle Eastern",
@@ -107,7 +115,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-middle-eastern-orange.png"
                         : "/img/home-blocks-green/region-middle-eastern-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=middle eastern");
+                    },
                   },
                   {
                     label: "South Asian",
@@ -115,7 +125,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-south-asian-orange.png"
                         : "/img/home-blocks-green/region-south-asian-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=south asian");
+                    },
                   },
                   {
                     label: "East Asian",
@@ -123,7 +135,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-east-asian-orange.png"
                         : "/img/home-blocks-green/region-east-asian-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=east asian");
+                    },
                   },
                   {
                     label: "Southeast Asian",
@@ -131,7 +145,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-south-east-asian-orange.png"
                         : "/img/home-blocks-green/region-south-east-asian-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=southeast asian");
+                    },
                   },
                   {
                     label: "African",
@@ -139,7 +155,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-african-orange.png"
                         : "/img/home-blocks-green/region-african-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=african");
+                    },
                   },
                   {
                     label: "European",
@@ -147,7 +165,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-european-orange.png"
                         : "/img/home-blocks-green/region-european-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?cuisineRegion=european");
+                    },
                   },
                   {
                     label: "Hawaiian/Pacific Islander",
@@ -155,7 +175,11 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/region-hawaiian-pacific-islands-orange.png"
                         : "/img/home-blocks-green/region-hawaiian-pacific-islands-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate(
+                        "/advancedsearch?cuisineRegion=hawaiian pacific islander"
+                      );
+                    },
                   },
                 ]}
               />
@@ -168,7 +192,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-chicken-orange.png"
                         : "/img/home-blocks-green/protein-chicken-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=chicken");
+                    },
                   },
                   {
                     label: "Beef",
@@ -176,7 +202,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-beef-orange.png"
                         : "/img/home-blocks-green/protein-beef-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=beef");
+                    },
                   },
                   {
                     label: "Pork",
@@ -184,7 +212,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-pork-orange.png"
                         : "/img/home-blocks-green/protein-pork-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=pork");
+                    },
                   },
                   {
                     label: "Lamb",
@@ -192,7 +222,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-lamb-orange.png"
                         : "/img/home-blocks-green/protein-lamb-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=lamb");
+                    },
                   },
                   {
                     label: "Fish",
@@ -200,7 +232,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-fish-orange.png"
                         : "/img/home-blocks-green/protein-fish-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=fish");
+                    },
                   },
                   {
                     label: "Shellfish",
@@ -208,7 +242,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-shellfish-orange.png"
                         : "/img/home-blocks-green/protein-shellfish-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=fish");
+                    },
                   },
                   {
                     label: "Eggs",
@@ -216,7 +252,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-egg-orange.png"
                         : "/img/home-blocks-green/protein-egg-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=eggs");
+                    },
                   },
                   {
                     label: "Plant-based",
@@ -224,7 +262,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/protein-plant-based-orange.png"
                         : "/img/home-blocks-green/protein-plant-based-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?proteinChoice=plant-based");
+                    },
                   },
                 ]}
               />
@@ -237,7 +277,11 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-no-gluten-orange.png"
                         : "/img/home-blocks-green/diet-no-gluten-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate(
+                        "/advancedsearch?dietaryRestriction=gluten free"
+                      );
+                    },
                   },
                   {
                     label: "Dairy free",
@@ -245,7 +289,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-no-dairy-orange.png"
                         : "/img/home-blocks-green/diet-no-dairy-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=dairy free");
+                    },
                   },
                   {
                     label: "Nut free",
@@ -253,7 +299,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-no-nuts-orange.png"
                         : "/img/home-blocks-green/diet-no-nuts-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=nut free");
+                    },
                   },
                   {
                     label: "Shellfish free",
@@ -261,7 +309,11 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-no-shellfish-orange.png"
                         : "/img/home-blocks-green/diet-no-shellfish-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate(
+                        "/advancedsearch?dietaryRestriction=shellfish free"
+                      );
+                    },
                   },
                   {
                     label: "Low carb",
@@ -269,7 +321,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-low-carb-orange.png"
                         : "/img/home-blocks-green/diet-low-carb-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=low carb");
+                    },
                   },
                   {
                     label: "Paleo",
@@ -277,7 +331,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-paleo-orange.png"
                         : "/img/home-blocks-green/diet-paleo-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=paleo");
+                    },
                   },
                   {
                     label: "Keto",
@@ -285,7 +341,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-keto-orange.png"
                         : "/img/home-blocks-green/diet-keto-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=keto");
+                    },
                   },
                   {
                     label: "Vegan",
@@ -293,7 +351,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-vegan-1-orange.png"
                         : "/img/home-blocks-green/diet-vegan-1-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=vegan");
+                    },
                   },
                   {
                     label: "Vegetarian",
@@ -301,7 +361,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/diet-vegetarian-orange.png"
                         : "/img/home-blocks-green/diet-vegetarian-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?dietaryRestriction=vegetarian");
+                    },
                   },
                 ]}
               />
@@ -314,7 +376,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/religion-kosher-orange.png"
                         : "/img/home-blocks-green/religion-kosher-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?religiousRestriction=kosher");
+                    },
                   },
                   {
                     label: "Kosher Parve",
@@ -322,7 +386,11 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/religion-kosher-parve-orange.png"
                         : "/img/home-blocks-green/religion-kosher-parve-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate(
+                        "/advancedsearch?religiousRestriction=kosher parve"
+                      );
+                    },
                   },
                   {
                     label: "Halal",
@@ -330,7 +398,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/religion-halal-orange.png"
                         : "/img/home-blocks-green/religion-halal-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?religiousRestriction=halal");
+                    },
                   },
                   {
                     label: "Hindu",
@@ -338,7 +408,9 @@ function HomePage() {
                       theme === "dark"
                         ? "/img/home-blocks-orange/religion-hindu-orange.png"
                         : "/img/home-blocks-green/religion-hindu-green.png",
-                    onClick: () => {},
+                    onClick: () => {
+                      navigate("/advancedsearch?religiousRestriction=hindu");
+                    },
                   },
                 ]}
               />

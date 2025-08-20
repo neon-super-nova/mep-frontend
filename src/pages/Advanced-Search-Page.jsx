@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "../page-css/advanced-search-page.css";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import { useTheme } from "../context/theme-context";
@@ -18,12 +18,39 @@ function AdvancedSearchPage() {
 
   const [matches, setMatches] = useState(0);
 
-  const [selectedCuisineRegion, setSelectedCuisineRegion] = useState(null);
-  const [selectedDietaryRestriction, setSelectedDietaryRestriction] =
-    useState(null);
-  const [selectedProteinChoice, setSelectedProteinChoice] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const params = {};
+
+    const cuisineRegion = searchParams.get("cuisineRegion");
+    const proteinChoice = searchParams.get("proteinChoice");
+    const dietaryRestriction = searchParams.get("dietaryRestriction");
+    const religiousRestriction = searchParams.get("religiousRestriction");
+
+    if (cuisineRegion) params.cuisineRegion = cuisineRegion;
+    if (proteinChoice) params.proteinChoice = proteinChoice;
+    if (dietaryRestriction) params.dietaryRestriction = dietaryRestriction;
+    if (religiousRestriction)
+      params.religiousRestriction = religiousRestriction;
+  }, [searchParams]);
+
+  const [selectedCuisineRegion, setSelectedCuisineRegion] = useState(() => {
+    const value = searchParams.get("cuisineRegion");
+    return value ? { type: "parent", value } : null;
+  });
+  const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState(
+    () => {
+      return searchParams.get("dietaryRestriction");
+    }
+  );
+  const [selectedProteinChoice, setSelectedProteinChoice] = useState(() => {
+    return searchParams.get("proteinChoice");
+  });
   const [selectedReligiousRestriction, setSelectedReligiousRestriction] =
-    useState(null);
+    useState(() => {
+      return searchParams.get("religiousRestriction");
+    });
 
   useEffect(() => {
     runFilteredSearch();
@@ -65,8 +92,8 @@ function AdvancedSearchPage() {
     return new URLSearchParams(params).toString();
   };
 
-  const runFilteredSearch = async () => {
-    const queryParams = getSelectedFilters();
+  const runFilteredSearch = async (query) => {
+    const queryParams = query ?? getSelectedFilters();
     console.log("query params are " + queryParams);
 
     const response = await axios.get(`api/recipes/search?${queryParams}`);
