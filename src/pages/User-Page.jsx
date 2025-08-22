@@ -32,7 +32,7 @@ function UserPage() {
     favoriteCuisine: "",
     favoriteMeal: "",
     favoriteDish: "",
-    dietaryRestriction: "",
+    dietaryRestriction: [],
   });
 
   const [showPencils, setShowPencils] = useState(false);
@@ -177,64 +177,80 @@ function UserPage() {
     e.preventDefault();
     const userId = getUserId();
     if (!userId) return;
+
     const value = editFields[field];
     if (!value || value === "Not filled out") {
       setEditingField(null);
       return;
     }
+
+    // const isArrayField = (f) => f === "dietaryRestriction";
+    // const patchBody = {
+    //   [field]: isArrayField(field)
+    //     ? value
+    //         .split(",")
+    //         .map((s) => s.trim())
+    //         .filter(Boolean)
+    //     : value,
+    // };
+
     const isArrayField = (f) => f === "dietaryRestriction";
-    const patchBody = {
-      [field]: isArrayField(field)
-        ? value
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean)
-        : value,
-    };
+    let fieldValue;
+
+    if (isArrayField(field)) {
+      fieldValue = value
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+    } else {
+      fieldValue = value;
+    }
+
+    if (!isArrayField(field) && !fieldValue) {
+      setEditingField(null);
+      return;
+    }
+
+    const patchBody = { [field]: fieldValue };
+
     const token = localStorage.getItem("token");
+    if (!token) return;
+
     const headers = {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      Authorization: `Bearer ${token}`,
     };
-    try {
-      let response = "";
-      if (
-        (await axios.get(`api/users/user-info/${userId}`, { headers })) ===
-        "Empty user info"
-      ) {
-        response = await axios.post(`/api/users/user-info/`, patchBody, {
-          headers,
-        });
-      } else {
-        response = await axios.patch(`/api/users/user-info/`, patchBody, {
-          headers,
-        });
-      }
-      let updated = response.data?.userInfo;
-      if (!updated && response.data && typeof response.data === "object") {
-        updated = response.data;
-      }
-      if (!updated || updated.message) {
-        try {
-          const userInfoResp = await axios.get(
-            `api/users/user-info/${userId}`,
-            { headers }
-          );
-          updated = userInfoResp.data.userInfo;
-        } catch (fetchErr) {
-          console.warn("Failed to fetch userInfo after PATCH/POST:", fetchErr);
-        }
-      }
 
-      setUserInfo(updated);
-      setEditFields({
-        favoriteCuisine: updated?.favoriteCuisine || "",
-        favoriteMeal: updated?.favoriteMeal || "",
-        favoriteDish: updated?.favoriteDish || "",
-        dietaryRestriction: (updated?.dietaryRestriction || []).join(", "),
+    try {
+      const response = await axios({
+        method: "patch",
+        url: "/api/users/user-info",
+        headers,
+        data: patchBody,
       });
-      setEditingField(null);
-    } catch (err) {}
+
+      if (response.data?.message === "Success") {
+        const fresh = await axios.get(`api/users/user-info/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        setUserInfo(fresh.data.userInfo);
+        setEditFields({
+          favoriteCuisine: fresh.data.userInfo.favoriteCuisine || "",
+          favoriteMeal: fresh.data.userInfo.favoriteMeal || "",
+          favoriteDish: fresh.data.userInfo.favoriteDish || "",
+          dietaryRestriction: (
+            fresh.data.userInfo.dietaryRestriction || []
+          ).join(", "),
+        });
+
+        setEditingField(null);
+      }
+    } catch (err) {
+      console.error("Error updating user info:", err);
+    }
   };
 
   const db_recipe_saved = "000000";
