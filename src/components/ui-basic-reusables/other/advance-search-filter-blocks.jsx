@@ -2,24 +2,37 @@ import { useState } from "react";
 import { cuisineData } from "../../../data/cuisineData";
 import "../../../page-css/advanced-search-page.css";
 
-function FilterBlock({
-  filterName,
-  filterCategory,
-  selectedFilter,
-  setSelectedFilter,
-}) {
+function FilterBlock({ filterName, filterCategory, selectedFilter, onChange }) {
   const [activeCategories, setActiveCategories] = useState(null);
 
-  const isCuisineRegion = filterCategory === "cuisineRegion";
+  const handleParentToggle = (category) => {
+    const isSelected =
+      selectedFilter?.type === "parent" && selectedFilter.value === category;
 
-  const handleToggle = (val) => {
-    if (isCuisineRegion) {
-      const isSelected =
-        selectedFilter?.type === "sub" && selectedFilter?.value === val;
-      setSelectedFilter(isSelected ? null : { type: "sub", value: val });
+    if (isSelected) {
+      onChange(null);
+      setActiveCategories(null);
     } else {
-      setSelectedFilter((prev) => (prev === val ? null : val));
+      onChange({ type: "parent", value: category });
+      setActiveCategories(category);
     }
+  };
+
+  const handleSubToggle = (parent, sub) => {
+    const isSelected =
+      selectedFilter?.type === "sub" && selectedFilter.value === sub;
+
+    if (isSelected) {
+      onChange({ type: "parent", value: parent });
+    } else {
+      onChange({ type: "sub", value: sub, parent });
+    }
+    setActiveCategories(parent);
+  };
+
+  const handleSimpleToggle = (value) => {
+    const isSelected = selectedFilter === value;
+    onChange(isSelected ? null : value);
   };
 
   return (
@@ -27,99 +40,71 @@ function FilterBlock({
       <p className="advanced-search-page-filter-name">{filterName}</p>
       <ul className="advanced-search-page-filter-list">
         {Array.isArray(cuisineData[filterCategory]) ? (
-          cuisineData[filterCategory].length > 0 ? (
-            cuisineData[filterCategory].map((category) => (
-              <li
-                key={category}
-                className="advanced-search-page-filter-no-submenu"
-              >
-                <label className="label-checkbox">
-                  <input
-                    type="checkbox"
-                    name={filterCategory}
-                    value={category.toLowerCase()}
-                    className="input-checkbox"
-                    checked={selectedFilter === category}
-                    onChange={() => {
-                      handleToggle(category);
-                    }}
-                  />
-                  <span className="custom-box"></span>
-                  <span className="checkbox-text">{category}</span>
-                </label>
-              </li>
-            ))
-          ) : (
-            <li>No matches</li>
-          )
-        ) : cuisineData[filterCategory] && typeof cuisineData[filterCategory] === "object" ? (
-          Object.entries(cuisineData[filterCategory]).length > 0 ? (
-            Object.entries(cuisineData[filterCategory]).map(
-              ([category, subcategories]) => {
-                const isParentSelected =
-                  selectedFilter?.type === "parent" &&
-                  selectedFilter?.value === category;
-                const isSubVisible = activeCategories === category;
+          cuisineData[filterCategory].map((category) => (
+            <li
+              key={category}
+              className="advanced-search-page-filter-no-submenu"
+            >
+              <label className="label-checkbox">
+                <input
+                  type="checkbox"
+                  className="input-checkbox"
+                  checked={selectedFilter === category}
+                  onChange={() => handleSimpleToggle(category)}
+                />
+                <span className="custom-box"></span>
+                <span className="checkbox-text">{category}</span>
+              </label>
+            </li>
+          ))
+        ) : cuisineData[filterCategory] &&
+          typeof cuisineData[filterCategory] === "object" ? (
+          Object.entries(cuisineData[filterCategory]).map(
+            ([category, subcategories]) => {
+              const isParentSelected =
+                selectedFilter?.type === "parent" &&
+                selectedFilter.value === category;
+              const isSubVisible = activeCategories === category;
 
-                return (
-                  <li
-                    key={category}
-                    className="advanced-search-page-filter-has-submenu"
-                  >
-                    <label className="label-checkbox">
-                      <input
-                        type="checkbox"
-                        name={category}
-                        value={category.toLowerCase()}
-                        className="input-checkbox"
-                        checked={isParentSelected}
-                        onChange={() => {
-                          const isSelected =
-                            selectedFilter?.type === "parent" &&
-                            selectedFilter?.value === category;
-
-                          setSelectedFilter(
-                            isSelected
-                              ? null
-                              : { type: "parent", value: category }
-                          );
-
-                          setActiveCategories((prev) =>
-                            prev === category ? null : category
-                          );
-                        }}
-                      />
-                      <span className="custom-box"></span>
-                      <span className="checkbox-text">{category}</span>
-                      {Array.isArray(subcategories) && subcategories.length > 0 && (
+              return (
+                <li
+                  key={category}
+                  className="advanced-search-page-filter-has-submenu"
+                >
+                  <label className="label-checkbox">
+                    <input
+                      type="checkbox"
+                      className="input-checkbox"
+                      checked={isParentSelected}
+                      onChange={() => handleParentToggle(category)}
+                    />
+                    <span className="custom-box"></span>
+                    <span className="checkbox-text">{category}</span>
+                    {Array.isArray(subcategories) &&
+                      subcategories.length > 0 && (
                         <span className="submenu-arrow">&nbsp;▸</span>
                       )}
-                    </label>
+                  </label>
 
-                    {isSubVisible && Array.isArray(subcategories) && subcategories.length > 0 && (
+                  {isSubVisible &&
+                    Array.isArray(subcategories) &&
+                    subcategories.length > 0 && (
                       <ul className="advanced-search-page-filter-submenu">
                         {subcategories.map((sub) => {
                           const isSubSelected =
                             selectedFilter?.type === "sub" &&
-                            selectedFilter?.value === sub;
+                            selectedFilter.value === sub;
 
                           return (
                             <li key={sub}>
                               <label className="label-checkbox">
                                 <input
                                   type="checkbox"
-                                  name="cuisine-sub"
-                                  value={sub.toLowerCase()}
                                   className="input-checkbox"
                                   checked={isSubSelected}
-                                  onChange={() => {
-                                    setSelectedFilter(
-                                      isSubSelected
-                                        ? null
-                                        : { type: "sub", value: sub }
-                                    );
-                                    setActiveCategories(category);
-                                  }}
+                                  onChange={() =>
+                                    handleSubToggle(category, sub)
+                                  }
                                 />
                                 <span className="custom-box"></span>
                                 <span className="checkbox-text">{sub}</span>
@@ -129,12 +114,9 @@ function FilterBlock({
                         })}
                       </ul>
                     )}
-                  </li>
-                );
-              }
-            )
-          ) : (
-            <li>No matches</li>
+                </li>
+              );
+            }
           )
         ) : (
           <li>No matches</li>

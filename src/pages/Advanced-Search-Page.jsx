@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "../page-css/advanced-search-page.css";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
@@ -13,99 +13,90 @@ import axios from "axios";
 
 function AdvancedSearchPage() {
   const { theme } = useTheme();
-  const [allRecipes, setAllRecipes] = useState([]);
   const navigate = useNavigate();
-
+  const [allRecipes, setAllRecipes] = useState([]);
   const [matches, setMatches] = useState(0);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // get filters from from URL
+  const selectedCuisineRegion = useMemo(() => {
+    const sub = searchParams.get("cuisineSubregion");
+    const parent = searchParams.get("cuisineRegion");
+    if (sub) return { type: "sub", value: sub };
+    if (parent) return { type: "parent", value: parent };
+    return null;
+  }, [searchParams]);
+
+  const selectedProteinChoice = useMemo(
+    () => searchParams.get("proteinChoice") || null,
+    [searchParams]
+  );
+  const selectedDietaryRestriction = useMemo(
+    () => searchParams.get("dietaryRestriction") || null,
+    [searchParams]
+  );
+  const selectedReligiousRestriction = useMemo(
+    () => searchParams.get("religiousRestriction") || null,
+    [searchParams]
+  );
+
+  // Update URL parameters dynamically
+  const handleParamChange = (key, value) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    if (!value) {
+      newParams.delete(key);
+    } else {
+      newParams.set(key, value);
+    }
+    setSearchParams(newParams);
+  };
+
+  const handleCuisineChange = (val) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    if (!val) {
+      newParams.delete("cuisineRegion");
+      newParams.delete("cuisineSubregion");
+    } else if (val.type === "sub") {
+      newParams.set("cuisineSubregion", val.value);
+      newParams.delete("cuisineRegion");
+    } else {
+      newParams.set("cuisineRegion", val.value);
+      newParams.delete("cuisineSubregion");
+    }
+    setSearchParams(newParams);
+  };
 
   useEffect(() => {
     const params = {};
-
-    const cuisineRegion = searchParams.get("cuisineRegion");
-    const proteinChoice = searchParams.get("proteinChoice");
-    const dietaryRestriction = searchParams.get("dietaryRestriction");
-    const religiousRestriction = searchParams.get("religiousRestriction");
-
-    if (cuisineRegion) params.cuisineRegion = cuisineRegion;
-    if (proteinChoice) params.proteinChoice = proteinChoice;
-    if (dietaryRestriction) params.dietaryRestriction = dietaryRestriction;
-    if (religiousRestriction)
-      params.religiousRestriction = religiousRestriction;
+    for (const [key, value] of searchParams.entries()) {
+      params[key] = value;
+    }
+    runFilteredSearch(params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  const [selectedCuisineRegion, setSelectedCuisineRegion] = useState(() => {
-    const value = searchParams.get("cuisineRegion");
-    return value ? { type: "parent", value } : null;
-  });
-  const [selectedDietaryRestriction, setSelectedDietaryRestriction] = useState(
-    () => {
-      return searchParams.get("dietaryRestriction");
+  const runFilteredSearch = async (params) => {
+    const queryParams = new URLSearchParams(params).toString();
+    try {
+      const response = await axios.get(`api/recipes/search?${queryParams}`);
+      const foundRecipes = response.data.recipes || [];
+      setAllRecipes(foundRecipes);
+      setMatches(foundRecipes.length);
+    } catch (err) {
+      setAllRecipes([]);
+      setMatches(0);
     }
-  );
-  const [selectedProteinChoice, setSelectedProteinChoice] = useState(() => {
-    return searchParams.get("proteinChoice");
-  });
-  const [selectedReligiousRestriction, setSelectedReligiousRestriction] =
-    useState(() => {
-      return searchParams.get("religiousRestriction");
-    });
-
-  useEffect(() => {
-    runFilteredSearch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    selectedCuisineRegion,
-    selectedProteinChoice,
-    selectedDietaryRestriction,
-    selectedReligiousRestriction,
-  ]);
+  };
 
   const sortOptions = ["most popular", "newest", "trending?"];
   const displayOptions = ["small thumbnails", "large thumbnails", "list view"];
 
-  const recipeBlocks = Array.isArray(allRecipes)
-    ? allRecipes.map((recipe) => ({
-        recipe,
-        onClick: () => navigate(`/recipe/${recipe._id}`),
-        type: "submitted",
-      }))
-    : [];
-
-  const getSelectedFilters = () => {
-    const params = {};
-    if (selectedCuisineRegion?.value) {
-      selectedCuisineRegion.type === "parent"
-        ? (params.cuisineRegion = selectedCuisineRegion.value.toLowerCase())
-        : (params.cuisineSubregion = selectedCuisineRegion.value.toLowerCase());
-    }
-    if (selectedProteinChoice) {
-      params.proteinChoice = selectedProteinChoice.toLowerCase();
-    }
-    if (selectedDietaryRestriction) {
-      params.dietaryRestriction = selectedDietaryRestriction.toLowerCase();
-    }
-    if (selectedReligiousRestriction) {
-      params.religiousRestriction = selectedReligiousRestriction.toLowerCase();
-    }
-    return new URLSearchParams(params).toString();
-  };
-
-  const runFilteredSearch = async (query) => {
-    const queryParams = query ?? getSelectedFilters();
-    console.log("query params are " + queryParams);
-
-    const response = await axios.get(`api/recipes/search?${queryParams}`);
-    const foundRecipes = response.data.recipes;
-    const numberOfFoundRecipes = foundRecipes.length;
-    if (response.error) {
-      setAllRecipes([]);
-      setMatches(0);
-    }
-    setAllRecipes(foundRecipes);
-    setMatches(numberOfFoundRecipes);
-  };
+  const recipeBlocks = allRecipes.map((recipe) => ({
+    recipe,
+    onClick: () => navigate(`/recipe/${recipe._id}`),
+    type: "submitted",
+  }));
 
   return (
     <div className={theme === "dark" ? "dark" : ""}>
@@ -114,33 +105,39 @@ function AdvancedSearchPage() {
         <main className="advanced-search-page-main-content">
           <div className="advanced-search-page-left-panel">
             <h2 className="advanced-search-page-title">FILTERS</h2>
+
             <FilterBlock
               filterName="CUISINE REGION"
               filterCategory="cuisineRegion"
               selectedFilter={selectedCuisineRegion}
-              setSelectedFilter={setSelectedCuisineRegion}
+              onChange={handleCuisineChange}
             />
+
             <FilterBlock
               filterName="PROTEIN CHOICE"
               filterCategory="proteinChoice"
               selectedFilter={selectedProteinChoice}
-              setSelectedFilter={setSelectedProteinChoice}
+              onChange={(val) => handleParamChange("proteinChoice", val)}
             />
+
             <FilterBlock
               filterName="DIETARY RESTRICTION"
               filterCategory="dietaryRestriction"
               selectedFilter={selectedDietaryRestriction}
-              setSelectedFilter={setSelectedDietaryRestriction}
+              onChange={(val) => handleParamChange("dietaryRestriction", val)}
             />
+
             <FilterBlock
               filterName="RELIGIOUS RESTRICTION"
               filterCategory="religiousRestriction"
               selectedFilter={selectedReligiousRestriction}
-              setSelectedFilter={setSelectedReligiousRestriction}
+              onChange={(val) => handleParamChange("religiousRestriction", val)}
             />
           </div>
+
           <div className="advanced-search-page-right-panel">
             <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
+
             <div className="advanced-search-page-search-bar">
               <span>
                 <h5 className="advanced-search-page-search-bar-label">
@@ -165,22 +162,21 @@ function AdvancedSearchPage() {
                 </SearchOptionsProvider>
               </span>
             </div>
+
             <div className="tags-container">
               <div className="advanced-search-page-tags">
                 <span className="advanced-search-page-tags-label">
                   <h5>
-                    {matches === 1 ? (
-                      <span className="food-bold">{matches} match found</span>
-                    ) : (
-                      <span className="food-bold">{matches} matches found</span>
-                    )}{" "}
+                    {matches === 1
+                      ? `${matches} match found`
+                      : `${matches} matches found`}
                   </h5>
                 </span>
                 <RecipeTags
                   recipe={{
                     cuisineRegion: selectedCuisineRegion?.value,
-                    dietaryRestriction: selectedDietaryRestriction,
                     proteinChoice: selectedProteinChoice,
+                    dietaryRestriction: selectedDietaryRestriction,
                     religiousRestriction: selectedReligiousRestriction,
                   }}
                   noTagsText={
@@ -191,8 +187,9 @@ function AdvancedSearchPage() {
                 />
               </div>
             </div>
+
             <div className="advanced-search-page-advanced-blocks">
-              {Array.isArray(allRecipes) && allRecipes.length > 0 ? (
+              {allRecipes.length > 0 ? (
                 <AdvancedBlocks blocks={recipeBlocks} />
               ) : (
                 <div>No recipes found.</div>

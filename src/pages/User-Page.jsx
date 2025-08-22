@@ -184,16 +184,6 @@ function UserPage() {
       return;
     }
 
-    // const isArrayField = (f) => f === "dietaryRestriction";
-    // const patchBody = {
-    //   [field]: isArrayField(field)
-    //     ? value
-    //         .split(",")
-    //         .map((s) => s.trim())
-    //         .filter(Boolean)
-    //     : value,
-    // };
-
     const isArrayField = (f) => f === "dietaryRestriction";
     let fieldValue;
 

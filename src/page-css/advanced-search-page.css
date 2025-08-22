@@ -120,14 +120,23 @@ html {
   color: var(--text-color-check);
 }
 
-.input-checkbox {
+/* .input-checkbox {
   position: absolute;
   opacity: 0;
   pointer-events: none;
   width: 0;
   height: 0;
   margin: 0;
-  appearance: none; /* <-- important for Safari */
+  appearance: none; 
+} */
+
+.input-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  appearance: none;
 }
 
 .advanced-search-page-filter-submenu {
@@ -175,7 +184,7 @@ html {
   background-color: var(--bg-color);
 }
 
-.advanced-search-page-right-panel .advanced-search-page-tags{
+.advanced-search-page-right-panel .advanced-search-page-tags {
   width: 100%;
   margin: 10px 0;
   display: flex;
@@ -192,7 +201,7 @@ html {
   color: var(--text-color);
   letter-spacing: 0.05rem;
   text-transform: uppercase;
-    font-style: italic;
+  font-style: italic;
   font-variation-settings: "wdth" 75;
 }
 
@@ -217,7 +226,7 @@ html {
   text-transform: uppercase;
   margin-bottom: 0.25rem;
   margin-left: 0.125rem;
-  }
+}
 
 .advanced-search-page-tags .food-bold {
   font-family: "Open Sans", sans-serif;
@@ -231,8 +240,7 @@ html {
   font-variation-settings: "wdth" 75;
 }
 
-
-.advanced-no-tags-text{
+.advanced-no-tags-text {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
