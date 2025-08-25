@@ -7,6 +7,7 @@ function SearchBar() {
       <div className="home-page-left-panel-search-wrapper">
         <SearchIcon />
         <input
+          name="home-page-left-panel-searchbar"
           className="home-page-left-panel-searchbar"
           type="search"
           placeholder="Salmon Croquettes"

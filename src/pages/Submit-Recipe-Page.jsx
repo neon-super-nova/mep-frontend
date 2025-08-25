@@ -22,12 +22,10 @@ function SubmitRecipePage() {
   const [fullname, setFullname] = useState("");
 
   const navigate = useNavigate();
+  const userId = getUserId();
 
   useEffect(() => {
     const getUser = async () => {
-      const userId = getUserId();
-      if (!userId) return;
-
       try {
         const response = await axios.get(`api/users/${userId}`, {
           headers: {
@@ -41,8 +39,10 @@ function SubmitRecipePage() {
         setFullname(`${firstName} ${lastName}`);
       } catch (err) {}
     };
-    getUser();
-  }, []);
+    if (userId) {
+      getUser();
+    }
+  }, [userId]);
 
   // defining formData object to append all entries for recipe doc
   const [formData, setFormData] = useState({
@@ -152,7 +152,7 @@ function SubmitRecipePage() {
     }
 
     if (!user) {
-      alert("User not found.");
+      navigate("/");
       return;
     }
 
@@ -197,13 +197,10 @@ function SubmitRecipePage() {
         alert("Recipe submitted successfully!");
         navigate(`/recipe/${recipeId}`);
       } else {
-        alert(response.error || "Try again");
+        alert(response.error);
       }
     } catch (err) {
-      console.error("Error during submission:", err);
-      if (err.response) {
-        alert(err.response.data.error);
-      }
+      console.error("Error is: ", err);
     }
   };
 
@@ -220,6 +217,7 @@ function SubmitRecipePage() {
                 <span style={{ width: "0.5rem" }}></span>
                 <div className="reg-input">
                   <input
+                    name="submit-recipe-title-input"
                     className="submit-recipe-title-input"
                     placeholder="Title Your Recipe Here"
                     maxLength={80}
@@ -271,6 +269,7 @@ function SubmitRecipePage() {
               <span className="bold">description: </span>
               <span className="reg">
                 <textarea
+                  name="submit-recipe-description-input"
                   className="submit-recipe-description-input"
                   placeholder="Add a brief description of your recipe here."
                   rows={3}
@@ -342,6 +341,7 @@ function SubmitRecipePage() {
                   </span>
 
                   <select
+                    name="submit-recipe-tag-input"
                     className="submit-recipe-tag-input"
                     value={cuisineRegion}
                     onChange={(e) => {
@@ -364,6 +364,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="submit-recipe-tag-bold">Sub-Region: </span>
                   <select
+                    name="submit-recipe-tag-input"
                     value={cuisineSubRegion}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
@@ -384,6 +385,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="submit-recipe-tag-bold">Protein: </span>
                   <select
+                    name="submit-recipe-tag-input"
                     value={proteinChoice}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
@@ -404,6 +406,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="submit-recipe-tag-bold">Diet: </span>
                   <select
+                    name="submit-recipe-tag-input"
                     value={dietaryRestriction}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
@@ -424,6 +427,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="submit-recipe-tag-bold">Religion: </span>
                   <select
+                    name="submit-recipe-tag-input"
                     value={religiousRestriction}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
@@ -445,6 +449,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="bold">Cook Time: </span>
                   <input
+                    name="submit-recipe-time-input"
                     className="submit-recipe-time-input"
                     type="number"
                     step="10"
@@ -491,6 +496,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="bold">Prep Time: </span>
                   <input
+                    name="submit-recipe-time-input"
                     className="submit-recipe-time-input"
                     type="number"
                     step="10"
@@ -544,6 +550,7 @@ function SubmitRecipePage() {
                 <div className="reg-input">
                   <span className="bold">Servings: </span>
                   <input
+                    name="submit-recipe-time-input"
                     className="submit-recipe-time-input"
                     type="number"
                     step="1"
@@ -591,6 +598,7 @@ function SubmitRecipePage() {
               <span className="bold">Special Equipment (Optional) </span>
               <span className="reg">
                 <textarea
+                  name="submit-recipe-special-equipment-input"
                   className="submit-recipe-special-equipment-input"
                   placeholder="Add any special equipment needed for this recipe."
                   rows={2}
@@ -609,6 +617,7 @@ function SubmitRecipePage() {
                 <span className="bold">Ingredients: </span>
                 <span className="reg">
                   <textarea
+                    name="submit-recipe-ingredients-input"
                     className="submit-recipe-ingredients-input"
                     placeholder="Specify ingredients"
                     rows={8}
@@ -640,6 +649,7 @@ function SubmitRecipePage() {
                 <span className="bold">Instructions: </span>
                 <span className="reg">
                   <textarea
+                    name="submit-recipe-instructions-input"
                     className="submit-recipe-instructions-input"
                     placeholder="Specify instructions and special equipment callout"
                     rows={8}
@@ -673,6 +683,7 @@ function SubmitRecipePage() {
               <span className="bold">Author Notes (Optional) </span>
               <span className="reg">
                 <textarea
+                  name="submit-recipe-author-notes-input"
                   className="submit-recipe-author-notes-input"
                   placeholder="Add any final details."
                   rows={2}

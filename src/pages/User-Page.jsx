@@ -1,5 +1,6 @@
 import "../page-css/user-page.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
@@ -24,6 +25,7 @@ function UserPage() {
   const { theme } = useTheme();
   const [user, setUser] = useState(null);
   const [avatarRefresh, setAvatarRefresh] = useState(0);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
@@ -38,11 +40,10 @@ function UserPage() {
   const [showPencils, setShowPencils] = useState(false);
   const [selectedAvatarFile, setSelectedAvatarFile] = useState("");
 
+  const userId = getUserId();
+
   useEffect(() => {
     const getUser = async () => {
-      const userId = getUserId();
-      if (!userId) return;
-
       try {
         const response = await axios.get(`api/users/${userId}`, {
           headers: {
@@ -55,8 +56,10 @@ function UserPage() {
         setFullname(`${firstName} ${lastName}`);
       } catch (err) {}
     };
-    getUser();
-  }, []);
+    if (userId) {
+      getUser();
+    }
+  }, [userId]);
 
   // Avatar upload handler
   const handleAvatarUpload = async (file) => {
@@ -91,9 +94,6 @@ function UserPage() {
 
   useEffect(() => {
     const getCount = async () => {
-      const userId = getUserId();
-      if (!userId) return;
-
       try {
         const recipeResult = await axios.get(
           `api/users/${userId}/recipe-count`,
@@ -127,8 +127,10 @@ function UserPage() {
         setLikeCount(likeCount);
       } catch (err) {}
     };
-    getCount();
-  }, []);
+    if (userId) {
+      getCount();
+    }
+  }, [userId]);
 
   // fetching user-info collection
 
@@ -141,9 +143,6 @@ function UserPage() {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const userId = getUserId();
-      if (!userId) return;
-
       try {
         const response = await axios.get(`api/users/user-info/${userId}`, {
           headers: {
@@ -163,8 +162,10 @@ function UserPage() {
         });
       } catch (err) {}
     };
-    getUserInfo();
-  }, []);
+    if (userId) {
+      getUserInfo();
+    }
+  }, [userId]);
 
   const displayOrPlaceholder = (val) =>
     val && (Array.isArray(val) ? val.length > 0 : val !== "")
@@ -175,7 +176,6 @@ function UserPage() {
 
   const handleFieldEdit = async (e, field) => {
     e.preventDefault();
-    const userId = getUserId();
     if (!userId) return;
 
     const value = editFields[field];
@@ -240,6 +240,7 @@ function UserPage() {
       }
     } catch (err) {
       console.error("Error updating user info:", err);
+      navigate("/");
     }
   };
 

@@ -16,30 +16,41 @@ function SettingsPage() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-          }}>
+          }}
+        >
           <div
             className="settings-page-left-panel"
-            style={{ textAlign: "center" }} >
+            style={{ textAlign: "center" }}
+          >
             <h2 className="settings-page-panel-title">SETTINGS</h2>
             <img src={avatar} alt="landing" className="settings-image" />
           </div>
           <div
             className="settings-page-left-panel"
-            style={{ textAlign: "center" }}>
+            style={{ textAlign: "center" }}
+          >
             <h2 className="settings-page-panel-title">SETTINGS</h2>
-            <p className="settings-page-panel-desc">Left panel content goes here.</p>
+            <p className="settings-page-panel-desc">
+              Left panel content goes here.
+            </p>
           </div>
           <div
             className="settings-page-left-panel"
-            style={{ textAlign: "center" }}>
+            style={{ textAlign: "center" }}
+          >
             <h2 className="settings-page-panel-title">SETTINGS</h2>
-            <p className="settings-page-panel-desc">Left panel content goes here.</p>
+            <p className="settings-page-panel-desc">
+              Left panel content goes here.
+            </p>
           </div>
           <div
             className="settings-page-left-panel"
-            style={{ textAlign: "center" }}>
+            style={{ textAlign: "center" }}
+          >
             <h2 className="settings-page-panel-title">SETTINGS</h2>
-            <p className="settings-page-panel-desc">Left panel content goes here.</p>
+            <p className="settings-page-panel-desc">
+              Left panel content goes here.
+            </p>
           </div>
         </main>
         <footer className="settings-page-footer">

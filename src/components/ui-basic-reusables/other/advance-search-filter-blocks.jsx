@@ -47,6 +47,7 @@ function FilterBlock({ filterName, filterCategory, selectedFilter, onChange }) {
             >
               <label className="label-checkbox">
                 <input
+                  name="input-checkbox"
                   type="checkbox"
                   className="input-checkbox"
                   checked={selectedFilter === category}
@@ -73,6 +74,7 @@ function FilterBlock({ filterName, filterCategory, selectedFilter, onChange }) {
                 >
                   <label className="label-checkbox">
                     <input
+                      name="input-checkbox"
                       type="checkbox"
                       className="input-checkbox"
                       checked={isParentSelected}
@@ -99,6 +101,7 @@ function FilterBlock({ filterName, filterCategory, selectedFilter, onChange }) {
                             <li key={sub}>
                               <label className="label-checkbox">
                                 <input
+                                  name="input-checkbox"
                                   type="checkbox"
                                   className="input-checkbox"
                                   checked={isSubSelected}

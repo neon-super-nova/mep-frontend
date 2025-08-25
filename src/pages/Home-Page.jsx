@@ -6,6 +6,7 @@ import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
 import TrendingRecipe from "../components/ui-basic-reusables/other/trending-recipe";
 import TopRatedRecipe from "../components/ui-basic-reusables/other/top-rated-recipe";
 import axios from "axios";
+import { getUserId } from "../context/decodeToken.js";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import placeholder1 from "../components/img/dummy/placeholder_1.jpg";
@@ -17,6 +18,11 @@ function HomePage() {
 
   const [trendingRecipes, setTrendingRecipes] = useState([]);
   const [topRatedRecipes, setTopRatedRecipes] = useState([]);
+
+  const userId = getUserId();
+  if (userId === undefined) {
+    navigate("/");
+  }
 
   useEffect(() => {
     async function fetchTrendingRecipes() {

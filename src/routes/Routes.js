@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "../pages/ProtectedRoute";
 import LandingPage from "../pages/Landing-Page";
 import SignUpPage from "../pages/Sign-Up-Page";
 import HomePage from "../pages/Home-Page";
@@ -16,22 +17,109 @@ import SubmitRecipePage from "../pages/Submit-Recipe-Page";
 import ModifyRecipePage from "../pages/Modify-Recipe-Page";
 
 const AppRoutes = () => {
+  // return (
+  //   <Routes>
+  //     <Route path="/" element={<LandingPage />} />
+  //     <Route path="/signup" element={<SignUpPage />} />
+  //     <Route path="/home" element={<HomePage />} />
+  //     <Route path="/forgotpassword" element={<ForgotScreen />} />
+  //     <Route path="/resetpassword" element={<ResetScreen />} />
+  //     <Route path="/verify-email" element={<VerifyScreen />} />
+  //     <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
+  //     <Route path="/profile" element={<UserPage />} />
+  //     <Route path="/settings" element={<SettingsPage />} />
+  //     <Route path="/recipebox" element={<RecipeBoxPage />} />
+  //     <Route path="/notifications" element={<NotificationsPage />} />
+  //     <Route path="/recipe/:recipeId" element={<RecipePage />} />
+  //     <Route path="/modify-recipe/:recipeId" element={<ModifyRecipePage />} />
+  //     <Route path="/submit-recipe" element={<SubmitRecipePage />} />
+  //   </Routes>
+  // );
   return (
     <Routes>
+      {/* public routes */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/home" element={<HomePage />} />
       <Route path="/forgotpassword" element={<ForgotScreen />} />
       <Route path="/resetpassword" element={<ResetScreen />} />
       <Route path="/verify-email" element={<VerifyScreen />} />
-      <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
-      <Route path="/profile" element={<UserPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/recipebox" element={<RecipeBoxPage />} />
-      <Route path="/notifications" element={<NotificationsPage />} />
-      <Route path="/recipe/:recipeId" element={<RecipePage />} />
-      <Route path="/modify-recipe/:recipeId" element={<ModifyRecipePage />} />
-      <Route path="/submit-recipe" element={<SubmitRecipePage />} />
+
+      {/* protected routes */}
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/advancedsearch"
+        element={
+          <ProtectedRoute>
+            <AdvancedSearchPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <UserPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/recipebox"
+        element={
+          <ProtectedRoute>
+            <RecipeBoxPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/notifications"
+        element={
+          <ProtectedRoute>
+            <NotificationsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/recipe/:recipeId"
+        element={
+          <ProtectedRoute>
+            <RecipePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/modify-recipe/:recipeId"
+        element={
+          <ProtectedRoute>
+            <ModifyRecipePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/submit-recipe"
+        element={
+          <ProtectedRoute>
+            <SubmitRecipePage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* fallback to */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

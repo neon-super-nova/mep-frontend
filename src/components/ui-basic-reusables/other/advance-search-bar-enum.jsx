@@ -12,6 +12,7 @@ function AdvancedSearchBarEnum() {
     <div className="advanced-shared-content-wrapper">
       <div className="advanced-page-right-panel-search-wrapper">
         <select
+          name="advanced-enum-label"
           className="advanced-enum-label"
           value={value}
           onChange={(e) => setValue(e.target.value)}

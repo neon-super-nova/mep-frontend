@@ -35,8 +35,6 @@ function RecipeBoxPage() {
 
   useEffect(() => {
     const getUser = async () => {
-      if (!userId) return;
-
       try {
         const response = await axios.get(`/api/users/${userId}`, {
           headers: {
@@ -52,8 +50,10 @@ function RecipeBoxPage() {
         }
       }
     };
-    getUser();
-  }, []);
+    if (userId) {
+      getUser();
+    }
+  }, [userId]);
 
   const PAGE_SIZE = 7;
 
@@ -62,8 +62,6 @@ function RecipeBoxPage() {
 
   useEffect(() => {
     const getCount = async () => {
-      if (!userId) return;
-
       try {
         const recipeResult = await axios.get(
           `api/users/${userId}/recipe-count`,
@@ -89,9 +87,10 @@ function RecipeBoxPage() {
         }
       }
     };
-    getCount();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (userId) {
+      getCount();
+    }
+  }, [userId]);
 
   const [submittedRecipes, setSubmittedRecipes] = useState([]);
   const submittedStart = (submittedPage - 1) * PAGE_SIZE;
@@ -124,7 +123,6 @@ function RecipeBoxPage() {
 
   useEffect(() => {
     const getLikedRecipes = async () => {
-      if (!userId) return;
       try {
         const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
           headers: {
@@ -136,10 +134,12 @@ function RecipeBoxPage() {
         console.log(err);
       }
     };
-    getLikedRecipes();
-  }, []);
+    if (userId) {
+      getLikedRecipes();
+    }
+  }, [userId]);
 
-// const [showPencils, setShowPencils] = useState(false);
+  // const [showPencils, setShowPencils] = useState(false);
 
   // const [toastMsg, setToastMsg] = useState("");
   // const showToast = (msg) => {
@@ -207,12 +207,17 @@ function RecipeBoxPage() {
               </h3>
               <h6>
                 <span className="bold">Modify submitted recipes: </span>
-                <span className="home-page-left-panel-advanced-search-bold"> <span
+                <span className="home-page-left-panel-advanced-search-bold">
+                  {" "}
+                  <span
                     className="recipe-box-page-toggle-link"
                     onClick={() => setShowPencils((v) => !v)}
                   >
-                    {showPencils ? "Hide something something" : "Edit something something"}
-                  </span></span>
+                    {showPencils
+                      ? "Hide something something"
+                      : "Edit something something"}
+                  </span>
+                </span>
               </h6>
               <h6>
                 <span className="bold">submit a recipe: </span>
@@ -242,13 +247,16 @@ function RecipeBoxPage() {
 
               {pagedSubmitted.length > 0 ? (
                 pagedSubmitted.map((recipe, idx) => (
-                  <div key={recipe.recipeId || idx} style={{ position: "relative", zIndex: 1 }}>
-                    <RecipeBlockSubmit
-                      recipe={recipe}
-                      type="submitted"
-                    />
+                  <div
+                    key={recipe.recipeId || idx}
+                    style={{ position: "relative", zIndex: 1 }}
+                  >
+                    <RecipeBlockSubmit recipe={recipe} type="submitted" />
                     {showPencils && (
-                      <Link to={`/modify-recipe/${recipe._id || recipe.recipeId}`} style={{ marginLeft: 8 }}>
+                      <Link
+                        to={`/modify-recipe/${recipe._id || recipe.recipeId}`}
+                        style={{ marginLeft: 8 }}
+                      >
                         <Pencil
                           className="edit-pencil-icon"
                           color="var(--text-color)"
@@ -283,17 +291,18 @@ function RecipeBoxPage() {
             <div className="recipe-box-page-liked-panel-heading">
               <h3 className="recipe-box-page-liked-title">liked recipes</h3>
               <h6>
-
-                   <span className="bold">Modify liked recipes: </span>
-                <span className="home-page-left-panel-advanced-search-bold"> 
-              <span
+                <span className="bold">Modify liked recipes: </span>
+                <span className="home-page-left-panel-advanced-search-bold">
+                  <span
                     className="rbp-toggle-link"
                     onClick={() => {
                       setShowFlag((v) => !v);
                       console.log("toggling showFlag", !showFlag);
                     }}
                   >
-                    {showFlag ? "Hide something something" : "Unlike something something"}
+                    {showFlag
+                      ? "Hide something something"
+                      : "Unlike something something"}
                   </span>
                 </span>
               </h6>
@@ -318,7 +327,14 @@ function RecipeBoxPage() {
                     <RecipeBlock recipe={recipe} type="liked" />
                     {showFlag && (
                       <XFlag
-                        clear={() => handleLikeRecipe(recipe, true, likedRecipes, setLikedRecipes)}
+                        clear={() =>
+                          handleLikeRecipe(
+                            recipe,
+                            true,
+                            likedRecipes,
+                            setLikedRecipes
+                          )
+                        }
                         show={showFlag}
                         className="recipe-box-page-liked-remove-icon"
                       />
@@ -338,7 +354,6 @@ function RecipeBoxPage() {
                   />
                 ) : null}
               </button>
-            
             </div>
           </div>
         </div>

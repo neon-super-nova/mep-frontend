@@ -1,5 +1,5 @@
 import "../page-css/recipe-page.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
@@ -26,6 +26,7 @@ import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-ra
 
 function RecipePage() {
   const { recipeId } = useParams();
+  const navigate = useNavigate();
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
   const [user, setUser] = useState(null);
@@ -45,8 +46,6 @@ function RecipePage() {
 
   useEffect(() => {
     const getUser = async () => {
-      if (!userId) return;
-
       try {
         const response = await axios.get(`/api/users/${userId}`, {
           headers: {
@@ -59,8 +58,12 @@ function RecipePage() {
           alert(err.response.data.error);
         }
       }
+      if (userId) {
+        getUser();
+      }
     };
     getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {
@@ -112,7 +115,6 @@ function RecipePage() {
 
   useEffect(() => {
     const getLikedRecipes = async () => {
-      if (!userId) return;
       try {
         const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
           headers: {
@@ -124,7 +126,10 @@ function RecipePage() {
         console.log(err);
       }
     };
-    getLikedRecipes();
+    if (userId) {
+      getLikedRecipes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {
@@ -182,7 +187,10 @@ function RecipePage() {
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        navigate("/");
+        return;
+      }
 
       const reviewBody = {
         rating,
@@ -596,6 +604,7 @@ function RecipePage() {
                 />
                 <h5 className="comment-label">Comment:</h5>
                 <textarea
+                  name="review-comment-input"
                   className="review-comment-input"
                   placeholder="Write your review here..."
                   rows={4}
