@@ -19,6 +19,8 @@ function HomePage() {
   const [trendingRecipes, setTrendingRecipes] = useState([]);
   const [topRatedRecipes, setTopRatedRecipes] = useState([]);
 
+  const [filterName, setFilterName] = useState("");
+
   const userId = getUserId();
   if (userId === undefined) {
     navigate("/");
@@ -50,6 +52,11 @@ function HomePage() {
     fetchTopRatedRecipes();
   }, []);
 
+  const handleSearch = (filterName) => {
+    if (!filterName) return;
+    navigate(`/advancedsearch?recipeName=${encodeURIComponent(filterName)}`);
+  };
+
   return (
     <div className={theme === "dark" ? "dark" : ""}>
       <div className="home-page">
@@ -64,7 +71,11 @@ function HomePage() {
             {/* Search bar */}
             <div className="home-page-left-panel-search-div">
               <p className="home-page-left-panel-subtitles">SEARCH</p>
-              <SearchBar />
+              <SearchBar
+                filterValue={filterName}
+                setFilterValue={setFilterName}
+                handleSearchBarClick={handleSearch}
+              />
               {/* Advanced bar */}
               <div className="home-page-left-panel-advanced-search">
                 <p className="home-page-left-panel-advanced-search-reg">

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "../page-css/advanced-search-page.css";
@@ -41,6 +42,12 @@ function AdvancedSearchPage() {
     [searchParams]
   );
 
+  // name filtering in home page search bar
+  const recipeName = useMemo(
+    () => searchParams.get("recipeName") || null,
+    [searchParams]
+  );
+
   // Update URL parameters dynamically
   const handleParamChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams.toString());
@@ -77,9 +84,17 @@ function AdvancedSearchPage() {
   }, [searchParams]);
 
   const runFilteredSearch = async (params) => {
-    const queryParams = new URLSearchParams(params).toString();
     try {
-      const response = await axios.get(`api/recipes/search?${queryParams}`);
+      let url = "";
+      if (params.recipeName) {
+        url = `/api/recipes/searchByName/${encodeURIComponent(
+          params.recipeName
+        )}`;
+      } else {
+        const queryParams = new URLSearchParams(params).toString();
+        url = `/api/recipes/search?${queryParams}`;
+      }
+      const response = await axios.get(url);
       const foundRecipes = response.data.recipes || [];
       setAllRecipes(foundRecipes);
       setMatches(foundRecipes.length);
