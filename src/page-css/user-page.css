@@ -286,7 +286,7 @@ html {
 }
 
 .user-button-container {
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -325,9 +325,9 @@ html {
  
 }
 
-.desc-row.dietary-desc-row .user-button-container {
+/* .desc-row.dietary-desc-row .user-button-container {
   background-color: lightpink;
-}
+} */
 
 .edit-user-info-form .desc-reg {
   background-color: var(--main-accent-color-alt);

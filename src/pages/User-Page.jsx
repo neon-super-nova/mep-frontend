@@ -247,7 +247,7 @@ function UserPage() {
   const db_recipe_saved = "000000";
 
   const user_recipe_saved = "000000";
-  const [notificationChoice, setNotificationChoice] = useState("");
+
   const notificationChoices = [
     {
       value: "email-updates",
@@ -266,6 +266,48 @@ function UserPage() {
     },
     { value: "none", label: "Do none of the above" },
   ];
+
+  // change with backend logic when applicable
+
+  const [notificationChoice, setNotificationChoice] = useState(
+    notificationChoices[0].value
+  );
+
+  const [emailOpen, setEmailOpen] = useState(
+    localStorage.getItem("emailOpen") === "true"
+  );
+
+  const [newsletterOpen, setNewsletterOpen] = useState(
+    localStorage.getItem("newsletterOpen") === "true"
+  );
+
+  useEffect(() => {
+    const storedNotificationChoice = localStorage.getItem("notificationChoice");
+    if (storedNotificationChoice)
+      setNotificationChoice(storedNotificationChoice);
+
+    const storedEmailOpen = localStorage.getItem("emailOpen");
+    if (storedEmailOpen !== null) setEmailOpen(storedEmailOpen === "true");
+
+    const storedNewsletterOpen = localStorage.getItem("newsletterOpen");
+    if (storedNewsletterOpen !== null)
+      setNewsletterOpen(storedNewsletterOpen === "true");
+  }, []);
+
+  const handleNotificationChange = (choice) => {
+    setNotificationChoice(choice);
+    localStorage.setItem("notificationChoice", choice);
+  };
+
+  const handleEmailOpenChange = (open) => {
+    setEmailOpen(open);
+    localStorage.setItem("emailOpen", open);
+  };
+
+  const handleNewsletterOpenChange = (open) => {
+    setNewsletterOpen(open);
+    localStorage.setItem("newsletterOpen", open);
+  };
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
@@ -533,16 +575,19 @@ function UserPage() {
                     <ToggleButton
                       onLabel="Yes"
                       offLabel="No"
-                      onPress={(value) => console.log("Email Updates:", value)}
+                      value={emailOpen}
+                      onPress={handleEmailOpenChange}
                     />
                   </div>
                   <div className="desc-row">
                     <p className="desc-bold">Newsletter</p>
                     <p className="desc-reg">yes or no boolean</p>
                     <ToggleButton
-                      onPress={(value) => console.log("Newsletter:", value)}
+                      value={newsletterOpen}
+                      onPress={handleNewsletterOpenChange}
                     />
                   </div>
+                   <div className="spacer-quarter" />
                   <div className="notification-choices-row">
                     <p className="desc-bold">Notification Settings</p>
                     <div className="spacer-quarter" />
@@ -551,7 +596,7 @@ function UserPage() {
                         <ButtonRadioGroup
                           options={notificationChoices}
                           value={notificationChoice}
-                          onChange={setNotificationChoice}
+                          onChange={handleNotificationChange}
                           className="user-radio"
                           circleDotColor="var(--main-accent-color-alt)"
                           circleDotStrokeWidth={4}
@@ -563,11 +608,14 @@ function UserPage() {
                       </div>
                     </div>
                   </div>
+                   <div className="spacer-quarter" />
                   <div className="desc-row">
+                    
                     <p className="desc-bold">Delete Account </p>
                     <p className="desc-reg">go to subpage</p>
                   </div>
                   <div className="spacer-quarter" />
+                   <div className="spacer-quarter" />
                   <div className="desc-row">
                     <p className="desc-bold">Privacy Settings:</p>
                   </div>

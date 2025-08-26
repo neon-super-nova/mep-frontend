@@ -5,11 +5,11 @@ import "../page-css/advanced-search-page.css";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import { useTheme } from "../context/theme-context";
 import { SearchOptionsProvider } from "../context/search-options-context";
-import AdvancedSearchBarEnum from "../components/ui-basic-reusables/other/advance-search-bar-enum";
-import AdvancedSearchBarType from "../components/ui-basic-reusables/other/advance-search-bar-type";
+import AdvancedSearchBarEnum from "../components/ui-basic-reusables/search-bar/advance-search-bar-enum";
+import AdvancedSearchBarType from "../components/ui-basic-reusables/search-bar/advance-search-bar-type";
 import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
 import AdvancedBlocks from "../components/ui-basic-reusables/blocks/advanced-block";
-import FilterBlock from "../components/ui-basic-reusables/other/advance-search-filter-blocks";
+import FilterBlock from "../components/ui-basic-reusables/blocks/advance-search-filter-blocks";
 import axios from "axios";
 
 function AdvancedSearchPage() {
@@ -207,7 +207,7 @@ function AdvancedSearchPage() {
               {allRecipes.length > 0 ? (
                 <AdvancedBlocks blocks={recipeBlocks} />
               ) : (
-                <div>No recipes found.</div>
+                <div className ="advanced-search-no-recipes-found">No recipes found.</div>
               )}
             </div>
           </div>

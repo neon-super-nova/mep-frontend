@@ -270,7 +270,7 @@ function RecipeBoxPage() {
                   </div>
                 ))
               ) : (
-                <p>No recipes submitted yet.</p>
+                <p className="recipe-box-page-no-recipes-found">No recipes submitted yet.</p>
               )}
 
               <button

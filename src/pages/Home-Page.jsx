@@ -1,10 +1,10 @@
 import "../page-css/home-page.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import SearchBar from "../components/ui-basic-reusables/other/search-bar";
-import BrowseBlocks from "../components/ui-basic-reusables/other/browse-blocks";
-import TrendingRecipe from "../components/ui-basic-reusables/other/trending-recipe";
-import TopRatedRecipe from "../components/ui-basic-reusables/other/top-rated-recipe";
+import SearchBar from "../components/ui-basic-reusables/search-bar/search-bar.jsx";
+import BrowseBlocks from "../components/ui-basic-reusables/blocks/browse-blocks";
+import TrendingRecipe from "../components/ui-basic-reusables/page-elements/trending-recipe.jsx";
+import TopRatedRecipe from "../components/ui-basic-reusables/page-elements/top-rated-recipe.jsx";
 import axios from "axios";
 import { getUserId } from "../context/decodeToken.js";
 import { useTheme } from "../context/theme-context";

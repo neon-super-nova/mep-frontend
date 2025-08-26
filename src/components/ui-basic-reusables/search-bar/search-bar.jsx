@@ -1,4 +1,4 @@
-import SearchIcon from "../icons/search-icon";
+import { Search } from "lucide-react";
 import "./search-bar.css";
 
 function SearchBar({ filterValue, setFilterValue, handleSearchBarClick }) {
@@ -11,8 +11,13 @@ function SearchBar({ filterValue, setFilterValue, handleSearchBarClick }) {
       <form
         className="home-page-left-panel-search-wrapper"
         onSubmit={onSubmitForm}
-      >
-        <SearchIcon />
+       >
+         <Search
+          className="search-icon-homepage"
+          color="var(--text-color)"
+          strokeWidth={1.5}
+          size={18}
+        />
         <input
           name="home-page-left-panel-searchbar"
           className="home-page-left-panel-searchbar"
@@ -21,11 +26,11 @@ function SearchBar({ filterValue, setFilterValue, handleSearchBarClick }) {
           value={filterValue}
           onChange={(e) => setFilterValue(e.target.value)}
         />
-        <button type="submit">
+        <button type="submit" className="search-bar-button-homepage">
           Search
-          {/* add css here */}
         </button>
       </form>
+      
     </div>
   );
 }

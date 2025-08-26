@@ -1,5 +1,5 @@
 import "../page-css/recipe-page.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
@@ -10,6 +10,8 @@ import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
 import tinylikedlight25 from "../components/img/icons/icon-likes-small-light-25.png";
 import tinylikeddark25 from "../components/img/icons/icon-likes-small-dark-25.png";
+//import biglikedlight from "../components/img/icons/icon-likes-large-light.png";
+//import biglikeddark from "../components/img/icons/icon-likes-large-dark.png";
 import lightcutlery from "../components/img/icons/icon-cutlery-light.png";
 import lighttimer from "../components/img/icons/icon-timer-light.png";
 import lightmeasure from "../components/img/icons/icon-measure-light.png";
@@ -19,14 +21,15 @@ import darkmeasure from "../components/img/icons/icon-measure-dark.png";
 import axios from "axios";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
+// import dummyReviews from "../context/recipeReview.json";
 import avatarLight from "../components/img/user/default-user-light_web.png";
 import avatarDark from "../components/img/user/default-user-dark_web.png";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
 import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-radio-star.jsx";
+// import { Pencil } from "lucide-react";
 
 function RecipePage() {
   const { recipeId } = useParams();
-  const navigate = useNavigate();
   const { theme } = useTheme();
   const [recipe, setRecipe] = useState(null);
   const [user, setUser] = useState(null);
@@ -38,14 +41,23 @@ function RecipePage() {
   });
 
   const [likedRecipes, setLikedRecipes] = useState([]);
-  // Safely check likedStatus only if recipe is not null
-  const likedStatus = recipe && likedRecipes.some((r) => r._id === recipe._id);
+  const likedStatus = likedRecipes.some((r) => r._id === recipe._id);
   const [toastMsg, setToastMsg] = useState("");
   const [alreadyReviewed, setAlreadyReviewed] = useState(false);
   const [reviews, setReviews] = useState([]);
+  // const [editingField, setEditingField] = useState(null);
+  // const [reviewInfo, setReviewInfo] = useState(null);
+  // const [editFields, setEditFields] = useState({
+  //   Rating: "",
+  //   Comment: "",
+  // });
+
+  // const [showPencils, setShowPencils] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
+      if (!userId) return;
+
       try {
         const response = await axios.get(`/api/users/${userId}`, {
           headers: {
@@ -58,12 +70,8 @@ function RecipePage() {
           alert(err.response.data.error);
         }
       }
-      if (userId) {
-        getUser();
-      }
     };
     getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {
@@ -93,7 +101,6 @@ function RecipePage() {
         const response = await axios.get(
           `/api/recipes/${recipeId}/recipe-stats`
         );
-        console.log("recipe stats gave: " + response.data);
         setRecipeStats({
           averageReview: response.data.averageReview
             ? response.data.averageReview
@@ -103,9 +110,17 @@ function RecipePage() {
             : 0,
           likeCount: response.data.likeCount ? response.data.likeCount : 0,
         });
+        console.log("Fetched recipe stats:", response.data);
       } catch (err) {}
     }
     fetchRecipeStats();
+    console.log(
+      "Fetching recipe stats for recipeId:",
+      recipeId,
+      recipeStats.averageReview,
+      recipeStats.reviewCount,
+      recipeStats.likeCount
+    );
   }, [
     recipeId,
     recipeStats.averageReview,
@@ -115,6 +130,7 @@ function RecipePage() {
 
   useEffect(() => {
     const getLikedRecipes = async () => {
+      if (!userId) return;
       try {
         const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
           headers: {
@@ -126,25 +142,17 @@ function RecipePage() {
         console.log(err);
       }
     };
-    if (userId) {
-      getLikedRecipes();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getLikedRecipes();
   }, [userId]);
 
   useEffect(() => {
     const getRecipeReviews = async () => {
       try {
         const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
-        console.log(response.data);
-        if (response.data.length > 0) {
+        if (Array.isArray(response.data)) {
           setReviews(response.data);
-          console.log("user id is " + userId);
           const userHasReviewed = response.data.some(
             (r) => r.userId === userId
-          );
-          console.log(
-            "before assignemnt user has revieweds is " + userHasReviewed
           );
           setAlreadyReviewed(userHasReviewed);
           console.log("AlreadyReviewed?:", userHasReviewed);
@@ -152,6 +160,7 @@ function RecipePage() {
           setReviews([]);
           setAlreadyReviewed(false);
         }
+
         console.log("Fetched recipe reviews:", response.data);
       } catch (err) {
         setReviews([]);
@@ -187,8 +196,18 @@ function RecipePage() {
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        navigate("/");
+      if (!token) return;
+
+      console.log("Current userId:", userId);
+      console.log("Current recipeId:", recipeId);
+      console.log("Current reviews fetched:", reviews);
+
+      if (reviews.some((r) => r.userId === userId)) {
+        alert("You have already reviewed this recipe.");
+        console.log(
+          "Review submission blocked: duplicate review by user",
+          userId
+        );
         return;
       }
 
@@ -209,7 +228,11 @@ function RecipePage() {
       );
       console.log("POST /review response:", response);
 
-      if (response.data.success === "Review posted") {
+      if (
+        response.data &&
+        (response.data.message === "Review successfully added" ||
+          response.data.success === "Review posted")
+      ) {
         alert("Review submitted successfully!");
         console.log("Review successfully added for recipe", recipeId);
         setFormData({ ratingStr: "", comment: "" });
@@ -219,11 +242,10 @@ function RecipePage() {
           `/api/recipes/${recipeId}/reviews`
         );
         console.log(
-          "Fetched updated reviews after submission: ",
+          "Fetched updated reviews after submission:",
           updatedReviews.data
         );
         setReviews(updatedReviews.data);
-        window.location.reload();
 
         setRecipeStats((prev) => ({
           ...prev,
@@ -231,7 +253,7 @@ function RecipePage() {
             ? updatedReviews.data.length
             : 0,
         }));
-      } else if (response.data.error) {
+      } else if (response.data && response.data.error) {
         alert(response.data.error);
         console.log(
           "Review submission failed with error:",
@@ -604,7 +626,6 @@ function RecipePage() {
                 />
                 <h5 className="comment-label">Comment:</h5>
                 <textarea
-                  name="review-comment-input"
                   className="review-comment-input"
                   placeholder="Write your review here..."
                   rows={4}
@@ -624,7 +645,7 @@ function RecipePage() {
                 </button>
               </div>
               <h4 id="reviews">OTHER USER REVIEWS:</h4>
-              {reviews.length > 0 ? (
+              {recipeStats.reviewCount && reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (
                     <RecipeBlock

@@ -251,3 +251,13 @@ html {
   font-style: italic;
   font-variation-settings: "wdth" 75;
 }
+.advanced-search-no-recipes-found{
+      font-family: "Work Sans", sans-serif;
+    max-width: 100%;
+    font-weight: 400;
+      color: var(--text-color);
+    font-size: 0.95rem;
+    letter-spacing: -0.02rem;
+    text-align: center;
+
+}
