@@ -35,7 +35,6 @@ function ModifyRecipePage() {
           },
         });
         setUser(response.data.userInfo);
-        console.log("Fetched user info:", response.data.userInfo);
         const { username, firstName, lastName } = response.data.userInfo;
         setUsername(username);
         setFullname(`${firstName} ${lastName}`);
@@ -54,7 +53,6 @@ function ModifyRecipePage() {
         const response = await axios.get(`/api/recipes/${recipeId}`);
         const recipeData = response.data.recipe;
         setRecipe(recipeData);
-        console.log("Fetched recipe info:", recipeData);
         if (recipeData && recipeData.userId) {
           const userResponse = await axios.get(
             `/api/users/${recipeData.userId}`
@@ -195,12 +193,11 @@ function ModifyRecipePage() {
   }, [recipe]);
 
   function isFormChanged(current, original) {
-    if (!original) return true;  
+    if (!original) return true;
     return Object.keys(current).some((key) => current[key] !== original[key]);
   }
- 
+
   const handleSubmit = async () => {
-    
     console.log("handleSubmit triggered");
 
     const ingredientsArray = processMultilineInput(formData.ingredients);
@@ -211,81 +208,86 @@ function ModifyRecipePage() {
     const prepTime = Number(formData.prepTimeStr);
     const servings = Number(formData.servingsStr);
 
-    if (cookTime <= 0 || prepTime <= 0 || servings <= 0) {
+    if (cookTime < 0 || prepTime <= 0 || servings <= 0) {
       alert(
         "Cook time, prep time and servings must be valid numbers greater than 0."
       );
       return;
     }
 
-    if (!user) {
-      navigate("/");
-      return;
-    }
-
-    const afterBoy = new FormData();
+    const afterBoy = {};
 
     const token = localStorage.getItem("token");
 
-    if (!isFormChanged(formData, originalData)) {
-      alert("No changes detected in the form.");
-      return;
-    }
+    // if (!isFormChanged(formData, originalData)) {
+    //   alert("No changes detected in the form.");
+    //   return;
+    // }
 
     Object.entries(formData).forEach(([key, value]) => {
-   if (
-    !["ingredients", "instructions", "equipment", "authorNotes", "imageUrls"].includes(key) &&
-    value !== undefined &&
-    value !== null &&
-    value !== "" &&
-    value !== originalData[key]
-  ) {
-    afterBoy.append(key, value); // <-- Only simple fields!
-  }
-});
+      if (
+        ![
+          "ingredients",
+          "instructions",
+          "equipment",
+          "authorNotes",
+          "imageUrls",
+        ].includes(key)
+      ) {
+        const originalValue = originalData[key] ?? "";
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== "" &&
+          value !== originalValue
+        ) {
+          afterBoy[key] = value;
+        }
+      }
+    });
 
-[
-  ["ingredients", ingredientsArray, processMultilineInput(originalData.ingredients)],
-  ["instructions", instructionsArray, processMultilineInput(originalData.instructions)],
-  ["equipment", equipmentArray, processMultilineInput(originalData.equipment)],
-  ["authorNotes", authorNotesArray, processMultilineInput(originalData.authorNotes)],
-].forEach(([key, arr, originalArr]) => {
-  if (
-    Array.isArray(arr) &&
-    arr.length > 0 &&
-    JSON.stringify(arr) !== JSON.stringify(originalArr)
-  ) {
-    afterBoy.append(key, JSON.stringify(arr)); // <-- Only arrays as JSON strings!
-  }
-});
+    const arrayFields = {
+      ingredients: ingredientsArray,
+      instructions: instructionsArray,
+      equipment: equipmentArray,
+      authorNotes: authorNotesArray,
+    };
 
-const hasNewImages = imageUrls.some((file) => file);
-if (hasNewImages) {
-  imageUrls.filter(Boolean).forEach((file) => afterBoy.append("images", file));
-}
+    Object.entries(arrayFields).forEach(([key, arr]) => {
+      const originalArr = processMultilineInput(originalData[key] || "");
+      if (JSON.stringify(arr) !== JSON.stringify(originalArr)) {
+        afterBoy[key] = arr;
+      }
+    });
 
-for (let pair of afterBoy.entries()) {
-  console.log(pair[0], pair[1]);
-}
-    if (!token) return;
+    console.log("after boy is" + JSON.stringify(afterBoy));
+
+    // images should be in a different method as they are two separate endpoints
+    // const hasNewImages = imageUrls.some((file) => file);
+    // if (hasNewImages) {
+    //   imageUrls
+    //     .filter(Boolean)
+    //     .forEach((file) => afterBoy.append("images", file));
+    // }
+
     try {
       const result = await axios.patch(`/api/recipes/${recipeId}`, afterBoy, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const response = result.data;
-      const updatedRecipeId = result.data.recipeId;
 
-      console.log(updatedRecipeId);
+      const response = result.data;
+      console.log("Patch response:", response);
+
       if (response.message === "Updates were successfully made") {
         alert("Recipe updated successfully!");
-        navigate(`/recipe/${updatedRecipeId}`);
+        navigate(`/recipe/${recipeId}`);
       } else {
         alert(response.error);
       }
     } catch (err) {
-      console.error("Error is: ", err);
+      console.error("Error updating recipe:", err);
     }
   };
 

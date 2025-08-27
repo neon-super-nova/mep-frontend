@@ -41,18 +41,12 @@ function RecipePage() {
   });
 
   const [likedRecipes, setLikedRecipes] = useState([]);
-  const likedStatus = likedRecipes.some((r) => r._id === recipe._id);
+  const likedStatus = recipe
+    ? likedRecipes.some((r) => r._id === recipe._id)
+    : false;
   const [toastMsg, setToastMsg] = useState("");
   const [alreadyReviewed, setAlreadyReviewed] = useState(false);
   const [reviews, setReviews] = useState([]);
-  // const [editingField, setEditingField] = useState(null);
-  // const [reviewInfo, setReviewInfo] = useState(null);
-  // const [editFields, setEditFields] = useState({
-  //   Rating: "",
-  //   Comment: "",
-  // });
-
-  // const [showPencils, setShowPencils] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -110,7 +104,6 @@ function RecipePage() {
             : 0,
           likeCount: response.data.likeCount ? response.data.likeCount : 0,
         });
-        console.log("Fetched recipe stats:", response.data);
       } catch (err) {}
     }
     fetchRecipeStats();
@@ -155,7 +148,6 @@ function RecipePage() {
             (r) => r.userId === userId
           );
           setAlreadyReviewed(userHasReviewed);
-          console.log("AlreadyReviewed?:", userHasReviewed);
         } else {
           setReviews([]);
           setAlreadyReviewed(false);
@@ -167,7 +159,6 @@ function RecipePage() {
       }
     };
     getRecipeReviews();
-    console.log("Fetching recipe reviews for recipeId:", recipeId);
   }, [recipeId, userId]);
 
   const [formData, setFormData] = useState({
@@ -190,7 +181,6 @@ function RecipePage() {
       rating > 5
     ) {
       alert("Cannot submit an empty or incomplete review.");
-      console.log("Review submission blocked: null/empty values (final guard)");
       return;
     }
 
@@ -198,16 +188,8 @@ function RecipePage() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      console.log("Current userId:", userId);
-      console.log("Current recipeId:", recipeId);
-      console.log("Current reviews fetched:", reviews);
-
       if (reviews.some((r) => r.userId === userId)) {
         alert("You have already reviewed this recipe.");
-        console.log(
-          "Review submission blocked: duplicate review by user",
-          userId
-        );
         return;
       }
 
@@ -215,7 +197,6 @@ function RecipePage() {
         rating,
         comment: trimmedComment,
       };
-      console.log("Submitting review:", { ...reviewBody, recipeId, userId });
       const response = await axios.post(
         `/api/recipes/${recipeId}/review`,
         reviewBody,
@@ -226,7 +207,6 @@ function RecipePage() {
           },
         }
       );
-      console.log("POST /review response:", response);
 
       if (
         response.data &&
@@ -234,16 +214,11 @@ function RecipePage() {
           response.data.success === "Review posted")
       ) {
         alert("Review submitted successfully!");
-        console.log("Review successfully added for recipe", recipeId);
         setFormData({ ratingStr: "", comment: "" });
         setComment("");
 
         const updatedReviews = await axios.get(
           `/api/recipes/${recipeId}/reviews`
-        );
-        console.log(
-          "Fetched updated reviews after submission:",
-          updatedReviews.data
         );
         setReviews(updatedReviews.data);
 
@@ -255,100 +230,18 @@ function RecipePage() {
         }));
       } else if (response.data && response.data.error) {
         alert(response.data.error);
-        console.log(
-          "Review submission failed with error:",
-          response.data.error
-        );
       } else {
         alert("Unexpected response. Please try again.");
         console.log("Unexpected review response:", response);
       }
     } catch (err) {
-      console.error("Error during submission:", err);
       if (err.response && err.response.data && err.response.data.error) {
         alert(err.response.data.error);
-        console.log(
-          "Review submission failed with error:",
-          err.response.data.error
-        );
       } else {
         alert("An error occurred. Please try again.");
-        console.log("Review submission failed with unknown error:", err);
       }
     }
   };
-
-  // const handleEditReview = async (e, field) => {
-  //   e.preventDefault();
-  //   const userId = getUserId();
-  //   if (!userId) return;
-  //   const value = editFields[field];
-  //   if (!value || value === "Not filled out") {
-  //     setEditingField(null);
-  //     return;
-  //   }
-
-  //   const isArrayField = (f) => f === "dietaryRestriction";
-  //   const patchBody = {
-  //     [field]: isArrayField(field)
-  //       ? value
-  //           .split(",")
-  //           .map((s) => s.trim())
-  //           .filter(Boolean)
-  //       : value,
-  //   };
-
-  //   const token = localStorage.getItem("token");
-  //   const headers = {
-  //     "Content-Type": "application/json",
-  //     ...(token ? { Authorization: `Bearer ${token}` } : {}),
-  //   };
-  //   try {
-  //     let response = "";
-  //     if (
-  //       (await axios.get(`/api/recipes/${recipeId}/reviews`, { headers })) ===
-  //       "No reviews to edit"
-  //     ) {
-  //       response = await axios.post(
-  //         `/api/recipes/${recipeId}/review`,
-  //         patchBody,
-  //         {
-  //           headers,
-  //         }
-  //       );
-  //     } else {
-  //       response = await axios.patch(
-  //         `/api/recipes/${recipeId}/review`,
-  //         patchBody,
-  //         {
-  //           headers,
-  //         }
-  //       );
-  //     }
-  //     let updated = response.data?.userInfo;
-  //     if (!updated && response.data && typeof response.data === "object") {
-  //       updated = response.data;
-  //     }
-  //     if (!updated || updated.message) {
-  //       try {
-  //         const reviewResp = await axios.get(
-  //           `/api/recipes/${recipeId}/reviews`,
-  //           { headers }
-  //         );
-  //         updated = reviewResp.data;
-  //       } catch (fetchErr) {
-  //         console.warn("Failed to fetch userInfo after PATCH/POST:", fetchErr);
-  //       }
-  //     }
-
-  //     setReviewInfo(updated);
-  //     setEditFields({
-  //       Rating: updated?.Rating || "",
-  //       Comment: updated?.Comment || "",
-  //     });
-  //     setEditingField(null);
-  //   } catch (err) {}
-  // };
 
   const showToast = (msg) => {
     setToastMsg(msg);
@@ -358,6 +251,8 @@ function RecipePage() {
   if (!recipe) return <div>Recipe not found.</div>;
 
   const units = recipe.units || "US/Imperial";
+
+  if (recipe === null) return <p>Loading...</p>;
 
   return (
     <div className={theme === "dark" ? "dark-mode" : ""}>
@@ -626,6 +521,7 @@ function RecipePage() {
                 />
                 <h5 className="comment-label">Comment:</h5>
                 <textarea
+                  name="review-comment-input"
                   className="review-comment-input"
                   placeholder="Write your review here..."
                   rows={4}
