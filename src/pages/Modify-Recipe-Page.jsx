@@ -86,7 +86,6 @@ function ModifyRecipePage() {
     imageUrls: [],
   });
 
-  // When recipe loads, update formData
   useEffect(() => {
     if (recipe) {
       setFormData({
@@ -196,21 +195,18 @@ function ModifyRecipePage() {
       return;
     }
 
-    // Update uploaded file
     setImageUrls((prev) => {
       const array = [...prev];
       array[indexToUse] = file;
       return array;
     });
 
-    // Update preview
     setImagesPreview((prev) => {
       const array = [...prev];
       array[indexToUse] = previewUrl;
       return array;
     });
 
-    // Update imageMap
     setImageMap((prev) => {
       const array = [...prev];
       array[indexToUse] = {
@@ -222,7 +218,7 @@ function ModifyRecipePage() {
   };
 
   const clearImage = (slot) => {
-    const index = slot - 1; // 1-based slot from UI
+    const index = slot - 1;
 
     setImageUrls((prev) => {
       const array = [...prev];
