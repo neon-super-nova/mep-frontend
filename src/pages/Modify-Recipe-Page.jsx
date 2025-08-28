@@ -106,8 +106,17 @@ function ModifyRecipePage() {
         equipment: recipe.equipment?.join("\n") || "",
         imageUrls: recipe.imageUrls || [],
       });
-      setImageUrls(recipe.imageUrls || []);
-      setImagesPreview(recipe.imageUrls || []);
+      const urls = recipe.imageUrls || [];
+      setImageUrls(Array(MAX_IMAGES).fill(null));
+      setImagesPreview(
+        Array.from({ length: MAX_IMAGES }, (_, i) => urls[i] || null)
+      );
+      setImageMap(
+        Array.from({ length: MAX_IMAGES }, (_, i) => ({
+          replaced: false,
+          oldUrl: urls[i] || null,
+        }))
+      );
     }
   }, [recipe]);
 
@@ -121,52 +130,6 @@ function ModifyRecipePage() {
       .split(/[\n,]+/) // split by newlines or commas
       .map((line) => line.trim()) // trim whitespace
       .filter((line) => line.length);
-  };
-
-  const MAX_IMAGES = 3;
-
-  const [imageUrls, setImageUrls] = useState(Array(MAX_IMAGES).fill(null)); // files for backend
-
-  const [imagePreview, setImagesPreview] = useState(() => {
-    // Use recipe?.imageUrls if available, else fill with nulls
-    const urls = recipe?.imageUrls || [];
-    return Array.from({ length: MAX_IMAGES }, (_, i) => urls[i] || null);
-  });
-
-  const handleImageUpload = (file) => {
-    const previewUrl = URL.createObjectURL(file);
-    const firstAvailableIdx = imageUrls.findIndex((url) => !url);
-    if (firstAvailableIdx !== -1) {
-      // save images as file for backend and for preview
-      setImageUrls((prev) => {
-        const array = [...prev];
-        array[firstAvailableIdx] = file;
-        return array;
-      });
-      setImagesPreview((prev) => {
-        const array = [...prev];
-        array[firstAvailableIdx] = previewUrl;
-        return array;
-      });
-    } else {
-      alert(
-        "All image slots are filled. Please clear a slot before uploading a new image."
-      );
-    }
-  };
-
-  const clearImage = (slot) => {
-    const index = slot - 1; // slots are 1-based
-    setImageUrls((prev) => {
-      const array = [...prev];
-      array[index] = null;
-      return array;
-    });
-    setImagesPreview((prev) => {
-      const array = [...prev];
-      array[index] = "";
-      return array;
-    });
   };
 
   const [originalData, setOriginalData] = useState(null);
@@ -192,10 +155,96 @@ function ModifyRecipePage() {
     }
   }, [recipe]);
 
-  function isFormChanged(current, original) {
-    if (!original) return true;
-    return Object.keys(current).some((key) => current[key] !== original[key]);
-  }
+  // images
+  const MAX_IMAGES = 3;
+
+  const [imageUrls, setImageUrls] = useState(Array(MAX_IMAGES).fill(null)); // files for backend
+  const [imagePreview, setImagesPreview] = useState(() => {
+    // Use recipe?.imageUrls if available, else fill with nulls
+    const urls = recipe?.imageUrls || [];
+    const imageArray = Array.from(
+      { length: MAX_IMAGES },
+      (_, i) => urls[i] || null
+    );
+    return imageArray;
+  });
+  const [imageMap, setImageMap] = useState(
+    Array(MAX_IMAGES)
+      .fill(null)
+      .map(() => ({
+        replaced: false,
+        oldUrl: null,
+      }))
+  );
+
+  const handleImageUpload = (file, targetIndex = null) => {
+    const previewUrl = URL.createObjectURL(file);
+
+    // Determine which slot to use
+    let indexToUse = targetIndex;
+    if (indexToUse === null) {
+      // find first truly empty slot
+      indexToUse = imageUrls.findIndex(
+        (_, idx) => !imageUrls[idx] && !imageMap[idx]?.oldUrl
+      );
+    }
+
+    if (indexToUse === -1) {
+      alert(
+        "All image slots are filled. Clear a slot before uploading a new image."
+      );
+      return;
+    }
+
+    // Update uploaded file
+    setImageUrls((prev) => {
+      const array = [...prev];
+      array[indexToUse] = file;
+      return array;
+    });
+
+    // Update preview
+    setImagesPreview((prev) => {
+      const array = [...prev];
+      array[indexToUse] = previewUrl;
+      return array;
+    });
+
+    // Update imageMap
+    setImageMap((prev) => {
+      const array = [...prev];
+      array[indexToUse] = {
+        replaced: true,
+        oldUrl: array[indexToUse]?.oldUrl || null,
+      };
+      return array;
+    });
+  };
+
+  const clearImage = (slot) => {
+    const index = slot - 1; // 1-based slot from UI
+
+    setImageUrls((prev) => {
+      const array = [...prev];
+      array[index] = null; // remove uploaded file
+      return array;
+    });
+
+    setImagesPreview((prev) => {
+      const array = [...prev];
+      array[index] = null; // remove preview
+      return array;
+    });
+
+    setImageMap((prev) => {
+      const array = [...prev];
+      array[index] = {
+        replaced: true,
+        oldUrl: null, // mark as deleted for backend
+      };
+      return array;
+    });
+  };
 
   const handleSubmit = async () => {
     console.log("handleSubmit triggered");
@@ -218,11 +267,6 @@ function ModifyRecipePage() {
     const afterBoy = {};
 
     const token = localStorage.getItem("token");
-
-    // if (!isFormChanged(formData, originalData)) {
-    //   alert("No changes detected in the form.");
-    //   return;
-    // }
 
     Object.entries(formData).forEach(([key, value]) => {
       if (
@@ -260,34 +304,39 @@ function ModifyRecipePage() {
       }
     });
 
-    console.log("after boy is" + JSON.stringify(afterBoy));
+    const form = new FormData();
 
-    // images should be in a different method as they are two separate endpoints
-    // const hasNewImages = imageUrls.some((file) => file);
-    // if (hasNewImages) {
-    //   imageUrls
-    //     .filter(Boolean)
-    //     .forEach((file) => afterBoy.append("images", file));
-    // }
+    // append text fields
+    form.append("fields", JSON.stringify(afterBoy));
+
+    // append images (only new ones)
+    imageUrls.forEach((image) => {
+      if (image instanceof File) {
+        form.append("images", image);
+      }
+    });
+
+    // append imageMap
+    form.append("imageMap", JSON.stringify(imageMap));
 
     try {
-      const result = await axios.patch(`/api/recipes/${recipeId}`, afterBoy, {
+      const result = await axios.patch(`/api/recipes/${recipeId}`, form, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
 
       const response = result.data;
-      console.log("Patch response:", response);
 
-      if (response.message === "Updates were successfully made") {
+      if (response.message?.includes("success")) {
         alert("Recipe updated successfully!");
         navigate(`/recipe/${recipeId}`);
       } else {
-        alert(response.error);
+        alert(response.error || "Update failed.");
       }
     } catch (err) {
-      console.error("Error updating recipe:", err);
+      alert("Something went wrong while updating.");
     }
   };
 
