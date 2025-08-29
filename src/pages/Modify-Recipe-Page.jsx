@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUserId } from "../context/decodeToken.js";
-import { X } from "lucide-react";
+import { Receipt, X } from "lucide-react";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import axios from "axios";
 import { cuisineData } from "../data/cuisineData.js";
@@ -25,6 +25,7 @@ function ModifyRecipePage() {
 
   const navigate = useNavigate();
   const userId = getUserId();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const getUser = async () => {
@@ -105,7 +106,9 @@ function ModifyRecipePage() {
         equipment: recipe.equipment?.join("\n") || "",
         imageUrls: recipe.imageUrls || [],
       });
+
       const urls = recipe.imageUrls || [];
+
       setImageUrls(Array(MAX_IMAGES).fill(null));
       setImagesPreview(
         Array.from({ length: MAX_IMAGES }, (_, i) => urls[i] || null)
@@ -120,7 +123,6 @@ function ModifyRecipePage() {
   }, [recipe]);
 
   // setting the aid functions to populate arrays
-
   const processMultilineInput = (input) => {
     if (typeof input !== "string") {
       return [];
@@ -243,77 +245,37 @@ function ModifyRecipePage() {
   };
 
   const handleSubmit = async () => {
-    console.log("handleSubmit triggered");
+    if (!token) return alert("You must be logged in to modify a recipe.");
 
-    const ingredientsArray = processMultilineInput(formData.ingredients);
-    const instructionsArray = processMultilineInput(formData.instructions);
-    const equipmentArray = processMultilineInput(formData.equipment);
-    const authorNotesArray = processMultilineInput(formData.authorNotes);
-    const cookTime = Number(formData.cookTimeStr);
-    const prepTime = Number(formData.prepTimeStr);
-    const servings = Number(formData.servingsStr);
-
-    if (cookTime < 0 || prepTime <= 0 || servings <= 0) {
-      alert(
-        "Cook time, prep time and servings must be valid numbers greater than 0."
-      );
-      return;
-    }
-
-    const afterBoy = {};
-
-    const token = localStorage.getItem("token");
-
-    Object.entries(formData).forEach(([key, value]) => {
-      if (
-        ![
-          "ingredients",
-          "instructions",
-          "equipment",
-          "authorNotes",
-          "imageUrls",
-        ].includes(key)
-      ) {
-        const originalValue = originalData[key] ?? "";
-        if (
-          value !== undefined &&
-          value !== null &&
-          value !== "" &&
-          value !== originalValue
-        ) {
-          afterBoy[key] = value;
-        }
-      }
-    });
-
-    const arrayFields = {
-      ingredients: ingredientsArray,
-      instructions: instructionsArray,
-      equipment: equipmentArray,
-      authorNotes: authorNotesArray,
+    const safeFields = {
+      name: formData.name,
+      description: formData.description,
+      cuisineRegion: formData.cuisineRegion,
+      cuisineSubregion: formData.cuisineSubregion,
+      proteinChoice: formData.proteinChoice,
+      dietaryRestriction: formData.dietaryRestriction,
+      religiousRestriction: formData.religiousRestriction,
+      ingredients: processMultilineInput(formData.ingredients),
+      instructions: processMultilineInput(formData.instructions),
+      equipment: processMultilineInput(formData.equipment),
+      authorNotes: processMultilineInput(formData.authorNotes),
     };
 
-    Object.entries(arrayFields).forEach(([key, arr]) => {
-      const originalArr = processMultilineInput(originalData[key] || "");
-      if (JSON.stringify(arr) !== JSON.stringify(originalArr)) {
-        afterBoy[key] = arr;
-      }
-    });
+    const safeImageMap = imageMap.map((slot) => ({
+      replaced: !!slot.replaced,
+      oldUrl: slot.oldUrl || null,
+    }));
 
     const form = new FormData();
+    form.append("fields", JSON.stringify(safeFields));
+    form.append("cookTime", Number(formData.cookTimeStr));
+    form.append("prepTime", Number(formData.prepTimeStr));
+    form.append("servings", Number(formData.servingsStr));
+    form.append("imageMap", JSON.stringify(safeImageMap));
 
-    // append text fields
-    form.append("fields", JSON.stringify(afterBoy));
-
-    // append images (only new ones)
-    imageUrls.forEach((image) => {
-      if (image instanceof File) {
-        form.append("images", image);
-      }
+    imageUrls.forEach((img) => {
+      if (img instanceof File) form.append("images", img);
     });
-
-    // append imageMap
-    form.append("imageMap", JSON.stringify(imageMap));
 
     try {
       const result = await axios.patch(`/api/recipes/${recipeId}`, form, {
@@ -322,17 +284,14 @@ function ModifyRecipePage() {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      const response = result.data;
-
-      if (response.message?.includes("success")) {
-        alert("Recipe updated successfully!");
+      if (result.data.message === "Recipe successfully updated") {
         navigate(`/recipe/${recipeId}`);
       } else {
-        alert(response.error || "Update failed.");
+        alert(result.data.error);
       }
     } catch (err) {
-      alert("Something went wrong while updating.");
+      console.error(err);
+      alert("Update failed: " + (err.response?.data?.error || err.message));
     }
   };
 
@@ -481,7 +440,7 @@ function ModifyRecipePage() {
                       console.log("cuisine region is set to " + region);
                       setFormData((prev) => ({
                         ...prev,
-                        cuisineRegion: e.target.value,
+                        cuisineRegion: region,
                       }));
                     }}
                   >
@@ -500,15 +459,19 @@ function ModifyRecipePage() {
                   <span className="submit-recipe-tag-bold">Sub-Region: </span>
                   <select
                     name="submit-recipe-tag-input"
-                    value={formData.cuisineSubRegion}
+                    value={formData.cuisineSubregion}
                     className="submit-recipe-tag-input"
                     onChange={(e) => {
                       const subregion = e.target.value;
                       console.log("cuisine sub-region is set to " + subregion);
                       setFormData((prev) => ({
                         ...prev,
-                        cuisineSubRegion: subregion,
+                        cuisineSubregion: subregion,
                       }));
+                      console.log(
+                        "cuisine sub-region selected:",
+                        e.target.value
+                      );
                     }}
                   >
                     <option value="">None</option>
