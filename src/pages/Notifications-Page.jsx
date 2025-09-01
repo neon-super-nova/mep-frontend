@@ -6,12 +6,12 @@ import notifications from "../context/notifications.json";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import dummyThumb from "../components/img/dummy/bananabread.jpg";
-import followLight from "../components/img/like-follow-review/follow-light.png";
-import followDark from "../components/img/like-follow-review/follow-dark.png";
-import darkLikedFrame from "../components/img/like-follow-review/dark-liked-frame.png";
-import lightLikedFrame from "../components/img/like-follow-review/light-liked-frame.png";
-import darkReviewedFrame from "../components/img/like-follow-review/dark-reviewed-frame.png";
-import lightReviewedFrame from "../components/img/like-follow-review/light-reviewed-frame.png";
+import followLight from "../components/img/like-follow-review/follow-light-2.png";
+import followDark from "../components/img/like-follow-review/follow-dark-2.png";
+import darkLikedFrame from "../components/img/like-follow-review/dark-liked-frame-2.png";
+import lightLikedFrame from "../components/img/like-follow-review/light-liked-frame-2.png";
+import darkReviewedFrame from "../components/img/like-follow-review/dark-reviewed-frame-2.png";
+import lightReviewedFrame from "../components/img/like-follow-review/light-reviewed-frame-2.png";
 
 function NotificationsPage() {
 

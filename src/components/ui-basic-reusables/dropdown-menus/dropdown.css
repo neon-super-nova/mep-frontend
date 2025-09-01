@@ -195,4 +195,5 @@
     margin-top: -0.3rem;
     margin-bottom: -0.3rem;
     border-bottom: 5px double var(--minor-accent-color-2b);
+    cursor: pointer;
 }

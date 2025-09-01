@@ -391,8 +391,8 @@ function HomePage() {
                     label: "Kosher",
                     image:
                       theme === "dark"
-                        ? "/img/home-blocks-orange/religion-kosher-orange.png"
-                        : "/img/home-blocks-green/religion-kosher-green.png",
+                        ? "/img/home-blocks-orange/religion-kosher-orange-2.png"
+                        : "/img/home-blocks-green/religion-kosher-green-2.png",
                     onClick: () => {
                       navigate("/advancedsearch?religiousRestriction=kosher");
                     },
@@ -401,8 +401,8 @@ function HomePage() {
                     label: "Kosher Parve",
                     image:
                       theme === "dark"
-                        ? "/img/home-blocks-orange/religion-kosher-parve-orange.png"
-                        : "/img/home-blocks-green/religion-kosher-parve-green.png",
+                        ? "/img/home-blocks-orange/religion-kosher-parve-orange-2.png"
+                        : "/img/home-blocks-green/religion-kosher-parve-green-2.png",
                     onClick: () => {
                       navigate(
                         "/advancedsearch?religiousRestriction=kosher parve"
@@ -413,8 +413,8 @@ function HomePage() {
                     label: "Halal",
                     image:
                       theme === "dark"
-                        ? "/img/home-blocks-orange/religion-halal-orange.png"
-                        : "/img/home-blocks-green/religion-halal-green.png",
+                        ? "/img/home-blocks-orange/religion-halal-orange-2.png"
+                        : "/img/home-blocks-green/religion-halal-green-2.png",
                     onClick: () => {
                       navigate("/advancedsearch?religiousRestriction=halal");
                     },
@@ -423,8 +423,8 @@ function HomePage() {
                     label: "Hindu",
                     image:
                       theme === "dark"
-                        ? "/img/home-blocks-orange/religion-hindu-orange.png"
-                        : "/img/home-blocks-green/religion-hindu-green.png",
+                        ? "/img/home-blocks-orange/religion-hindu-orange-2.png"
+                        : "/img/home-blocks-green/religion-hindu-green-2.png",
                     onClick: () => {
                       navigate("/advancedsearch?religiousRestriction=hindu");
                     },

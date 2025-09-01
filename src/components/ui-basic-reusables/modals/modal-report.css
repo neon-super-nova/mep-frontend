@@ -157,6 +157,10 @@
     transition: background 0.2s;
 }
 
+.modal-report-body .fancy-button.close-button {
+    letter-spacing: 0.0175rem;
+    font-size: 0.8rem;
+}
 
 .modal-report-body button:disabled {
     opacity: 0.5;
@@ -171,11 +175,14 @@
     padding-top: 0.5em;
     padding-bottom: 1.25em;
 }
-.modal-report-body .button-radio-btn{
+
+/* .modal-report-body .button-radio-btn{
     background-color: blue;
-}
-.modal-report-body .button-radio-btn:selected{
-    background-color: darkblue;
+    -keep rule for future use- 
+} */
+
+.modal-report-body .button-radio-btn.selected{
+    background-color:var(--bg-color-2);
 }
 
 .modal-report-body label {
@@ -190,7 +197,7 @@
     justify-content: flex-start;
 }
 
-.modal-report-body input[type="radio"] {
+/* .modal-report-body input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
     width: 0.85em;
@@ -218,7 +225,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+} */
 
 .modal-report-body .textarea-feedback {
     width: 100%;

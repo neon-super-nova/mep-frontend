@@ -214,8 +214,8 @@ function RecipeBoxPage() {
                     onClick={() => setShowPencils((v) => !v)}
                   >
                     {showPencils
-                      ? "Hide something something"
-                      : "Edit something something"}
+                      ? "Go Back"
+                      : "Edit a recipe you submitted"}
                   </span>
                 </span>
               </h6>
@@ -226,7 +226,7 @@ function RecipeBoxPage() {
                     to="/submit-recipe"
                     className="home-page-left-panel-advanced-search-bold"
                   >
-                    Submit your recipe
+                    Enter your recipe here.
                   </Link>
                 </span>
               </h6>
@@ -301,8 +301,8 @@ function RecipeBoxPage() {
                     }}
                   >
                     {showFlag
-                      ? "Hide something something"
-                      : "Unlike something something"}
+                      ? "Go Back"
+                      : "Unlike a recipe you liked"}
                   </span>
                 </span>
               </h6>

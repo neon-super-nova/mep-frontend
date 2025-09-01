@@ -41,7 +41,7 @@ export const cuisineData = {
     "Pork",
     "Lamb",
     "Egg",
-    "Meat - Other / Mixed",
+    "Other animal based",
   ],
   dietaryRestriction: [
     "Vegan",

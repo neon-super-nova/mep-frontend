@@ -89,15 +89,18 @@ function ModalReport({ open, onClose }) {
                   reporting rule violations. Please provide details about the
                   situation, and our team will promptly investigate the matter.
                 </p>
-                                  <ButtonRadioGroup
-  options={initialChoices}
-  value={initialChoice}
-  onChange={setInitialChoice}
-  className="radio-group"
-  dotSize={10}
-  circleSize={10}
-/>
-                
+                <ButtonRadioGroup
+                  options={initialChoices}
+                  value={initialChoice}
+                  onChange={setInitialChoice}
+                  className="radio-group"
+                  circleDotColor="var(--text-color-check)"
+                  circleDotStrokeWidth={4}
+                  circleDotSize={10}
+                  circleColor="var(--text-color)"
+                  circleStrokeWidth={2.75}
+                  circleSize={10}
+                />
                 <div className="buttons-container">
                   <button onClick={onClose} className="fancy-button">
                     <X
@@ -148,20 +151,18 @@ function ModalReport({ open, onClose }) {
                   situation, and our team will promptly investigate the matter.{" "}
                 </p>
                 <h6>"User published threatening or inappropriate material"</h6>
-                <div className="radio-group">
-                  {inappropriateSubchoices.map((opt) => (
-                    <label key={opt.value}>
-                      <input
-                        type="radio"
-                        name="inappropriateSubchoice"
-                        value={opt.value}
-                        checked={inappropriateSubchoice === opt.value}
-                        onChange={() => setInappropriateSubchoice(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
+                <ButtonRadioGroup
+                  options={inappropriateSubchoices}
+                  value={inappropriateSubchoice}
+                  onChange={setInappropriateSubchoice}
+                  className="radio-group"
+        circleDotColor="var(--text-color-check)"
+                  circleDotStrokeWidth={4}
+                  circleDotSize={10}
+                  circleColor="var(--text-color)"
+                  circleStrokeWidth={2.75}
+                  circleSize={10}
+                />
                 <div className="buttons-container">
                   <button onClick={onClose} className="fancy-button">
                     <X
@@ -172,7 +173,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setInappropriateSubchoice("");
@@ -222,21 +223,19 @@ function ModalReport({ open, onClose }) {
                   situation, and our team will promptly investigate the matter.{" "}
                 </p>
                 <h6>"User breached another user's privacy"</h6>
-                <div className="radio-group">
-                  {privacySubchoices.map((opt) => (
-                    <label key={opt.value}>
-                      <input
-                        type="radio"
-                        name="privacySubchoice"
-                        value={opt.value}
-                        checked={privacySubchoice === opt.value}
-                        onChange={() => setPrivacySubchoice(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
-                <div className="buttons-container" >
+                <ButtonRadioGroup
+                  options={privacySubchoices}
+                  value={privacySubchoice}
+                  onChange={setPrivacySubchoice}
+                  className="radio-group"
+        circleDotColor="var(--text-color-check)"
+                  circleDotStrokeWidth={4}
+                  circleDotSize={10}
+                  circleColor="var(--text-color)"
+                  circleStrokeWidth={2.75}
+                  circleSize={10}
+                />
+                <div className="buttons-container">
                   <button onClick={onClose} className="fancy-button">
                     <X
                       color="var(--minor-accent-color-3)"
@@ -299,20 +298,18 @@ function ModalReport({ open, onClose }) {
                   "User infringed on another person or company's protected
                   content"
                 </h6>
-                <div className="radio-group">
-                  {intpropSubchoices.map((opt) => (
-                    <label key={opt.value}>
-                      <input
-                        type="radio"
-                        name="intpropSubchoice"
-                        value={opt.value}
-                        checked={intpropSubchoice === opt.value}
-                        onChange={() => setIntpropSubchoice(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
+                <ButtonRadioGroup
+                  options={intpropSubchoices}
+                  value={intpropSubchoice}
+                  onChange={setIntpropSubchoice}
+                  className="radio-group"
+        circleDotColor="var(--text-color-check)"
+                  circleDotStrokeWidth={4}
+                  circleDotSize={10}
+                  circleColor="var(--text-color)"
+                  circleStrokeWidth={2.75}
+                  circleSize={10}
+                />
                 <div className="buttons-container">
                   <button onClick={onClose} className="fancy-button">
                     <X
@@ -323,7 +320,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setIntpropSubchoice("");
@@ -337,7 +334,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       if (intpropSubchoice === "other") setStep(6);
                       else setStep(7);
@@ -373,20 +370,18 @@ function ModalReport({ open, onClose }) {
                   situation, and our team will promptly investigate the matter.
                 </p>
                 <h6> "User abused platform features"</h6>
-                <div className="radio-group">
-                  {abuseSubchoices.map((opt) => (
-                    <label key={opt.value}>
-                      <input
-                        type="radio"
-                        name="abuseSubchoice"
-                        value={opt.value}
-                        checked={abuseSubchoice === opt.value}
-                        onChange={() => setAbuseSubchoice(opt.value)}
-                      />
-                      {opt.label}
-                    </label>
-                  ))}
-                </div>
+                <ButtonRadioGroup
+                  options={abuseSubchoices}
+                  value={abuseSubchoice}
+                  onChange={setAbuseSubchoice}
+                  className="radio-group"
+        circleDotColor="var(--text-color-check)"
+                  circleDotStrokeWidth={4}
+                  circleDotSize={10}
+                  circleColor="var(--text-color)"
+                  circleStrokeWidth={2.75}
+                  circleSize={10}
+                />
                 <div className="buttons-container">
                   <button onClick={onClose} className="fancy-button">
                     <X
@@ -397,7 +392,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       setAbuseSubchoice("");
@@ -411,7 +406,7 @@ function ModalReport({ open, onClose }) {
                     Go Back
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       if (abuseSubchoice === "other") setStep(6);
                       else setStep(7);
@@ -466,7 +461,7 @@ function ModalReport({ open, onClose }) {
                     Cancel
                   </button>
                   <button
-                  className="fancy-button"
+                    className="fancy-button"
                     onClick={() => {
                       setStep(1);
                       if (feedback.length !== 0) setFeedback("");
@@ -506,7 +501,9 @@ function ModalReport({ open, onClose }) {
                   Your report has been submitted.
                 </p>
                 <div className="buttons-container-end">
-                  <button onClick={onClose} className="fancy-button">Close</button>
+                  <button onClick={onClose} className="fancy-button close-button">
+                    Close
+                  </button>
                 </div>
               </div>
             </div>
