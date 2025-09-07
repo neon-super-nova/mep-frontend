@@ -27,7 +27,6 @@ html {
   flex: 1;
   text-align: center;
   padding: 1rem;
-
   height: 100%;
   width: 60%;
 }
@@ -67,8 +66,19 @@ h3.notifications-page-panel-title {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  letter-spacing: 0.10rem;
+  letter-spacing: 0.075rem;
   color: var(--text-color);
+  /* color: var(--main-accent-color-alt); */
+  font-size: 0.85rem;
+}
+
+.notifications-page-panel-desc.bold {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  letter-spacing: 0.075rem;
+  /* color: var(--text-color); */
+  color: var(--main-accent-color-alt);
   font-size: 0.95rem;
 }
 
@@ -76,9 +86,9 @@ h3.notifications-page-panel-title {
   font-family: "Work Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-  letter-spacing: 0.10rem;
+  letter-spacing: 0.075rem;
   color: var(--text-color);
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   text-decoration: underline;
   text-transform: uppercase;
 }
@@ -89,10 +99,22 @@ h3.notifications-page-panel-title {
   height: auto;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   padding: 0.5rem 0.25rem;
-  border-bottom: 0.75px solid var(--main-accent-color-alt);
+  border-bottom: 1.25px solid var(--main-accent-color-alt);
+}
 
+.notifications-page-panel-item-grouped {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0.25rem;
+  
+}
+.notification-inactive {
+display: none; 
 }
 
 .notifications-page .event-liked-group {
@@ -158,9 +180,37 @@ h3.notifications-page-panel-title {
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 10px;
-
+  margin-right: 1rem;
   border: 1px solid var(--main-accent-color-alt);
+}
+
+
+.mark-as-read-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--textarea-panel-box);
+  color: var(--text-color-3-8);
+  border: 0.5px solid var(--text-color-3-8);
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.075rem;
+  font-size: 0.725rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  margin-left: 2.25rem;
+
+}
+
+.mark-as-read-button:hover {
+  background-color: var(--subcat-filter-box);
+  color: var(--text-color);
+  border: 0.5px solid var(--text-color);
+  cursor: pointer; 
 }
 
 .notifications-page-footer {

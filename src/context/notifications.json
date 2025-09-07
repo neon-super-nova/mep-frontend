@@ -1,52 +1,82 @@
 [
-  {
-    "eventUsername": "gourmand_guru",
-    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
-    "eventType": "liked",
-    "object": "recipe",
-    "objectId": "68532a4db6313cee97a62930",
-    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
-    "objectName": "Pancakes",
-    "happenedAt": "2025-06-23T20:36:53.949+00:00"
+    {
+    "type": "like",
+    "senderId": "68a8d3c9e73657ffd42825b4",
+    "senderUsername": "kimono54",
+    "senderAvatarUrl": "https://res.cloudinary.com/do4eexmkf/image/upload/v1755895237/users/krlfvt7qngoddpmri7xr.png",
+    "recipientId": "681d0a73da157856cf2a8348",
+    "recipeId": "684dd519fea2b508f84d74f2",
+    "recipeImageUrlArray": [
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"
+    ],
+    "recipeName": "Eggs Benedict",
+    "createdAt": "2025-09-03T01:13:04.366+00:00",
+    "read": false
   },
   {
-    "eventUsername": "culinary_critic",
-    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
-    "eventType": "reviewed",
-    "object": "recipe",
-    "objectId": "68532baab6313cee97a62933",
-    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
-    "objectName": "Stuffed Peppers",
-    "happenedAt": "2025-06-24T15:12:45.123+00:00"
+    "type": "like",
+    "senderId": "683e16384d4ba3a4af6f9195",
+    "senderUsername": "atlas",
+    "senderAvatarUrl": "https://res.cloudinary.com/do4eexmkf/image/upload/v1755895688/users/yuridqnaomrt7divfp0z.jpg",
+    "recipientId": "681d0a73da157856cf2a8348",
+    "recipeId": "684dd519fea2b508f84d74f2",
+    "recipeImageUrlArray": [
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"
+    ],
+    "recipeName": "Eggs Benedict",
+    "createdAt": "2025-09-02T01:14:04.366+00:00",
+    "read": false
+  },
+    {
+    "type": "review",
+    "senderId": "683e16384d4ba3a4af6f9195",
+    "senderUsername": "atlas",
+    "senderAvatarUrl": "https://res.cloudinary.com/do4eexmkf/image/upload/v1755895688/users/yuridqnaomrt7divfp0z.jpg",
+    "recipientId": "681d0a73da157856cf2a8348",
+    "recipeId": "684dd519fea2b508f84d74f2",
+    "recipeImageUrlArray": [
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"
+    ],
+    "recipeName": "Eggs Benedict",
+    "createdAt": "2025-09-03T01:14:04.366+00:00",
+    "read": false
   },
   {
-    "eventUsername": "kitchen_enthusiast",
-    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
-    "eventType": "followed",
-    "object": "user",
-    "objectId": "",
-    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
-    "objectName": "",
-    "happenedAt": "2025-06-24T18:45:12.789+00:00"
+    "type": "review",
+    "senderId": "6818ec1711eb2f22d6bd8441",
+    "senderUsername": "bellovmichelle",
+    "senderAvatarUrl": "https://res.cloudinary.com/do4eexmkf/image/upload/v1752013536/users/dgryvpof4ipeeylfcshy.png",
+    "recipientId": "681d0a73da157856cf2a8348",
+    "recipeId": "684dd571fea2b508f84d74f4",
+    "recipeImageUrlArray": [
+      "https://res.cloudinary.com/do4eexmkf/image/upload/v1756486539/recipes/vjtwurseehqc4h7fm7t7.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"
+    ],
+    "recipeName": "Macaroni Salad",
+    "createdAt": "2025-09-02T05:25:04.366+00:00",
+    "read": false
   },
   {
-    "eventUsername": "foodie_fanatic",
-    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
-    "eventType": "liked",
-    "object": "recipe",
-    "objectId": "68532bf2b6313cee97a62938",
-    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
-    "objectName": "Garlic Shrimp Kebabs",
-    "happenedAt": "2025-06-25T08:20:15.321+00:00"
-  },
-  {
-    "eventUsername": "home_cook",
-    "eventAvatarUrl": "https://images.unsplash.com/photo-1663465374413-83cba00bff6f",
-    "eventType": "reviewed",
-    "object": "recipe",
-    "objectId": "68532bf2b6313cee97a62938",
-    "objectImageUrlArray": ["http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg", "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"],
-    "objectName": "Garlic Shrimp Kebabs",
-    "happenedAt": "2025-06-25T08:20:15.321+00:00"
+    "type": "like",
+    "senderId": "6818ec1711eb2f22d6bd8441",
+    "senderUsername": "bellovmichelle",
+    "senderAvatarUrl": "https://res.cloudinary.com/do4eexmkf/image/upload/v1752013536/users/dgryvpof4ipeeylfcshy.png",
+    "recipientId": "681d0a73da157856cf2a8348",
+    "recipeId": "684dd571fea2b508f84d74f4",
+    "recipeImageUrlArray": [
+      "https://res.cloudinary.com/do4eexmkf/image/upload/v1756486539/recipes/vjtwurseehqc4h7fm7t7.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg",
+      "http://localhost:3000/static/media/placeholder_1.1399378a9c46372e3ad9.jpg"
+    ],
+    "recipeName": "Macaroni Salad",
+    "createdAt": "2025-09-01T02:38:04.366+00:00",
+    "read": true
   }
 ]
