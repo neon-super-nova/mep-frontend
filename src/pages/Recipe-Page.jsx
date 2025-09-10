@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../page-css/recipe-page.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
 import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
@@ -89,77 +90,44 @@ function RecipePage() {
     fetchRecipeInfo();
   }, [recipeId, userId]);
 
-  useEffect(() => {
-    async function fetchRecipeStats() {
-      try {
-        const response = await axios.get(
-          `/api/recipes/${recipeId}/recipe-stats`
-        );
-        setRecipeStats({
-          averageReview: response.data.averageReview
-            ? response.data.averageReview
-            : 0,
-          reviewCount: response.data.reviewCount
-            ? response.data.reviewCount
-            : 0,
-          likeCount: response.data.likeCount ? response.data.likeCount : 0,
-        });
-      } catch (err) {}
+  const getRecipeStats = useCallback(async () => {
+    try {
+      const response = await axios.get(`/api/recipes/${recipeId}/recipe-stats`);
+      console.log(response.data);
+      setRecipeStats({
+        averageReview: response.data.averageReview || 0,
+        reviewCount: response.data.reviewCount || 0,
+        likeCount: response.data.likeCount || 0,
+      });
+    } catch (err) {
+      console.error("Failed to fetch recipe stats", err);
     }
-    fetchRecipeStats();
-    console.log(
-      "Fetching recipe stats for recipeId:",
-      recipeId,
-      recipeStats.averageReview,
-      recipeStats.reviewCount,
-      recipeStats.likeCount
-    );
-  }, [
-    recipeId,
-    recipeStats.averageReview,
-    recipeStats.reviewCount,
-    recipeStats.likeCount,
-  ]);
+  }, [recipeId]);
 
   useEffect(() => {
-    const getLikedRecipes = async () => {
-      if (!userId) return;
-      try {
-        const result = await axios.get(`/api/users/${userId}/liked-recipes`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        setLikedRecipes(result.data.likedRecipes);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getLikedRecipes();
-  }, [userId]);
+    getRecipeStats();
+  }, [getRecipeStats]);
 
-  useEffect(() => {
-    const getRecipeReviews = async () => {
-      try {
-        const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
-        if (Array.isArray(response.data)) {
-          setReviews(response.data);
-          const userHasReviewed = response.data.some(
-            (r) => r.userId === userId
-          );
-          setAlreadyReviewed(userHasReviewed);
-        } else {
-          setReviews([]);
-          setAlreadyReviewed(false);
-        }
+  const getRecipeReviews = useCallback(async () => {
+    try {
+      const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
+      const reviewsArray = response.data.reviews || [];
 
-        console.log("Fetched recipe reviews:", response.data);
-      } catch (err) {
-        setReviews([]);
-      }
-    };
-    getRecipeReviews();
+      console.log("Frontend received reviews:", reviewsArray);
+
+      setReviews(reviewsArray);
+      setAlreadyReviewed(
+        reviewsArray.some((r) => r.userId.toString() === userId)
+      );
+    } catch (err) {
+      console.error("Error fetching reviews:", err);
+      setReviews([]);
+    }
   }, [recipeId, userId]);
+
+  useEffect(() => {
+    getRecipeReviews();
+  }, [recipeId]);
 
   const [formData, setFormData] = useState({
     ratingStr: "",
@@ -171,15 +139,7 @@ function RecipePage() {
     const rating = Number(formData.ratingStr);
     const trimmedComment = comment.trim();
 
-    if (
-      !trimmedComment ||
-      trimmedComment === "" ||
-      rating === null ||
-      rating === undefined ||
-      isNaN(rating) ||
-      rating < 1 ||
-      rating > 5
-    ) {
+    if (!trimmedComment || rating < 1 || rating > 5 || isNaN(rating)) {
       alert("Cannot submit an empty or incomplete review.");
       return;
     }
@@ -193,10 +153,7 @@ function RecipePage() {
         return;
       }
 
-      const reviewBody = {
-        rating,
-        comment: trimmedComment,
-      };
+      const reviewBody = { rating, comment: trimmedComment };
       const response = await axios.post(
         `/api/recipes/${recipeId}/review`,
         reviewBody,
@@ -208,41 +165,22 @@ function RecipePage() {
         }
       );
 
-      if (
-        response.data &&
-        (response.data.message === "Review successfully added" ||
-          response.data.success === "Review posted")
-      ) {
+      if (response.data?.message || response.data?.success) {
         alert("Review submitted successfully!");
         setFormData({ ratingStr: "", comment: "" });
         setComment("");
 
-        const updatedReviews = await axios.get(
-          `/api/recipes/${recipeId}/reviews`
-        );
-        setReviews(updatedReviews.data);
-
-        setRecipeStats((prev) => ({
-          ...prev,
-          reviewCount: Array.isArray(updatedReviews.data)
-            ? updatedReviews.data.length
-            : 0,
-        }));
-      } else if (response.data && response.data.error) {
-        alert(response.data.error);
+        await getRecipeReviews();
+        await getRecipeStats();
       } else {
-        alert("Unexpected response. Please try again.");
-        console.log("Unexpected review response:", response);
+        alert(response.data?.error || "Unexpected response. Please try again.");
       }
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.error) {
-        alert(err.response.data.error);
-      } else {
-        alert("An error occurred. Please try again.");
-      }
+      alert(
+        err.response?.data?.error || "An error occurred. Please try again."
+      );
     }
   };
-
   const showToast = (msg) => {
     setToastMsg(msg);
     setTimeout(() => setToastMsg(""), 2000);
@@ -541,7 +479,7 @@ function RecipePage() {
                 </button>
               </div>
               <h4 id="reviews">OTHER USER REVIEWS:</h4>
-              {recipeStats.reviewCount && reviews.length > 0 ? (
+              {reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (
                     <RecipeBlock

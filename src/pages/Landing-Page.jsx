@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import LabelLogin from "../components/ui-basic-reusables/labels/label-input-login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-// import { GoogleLogin } from "@react-oauth/google";
 import landing1b_web from "../components/img/landing-1b_web.png";
 import axios from "axios";
 import { saveToken, isLoggedIn } from "../context/tokens.js";

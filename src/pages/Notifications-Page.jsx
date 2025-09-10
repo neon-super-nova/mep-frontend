@@ -3,13 +3,13 @@ import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import avatar from "../components/img/user/default-user-light_web.png";
 import { getUserId } from "../context/decodeToken.js";
-import notifications from "../context/notifications.json";
-import userLogin from "../context/userLogin.json";
+// import notifications from "../context/notifications.json";
+// import userLogin from "../context/userLogin.json";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import dummyThumb from "../components/img/dummy/bananabread.jpg";
-import followLight from "../components/img/like-follow-review/follow-light-2.png";
-import followDark from "../components/img/like-follow-review/follow-dark-2.png";
+// import followLight from "../components/img/like-follow-review/follow-light-2.png";
+// import followDark from "../components/img/like-follow-review/follow-dark-2.png";
 import darkLikedFrame from "../components/img/like-follow-review/dark-liked-frame-2.png";
 import lightLikedFrame from "../components/img/like-follow-review/light-liked-frame-2.png";
 import darkReviewedFrame from "../components/img/like-follow-review/dark-reviewed-frame-2.png";
@@ -47,10 +47,15 @@ function NotificationsPage() {
 
   useEffect(() => {
     try {
-      const fetchUserSignIn = () => {
-        const foundUser = userLogin.find((u) => u.userId === userId);
-        setUserSignIn(foundUser);
-        console.log("Found user sign-in data:", foundUser?.lastLogin);
+      const fetchUserSignIn = async () => {
+        const response = await axios.get(`/api/users/last-login/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const lastLogin = response.data;
+        console.log("last login set to ");
+        setUserSignIn(lastLogin);
       };
       fetchUserSignIn();
     } catch (error) {
@@ -60,19 +65,23 @@ function NotificationsPage() {
 
   const [notificationList, setNotificationList] = useState([]);
 
-  useEffect(() => {
-    try {
-      const fetchNotifications = () => {
-        setNotificationList(notifications);
-      };
+  // useEffect(() => {
+  //   try {
+  //     const fetchNotifications = () => {
+  //       setNotificationList(notifications);
+  //     };
 
-      fetchNotifications();
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
-  }, []);
+  //     fetchNotifications();
+  //   } catch (error) {
+  //     console.error("Error fetching notifications:", error);
+  //   }
+  // }, []);
 
   const getNotificationValue = (notification) => {
+    console.log("notification in fx is " + JSON.stringify(notification));
+    console.log("notification type is " + notification.type);
+    console.log("notification recipeId is " + notification.recipeId);
+
     if (!notification || !notification.type || !userSignIn) {
       return <span className="error"> error</span>;
     }
@@ -85,6 +94,8 @@ function NotificationsPage() {
       (notification.type === "like" || notification.type === "review") &&
       notification.recipeId
     ) {
+      console.log("notification type is " + notification?.type);
+      console.log("notification type is " + notification?.recipeId);
       const linkTarget =
         notification.type === "review"
           ? `/recipe/${notification.recipeId}#reviews`
@@ -129,7 +140,6 @@ function NotificationsPage() {
           }
         }
       }
-
       if (group.length > 0) {
         grouped.push({ ...current, grouped: true, group: [current, ...group] });
       } else {
@@ -142,19 +152,24 @@ function NotificationsPage() {
   const groupedNotifications = groupNotifications(notificationList);
 
   useEffect(() => {
-    try {
-      const fetchNotifications = () => {
-        const notificationsWithId = notifications.map((n, idx) => ({
-          ...n,
-          id:
-            n.id || `${n.recipeId || "no-recipe"}-${n.createdAt || idx}-${idx}`,
-        }));
-        setNotificationList(notificationsWithId);
-      };
-      fetchNotifications();
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
+    const fetchNotifications = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const response = await axios.get(`/api/notifications`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("notifications fetched " + response.data.notifications);
+        setNotificationList(response.data.notifications);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchNotifications();
   }, []);
 
   const markAsRead = (notificationId) => {
@@ -180,7 +195,7 @@ function NotificationsPage() {
                   : ""}
               </h3>
 
-              {groupedNotifications.map((notification, index) => {
+              {groupedNotifications.map((notification) => {
                 let notificationClass = "";
                 if (
                   userSignIn === undefined ||
@@ -192,7 +207,7 @@ function NotificationsPage() {
 
                 return (
                   <div
-                    key={index}
+                    key={notification.id}
                     className={`notifications-page-panel-item ${notificationClass}`}
                   >
                     {notification.grouped ? (
@@ -205,10 +220,10 @@ function NotificationsPage() {
                           if (!seenUsernames.has(username)) {
                             uniqueUsers.push({
                               username,
-                              senderAvatarUrl: n.senderAvatarUrl,
+                              senderAvatarUrl: n.senderPictureUrl,
                               recipeId: n.recipeId,
                               recipeName: n.recipeName,
-                              createdAt: n.createdAt,
+                              createdAt: n.date,
                             });
                             seenUsernames.add(username);
                           }
@@ -218,7 +233,7 @@ function NotificationsPage() {
                           const userObj = notification.group.find(
                             (n) => n.senderUsername === username
                           );
-                          return userObj?.senderAvatarUrl || userAvatar;
+                          return userObj?.senderPictureUrl || userAvatar;
                         };
 
                         const getRecipeLink = (user) => {
@@ -309,7 +324,7 @@ function NotificationsPage() {
                           className={"notifications-page-panel-item-grouped"}
                         >
                           <img
-                            src={notification.senderAvatarUrl || userAvatar}
+                            src={notification.senderPictureUrl || userAvatar}
                             alt="avatar"
                             className="user-image"
                           />
@@ -319,21 +334,17 @@ function NotificationsPage() {
                             </span>
                             {
                               //  notification.type === "follow" ? " followed you" :
-                              notification.type === "like" ? (
-                                " liked"
-                              ) : notification.type === "review" ? (
-                                " reviewed"
-                              ) : (
-                                <span style={{ color: "red" }}> error</span>
-                              )
+                              notification.type.trim() === "like"
+                                ? " liked"
+                                : " reviewed"
                             }
                             {getNotificationValue(notification)}{" "}
-                            {notification.createdAt ? (
+                            {notification.date ? (
                               <>
                                 <span> on </span>{" "}
                                 <span className="reviews-true-date">
                                   {new Date(
-                                    notification.createdAt
+                                    notification.date
                                   ).toLocaleDateString("en-US", {
                                     month: "2-digit",
                                     day: "2-digit",
@@ -341,7 +352,7 @@ function NotificationsPage() {
                                   })}{" "}
                                   at{" "}
                                   {new Date(
-                                    notification.createdAt
+                                    notification.date
                                   ).toLocaleTimeString("en-US", {
                                     hour: "2-digit",
                                     minute: "2-digit",
@@ -355,57 +366,57 @@ function NotificationsPage() {
                             .
                           </p>
                           <>
-                            {notification.type === "review" ? (
-                              <div className="event-reviewed-group">
-                                <img
-                                  src={
-                                    theme === "dark"
-                                      ? darkReviewedFrame
-                                      : lightReviewedFrame
-                                  }
-                                  alt="like-frame"
-                                  className="event-image-reviewed-frame"
-                                />
-                                <img
-                                  src={
-                                    notification.recipeImageUrlArray?.[0] ||
-                                    thumbnail
-                                  }
-                                  alt="avatar"
-                                  className="event-image-reviewed"
-                                />
-                              </div>
-                            ) : notification.type === "like" ? (
-                              <div className="event-liked-group">
-                                <img
-                                  src={
-                                    theme === "dark"
-                                      ? darkLikedFrame
-                                      : lightLikedFrame
-                                  }
-                                  alt="like-frame"
-                                  className="event-image-liked-frame"
-                                />
-                                <img
-                                  src={
-                                    notification.recipeImageUrlArray?.[0] ||
-                                    thumbnail
-                                  }
-                                  alt="avatar"
-                                  className="event-image-liked"
-                                />
-                              </div>
-                            ) : notification.type === "followed" ? (
-                              <img
-                                src={
-                                  theme === "dark" ? followDark : followLight
-                                }
-                                alt="avatar"
-                                className="event-image-followed"
-                              />
-                            ) : (
-                              <span style={{ color: "red" }}>error</span>
-                            )}
+                            {
+                              notification.type === "review" ? (
+                                <div className="event-reviewed-group">
+                                  <img
+                                    src={
+                                      theme === "dark"
+                                        ? darkReviewedFrame
+                                        : lightReviewedFrame
+                                    }
+                                    alt="like-frame"
+                                    className="event-image-reviewed-frame"
+                                  />
+                                  <img
+                                    src={
+                                      notification.recipeImageUrl || thumbnail
+                                    }
+                                    alt="avatar"
+                                    className="event-image-reviewed"
+                                  />
+                                </div>
+                              ) : (
+                                <div className="event-liked-group">
+                                  <img
+                                    src={
+                                      theme === "dark"
+                                        ? darkLikedFrame
+                                        : lightLikedFrame
+                                    }
+                                    alt="like-frame"
+                                    className="event-image-liked-frame"
+                                  />
+                                  <img
+                                    src={
+                                      notification.recipeImageUrl || thumbnail
+                                    }
+                                    alt="avatar"
+                                    className="event-image-liked"
+                                  />
+                                </div>
+                              )
+                              // ) : notification.type === "followed" ? (
+                              //   <img
+                              //     src={
+                              //       theme === "dark" ? followDark : followLight
+                              //     }
+                              //     alt="avatar"
+                              //     className="event-image-followed"
+                              //   />
+
+                              // <span style={{ color: "red" }}>error</span>
+                            }
                           </>
 
                           <button
