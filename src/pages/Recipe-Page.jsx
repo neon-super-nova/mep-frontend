@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import "../page-css/recipe-page.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useCallback } from "react";
@@ -41,13 +40,39 @@ function RecipePage() {
     likeCount: 0,
   });
 
-  const [likedRecipes, setLikedRecipes] = useState([]);
-  const likedStatus = recipe
-    ? likedRecipes.some((r) => r._id === recipe._id)
-    : false;
+  // const [likedRecipes, setLikedRecipes] = useState([]);
+  // const likedStatus = recipe
+  //   ? likedRecipes.some((r) => r._id === recipe._id)
+  //   : false;
+  const [likedStatus, setLikedStatus] = useState();
   const [toastMsg, setToastMsg] = useState("");
-  const [alreadyReviewed, setAlreadyReviewed] = useState(false);
+  const [alreadyReviewed, setAlreadyReviewed] = useState();
   const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const getLikeStatus = async () => {
+      if (!userId) return;
+
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const response = await axios.get(
+          `/api/recipes/${recipeId}/like-status`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("upon refresh like status was " + response.data.status);
+        setLikedStatus(response.data.status);
+      } catch (err) {
+        // setLikedStatus(false);
+      }
+    };
+    getLikeStatus();
+  });
 
   useEffect(() => {
     const getUser = async () => {
@@ -127,7 +152,7 @@ function RecipePage() {
 
   useEffect(() => {
     getRecipeReviews();
-  }, [recipeId]);
+  });
 
   const [formData, setFormData] = useState({
     ratingStr: "",
@@ -230,15 +255,11 @@ function RecipePage() {
                   <button
                     className="like-btn"
                     onClick={() => {
-                      handleLikeRecipe(
-                        recipe,
-                        likedStatus,
-                        likedRecipes,
-                        setLikedRecipes
-                      );
+                      handleLikeRecipe(recipe, setLikedStatus);
                       showToast(
                         likedStatus ? "Recipe unliked!" : "Recipe liked!"
                       );
+                      // need to get true or false from handleLikeRecipe()
                     }}
                     style={{ background: "none", border: "none", padding: 0 }}
                   >
