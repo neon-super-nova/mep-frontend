@@ -65,37 +65,15 @@ function NotificationsPage() {
 
   const [notificationList, setNotificationList] = useState([]);
 
-  // useEffect(() => {
-  //   try {
-  //     const fetchNotifications = () => {
-  //       setNotificationList(notifications);
-  //     };
-
-  //     fetchNotifications();
-  //   } catch (error) {
-  //     console.error("Error fetching notifications:", error);
-  //   }
-  // }, []);
-
   const getNotificationValue = (notification) => {
-    console.log("notification in fx is " + JSON.stringify(notification));
-    console.log("notification type is " + notification.type);
-    console.log("notification recipeId is " + notification.recipeId);
-
     if (!notification || !notification.type || !userSignIn) {
       return <span className="error"> error</span>;
     }
 
     if (
-      //   notification.type === "followed") {
-      //   return " you";
-      // } else if
-      // (
       (notification.type === "like" || notification.type === "review") &&
       notification.recipeId
     ) {
-      console.log("notification type is " + notification?.type);
-      console.log("notification type is " + notification?.recipeId);
       const linkTarget =
         notification.type === "review"
           ? `/recipe/${notification.recipeId}#reviews`
@@ -172,11 +150,36 @@ function NotificationsPage() {
     fetchNotifications();
   }, []);
 
-  const markAsRead = (notificationId) => {
-    setNotificationList((prevList) =>
-      prevList.map((n) => (n.id === notificationId ? { ...n, read: true } : n))
-    );
-    console.log("Marking notification as read:", notificationId);
+  const markAsRead = async (notificationIds) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      console.log("notifications ids are " + notificationIds);
+      const response = await axios.post(
+        "/api/notifications/read",
+        { notificationIds },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("POST request response: " + JSON.stringify(response.data));
+      if (response?.data?.message === "Notifications marked as read") {
+        //state handling after marking read
+        setNotificationList((prevList) =>
+          prevList.filter((notification) =>
+            notificationIds.includes(notification.id)
+          )
+        );
+        // refresh page
+        window.location.reload();
+      } else {
+        console.warn("could not mark as read:", response.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -197,13 +200,13 @@ function NotificationsPage() {
 
               {groupedNotifications.map((notification) => {
                 let notificationClass = "";
-                if (
-                  userSignIn === undefined ||
-                  userSignIn < notification.createdAt ||
-                  notification.read === true
-                ) {
-                  notificationClass = "notification-inactive";
-                }
+                // if (
+                //   userSignIn === undefined ||
+                //   userSignIn < notification.createdAt ||
+                //   notification.read === true
+                // ) {
+                //   notificationClass = "notification-inactive";
+                // }
 
                 return (
                   <div
@@ -216,7 +219,7 @@ function NotificationsPage() {
                         const seenUsernames = new Set();
 
                         notification.group.forEach((n) => {
-                          const username = n.senderUsername || "Anonymous";
+                          const username = n.firstSenderUsername || "Anonymous";
                           if (!seenUsernames.has(username)) {
                             uniqueUsers.push({
                               username,
@@ -330,14 +333,13 @@ function NotificationsPage() {
                           />
                           <p className="notifications-page-panel-desc">
                             <span className="notifications-page-panel-desc bold">
-                              {notification.senderUsername || "Anonymous"}
+                              {notification.otherSendersCount === 0
+                                ? notification.firstSenderUsername
+                                : `${notification.firstSenderUsername} and ${notification.otherSendersCount} other user(s)`}
                             </span>
-                            {
-                              //  notification.type === "follow" ? " followed you" :
-                              notification.type.trim() === "like"
-                                ? " liked"
-                                : " reviewed"
-                            }
+                            {notification.type.trim() === "like"
+                              ? " liked"
+                              : " reviewed"}
                             {getNotificationValue(notification)}{" "}
                             {notification.date ? (
                               <>
@@ -350,14 +352,14 @@ function NotificationsPage() {
                                     day: "2-digit",
                                     year: "numeric",
                                   })}{" "}
-                                  at{" "}
+                                  {/* at{" "}
                                   {new Date(
                                     notification.date
                                   ).toLocaleTimeString("en-US", {
                                     hour: "2-digit",
                                     minute: "2-digit",
                                     hour12: true,
-                                  })}
+                                  })} */}
                                 </span>
                               </>
                             ) : (
@@ -366,57 +368,41 @@ function NotificationsPage() {
                             .
                           </p>
                           <>
-                            {
-                              notification.type === "review" ? (
-                                <div className="event-reviewed-group">
-                                  <img
-                                    src={
-                                      theme === "dark"
-                                        ? darkReviewedFrame
-                                        : lightReviewedFrame
-                                    }
-                                    alt="like-frame"
-                                    className="event-image-reviewed-frame"
-                                  />
-                                  <img
-                                    src={
-                                      notification.recipeImageUrl || thumbnail
-                                    }
-                                    alt="avatar"
-                                    className="event-image-reviewed"
-                                  />
-                                </div>
-                              ) : (
-                                <div className="event-liked-group">
-                                  <img
-                                    src={
-                                      theme === "dark"
-                                        ? darkLikedFrame
-                                        : lightLikedFrame
-                                    }
-                                    alt="like-frame"
-                                    className="event-image-liked-frame"
-                                  />
-                                  <img
-                                    src={
-                                      notification.recipeImageUrl || thumbnail
-                                    }
-                                    alt="avatar"
-                                    className="event-image-liked"
-                                  />
-                                </div>
-                              )
-                              // ) : notification.type === "followed" ? (
-                              //   <img
-                              //     src={
-                              //       theme === "dark" ? followDark : followLight
-                              //     }
-                              //     alt="avatar"
-                              //     className="event-image-followed"
-                              //   />
-
-                              // <span style={{ color: "red" }}>error</span>
-                            }
+                            {notification.type === "review" ? (
+                              <div className="event-reviewed-group">
+                                <img
+                                  src={
+                                    theme === "dark"
+                                      ? darkReviewedFrame
+                                      : lightReviewedFrame
+                                  }
+                                  alt="like-frame"
+                                  className="event-image-reviewed-frame"
+                                />
+                                <img
+                                  src={notification.recipeImageUrl || thumbnail}
+                                  alt="avatar"
+                                  className="event-image-reviewed"
+                                />
+                              </div>
+                            ) : (
+                              <div className="event-liked-group">
+                                <img
+                                  src={
+                                    theme === "dark"
+                                      ? darkLikedFrame
+                                      : lightLikedFrame
+                                  }
+                                  alt="like-frame"
+                                  className="event-image-liked-frame"
+                                />
+                                <img
+                                  src={notification.recipeImageUrl || thumbnail}
+                                  alt="avatar"
+                                  className="event-image-liked"
+                                />
+                              </div>
+                            )}
                           </>
 
                           <button
