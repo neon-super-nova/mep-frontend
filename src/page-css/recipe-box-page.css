@@ -219,3 +219,15 @@ html,
   padding: 10px 20px;
   border-top: 10px solid var(--main-accent-color-alt);
 }
+
+@media (min-width: 30em) and (max-width: 48em) {
+  .recipe-box-page-footer {
+    background-color: chartreuse;
+  }
+}
+
+@media (min-width: 48em) and (max-width: 80em) {
+  .recipe-box-page-footer {
+    background-color:  magenta;
+  }
+}
