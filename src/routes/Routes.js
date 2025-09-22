@@ -17,24 +17,6 @@ import SubmitRecipePage from "../pages/Submit-Recipe-Page";
 import ModifyRecipePage from "../pages/Modify-Recipe-Page";
 
 const AppRoutes = () => {
-  // return (
-  //   <Routes>
-  //     <Route path="/" element={<LandingPage />} />
-  //     <Route path="/signup" element={<SignUpPage />} />
-  //     <Route path="/home" element={<HomePage />} />
-  //     <Route path="/forgotpassword" element={<ForgotScreen />} />
-  //     <Route path="/resetpassword" element={<ResetScreen />} />
-  //     <Route path="/verify-email" element={<VerifyScreen />} />
-  //     <Route path="/advancedsearch" element={<AdvancedSearchPage />} />
-  //     <Route path="/profile" element={<UserPage />} />
-  //     <Route path="/settings" element={<SettingsPage />} />
-  //     <Route path="/recipebox" element={<RecipeBoxPage />} />
-  //     <Route path="/notifications" element={<NotificationsPage />} />
-  //     <Route path="/recipe/:recipeId" element={<RecipePage />} />
-  //     <Route path="/modify-recipe/:recipeId" element={<ModifyRecipePage />} />
-  //     <Route path="/submit-recipe" element={<SubmitRecipePage />} />
-  //   </Routes>
-  // );
   return (
     <Routes>
       {/* public routes */}
