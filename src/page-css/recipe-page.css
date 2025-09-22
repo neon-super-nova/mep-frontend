@@ -16,6 +16,7 @@ html {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
@@ -96,7 +97,7 @@ html {
 
 .recipe-page .top .headline {
   margin-bottom: 3.25rem;
-  width: 800px;
+  width: 90%;
 }
 
 .recipe-page .top .headline p {
@@ -118,12 +119,21 @@ html {
   width: 90%;
   height: 325px;
   margin-bottom: 3rem;
-  border: 1.5px solid var(--main-accent-color-alt);
+  border: 1.25px solid var(--main-accent-color-alt);
   background-color: var(--text-color);
 }
 
-.recipe-page .top .image img {
-  width: 33%;
+.recipe-page .top .image .main-image {
+  width: 40%;
+  height: 87.5%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  background-color: var(--text-color);
+}
+
+.recipe-page .top .image .side-image {
+  width: 30%;
   height: 87.5%;
   object-fit: cover;
   display: block;
@@ -146,16 +156,16 @@ html {
   border-right: 5px double var(--main-accent-color-alt);
 }
 
-.recipe-page .middle .recipe-notes .left h6 {
+.recipe-page .middle .recipe-notes .user-rating-line {
+  width: 100%;
+  background-color: yellow;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: flex-start;
-  line-height: 1.25;
+  align-items: center;
   margin-bottom: 0.5rem;
 }
 
-.recipe-page .middle .recipe-notes .left h6 .text {
+.recipe-page .middle .recipe-notes .user-rating-line .text {
   display: flex;
   flex-direction: row;
   font-family: "Inter", sans-serif;
@@ -166,8 +176,11 @@ html {
   color: var(--text-color);
   letter-spacing: -0.005rem;
   text-transform: uppercase;
-  margin-right: 0.75rem;
+  justify-content: flex-start;
+  line-height: 1.25;
+  margin-right: 0.5rem;
 }
+
 
 /* Custom styles for StarRating only on the recipe page */
 
@@ -216,10 +229,10 @@ html {
 
 .recipe-page .rating-number {
   margin-left: 0.5rem;
-  width: 100%;
+  width: auto;
 }
 
-.recipe-page .middle .recipe-notes .left h6 .rate {
+.recipe-page .middle .recipe-notes .left .rate {
   display: flex;
   flex-direction: row;
   font-family: "Work Sans", sans-serif;
@@ -230,7 +243,7 @@ html {
   color: var(--text-color);
   text-transform: capitalize;
   letter-spacing: 0.015rem;
-  margin-left: 0.875rem;
+  margin-left: 0.75rem;
 }
 
 .recipe-page .no-rating {
@@ -570,6 +583,7 @@ html {
   border: 5px solid var(--bg-panel-color);
   width: 100%;
 }
+
 .recipe-page .bottom .reviews .reviews-true .review-item .reviews-true-person {
   display: flex;
   flex-direction: row;
@@ -642,23 +656,13 @@ html {
   white-space: nowrap;
 }
 
-.recipe-page
-  .bottom
-  .reviews
-  .reviews-true
-  .reviews-true-rating
-  .star-background-bottom {
+.recipe-page .bottom .reviews .reviews-true .reviews-true-rating .star-background-bottom {
   color: var(--minor-accent-color-1);
   z-index: 0;
   font-size: 1rem;
 }
 
-.recipe-page
-  .bottom
-  .reviews
-  .reviews-true
-  .reviews-true-rating
-  .star-background-top,
+.recipe-page .bottom .reviews .reviews-true .reviews-true-rating .star-background-top,
 .recipe-page .bottom .reviews .reviews-true .reviews-true-rating .star-overlay {
   z-index: 1;
   top: -0.0875rem;
@@ -674,15 +678,11 @@ html {
   color: var(--minor-accent-color-1);
 }
 
-.recipe-page
-  .bottom
-  .reviews
-  .reviews-true
-  .reviews-true-rating
-  .rating-number {
+.recipe-page .bottom .reviews .reviews-true .reviews-true-rating .rating-number {
   margin-left: 0.5rem;
   width: 100%;
 }
+
 .recipe-page .bottom .reviews .reviews-true .reviews-true-rating .text-rate {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
@@ -710,7 +710,7 @@ html {
   /* background-color: fuchsia; */
   margin-bottom: -0.5rem;
 
-} 
+}
 
 .recipe-page .bottom .reviews .reg.review-first {
   /* background-color: lime; */
@@ -724,12 +724,13 @@ html {
   color: var(--text-color);
   margin-top: -1.5rem;
 }
+
 .recipe-page .bottom .reviews .reg.review-reg {
-display: none; 
+  display: none;
 }
 
 .recipe-page .bottom .reviews .review-input {
-background-color: var(--bg-panel-color); 
+  background-color: var(--bg-panel-color);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -754,14 +755,15 @@ background-color: var(--bg-panel-color);
 }
 
 .recipe-page .bottom .reviews .review-input .review-input-label {
-margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .recipe-page .bottom .reviews .comment-label {
-margin: 1rem 0rem 1.5rem 0rem;
+  margin: 1rem 0rem 1.5rem 0rem;
 }
+
 .recipe-page .bottom .reviews .review-comment-input {
-background-color: var(--bg-color-alt-3);
+  background-color: var(--bg-color-alt-3);
   border: 0.25px solid var(--text-color-3-8);
   border-radius: 0.15rem;
   font-family: "Work Sans", sans-serif;
@@ -770,14 +772,14 @@ background-color: var(--bg-color-alt-3);
   letter-spacing: 0.025rem;
   color: var(--text-color);
   font-size: 0.85rem;
-  width: 100%; 
+  width: 100%;
   height: 6.25rem;
   padding: 0.25rem;
 }
 
 .recipe-page .bottom .reviews .submit-review-button {
 
-align-self: center;
+  align-self: center;
   background-color: var(--minor-accent-color-1);
   color: var(--text-color-invert);
   border: 1.5px solid var(--text-color-alt);
@@ -791,18 +793,422 @@ align-self: center;
   font-size: 0.85rem;
   padding: 0.35rem 0.75rem;
   border-radius: 0.25rem;
-margin-top: 1.75rem;
+  margin-top: 1.75rem;
 }
+
 .recipe-page .bottom .reviews .submit-review-button:hover {
   cursor: pointer;
-    background-color: var(--minor-accent-color-2);
+  background-color: var(--minor-accent-color-2);
   color: var(--accent-color-neutral-white);
   border: 1.5px solid var(--text-color);
 }
+
 .recipe-page-footer {
   background-color: var(--minor-accent-color-2b);
   text-align: center;
   margin-top: 2rem;
   padding: 10px 20px;
   border-top: 10px solid var(--main-accent-color-alt);
+}
+
+/* ************** */
+/* ************** */
+/* MEDIA QUERIES */
+/* ************** */
+/* ************** */
+
+@media (min-width: 0em) and (max-width: 36em) {
+  .recipe-page-footer {
+    background-color: blue;
+  }
+
+  .recipe-page h1 {
+
+    font-size: 1.75rem;
+    letter-spacing: 0.095rem;
+    margin-top: 5.75rem;
+    margin-bottom: 3.95rem;
+    padding: 0 1rem;
+  }
+
+  .recipe-page .top .small {
+    width: 87.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.05rem;
+    gap: 0.35rem;
+  }
+
+  .recipe-page-like-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .recipe-page .top .image {
+    height: 325px;
+    margin-bottom: 2.5rem;
+    border: 0.95px solid var(--main-accent-color-alt);
+
+  }
+
+  .recipe-page .top .image .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
+
+  .recipe-page .top .image .side-image {
+    display: none;
+  }
+
+
+  .recipe-page .middle .recipe-notes {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left,
+  .recipe-page .middle .recipe-notes .right {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left {
+    border-bottom: 5px double var(--main-accent-color-alt);
+    border-right: none;
+
+  }
+
+  .recipe-page .middle .recipe-notes .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .recipe-page .middle .recipe-notes .user-rating-line {
+    width: 100%;
+    background-color: orangered;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recipe-page .middle .recipe-notes .user-rating-line .text {
+    justify-content: center;
+    margin-right: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left .rate {
+    margin-left: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  .recipe-page .tags {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .recipe-page .no-rating {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-variation-settings: "wdth" 87.5;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+    color: var(--text-color);
+    text-transform: capitalize;
+    margin-bottom: 0.25rem;
+  }
+
+  .recipe-page .middle .recipe-notes .right h6 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .recipe-page .middle .recipe-notes .right .times,
+  .recipe-page .middle .recipe-notes .right .serves {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-page .middle .recipe-notes .right .serves {
+    margin-left: 0rem;
+    margin-top: -1rem;
+  }
+
+  .recipe-page .middle .recipe-notes .right .timer-icon,
+  .recipe-page .middle .recipe-notes .right .cutlery-icon,
+  .recipe-page .middle .recipe-notes .right .measure-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .recipe-page .middle .recipe-details {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.25rem;
+    gap: 1rem;
+  }
+
+  .recipe-page .middle .recipe-details .left, .recipe-page .middle .recipe-details .right {
+    width: 90%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+
+
+}
+
+@media (min-width: 36.063em) and (max-width: 54em) {
+  .recipe-page-footer {
+    background-color: chartreuse;
+  }
+
+  .recipe-page h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    letter-spacing: 0.095rem;
+    margin-top: 5.75rem;
+    margin-bottom: 3.95rem;
+    padding: 0 1rem;
+  }
+
+  .recipe-page .top .small {
+    width: 87.5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.05rem;
+  }
+
+  .recipe-page .top .image {
+    height: 425px;
+    margin-bottom: 3.5rem;
+    border: 0.95px solid var(--main-accent-color-alt);
+
+  }
+
+  .recipe-page .top .image .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
+
+  .recipe-page .top .image .side-image {
+    display: none;
+  }
+
+  .recipe-page .middle .recipe-notes {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left,
+  .recipe-page .middle .recipe-notes .right {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left {
+    border-bottom: 5px double var(--main-accent-color-alt);
+    border-right: none;
+  }
+
+
+  .recipe-page .middle .recipe-notes .user-rating-line {
+    width: 100%;
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recipe-page .middle .recipe-notes .user-rating-line .text {
+    display: flex;
+    flex-direction: row;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 0.875rem;
+    color: var(--text-color);
+    letter-spacing: -0.005rem;
+    text-transform: uppercase;
+    justify-content: flex-start;
+    line-height: 1.25;
+    margin-right: 0.25rem;
+  }
+
+  .recipe-page .middle .recipe-notes .left .rate {
+    display: flex;
+    flex-direction: row;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-transform: capitalize;
+    letter-spacing: 0.015rem;
+    margin-left: 0.75rem;
+  }
+
+  .recipe-page .no-rating {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-variation-settings: "wdth" 87.5;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+    color: var(--text-color);
+    text-transform: capitalize;
+    margin-bottom: 0.25rem;
+  }
+
+  .recipe-page .tags {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+    .recipe-page .middle .recipe-notes {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.75rem;
+    margin-bottom: 0.25rem;
+  }
+    .recipe-page .middle .recipe-notes .right .timer-icon,
+  .recipe-page .middle .recipe-notes .right .cutlery-icon,
+  .recipe-page .middle .recipe-notes .right .measure-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+}
+
+@media (min-width: 54.063em) and (max-width: 68em) {
+  .recipe-page-footer {
+    background-color: magenta;
+  }
+
+  .recipe-page h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.925rem;
+    letter-spacing: 0.095rem;
+    margin-top: 5.5rem;
+    margin-bottom: 3.85rem;
+  }
+
+  .recipe-page .top .image {
+    height: 375px;
+    margin-bottom: 3.25rem;
+    border: 1.1px solid var(--main-accent-color-alt);
+
+  }
+
+  .recipe-page .top .image .main-image {
+    width: 50%;
+    height: 92.5%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
+
+  .recipe-page .top .image .side-image {
+    width: 25%;
+    height: 92.5%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
+  .recipe-page .middle .recipe-notes .left {
+    width: 40%;
+    padding: 1rem;
+  }
+
+  .recipe-page .middle .recipe-notes .right {
+    width: 50%;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 68.063em) and (max-width: 80em) {
+  .recipe-page-footer {
+    background-color: indigo;
+  }
+
+  .recipe-page h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.925rem;
+    letter-spacing: 0.095rem;
+    margin-top: 5.5rem;
+    margin-bottom: 3.85rem;
+  }
+
+  .recipe-page .top .image {
+    height: 375px;
+    margin-bottom: 3.25rem;
+    border: 1.1px solid var(--main-accent-color-alt);
+
+  }
+
+  .recipe-page .top .image .main-image {
+    width: 50%;
+    height: 92.5%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
+
+  .recipe-page .top .image .side-image {
+    width: 25%;
+    height: 92.5%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    background-color: var(--text-color);
+  }
 }

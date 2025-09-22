@@ -491,6 +491,18 @@
   cursor: pointer; 
 }
 
+@media (min-width: 30em) and (max-width: 48em) {
+  .submit-recipe-footer {
+    background-color: chartreuse;
+  }
+}
+
+@media (min-width: 48em) and (max-width: 80em) {
+  .submit-recipe-footer {
+    background-color:  magenta;
+  }
+}
+
 /*
 .submit-button.submit-upload {
   background-color: var(--minor-accent-color-1);

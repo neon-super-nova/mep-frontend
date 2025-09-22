@@ -335,6 +335,7 @@ function RecipePage() {
                 src={
                   recipe.imageUrls.length > 1 ? recipe.imageUrls[1] : dummyV1
                 }
+                className="side-image"
                 alt={recipe.name}
                 onError={(e) => {
                   e.target.onerror = null;
@@ -345,6 +346,7 @@ function RecipePage() {
                 src={
                   recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
                 }
+                className="main-image"
                 alt={recipe.name}
                 onError={(e) => {
                   e.target.onerror = null;
@@ -355,6 +357,7 @@ function RecipePage() {
                 src={
                   recipe.imageUrls.length > 2 ? recipe.imageUrls[2] : dummyV1
                 }
+                className="side-image"
                 alt={recipe.name}
                 onError={(e) => {
                   e.target.onerror = null;
@@ -366,7 +369,7 @@ function RecipePage() {
           <div className="middle">
             <div className="recipe-notes">
               <div className="left">
-                <h6>
+                <div className="user-rating-line">
                   <span className="text">User Rating:</span>
                   {recipeStats.averageReview ? (
                     <>
@@ -383,58 +386,70 @@ function RecipePage() {
                   ) : (
                     <span className="no-rating">(Recipe not yet rated)</span>
                   )}
-                </h6>
-                <RecipeTags recipe={recipe} />
+                </div>
+                <div className="tags">
+                  <RecipeTags recipe={recipe} />
+                </div>
               </div>
               <div className="right">
                 <div className="times">
-                  <h6>
-                    <img
-                      src={theme === "dark" ? darktimer : lighttimer}
-                      alt="timer or clock icon"
-                      className="timer-icon"
-                    />
-                    <span className="bold">cook time:</span>
-                    <span className="reg"> {recipe.cookTime} minutes</span>
-                  </h6>
-                  <h6>
-                    <img
-                      src={theme === "dark" ? darktimer : lighttimer}
-                      alt="timer or clock icon"
-                      className="timer-icon"
-                    />
-                    <span className="bold"> prep time: </span>
-                    <span className="reg"> {recipe.prepTime} minutes</span>
-                  </h6>
-                  <h6>
-                    <img
-                      src={theme === "dark" ? darktimer : lighttimer}
-                      alt="timer or clock icon"
-                      className="timer-icon"
-                    />
-                    <span className="bold"> total time:</span>
-                    <span className="reg">{recipe.totalTime} minutes </span>
-                  </h6>
+                  <div className="item">
+                    <h6>
+                      <img
+                        src={theme === "dark" ? darktimer : lighttimer}
+                        alt="timer or clock icon"
+                        className="timer-icon"
+                      />
+                      <span className="bold">cook time:</span>
+                      <span className="reg"> {recipe.cookTime} minutes</span>
+                    </h6>
+                  </div>
+                  <div className="item">
+                    <h6>
+                      <img
+                        src={theme === "dark" ? darktimer : lighttimer}
+                        alt="timer or clock icon"
+                        className="timer-icon"
+                      />
+                      <span className="bold"> prep time: </span>
+                      <span className="reg"> {recipe.prepTime} minutes</span>
+                    </h6>
+                  </div>
+                  <div className="item">
+                    <h6>
+                      <img
+                        src={theme === "dark" ? darktimer : lighttimer}
+                        alt="timer or clock icon"
+                        className="timer-icon"
+                      />
+                      <span className="bold"> total time:</span>
+                      <span className="reg">{recipe.totalTime} minutes </span>
+                    </h6>
+                  </div>
                 </div>
                 <div className="serves">
-                  <h6>
-                    <img
-                      src={theme === "dark" ? darkcutlery : lightcutlery}
-                      alt="fork and knife icon"
-                      className="cutlery-icon"
-                    />
-                    <span className="bold"> yield:</span>
-                    <span className="reg"> {recipe.servings} servings</span>
-                  </h6>
-                  <h6>
-                    <img
-                      src={theme === "dark" ? darkmeasure : lightmeasure}
-                      alt="measuring cup icon"
-                      className="measure-icon"
-                    />
-                    <span className="bold"> units:</span>
-                    <span className="reg">{units}</span>
-                  </h6>
+                  <div className="item">
+                    <h6>
+                      <img
+                        src={theme === "dark" ? darkcutlery : lightcutlery}
+                        alt="fork and knife icon"
+                        className="cutlery-icon"
+                      />
+                      <span className="bold"> yield:</span>
+                      <span className="reg"> {recipe.servings} servings</span>
+                    </h6>
+                  </div>
+                  <div className="item">
+                    <h6>
+                      <img
+                        src={theme === "dark" ? darkmeasure : lightmeasure}
+                        alt="measuring cup icon"
+                        className="measure-icon"
+                      />
+                      <span className="bold"> units:</span>
+                      <span className="reg">{units}</span>
+                    </h6>
+                  </div>
                 </div>
               </div>
             </div>
