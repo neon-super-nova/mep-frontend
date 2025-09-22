@@ -87,6 +87,8 @@ function UserDropdown() {
 
   const handleLogout = async () => {
     const currToken = getToken();
+    deleteToken(currToken);
+
     try {
       await axios.post(
         "/api/users/logout",
@@ -97,7 +99,6 @@ function UserDropdown() {
           },
         }
       );
-      deleteToken(currToken);
       deleteUserAvatar();
       navigate("/");
     } catch (error) {
@@ -147,8 +148,7 @@ function UserDropdown() {
             aria-expanded={open}
           >
             <span className="user-menu-span">
-              <Avatar className="user-avatar" 
-               refreshTrigger={avatarRefresh}/>
+              <Avatar className="user-avatar" refreshTrigger={avatarRefresh} />
               <span className="user-menu-text">User Menu</span>
               <ChevronDown
                 color="var(--text-color-alt)"
