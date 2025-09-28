@@ -158,7 +158,6 @@ html {
 
 .recipe-page .middle .recipe-notes .user-rating-line {
   width: 100%;
-  background-color: yellow;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -818,9 +817,6 @@ html {
 /* ************** */
 
 @media (min-width: 0em) and (max-width: 36em) {
-  .recipe-page-footer {
-    background-color: blue;
-  }
 
   .recipe-page h1 {
 
@@ -848,7 +844,7 @@ html {
 
   .recipe-page .top .image {
     height: 325px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.25rem;
     border: 0.95px solid var(--main-accent-color-alt);
 
   }
@@ -897,7 +893,6 @@ html {
 
   .recipe-page .middle .recipe-notes .user-rating-line {
     width: 100%;
-    background-color: orangered;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -974,17 +969,21 @@ html {
   .recipe-page .middle .recipe-details .left, .recipe-page .middle .recipe-details .right {
     width: 90%;
     padding: 1rem;
-    margin-bottom: 1.5rem;
   }
 
-
+.recipe-page .bottom .reviews .reviews-true .review-item .reviews-true-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.75rem; 
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
 
 }
 
 @media (min-width: 36.063em) and (max-width: 54em) {
-  .recipe-page-footer {
-    background-color: chartreuse;
-  }
 
   .recipe-page h1 {
     display: flex;
@@ -1009,7 +1008,7 @@ html {
 
   .recipe-page .top .image {
     height: 425px;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.5rem;
     border: 0.95px solid var(--main-accent-color-alt);
 
   }
@@ -1049,10 +1048,10 @@ html {
 
   .recipe-page .middle .recipe-notes .user-rating-line {
     width: 100%;
-    background-color: orange;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 0.25rem;
   }
 
   .recipe-page .middle .recipe-notes .user-rating-line .text {
@@ -1103,6 +1102,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-bottom: 0.5rem; 
   }
     .recipe-page .middle .recipe-notes {
     align-items: center;
@@ -1121,9 +1121,6 @@ html {
 }
 
 @media (min-width: 54.063em) and (max-width: 68em) {
-  .recipe-page-footer {
-    background-color: magenta;
-  }
 
   .recipe-page h1 {
     display: flex;
@@ -1172,9 +1169,6 @@ html {
 }
 
 @media (min-width: 68.063em) and (max-width: 80em) {
-  .recipe-page-footer {
-    background-color: indigo;
-  }
 
   .recipe-page h1 {
     display: flex;

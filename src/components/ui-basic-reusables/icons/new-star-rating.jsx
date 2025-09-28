@@ -1,7 +1,7 @@
 import { Star, StarHalf } from "lucide-react";
 import "./new-star-rating.css";
 
-function NewStarRating({ rating }) {
+function NewStarRating({ rating, strokeWidth, size, width, height }) {
   const starCount = 5;
   const stars = [];
   for (let i = 0; i < starCount; i++) {
@@ -11,10 +11,10 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--minor-accent-color-1)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1.75}
-          size={28}
-          width={24}
-          height={24}
+        strokeWidth={strokeWidth || 1.75}
+          size={size || 28}
+          width={width || 24}
+          height={height || 24}
         />
       );
     } else if (rating > i) {
@@ -23,10 +23,10 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--minor-accent-color-1)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1.75}
-          size={28}
-          width={24}
-          height={24}
+        strokeWidth={strokeWidth || 1.75}
+          size={size || 28}
+          width={width || 24}
+          height={height || 24}
         />
       );
     } else {
@@ -35,10 +35,10 @@ function NewStarRating({ rating }) {
           key={i}
           fill="var(--star-coloring)"
           stroke="var(--minor-accent-color-1)"
-          strokeWidth={1.75}
-          size={28}
-          width={24}
-          height={24}
+           strokeWidth={strokeWidth || 1.75}
+          size={size || 28}
+          width={width || 24}
+          height={height || 24}
         />
       );
     }
@@ -54,10 +54,10 @@ function NewStarRating({ rating }) {
               key={i}
               fill="var(--star-coloring)"
               stroke="var(--minor-accent-color-1)"
-              strokeWidth={1.75}
-              size={28}
-              width={24}
-              height={24}
+            strokeWidth={strokeWidth || 1.75}
+          size={size || 28}
+          width={width || 24}
+          height={height || 24}
             />
           ))}
         </div>

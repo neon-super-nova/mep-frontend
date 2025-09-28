@@ -436,54 +436,63 @@ function HomePage() {
 
           {/* Right Panel */}
           <div className="home-page-right-panel">
-            <h2 className="home-page-right-panel-title">TRENDING</h2>
-            {trendingRecipes.length > 0 ? (
-              trendingRecipes.map((trendingRecipe, idx) => {
-                return (
-                  <TrendingRecipe
-                    key={trendingRecipe._id || idx}
-                    recipeId={trendingRecipe._id}
-                    recipeName={trendingRecipe.name}
-                    recipeImage={
-                      trendingRecipe.imageUrls.length > 0
-                        ? trendingRecipe.imageUrls[0]
-                        : placeholder1
-                    }
-                    recipeDescription={trendingRecipe.description}
-                  />
-                );
-              })
-            ) : (
-              <p>Loading ...</p>
-            )}
-
-            <h2 className="home-page-right-panel-title">TOP RATED</h2>
-            {topRatedRecipes.length > 0 ? (
-              topRatedRecipes.map((topRatedRecipe, idx) => {
-                return (
-                  <TopRatedRecipe
-                    key={topRatedRecipe.recipeId || idx}
-                    recipeId={topRatedRecipe.id}
-                    recipeImage={
-                      topRatedRecipe.imageUrls.length > 0
-                        ? topRatedRecipe.imageUrls[0]
-                        : placeholder1
-                    }
-                    recipeName={topRatedRecipe.name}
-                    recipeRating={topRatedRecipe.averageRating}
-                    recipeDescription={topRatedRecipe.description}
-                    cuisineRegion={topRatedRecipe.cuisineRegion}
-                    dietaryRestriction={topRatedRecipe.dietaryRestriction}
-                    proteinChoice={topRatedRecipe.proteinChoice}
-                    religiousRestriction={topRatedRecipe.religiousRestriction}
-                  />
-                );
-              })
-            ) : (
-              <div>
-                <p>Loading ...</p>
+            <div className="home-page-right-panel-module">
+              <h2 className="home-page-right-panel-title">TRENDING</h2>
+              <div className="home-page-right-panel-mini-module">
+                {trendingRecipes.length > 0 ? (
+                  trendingRecipes.map((trendingRecipe, idx) => {
+                    return (
+                      <TrendingRecipe
+                        key={trendingRecipe._id || idx}
+                        recipeId={trendingRecipe._id}
+                        recipeName={trendingRecipe.name}
+                        recipeImage={
+                          trendingRecipe.imageUrls.length > 0
+                            ? trendingRecipe.imageUrls[0]
+                            : placeholder1
+                        }
+                        recipeDescription={trendingRecipe.description}
+                      />
+                    );
+                  })
+                ) : (
+                  <p>Loading ...</p>
+                )}
               </div>
-            )}
+            </div>
+            <div className="home-page-right-panel-module">
+              <h2 className="home-page-right-panel-title">TOP RATED</h2>
+              <div className="home-page-right-panel-mini-module">
+                {topRatedRecipes.length > 0 ? (
+                  topRatedRecipes.map((topRatedRecipe, idx) => {
+                    return (
+                      <TopRatedRecipe
+                        key={topRatedRecipe.recipeId || idx}
+                        recipeId={topRatedRecipe.id}
+                        recipeImage={
+                          topRatedRecipe.imageUrls.length > 0
+                            ? topRatedRecipe.imageUrls[0]
+                            : placeholder1
+                        }
+                        recipeName={topRatedRecipe.name}
+                        recipeRating={topRatedRecipe.averageRating}
+                        recipeDescription={topRatedRecipe.description}
+                        cuisineRegion={topRatedRecipe.cuisineRegion}
+                        dietaryRestriction={topRatedRecipe.dietaryRestriction}
+                        proteinChoice={topRatedRecipe.proteinChoice}
+                        religiousRestriction={
+                          topRatedRecipe.religiousRestriction
+                        }
+                      />
+                    );
+                  })
+                ) : (
+                  <div>
+                    <p>Loading ...</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </main>
 

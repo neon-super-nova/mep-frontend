@@ -75,3 +75,27 @@
   object-fit: contain;
   z-index: 1;
 }
+
+@media (min-width: 0em) and (max-width: 36em) {
+.browse-blocks-container {
+  grid-template-columns: repeat(3, 7.5rem);
+}
+}
+
+@media (min-width: 36.063em) and (max-width: 54em) {
+.browse-blocks-container {
+  grid-template-columns: repeat(4, 7.5rem);
+}
+}
+
+@media (min-width: 54.063em) and (max-width: 68em) {
+.browse-blocks-container {
+  grid-template-columns: repeat(5, 7.5rem);
+}
+}
+
+@media (min-width: 68.063em) and (max-width: 80em) {
+  .home-page-footer {
+    background-color: orange;
+  }
+}

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import StarRating from "../icons/star-rating";
+import NewStarRating from "../icons/new-star-rating";
 import "./top-rated-recipe.css";
 import RecipeTags from "../labels/label-tag-food";
 
@@ -29,9 +29,9 @@ function TopRatedRecipe({
           <p className="top-rated-recipe-title">RECIPE: {recipeName}</p>
           <div className="top-rated-recipe-user-rating">
             <p className="user-rating-label">USER RATING:</p>
-            <StarRating rating={recipeRating} />
+            <NewStarRating rating={parseFloat(recipeRating.toFixed(2))} strokeWidth={2} size={24} width={16} height={16} />
             <p className="top-rated-user-rating-label">
-              {recipeRating} / 5 stars
+              {parseFloat(recipeRating.toFixed(2))} / 5 stars
             </p>
           </div>
           <p className="top-rated-recipe-description">{recipeDescription}</p>

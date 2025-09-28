@@ -1,0 +1,138 @@
+.mobile-dropdown-label-default {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-align: center;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    padding-top: 1.5em;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.mobile-day-night-label-span svg {
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 0.35em;
+    width: 36px;
+    height: 36px;
+}
+
+.mobile-day-night-label-span .mode-label {
+    vertical-align: middle;
+    display: inline-block;
+
+    color: var(--text-color);
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.75px;
+    text-transform: uppercase;
+
+}
+.mobile-dropdown-item .mobile-day-night-label-span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5em;
+    padding-top: 0.75em;
+
+}
+
+.mobile-day-night-label-span .sun.light {
+    background: rgba(130, 157, 153, 1);
+    margin-right: 1.25rem;
+}
+
+.mobile-day-night-label-span .sun.dark {
+    background: rgba(245, 222, 159, 0);
+    margin-right: 1.25rem;
+}
+
+.mobile-day-night-label-span .moon.light {
+    background: rgba(130, 157, 153, 0);
+    margin-left: 1.25rem;
+}
+
+.mobile-day-night-label-span .moon.dark {
+    background: rgba(245, 222, 159, 1);
+    margin-left: 1.25rem;
+}
+
+.mobile-divider {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.mobile-logout-label {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    letter-spacing: 1.75px;
+    text-align: center;
+    padding: 0.5em 1em;
+    text-transform: uppercase;
+    margin-top: 0.75em;
+    margin-bottom: 1.5em;
+}
+
+.mobile-dropdown {
+
+    display: inline-block;
+    position: absolute;
+        min-width: 100vw;
+    min-height: 25vh; 
+   
+}
+
+.mobile-dropdown-placement {
+    position: relative;
+    bottom: 1.5rem;
+    right: 0rem;
+    z-index: 3000;
+    background-color: transparent;
+
+}
+
+.mobile-dropdown-menu {
+    position: relative;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    z-index: 2000;
+    background-color: var(--bg-color-alt);
+   border-radius: 0px 0px 18px 18px;
+    box-shadow: var(--shadow-elevated);
+}
+
+.mobile-dropdown-item {
+    width: 90vw;
+    padding-bottom: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: 5px double var(--minor-accent-color-2b);
+}
+.mobile-dropdown-item:last-child {
+        padding-bottom: 0em;
+            border-bottom: none;
+}
+

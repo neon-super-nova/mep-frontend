@@ -834,6 +834,14 @@ function ModifyRecipePage() {
               >
                 Submit
               </button>
+                    <button
+                // onClick={ }
+                // will fill in with delete function later
+                aria-label="Delete"
+                className="submit-upload-button"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </main>

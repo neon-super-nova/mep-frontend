@@ -283,3 +283,20 @@
     padding: 0.5em;
     margin-bottom: -2.5em;
 }
+
+@media (min-width:0em) and (max-width: 54em) {
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20vw;
+    height: 20vh;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: purple;
+}
+
+}

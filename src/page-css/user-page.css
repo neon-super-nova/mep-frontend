@@ -507,3 +507,27 @@ html {
   padding: 10px 20px;
   border-top: 10px solid var(--main-accent-color-alt);
 }
+
+@media (min-width: 0em) and (max-width: 36em) {
+  .home-page-footer {
+    background-color: blue;
+  }
+}
+
+@media (min-width: 36.063em) and (max-width: 54em) {
+  .home-page-footer {
+    background-color: chartreuse;
+  }
+}
+
+@media (min-width: 54.063em) and (max-width: 68em) {
+  .home-page-footer {
+    background-color: magenta;
+  }
+}
+
+@media (min-width: 68.063em) and (max-width: 80em) {
+  .home-page-footer {
+    background-color: orange;
+  }
+}
