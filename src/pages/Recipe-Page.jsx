@@ -24,7 +24,7 @@ import dummyV1 from "../components/img/dummy/placeholder_1.jpg";
 // import dummyReviews from "../context/recipeReview.json";
 import avatarLight from "../components/img/user/default-user-light_web.png";
 import avatarDark from "../components/img/user/default-user-dark_web.png";
-import RecipeBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
+import ReviewBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
 import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-radio-star.jsx";
 // import { Pencil } from "lucide-react";
 
@@ -334,12 +334,12 @@ function RecipePage() {
                     <>
                       <span className="star">
                         <NewStarRating
-                          rating={recipeStats.averageReview}
+                          rating={recipeStats.averageReview.toFixed(2)}
                         ></NewStarRating>
                       </span>
                       <span className="rate">
                         {" "}
-                        {recipeStats.averageReview} / 5 stars
+                        {recipeStats.averageReview.toFixed(2)} / 5 stars
                       </span>
                     </>
                   ) : (
@@ -514,11 +514,11 @@ function RecipePage() {
                   Submit Review
                 </button>
               </div>
-              <h4 id="reviews">OTHER USER REVIEWS:</h4>
+              <h4 id="reviews" className="other-review">OTHER USER REVIEWS:</h4>
               {reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (
-                    <RecipeBlock
+                    <ReviewBlock
                       key={review.createdAt}
                       createdAt={review.createdAt}
                       pictureUrl={review.pictureUrl}

@@ -1,4 +1,4 @@
-import StarRating from "../icons/star-rating.jsx";
+import NewStarRating from "../icons/star-rating.jsx";
 import avatarLight from "../../img/user/default-user-light_web.png";
 import avatarDark from "../../img/user/default-user-dark_web.png";
 import { useTheme } from "../../../context/theme-context.js";
@@ -45,9 +45,9 @@ function ReviewBlock({ createdAt, pictureUrl, username, rating, comment }) {
       </div>
       <span className="reviews-true-rating">
         <span className="star">
-          <StarRating rating={rating} />
+          <NewStarRating rating={parseFloat(rating.toFixed(2))} />
         </span>
-        <span className="text-rate"> {rating} / 5 stars</span>
+        <span className="text-rate"> {parseFloat(rating.toFixed(2))} / 5 stars</span>
       </span>
       <span className="reviews-true-comment">{comment}</span>
     </div>

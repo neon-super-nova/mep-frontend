@@ -19,3 +19,16 @@
   padding: 5px;
   font-size: 1rem;
 }
+
+@media (min-width:0em) and (max-width: 54em) {
+  .comp-header {
+    overflow-x: hidden;
+  }
+  .comp-logo {
+    width: auto;
+    height: 6.5vh;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+}
