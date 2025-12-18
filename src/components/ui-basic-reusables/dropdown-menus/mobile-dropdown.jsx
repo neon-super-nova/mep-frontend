@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from "react";
 import "./mobiledrop.css";
 import axios from "axios";
@@ -12,7 +11,6 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
 import ModalReport from "../modals/modal-report.jsx";
 import { Turn as Hamburger } from "hamburger-react";
-
 
 function MobileDropdown() {
   const navigate = useNavigate();
@@ -107,7 +105,6 @@ function MobileDropdown() {
 
   const ref = useRef(null);
 
-
   return (
     <div ref={ref}>
       <div className="mobile-dropdown">
@@ -118,8 +115,9 @@ function MobileDropdown() {
             color="var(--main-accent-color-alt)"
           />
         </div>
-          {open && (
-            <div className="mobile-dropdown-menu"> 
+        {open && (
+          <div>
+            <div className="mobile-dropdown-menu">
               {options.map((option, idx) => (
                 <React.Fragment key={option.value}>
                   <div
@@ -128,7 +126,9 @@ function MobileDropdown() {
                     aria-selected={selectedIdx === idx}
                     tabIndex={-1}
                     ref={(el) => (optionRefs.current[idx] = el)}
-                    className={`mobile-dropdown-item ${selectedIdx === idx ? "selected" : ""}`}
+                    className={`mobile-dropdown-item ${
+                      selectedIdx === idx ? "selected" : ""
+                    }`}
                     onClick={() => handleSelect(option.value, idx)}
                   >
                     <div className={`option-label ${option.labelClass || ""}`}>
@@ -147,10 +147,11 @@ function MobileDropdown() {
                 </React.Fragment>
               ))}
             </div>
-          )}
-          {modalOpen === "modal-report" && (
-            <ModalReport onClose={() => setModalOpen(null)} />
-          )}
+          </div>
+        )}
+        {modalOpen === "modal-report" && (
+          <ModalReport onClose={() => setModalOpen(null)} />
+        )}
       </div>
     </div>
   );

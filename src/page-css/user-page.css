@@ -286,7 +286,6 @@ html {
 }
 
 .user-button-container {
-  /* background-color: lightgreen; */
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
@@ -509,15 +508,94 @@ html {
 }
 
 @media (min-width: 0em) and (max-width: 36em) {
-  .home-page-footer {
-    background-color: blue;
-  }
+
+.profile-top-panel {
+  flex-direction: column;
+  justify-content: center;
+    align-items: center;
+  gap: 0.5rem;
+  width: 87.5%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.profile-top-panel .left {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 0.25rem 0rem 0.25rem;
+  margin-right: 0rem;
+}
+
+.profile-top-panel-container-left {
+  width: 100%;
+  border-right: none;
+    align-items: center;
+  padding-bottom: 0rem;
+  padding-right: 0rem;
+  margin-bottom: 1rem;
+}
+
+.profile-top-panel .avatar {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem;
+  margin-right:  0rem;
+  margin-bottom:  1.75rem;
+  margin-top:  0.25rem;
+  margin-left: 0rem;
+}
+
+.profile-top-panel-container-right {
+  width: 100%;
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
+  margin-left: 0rem;
+}
+
 }
 
 @media (min-width: 36.063em) and (max-width: 54em) {
-  .home-page-footer {
-    background-color: chartreuse;
-  }
+
+.profile-top-panel {
+  flex-direction: column;
+  justify-content: center;
+    align-items: center;
+  gap: 0.5rem;
+  width: 87.5%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.profile-top-panel .left {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.75rem 0.25rem 0rem 0.25rem;
+  margin-right: 0rem;
+}
+.profile-top-panel-container-left {
+  width: 100%;
+  border-right: none;
+    align-items: center;
+  padding-bottom: 0rem;
+  padding-right: 0rem;
+  margin-bottom: 1rem;
+}
+
+.profile-top-panel-container-right {
+  width: 100%;
+  padding-bottom: 0rem;
+  margin-bottom: 0rem;
+  margin-left: 0rem;
+}
 }
 
 @media (min-width: 54.063em) and (max-width: 68em) {

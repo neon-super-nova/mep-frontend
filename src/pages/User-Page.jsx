@@ -641,7 +641,6 @@ function UserPage() {
               </div>
             </div>
           </div>
-
           <div className="profile-bottom-panel">
             <h3 className="profile-page-panel-title">ACCOUNT SETTINGS</h3>
             <p className="profile-page-panel-desc">

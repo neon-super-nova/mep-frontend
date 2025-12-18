@@ -47,7 +47,7 @@ function ReviewBlock({ createdAt, pictureUrl, username, rating, comment }) {
         <span className="star">
           <NewStarRating rating={parseFloat(rating.toFixed(2))} />
         </span>
-        <span className="text-rate"> {parseFloat(rating.toFixed(2))} / 5 stars</span>
+        <span className="text-rate"> {rating} / 5 stars</span>
       </span>
       <span className="reviews-true-comment">{comment}</span>
     </div>
