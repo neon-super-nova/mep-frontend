@@ -14,7 +14,7 @@ html {
   text-transform: uppercase;
   letter-spacing: 0.225rem;
   margin-top: 3.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .profile-page h2 {
@@ -44,7 +44,8 @@ html {
 .profile-page {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color);
+  /* background-color: var(--bg-color); */
+  background-color: red;
   min-height: 100vh;
 }
 
@@ -55,6 +56,7 @@ html {
   justify-content: flex-start;
   align-items: center;
   gap: 0.5rem;
+  background-color: blue;
 }
 
 .profile-page-panel-title {
@@ -74,9 +76,10 @@ html {
   justify-content: space-between;
   gap: 0.5rem;
   align-items: flex-start;
-  width: 87.5%;
+  width: 95%;
   padding: 0.5rem;
   margin-bottom: 1rem;
+    background-color: green;
 }
 
 .profile-top-panel .left {
@@ -85,40 +88,66 @@ html {
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  padding: 1.75rem 0.25rem 0rem 0.25rem;
+
   margin-right: 3.75rem;
+  background-color: yellow;
 }
 
 .profile-top-panel-container-left {
-  width: 55%;
+  width: 33%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   border-right: 5px double var(--main-accent-color-alt);
   padding-bottom: 0rem;
-  padding-right: 2rem;
+  padding-right: 1rem;
   margin-bottom: 1rem;
+  background-color: orange;
 }
 
 .profile-top-panel .right {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 1.75rem 0.25rem 0rem 0.25rem;
+  background-color: pink;
+}
+
+.profile-top-panel .rb2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 0.25rem;
+  background-color: magenta;
+}
+
+.profile-top-panel .rb {
+  width: 100;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.25rem;
+  margin-left: 1.75rem;
+  gap: 1.5rem;
+  background-color: teal;
 }
 
 .profile-top-panel-container-right {
-  width: 45%;
+  width: 66%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding-bottom: 0rem;
   margin-bottom: 0rem;
-  margin-left: 2rem;
+  margin-left: 1rem;
+  background-color: purple;
 }
 
 .profile-top-panel-container-left>h2,
@@ -128,11 +157,11 @@ html {
 }
 
 .profile-image {
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 12.5%;
   object-fit: cover;
-  border: 1.5px solid var(--main-accent-color-alt);
+  border: 0.75px solid var(--main-accent-color-alt);
 }
 
 .profile-top-panel .avatar {
@@ -141,8 +170,8 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
-  margin-right: 1.75rem;
+  padding: 0.25rem;
+  margin-left: 1.75rem;
 }
 
 .profile-top-panel .info {
@@ -154,6 +183,7 @@ html {
   text-align: left;
   align-items: flex-start;
   padding: 0.15rem;
+  background-color: darkgray;
 }
 
 .profile-top-panel .desc-bold {

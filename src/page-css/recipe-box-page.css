@@ -30,8 +30,8 @@ html,
 }
 
 .recipe-box-image {
-  width: 110px;
-  height: 110px;
+  width: 75px;
+  height: 75px;
   border-radius: 0%;
   object-fit: contain;
 
@@ -82,7 +82,7 @@ html,
 .recipe-box-page-liked-panel {
   display: flex;
   width: 98%;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   padding-bottom: 2rem;
