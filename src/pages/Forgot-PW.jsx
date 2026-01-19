@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../page-css/forgotpw-page.css";
 import eggsOops from "../components/img/eggs-oops.png";
 import ResetButton from "../components/ui-basic-reusables/buttons/button-reset";
@@ -6,16 +7,18 @@ import axios from "axios";
 
 function ForgotScreen() {
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleValidate = async (e) => {
     e.preventDefault();
     if (!email) {
-      alert("Please enter a valid email address");
+      setErrorMessage("Please enter a valid email address");
       return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address format");
+      setErrorMessage("Please enter a valid email address format");
       return;
     }
 
@@ -31,20 +34,18 @@ function ForgotScreen() {
       );
 
       const response = result.data;
+      console.log(response);
       if (response.message === "Password reset email sent") {
-        alert("A reset link has been sent to your email.");
+        navigate("/resetpassword");
       } else {
-        alert(response.error || "Invalid e-mail address, please try again.");
+        setErrorMessage(
+          response.error || "Invalid e-mail address, please try again."
+        );
       }
     } catch (err) {
-      console.error("Error during validation:", err);
-      if (err.response) {
-        alert(
-          err.response.data.error || "An error occurred. Please try again."
-        );
-      } else {
-        alert("Network error. Please check your connection and try again.");
-      }
+      setErrorMessage(
+        err.response.data.error || "An error occurred. Please try again."
+      );
     }
   };
 
@@ -88,6 +89,9 @@ function ForgotScreen() {
                       Reset Password
                     </ResetButton>
                   </form>
+                  {errorMessage && (
+                    <p className="error-message">{errorMessage}</p>
+                  )}
                 </div>
               </div>
               <img src={eggsOops} alt="oops" className="forget-image" />

@@ -289,41 +289,43 @@ function RecipePage() {
             <div className="headline">
               <p>{recipe.description || "No description available."}</p>
             </div>
-            <div className="image">
-              <img
-                src={
-                  recipe.imageUrls.length > 1 ? recipe.imageUrls[1] : dummyV1
-                }
-                className="side-image"
-                alt={recipe.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = dummyV1;
-                }}
-              />
-              <img
-                src={
-                  recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
-                }
-                className="main-image"
-                alt={recipe.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = dummyV1;
-                }}
-              />
-              <img
-                src={
-                  recipe.imageUrls.length > 2 ? recipe.imageUrls[2] : dummyV1
-                }
-                className="side-image"
-                alt={recipe.name}
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = dummyV1;
-                }}
-              />
-            </div>
+            {recipe.imageUrls.length > 0 && (
+              <div className="image">
+                <img
+                  src={
+                    recipe.imageUrls.length > 1 ? recipe.imageUrls[1] : dummyV1
+                  }
+                  className="side-image"
+                  alt={recipe.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = dummyV1;
+                  }}
+                />
+                <img
+                  src={
+                    recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
+                  }
+                  className="main-image"
+                  alt={recipe.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = dummyV1;
+                  }}
+                />
+                <img
+                  src={
+                    recipe.imageUrls.length > 2 ? recipe.imageUrls[2] : dummyV1
+                  }
+                  className="side-image"
+                  alt={recipe.name}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = dummyV1;
+                  }}
+                />
+              </div>
+            )}
           </div>
           <div className="middle">
             <div className="recipe-notes">
@@ -514,7 +516,9 @@ function RecipePage() {
                   Submit Review
                 </button>
               </div>
-              <h4 id="reviews" className="other-review">OTHER USER REVIEWS:</h4>
+              <h4 id="reviews" className="other-review">
+                OTHER USER REVIEWS:
+              </h4>
               {reviews.length > 0 ? (
                 <div className="reviews-true">
                   {reviews.map((review) => (

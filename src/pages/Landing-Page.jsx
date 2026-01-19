@@ -13,6 +13,7 @@ import googleIcon from "../components/img/social-media/google-icon.png";
 function LandingPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -32,7 +33,8 @@ function LandingPage() {
 
   const handleLogin = async () => {
     if (!username || !password) {
-      alert("Please enter both username and password.");
+      setErrorMessage("Please enter both username and password");
+      // alert("Please enter both username and password.");
       return;
     }
 
@@ -54,13 +56,16 @@ function LandingPage() {
         saveToken(response.token);
         navigate("/home");
       } else {
-        alert(response.error || "Please, try again");
+        setErrorMessage(response.error);
+        // alert(response.error || "Please, try again");
       }
     } catch (err) {
-      console.error("Error during login:", err);
-      if (err.response) {
-        alert(err.response.data.error);
+      if (err.response && err.response.status === 401) {
+        setErrorMessage("Invalid username or password");
+        // alert("Invalid username or password.");
+        return;
       }
+      setErrorMessage("Please, try again");
     }
   };
 
@@ -113,6 +118,9 @@ function LandingPage() {
                       className="password-short-margin"
                       autoComplete="*******"
                     />
+                    {errorMessage && (
+                      <p className="error-message">{errorMessage}</p>
+                    )}
                     <div className="forgot-password-container">
                       <Link to="/forgotpassword" className="landing-home-link">
                         Forgot password?

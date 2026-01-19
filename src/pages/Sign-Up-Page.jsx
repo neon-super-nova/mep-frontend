@@ -1,5 +1,6 @@
 import "../page-css/sign-up-page.css";
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import LabelLogin from "../components/ui-basic-reusables/labels/label-input-login";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -13,11 +14,13 @@ function SignUpPage() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
-    if (!username || !email || !password) {
-      alert("Please fill out all fields.");
+    if (!username || !email || !password || !firstName || !lastName) {
+      setErrorMessage("Please fill out all fields");
       return;
     }
     const userCredentials = {
@@ -35,7 +38,7 @@ function SignUpPage() {
       });
       const response = result.data;
       if (response.message === "User successfully registered") {
-        alert("Check you email inbox to verify your email");
+        navigate("/verify-email");
       } else {
         alert(response.error || "Try again");
       }
@@ -123,6 +126,9 @@ function SignUpPage() {
                       placeholder="Enter your last name"
                       className="signup-label"
                     />
+                    {errorMessage && (
+                      <p className="error-message">{errorMessage}</p>
+                    )}
                     <div className="signup-login-button-container">
                       <button
                         //onClick={handleSignUp}
