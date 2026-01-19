@@ -12,21 +12,25 @@ function ResetScreen() {
   const [temporaryPassword, setTemporaryPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleReset = async () => {
     if (!email || !newPassword || !confirmPassword || !temporaryPassword) {
-      alert("Complete all fields");
+      setErrorMessage("Complete all fields");
     }
     if (newPassword !== confirmPassword) {
-      alert("Passwords do not match!");
+      setErrorMessage("Passwords do not match");
       return;
     }
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/; // At least 8 characters, 1 letter, 1 number
     if (!passwordRegex.test(newPassword)) {
-      alert(
+      setErrorMessage(
         "Password must be at least 8 characters long and include at least one letter and one number."
       );
+      // alert(
+      //   "Password must be at least 8 characters long and include at least one letter and one number."
+      // );
       return;
     }
 
@@ -44,22 +48,17 @@ function ResetScreen() {
           },
         }
       );
-      console.log(newPassword);
       if (response.data.message === "Password was successfully changed") {
-        alert("Your password has been reset successfully!");
         navigate("/");
       } else {
-        alert(response.data.error || "An error occurred. Please try again.");
+        setErrorMessage(
+          response.data.error || "An error occurred. Please try again."
+        );
       }
     } catch (err) {
-      console.error("Error during password reset:", err);
-      if (err.response) {
-        alert(
-          err.response.data.error || "An error occurred. Please try again."
-        );
-      } else {
-        alert("Network error. Please check your connection and try again.");
-      }
+      setErrorMessage(
+        err.response.data.error || "An error occurred. Please try again."
+      );
     }
   };
 
@@ -121,6 +120,7 @@ function ResetScreen() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your new password"
               />
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
               <div className="reset-button-container">
                 <ChangeButton
                   type="submit"

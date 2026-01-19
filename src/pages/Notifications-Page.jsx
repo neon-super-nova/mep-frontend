@@ -20,7 +20,7 @@ function NotificationsPage() {
   const { theme } = useTheme();
   const userAvatar = avatar;
   const thumbnail = dummyThumb;
-  const [user, setUser] = useState(null);
+  const [, setUser] = useState(null);
   const userId = getUserId();
 
   useEffect(() => {
@@ -43,30 +43,10 @@ function NotificationsPage() {
     getUser();
   }, [userId]);
 
-  const [userSignIn, setUserSignIn] = useState();
-
-  useEffect(() => {
-    try {
-      const fetchUserSignIn = async () => {
-        const response = await axios.get(`/api/users/last-login/${userId}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const lastLogin = response.data;
-        console.log("last login set to ");
-        setUserSignIn(lastLogin);
-      };
-      fetchUserSignIn();
-    } catch (error) {
-      console.error("Error fetching user sign-in data:", error);
-    }
-  }, [userId]);
-
   const [notificationList, setNotificationList] = useState([]);
 
   const getNotificationValue = (notification) => {
-    if (!notification || !notification.type || !userSignIn) {
+    if (!notification || !notification.type) {
       return <span className="error"> error</span>;
     }
 
@@ -140,13 +120,11 @@ function NotificationsPage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("notifications fetched " + response.data.notifications);
         setNotificationList(response.data.notifications);
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
     };
-
     fetchNotifications();
   }, []);
 
@@ -190,23 +168,9 @@ function NotificationsPage() {
           <div className="notifications-page-left-panel">
             <div className="notifications-page-left-panel2">
               <h2 className="notifications-page-panel-title">Notifications</h2>
-              <h3 className="notifications-page-panel-title">
-                {" "}
-                To {user?.username || user?.firstName || "User"} since{" "}
-                {userSignIn?.lastLogin
-                  ? new Date(userSignIn.lastLogin).toLocaleDateString()
-                  : ""}
-              </h3>
 
               {groupedNotifications.map((notification) => {
                 let notificationClass = "";
-                // if (
-                //   userSignIn === undefined ||
-                //   userSignIn < notification.createdAt ||
-                //   notification.read === true
-                // ) {
-                //   notificationClass = "notification-inactive";
-                // }
 
                 return (
                   <div

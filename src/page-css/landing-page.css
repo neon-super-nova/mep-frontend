@@ -1,253 +1,236 @@
 /*HTML Styles*/
 
 .landing-App h1 {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    color: #171717;
-    font-size: 1.85rem;
-    letter-spacing: 0.045rem;
-    text-align: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #171717;
+  font-size: 1.85rem;
+  letter-spacing: 0.045rem;
+  text-align: center;
 }
 
 .landing-App .landing-welcome {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    color: #171717;
-    font-size: 3.175rem;
-    letter-spacing: 0.065rem;
-    text-align: center;
-    margin-bottom: 0.85rem;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  color: #171717;
+  font-size: 3.175rem;
+  letter-spacing: 0.065rem;
+  text-align: center;
+  margin-bottom: 0.85rem;
 }
-
-
 
 .landing-App .landing-text {
-    font-size: 1.075rem;
-    color: #171717;
+  font-size: 1.075rem;
+  color: #171717;
 }
-
 
 /* General Styles */
 
-
 .landing-App {
-    text-align: center;
+  text-align: center;
 }
-
 
 .landing-App-header {
-    background-color: #171717;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    margin: 0;
+  background-color: #171717;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
 }
-
 
 .landing-App-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    min-height: 100vh;
-    align-items: center;
-    background-color: #f5f5f5;
-    overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #f5f5f5;
+  overflow: hidden;
 }
-
 
 /* Left Block */
 
-
 .landing-left-block {
-    flex: 7 1 0%;
-    background-color: #f8da70;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex: 7 1 0%;
+  background-color: #f8da70;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 /* Right Block */
 
-
 .landing-right-block {
-    flex: 5 1 0%;
-    padding: 1.25rem;
-    max-height: 100vh;
-    margin-left: 0.15%;
-    margin-right: 0.15%;
+  flex: 5 1 0%;
+  padding: 1.25rem;
+  max-height: 100vh;
+  margin-left: 0.15%;
+  margin-right: 0.15%;
 }
-
 
 .landing-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .landing-wrapper h1 {
-    margin-bottom: 2.5rem;
-    /* Adjust the value as needed */
+  margin-bottom: 2.5rem;
+  /* Adjust the value as needed */
 }
-
 
 .landing-content {
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
-
 
 .landing-image {
-    width: auto;
-    height: 60vh;
-    max-width: 100%;
-    margin: 0 auto;
-    object-fit: contain;
-    margin-top: 0.25rem;
-    margin-bottom: 8.25vh;
+  width: auto;
+  height: 60vh;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  margin-top: 0.25rem;
+  margin-bottom: 8.25vh;
 }
-
 
 .landing-welcome {
-    font-family: "Inter", sans-serif;
-    font-weight: 800;
-    color: #171717;
-    font-size: 3.5rem;
-    letter-spacing: -0.25px;
-    text-align: center;
-    margin-top: 8.25vh;
-    margin-bottom: 3.5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #171717;
+  font-size: 3.5rem;
+  letter-spacing: -0.25px;
+  text-align: center;
+  margin-top: 8.25vh;
+  margin-bottom: 3.5px;
 }
-
 
 .landing-text {
-    font-family: "Work Sans", sans-serif;
-    max-width: 100%;
-    font-weight: 400;
-    color: #171717;
-    font-size: 1.15rem;
-    letter-spacing: -0.2px;
-    text-align: center;
-    margin-top: 3.5px;
-    margin-bottom: 35px;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
+  font-family: "Work Sans", sans-serif;
+  max-width: 100%;
+  font-weight: 400;
+  color: #171717;
+  font-size: 1.15rem;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin-top: 3.5px;
+  margin-bottom: 35px;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
-
 
 /* Login Form */
 .landing-login-button-container {
-    margin-top: 30px;
+  margin-top: 30px;
 }
-
 
 .landing-sign-up {
-    margin-top: 25px;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: #171717;
-    font-size: 0.9rem;
-    letter-spacing: 0.15px;
-    text-align: center;
-    gap: 18px;
+  margin-top: 25px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #171717;
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  text-align: center;
+  gap: 18px;
 }
-
 
 .landing-sign-up-link {
-    color: #171717;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 1rem;
-    letter-spacing: 0.15px;
-    text-align: center;
+  color: #171717;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.15px;
+  text-align: center;
 }
-
 
 .landing-home-link {
-    color: #171717;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 0.85rem;
-    letter-spacing: 0.15px;
-    text-align: center;
+  color: #171717;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.15px;
+  text-align: center;
 }
-
 
 .landing-sign-up-link:hover,
 .landing-home-link:hover {
-    text-decoration: underline;
-    color: #007bff;
+  text-decoration: underline;
+  color: #007bff;
 }
-
 
 /* Forgot password flex row */
 .label-input-login.password-short-margin {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-
 
 .forgot-password-container {
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
-
 
 .forgot-password {
-    font-size: 0.85rem;
+  font-size: 0.85rem;
 }
-
 
 /* google button  */
 
-
 .google-login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    margin-top: 40px;
-    font-size: 0.95rem;
-    font-family: "Roboto", sans-serif;
-    padding: 5px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  margin-top: 40px;
+  font-size: 0.95rem;
+  font-family: "Roboto", sans-serif;
+  padding: 5px;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-
 
 .google-login-button:hover {
-    background-color: rgb(220, 219, 219);
+  background-color: rgb(220, 219, 219);
 }
 
-
 .google-login-button .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.landing-form-container .error-message {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  color: rgb(193, 52, 52);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }

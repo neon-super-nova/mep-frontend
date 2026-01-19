@@ -13,7 +13,6 @@ html {
   min-height: 100vh;
 }
 
-
 .notifications-page-main-content {
   display: flex;
   flex: 1;
@@ -31,23 +30,20 @@ html {
   width: 60%;
 }
 
-
 h2.notifications-page-panel-title {
-
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 1.65rem;
   color: var(--text-color);
-  letter-spacing: 0.10rem;
+  letter-spacing: 0.1rem;
   margin-top: 0.25rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
   border-bottom: 5px double var(--main-accent-color-alt);
   padding-bottom: 0.25rem;
 }
-
 
 h3.notifications-page-panel-title {
   font-family: "Inter", sans-serif;
@@ -111,10 +107,9 @@ h3.notifications-page-panel-title {
   justify-content: flex-start;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.25rem;
-  
 }
 .notification-inactive {
-display: none; 
+  display: none;
 }
 
 .notifications-page .event-liked-group {
@@ -170,10 +165,7 @@ display: none;
   margin-left: 1rem;
   position: relative;
   top: -0.5rem;
-
-
 }
-
 
 .notifications-page .user-image {
   width: 40px;
@@ -184,8 +176,7 @@ display: none;
   border: 1px solid var(--main-accent-color-alt);
 }
 
-
-.mark-as-read-button{
+.mark-as-read-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,14 +194,13 @@ display: none;
   padding: 0.35rem 0.75rem;
   border-radius: 0.5rem;
   margin-left: 2.25rem;
-
 }
 
 .mark-as-read-button:hover {
   background-color: var(--subcat-filter-box);
   color: var(--text-color);
   border: 0.5px solid var(--text-color);
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .notifications-page-footer {
@@ -229,6 +219,6 @@ display: none;
 
 @media (min-width: 48em) and (max-width: 80em) {
   .notifications-page-footer {
-    background-color:  magenta;
+    background-color: magenta;
   }
 }

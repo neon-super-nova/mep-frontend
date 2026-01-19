@@ -437,27 +437,25 @@ function HomePage() {
           {/* Right Panel */}
           <div className="home-page-right-panel">
             <div className="home-page-right-panel-module">
-              <h2 className="home-page-right-panel-title">TRENDING</h2>
+              {trendingRecipes.length > 0 && (
+                <h2 className="home-page-right-panel-title">TRENDING</h2>
+              )}
               <div className="home-page-right-panel-mini-module">
-                {trendingRecipes.length > 0 ? (
-                  trendingRecipes.map((trendingRecipe, idx) => {
-                    return (
-                      <TrendingRecipe
-                        key={trendingRecipe._id || idx}
-                        recipeId={trendingRecipe._id}
-                        recipeName={trendingRecipe.name}
-                        recipeImage={
-                          trendingRecipe.imageUrls.length > 0
-                            ? trendingRecipe.imageUrls[0]
-                            : placeholder1
-                        }
-                        recipeDescription={trendingRecipe.description}
-                      />
-                    );
-                  })
-                ) : (
-                  <p>Loading ...</p>
-                )}
+                {trendingRecipes.map((trendingRecipe, idx) => {
+                  return (
+                    <TrendingRecipe
+                      key={trendingRecipe._id || idx}
+                      recipeId={trendingRecipe._id}
+                      recipeName={trendingRecipe.name}
+                      recipeImage={
+                        trendingRecipe.imageUrls.length > 0
+                          ? trendingRecipe.imageUrls[0]
+                          : placeholder1
+                      }
+                      recipeDescription={trendingRecipe.description}
+                    />
+                  );
+                })}
               </div>
             </div>
             <div className="home-page-right-panel-module">

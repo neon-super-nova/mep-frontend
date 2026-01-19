@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./notifications-panel.css";
 import { Bell, X } from "lucide-react";
@@ -10,18 +9,13 @@ function NotificationsPanel({ onClose }) {
     <div className="notifications-panel">
       <div className="notifications-panel-body">
         <div className="notification-item">
-          <Bell
-   
-            fill="var(--subcat-filter-box)"
-            strokeWidth={0.75}
-            size={12}
-          />
+          <Bell fill="var(--subcat-filter-box)" strokeWidth={0.75} size={12} />
           <span style={{ width: "0.15rem" }}></span>
           You have a new message!
         </div>
         <span style={{ width: "0.05rem" }}></span>
         <button
-          onClick={() => {
+          onMouseDown={() => {
             onClose();
             navigate("/notifications");
           }}

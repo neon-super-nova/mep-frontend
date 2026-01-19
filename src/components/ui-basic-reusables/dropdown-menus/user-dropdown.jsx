@@ -164,7 +164,11 @@ function UserDropdown() {
               tabIndex={0}
               aria-activedescendant={`dropdown-option-${selectedIdx}`}
               onFocus={() => setOpen(true)}
-              onBlur={() => setOpen(false)}
+              onBlur={(e) => {
+                if (!e.currentTarget.contains(e.relatedTarget)) {
+                  setOpen(false);
+                }
+              }}
               onKeyDown={handleKeyDown}
             >
               {options.map((option, idx) => (

@@ -1,266 +1,250 @@
 /*HTML Styles*/
 .signup-App h1 {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    color: #171717;
-    font-size: 2.05rem;
-    letter-spacing: 0.05rem;
-    text-align: center;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: #171717;
+  font-size: 2.05rem;
+  letter-spacing: 0.05rem;
+  text-align: center;
 }
 
 .signup-App p {
-    margin-top: 25px;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: #171717;
-    font-size: 0.9rem;
-    letter-spacing: 0.15px;
-    text-align: center;
-    gap: 18px;
+  margin-top: 25px;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #171717;
+  font-size: 0.9rem;
+  letter-spacing: 0.15px;
+  text-align: center;
+  gap: 18px;
 }
 
 .signup-App .signup-welcome {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
-    color: #171717;
-    font-size: 3.175rem;
-    letter-spacing: 0.065rem;
-    text-align: center;
-    margin-bottom: 0.85rem;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  color: #171717;
+  font-size: 3.175rem;
+  letter-spacing: 0.065rem;
+  text-align: center;
+  margin-bottom: 0.85rem;
 }
-
 
 .signup-App .signup-text {
-    font-size: 1.075rem;
-    color: #171717;
+  font-size: 1.075rem;
+  color: #171717;
 }
-
 
 /* General Styles */
 
-
 .signup-App {
-    text-align: center;
+  text-align: center;
 }
-
 
 .signup-App-header {
-    background-color: #171717;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    margin: 0;
+  background-color: #171717;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  margin: 0;
 }
-
 
 .signup-App-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    min-height: 100vh;
-    align-items: center;
-    background-color: #f5f5f5;
-    overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  background-color: #f5f5f5;
+  overflow: hidden;
 }
-
 
 /* Left Block */
 
-
 .signup-left-block {
-    flex: 7 1 0%;
-    background-color: #f8da70;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  flex: 7 1 0%;
+  background-color: #f8da70;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 /* Right Block */
 
-
 .signup-right-block {
-    flex: 5 1 0%;
-    padding-left: 20px;
-    padding-right: 20px;
-    max-height: 100vh;
-    margin-left: 0.15%;
-    margin-right: 0.15%;
+  flex: 5 1 0%;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-height: 100vh;
+  margin-left: 0.15%;
+  margin-right: 0.15%;
 }
-
 
 .signup-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 
 .signup-wrapper h1 {
-    margin-bottom: 20px;
-    /* Adjust the value as needed */
+  margin-bottom: 20px;
+  /* Adjust the value as needed */
 }
-
 
 .signup-content {
-    max-width: 400px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
-
 
 .signup-image {
-    width: auto;
-    height: 60vh;
-    max-width: 100%;
-    margin: 0 auto;
-    object-fit: contain;
-    margin-top: 5px;
-    margin-bottom: 8.25vh;
+  width: auto;
+  height: 60vh;
+  max-width: 100%;
+  margin: 0 auto;
+  object-fit: contain;
+  margin-top: 5px;
+  margin-bottom: 8.25vh;
 }
-
 
 .signup-welcome {
-    font-family: "Inter", sans-serif;
-    font-weight: 800;
-    color: #00ffff;
-    font-size: 3.25rem;
-    letter-spacing: -0.25px;
-    text-align: center;
-    margin-top: 8.25vh;
-    margin-bottom: 3.5px;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  color: #00ffff;
+  font-size: 3.25rem;
+  letter-spacing: -0.25px;
+  text-align: center;
+  margin-top: 8.25vh;
+  margin-bottom: 3.5px;
 }
-
 
 .signup-text {
-    font-family: "Work Sans", sans-serif;
-    max-width: 100%;
-    font-weight: 400;
-    color: #171717;
-    font-size: 1.15rem;
-    letter-spacing: -0.2px;
-    text-align: center;
-    margin-top: 3.5px;
-    margin-bottom: 35px;
-    margin-left: 5%;
-    margin-right: 5%;
+  font-family: "Work Sans", sans-serif;
+  max-width: 100%;
+  font-weight: 400;
+  color: #171717;
+  font-size: 1.15rem;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin-top: 3.5px;
+  margin-bottom: 35px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
-
 
 /* Login Form */
 .signup-login-button-container {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-
 
 .signup-sign-up {
-    /* margin-top: 5px; */
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    color: #171717;
-    letter-spacing: 0.15px;
-    text-align: center;
+  /* margin-top: 5px; */
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #171717;
+  letter-spacing: 0.15px;
+  text-align: center;
 }
-
 
 .signup-App .signup-wrapper .label-input-container {
-    margin-bottom: 10px;
-    /* Adjust spacing between form fields */
+  margin-bottom: 10px;
+  /* Adjust spacing between form fields */
 }
-
 
 .signup-App .signup-login-button-container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
-
 
 .signup-sign-up-link,
 .signup-home-link {
-    color: #171717;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 1rem;
-    letter-spacing: 0.15px;
-    text-align: center;
+  color: #171717;
+  text-decoration: none;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.15px;
+  text-align: center;
 }
-
 
 .signup-sign-up-link:hover,
 .signup-home-link:hover {
-    text-decoration: underline;
-    color: #007bff;
+  text-decoration: underline;
+  color: #007bff;
 }
-
 
 /* Social Login Buttons */
 .signup-social-login-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
-
 
 .signup-login-button-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
 
 .signup-login-button-container .btn-lg-skinny {
-    font-size: 1rem;
-    height: 2rem;
+  font-size: 1rem;
+  height: 2rem;
 }
-
 
 /* google button  */
 .google-login-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 40px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    font-size: 0.95rem;
-    font-family: "Roboto", sans-serif;
-    font-weight: 200;
-    padding: 5px;
-    color: black;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 0.95rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  padding: 5px;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
-
 
 .google-login-button:hover {
-    background-color: rgb(220, 219, 219);
+  background-color: rgb(220, 219, 219);
 }
 
-
 .google-login-button .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* error message */
+.signup-form-container .error-message {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  color: rgb(193, 52, 52);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
 }
