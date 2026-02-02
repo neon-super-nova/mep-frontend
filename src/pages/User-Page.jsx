@@ -1,13 +1,13 @@
 import "../page-css/user-page.css";
-import "../page-css/recipe-box-page.css";
+
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
-import ToggleButton from "../components/ui-basic-reusables/buttons/button-toggle.jsx";
-import ButtonRadioGroup from "../components/ui-basic-reusables/buttons/button-radio-group.jsx";
+// import ToggleButton from "../components/ui-basic-reusables/buttons/button-toggle.jsx";
+// import ButtonRadioGroup from "../components/ui-basic-reusables/buttons/button-radio-group.jsx";
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
@@ -29,6 +29,7 @@ import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-bl
 import iconImgDark from "../components/img/recipe-box/recipesDark.png";
 import iconImgLight from "../components/img/recipe-box/recipesLight.png";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
+import { useBreakpoints } from "../context/breakpoints";
 
 function UserPage() {
   const { theme } = useTheme();
@@ -254,71 +255,77 @@ function UserPage() {
   };
 
   const db_recipe_saved = "000000";
-
   const user_recipe_saved = "000000";
 
-  const notificationChoices = [
-    {
-      value: "email-updates",
-      label:
-        "Update me through email when someone likes or comments on my recipes",
-    },
-    {
-      value: "text-message-updates",
-      label:
-        "Update me through text when someone likes or comments on my recipes",
-    },
-    {
-      value: "both",
-      label:
-        "Update me through both email and text when someone likes or comments on my recipes",
-    },
-    { value: "none", label: "Do none of the above" },
-  ];
+  // const notificationChoices = [
+  //   {
+  //     value: "email-updates",
+  //     label:
+  //       "Update me through email when someone likes or comments on my recipes",
+  //   },
+  //   {
+  //     value: "text-message-updates",
+  //     label:
+  //       "Update me through text when someone likes or comments on my recipes",
+  //   },
+  //   {
+  //     value: "both",
+  //     label:
+  //       "Update me through both email and text when someone likes or comments on my recipes",
+  //   },
+  //   { value: "none", label: "Do none of the above" },
+  // ];
 
   // change with backend logic when applicable
 
-  const [notificationChoice, setNotificationChoice] = useState(
-    notificationChoices[0].value
-  );
+  // const [notificationChoice, setNotificationChoice] = useState(
+  //   notificationChoices[0].value
+  // );
 
-  const [emailOpen, setEmailOpen] = useState(
-    localStorage.getItem("emailOpen") === "true"
-  );
+  // const [emailOpen, setEmailOpen] = useState(
+  //   localStorage.getItem("emailOpen") === "true"
+  // );
 
-  const [newsletterOpen, setNewsletterOpen] = useState(
-    localStorage.getItem("newsletterOpen") === "true"
-  );
+  // const [newsletterOpen, setNewsletterOpen] = useState(
+  //   localStorage.getItem("newsletterOpen") === "true"
+  // );
 
-  useEffect(() => {
-    const storedNotificationChoice = localStorage.getItem("notificationChoice");
-    if (storedNotificationChoice)
-      setNotificationChoice(storedNotificationChoice);
+  // useEffect(() => {
+  //   const storedNotificationChoice = localStorage.getItem("notificationChoice");
+  //   if (storedNotificationChoice)
+  //     setNotificationChoice(storedNotificationChoice);
 
-    const storedEmailOpen = localStorage.getItem("emailOpen");
-    if (storedEmailOpen !== null) setEmailOpen(storedEmailOpen === "true");
+  //   const storedEmailOpen = localStorage.getItem("emailOpen");
+  //   if (storedEmailOpen !== null) setEmailOpen(storedEmailOpen === "true");
 
-    const storedNewsletterOpen = localStorage.getItem("newsletterOpen");
-    if (storedNewsletterOpen !== null)
-      setNewsletterOpen(storedNewsletterOpen === "true");
-  }, []);
+  //   const storedNewsletterOpen = localStorage.getItem("newsletterOpen");
+  //   if (storedNewsletterOpen !== null)
+  //     setNewsletterOpen(storedNewsletterOpen === "true");
+  // }, []);
 
-  const handleNotificationChange = (choice) => {
-    setNotificationChoice(choice);
-    localStorage.setItem("notificationChoice", choice);
-  };
+  // const handleNotificationChange = (choice) => {
+  //   setNotificationChoice(choice);
+  //   localStorage.setItem("notificationChoice", choice);
+  // };
 
-  const handleEmailOpenChange = (open) => {
-    setEmailOpen(open);
-    localStorage.setItem("emailOpen", open);
-  };
+  // const handleEmailOpenChange = (open) => {
+  //   setEmailOpen(open);
+  //   localStorage.setItem("emailOpen", open);
+  // };
 
-  const handleNewsletterOpenChange = (open) => {
-    setNewsletterOpen(open);
-    localStorage.setItem("newsletterOpen", open);
-  };
+  // const handleNewsletterOpenChange = (open) => {
+  //   setNewsletterOpen(open);
+  //   localStorage.setItem("newsletterOpen", open);
+  // };
 
-  const PAGE_SIZE = 7;
+  const { isMobile, isTablet, isMedium, isLarge} = useBreakpoints();
+
+  const PAGE_SIZE = useMemo(() => {
+    if (isMobile) return 3;
+    if (isTablet) return 4;
+    if (isMedium || isLarge) return 5;
+    return 6; 
+  }, [isMobile, isTablet, isMedium, isLarge]);
 
   const [recipeCount, setRecipeCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);
@@ -376,7 +383,7 @@ function UserPage() {
       }
     };
     getSubmittedRecipes();
-  }, []);
+  }, [userId]);
 
   const [likedRecipes, setLikedRecipes] = useState([]);
   // const likedRecipes = dummyliked || [];
@@ -414,6 +421,7 @@ function UserPage() {
             <div className="profile-top-panel-container-left">
               <h2 className="profile-page-panel-title">User Profile</h2>
               <div className="profile-top-panel left">
+                <div className="box1">
                 <div className="profile-top-panel avatar">
                   <Avatar
                     className="profile-image"
@@ -455,7 +463,7 @@ function UserPage() {
                     <p className="desc-bold">Username:</p>
                     <p className="desc-reg">{username}</p>
                   </div>
-                  <div className="spacer-eighth" />
+                  <div className="spacer-small" />
                   <div className="desc-row"></div>
                   <div className="desc-row">
                     <p className="desc-bold">Full Name:</p>
@@ -473,13 +481,13 @@ function UserPage() {
                         : "Loading..."}
                     </p>
                   </div>
-                  <div className="spacer-quarter" />
+                  <div className="spacer-medium" />
                   <div className="personal-preferences-row">
                     <h4 className="personal-preferences-title">
                       Personal Preferences
                     </h4>
                   </div>
-                  <div className="spacer-quarter" />
+                  <div className="spacer-medium" />
                   {[
                     "favoriteCuisine",
                     "favoriteMeal",
@@ -594,7 +602,7 @@ function UserPage() {
                       )}
                     </div>
                   ))}
-                  <div className="spacer-quarter" />
+                  <div className="spacer-medium" />
                   <h5
                     className="edit-toggle-link"
                     style={{ cursor: "pointer", textAlign: "right", margin: 0 }}
@@ -602,11 +610,14 @@ function UserPage() {
                   >
                     {showPencils1 ? "Hide" : "Edit"}
                   </h5>
-                  <div className="spacer-quarter" />
+                  </div>
+                </div>
+                <div className="box2">
+                <div className="profile-top-panel info">
                   <div className="desc-row">
                     <p className="desc-bold">User Recipes:</p>
                   </div>
-                  <div className="spacer-eighth" />
+                  <div className="spacer-small" />
                   <div className="micro-desc">
                     <img
                       src={theme === "dark" ? tinysubmitdark : tinysubmitlight}
@@ -633,11 +644,11 @@ function UserPage() {
                     <p className="micro-bold">Global Saves: </p>
                     <p className="micro-reg">{db_recipe_saved}</p>
                   </div>
-                  <div className="spacer-quarter" />
+                  <div className="spacer-medium" />
                   <div className="desc-row">
                     <p className="desc-bold">Recipe Box:</p>
                   </div>
-                  <div className="spacer-eighth" />
+                  <div className="spacer-small" />
                   <div className="micro-desc">
                     <img
                       src={theme === "dark" ? tinylikeddark : tinylikedlight}
@@ -656,24 +667,34 @@ function UserPage() {
                     <p className="micro-reg">{user_recipe_saved}</p>
                   </div>
                 </div>
+                </div>
+           
               </div>
+                   <button
+                // onClick={ }
+                // will fill in with delete function later
+                aria-label="Delete User Account"
+                className="account-delete-button"
+              >
+                Delete User Account
+              </button>
             </div>
+
             <div className="profile-top-panel-container-right">
-                    <h2 className="profile-page-panel-title">Recipe Box</h2>
+            <h2 className="profile-page-panel-title">Recipe Box</h2>
               <div className="profile-top-panel rb2">
-          
                 <div className="profile-top-panel rb">
                   <img
                     src={theme === "dark" ? iconImgDark : iconImgLight}
                     alt="landing"
                     className="recipe-box-image"
                   />
-                  <div className="profile-top-panel info">
+                  <div className="profile-top-panel info-new">
                     <div className="desc-row">
                       <p className="desc-bold">Username:</p>
                       <p className="desc-reg">{username}</p>
                     </div>
-                    <div className="spacer-eighth" />
+                    <div className="spacer-small" />
                     <div className="desc-row"></div>
                     <div className="desc-row">
                       <p className="desc-bold">Full Name:</p>
@@ -864,13 +885,13 @@ function UserPage() {
               </div>
             </div>
           </div>
-
+{/* 
           <div className="profile-bottom-panel">
             <h3 className="profile-page-panel-title">ACCOUNT SETTINGS</h3>
             <p className="profile-page-panel-desc">
               "Delete Account" - link to go to page or modal
             </p>
-          </div>
+          </div> */}
         </main>
         <footer className="profile-page-footer">
           <p>Footer Content</p>

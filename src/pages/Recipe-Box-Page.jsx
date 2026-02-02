@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import handleLikeRecipe from "../components/ui-basic-reusables/util/handleLikeRecipe";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
-import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
-import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-block-submit";
+import NewRecipeBlock from "../components/ui-basic-reusables/blocks/new-recipe-block";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import iconImgDark from "../components/img/recipe-box/recipesDark.png";
 import iconImgLight from "../components/img/recipe-box/recipesLight.png";
@@ -25,7 +24,7 @@ function RecipeBoxPage() {
   const { theme } = useTheme();
   const [submittedPage, setSubmittedPage] = useState(1);
   const [likedPage, setLikedPage] = useState(1);
-  const [showPencils, setShowPencils] = useState(false);
+  const [showPencils2, setShowPencils2] = useState(false);
   const [showFlag, setShowFlag] = useState(false);
 
   const [user, setUser] = useState(null);
@@ -211,9 +210,9 @@ function RecipeBoxPage() {
                   {" "}
                   <span
                     className="recipe-box-page-toggle-link"
-                    onClick={() => setShowPencils((v) => !v)}
+                    onClick={() => setShowPencils2((v) => !v)}
                   >
-                    {showPencils
+                    {showPencils2
                       ? "Go Back"
                       : "Edit a recipe you submitted"}
                   </span>
@@ -251,8 +250,11 @@ function RecipeBoxPage() {
                     key={recipe.recipeId || idx}
                     style={{ position: "relative", zIndex: 1 }}
                   >
-                    <RecipeBlockSubmit recipe={recipe} type="submitted" />
-                    {showPencils && (
+                    <NewRecipeBlock
+                      recipe={recipe}
+                      currentUsername={username}
+                    />
+                    {showPencils2 && (
                       <Link
                         to={`/modify-recipe/${recipe._id || recipe.recipeId}`}
                         style={{ marginLeft: 8 }}
@@ -324,7 +326,10 @@ function RecipeBoxPage() {
               {pagedliked.map((recipe, idx) => {
                 return (
                   <div key={idx} className="recipe-box-page-liked-flag-wrapper">
-                    <RecipeBlock recipe={recipe} type="liked" />
+                    <NewRecipeBlock
+                      recipe={recipe}
+                      currentUsername={username}
+                    />
                     {showFlag && (
                       <XFlag
                         clear={() =>

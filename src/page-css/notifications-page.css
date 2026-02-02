@@ -211,7 +211,7 @@ h3.notifications-page-panel-title {
   width: 100vw;
 }
 
-@media (min-width: 30em) and (max-width: 48em) {
+@media (min-width: 36.063em) and (max-width: 54em) {
   .notifications-page-footer {
     background-color: chartreuse;
   }

@@ -220,13 +220,13 @@ html,
   border-top: 10px solid var(--main-accent-color-alt);
 }
 
-@media (min-width: 30em) and (max-width: 48em) {
+@media (min-width: 36.063em) and (max-width: 54em) {
   .recipe-box-page-footer {
     background-color: chartreuse;
   }
 }
 
-@media (min-width: 48em) and (max-width: 80em) {
+@media (min-width: 54.063em) and (max-width: 68em) {
   .recipe-box-page-footer {
     background-color:  magenta;
   }

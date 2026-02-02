@@ -1,6 +1,6 @@
 import "../page-css/recipe-page.css";
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useTheme } from "../context/theme-context";
 import { getUserId } from "../context/decodeToken.js";
 import NewStarRating from "../components/ui-basic-reusables/icons/new-star-rating";
@@ -27,6 +27,7 @@ import avatarDark from "../components/img/user/default-user-dark_web.png";
 import ReviewBlock from "../components/ui-basic-reusables/blocks/review-block.jsx";
 import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-radio-star.jsx";
 // import { Pencil } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -48,6 +49,19 @@ function RecipePage() {
   const [toastMsg, setToastMsg] = useState("");
   const [alreadyReviewed, setAlreadyReviewed] = useState();
   const [reviews, setReviews] = useState([]);
+  const aboveRef = useRef();
+  const imageRef = useRef();
+  const isMobile = useMediaQuery({ maxWidth: "54em" }); // 864px
+
+  useEffect(() => {
+    if (aboveRef.current && imageRef.current) {
+      const height = aboveRef.current.offsetHeight;
+      imageRef.current.style.setProperty(
+        "--above-component-height",
+        `${height}px`
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const getLikeStatus = async () => {
@@ -290,18 +304,22 @@ function RecipePage() {
               <p>{recipe.description || "No description available."}</p>
             </div>
             {recipe.imageUrls.length > 0 && (
-              <div className="image">
-                <img
-                  src={
-                    recipe.imageUrls.length > 1 ? recipe.imageUrls[1] : dummyV1
-                  }
-                  className="side-image"
-                  alt={recipe.name}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = dummyV1;
-                  }}
-                />
+              <div ref={aboveRef} className="image">
+                {isMobile ? null : (
+                  <img
+                    src={
+                      recipe.imageUrls.length > 1
+                        ? recipe.imageUrls[1]
+                        : dummyV1
+                    }
+                    className="side-image"
+                    alt={recipe.name}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = dummyV1;
+                    }}
+                  />
+                )}
                 <img
                   src={
                     recipe.imageUrls.length > 0 ? recipe.imageUrls[0] : dummyV1
@@ -313,17 +331,21 @@ function RecipePage() {
                     e.target.src = dummyV1;
                   }}
                 />
-                <img
-                  src={
-                    recipe.imageUrls.length > 2 ? recipe.imageUrls[2] : dummyV1
-                  }
-                  className="side-image"
-                  alt={recipe.name}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = dummyV1;
-                  }}
-                />
+                {isMobile ? null : (
+                  <img
+                    src={
+                      recipe.imageUrls.length > 2
+                        ? recipe.imageUrls[2]
+                        : dummyV1
+                    }
+                    className="side-image"
+                    alt={recipe.name}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = dummyV1;
+                    }}
+                  />
+                )}
               </div>
             )}
           </div>

@@ -29,6 +29,8 @@
   --minor-accent-color-2-invert: #528082;
   --minor-accent-color-2b: #3b4a4d;
   --minor-accent-color-3: #db6443;
+  --error-delete-color: #7B1E2B;
+  --error-delete-color-invert: #F6E3E7;
   --star-coloring: #f8da70;
   --recipe-block-bg: #c2c5b7;
   --home-page-block: rgba(130, 157, 153, 0.5);
@@ -73,6 +75,8 @@
   --minor-accent-color-2-invert: #3b4a4d;
   --minor-accent-color-2b:  #db6443;
   --minor-accent-color-3: #f8da70;
+    --error-delete-color:  #F6E3E7;
+  --error-delete-color-invert:#7B1E2B;
   --star-coloring:  #db6443;
   --recipe-block-bg: rgba(82, 128, 130, 0.35);
   --home-page-block: rgba(245, 222, 159, 0.5);

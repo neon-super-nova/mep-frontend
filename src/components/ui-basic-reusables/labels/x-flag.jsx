@@ -10,7 +10,7 @@ function XFlag({ clear, show }) {
   if (!show) return null;
 
   return (
-<div style={{ position: "relative" }}>
+<div>
   <div className={`x-flag ${theme}`}>
     <SquareX
       onClick={() => clear()}

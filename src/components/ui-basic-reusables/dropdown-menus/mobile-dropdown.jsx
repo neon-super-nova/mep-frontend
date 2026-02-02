@@ -148,10 +148,12 @@ function MobileDropdown() {
               ))}
             </div>
           )}
-          {modalOpen === "modal-report" && (
-            <ModalReport onClose={() => setModalOpen(null)} />
-          )}
       </div>
+
+      <ModalReport
+        open={modalOpen === "modal-report"}
+        onClose={() => setModalOpen(null)}
+      />
     </div>
   );
 }

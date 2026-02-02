@@ -491,13 +491,56 @@
   cursor: pointer; 
 }
 
-@media (min-width: 30em) and (max-width: 48em) {
+.modify-recipe-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modify-upload-button {
+  background-color: var(--minor-accent-color-1);
+  color: var(--text-color-invert);
+  border: 1.5px solid var(--text-color-alt);
+  text-transform: uppercase;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: 0.075rem;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.25rem;
+  margin: 0.5rem auto;
+}
+
+.modify-upload-button:hover {
+  background-color: var(--minor-accent-color-2);
+  color: var(--accent-color-neutral-white);
+  border: 1.5px solid var(--text-color);
+  cursor: pointer; 
+}
+
+.modify-upload-button.delete {
+  background-color: var(--error-delete-color);
+  color: var(--main-accent-color);
+  border: 1.5px solid var(--text-color-check);
+}
+
+.modify-upload-button.delete:hover {
+  background-color: var(--error-delete-color-invert);
+  color: var(--text-color-check);
+  border: 1.5px solid var(--error-delete-color);
+  cursor: pointer; 
+} 
+
+@media (min-width: 36.063em) and (max-width: 54em) {
   .submit-recipe-footer {
     background-color: chartreuse;
   }
 }
 
-@media (min-width: 48em) and (max-width: 80em) {
+@media (min-width: 54.063em) and (max-width: 68em) {
   .submit-recipe-footer {
     background-color:  magenta;
   }

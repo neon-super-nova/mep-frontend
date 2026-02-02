@@ -826,21 +826,21 @@ function ModifyRecipePage() {
                 />
               </span>
             </div>
-            <div className="submit-recipe-button-container">
+            <div className="modify-recipe-button-container">
               <button
                 onClick={handleSubmit}
-                aria-label="Submit"
-                className="submit-upload-button"
+                aria-label="Save Changes"
+                className="modify-upload-button"
               >
-                Submit
+                Save Changes
               </button>
                     <button
                 // onClick={ }
                 // will fill in with delete function later
-                aria-label="Delete"
-                className="submit-upload-button"
+                aria-label="Delete Recipe"
+                className="modify-upload-button delete"
               >
-                Delete
+                Delete Recipe
               </button>
             </div>
           </div>

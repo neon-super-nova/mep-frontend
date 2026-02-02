@@ -5,9 +5,18 @@ import dummyImgDark from "../../img/recipe-box/dummydarkgreen.jpg";
 import dummyImgLight from "../../img/recipe-box/dummybeige.jpg";
 import { useTheme } from "../../../context/theme-context.js";
 
-function RecipeBlockSubmit({ recipe }) {
+function RecipeBlockSubmit({ recipe, currentUsername }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
+  const isOwner =
+    Boolean(recipe?.username) && Boolean(currentUsername) && recipe.username === currentUsername;
+  const submittedDate = recipe?.createdAt
+    ? new Date(recipe.createdAt).toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+      })
+    : null;
 
   return (
     <div
@@ -34,19 +43,18 @@ function RecipeBlockSubmit({ recipe }) {
       </div>
       <div className="recipe-block-text">
         <h3 className="recipe-block-title">{recipe.name}</h3>
-        <p className="recipe-block-name">
-          <span>Submitted on</span>{" "}
-        </p>
-        <p className="recipe-block-name">
-          <span className="date">
-            {" "}
-            {new Date(recipe.createdAt).toLocaleDateString("en-US", {
-              month: "2-digit",
-              day: "2-digit",
-              year: "numeric",
-            })}
-          </span>
-        </p>
+        {isOwner ? (
+          <p className="recipe-block-name">
+            <span>Submitted on </span>
+            <span className="date">{submittedDate ?? "--/--/----"}</span>
+          </p>
+        ) : (
+          <p className="recipe-block-name">
+            <span>Submitted by </span>
+            <span className="author">{recipe.authorName}</span>
+            <span className="author-username"> ({recipe.username})</span>
+          </p>
+        )}
       </div>
     </div>
   );

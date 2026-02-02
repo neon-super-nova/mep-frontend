@@ -269,7 +269,16 @@ html {
 }
 
 @media (min-width: 68.063em) and (max-width: 80em) {
+  /* Large: 1089-1280px */
+}
+
+@media (min-width: 80.063em) and (max-width: 93.75em) {
+  /* Extra Large: 1281-1500px */
+}
+
+@media (min-width: 93.813em) {
+  /* Extra Extra Large: 1501px+ */
+}
   .home-page-footer {
     background-color: orange;
   }
-}
