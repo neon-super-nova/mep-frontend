@@ -65,13 +65,6 @@ function UserDropdown() {
       labelClass: "day-night-label",
     },
     {
-      value: "recipebox",
-      label: "Recipe Box",
-      description: "Customize user blah blah blah",
-      labelClass: "dropdown-label-default",
-      descriptionClass: "dropdown-description-default",
-    },
-    {
       value: "submitreport",
       label: "Submit A Report",
       description: "Customize user blah blah blah",
@@ -112,7 +105,6 @@ function UserDropdown() {
     if (value === "logout") handleLogout();
     if (value === "lightdark") toggleTheme();
     if (value === "profile") navigate(`/profile`);
-    if (value === "recipebox") navigate("/recipebox");
     if (value === "submitreport") setModalOpen("modal-report");
     if (value === "notifications") {
       setModalOpen("modal-notifications");

@@ -29,12 +29,11 @@ html,
   margin-bottom: 3rem;
 }
 
-.recipe-box-image {
+.recipe-box-image-2 {
   width: 75px;
   height: 75px;
   border-radius: 0%;
   object-fit: contain;
-
   background-color: var(--bg-color);
 }
 

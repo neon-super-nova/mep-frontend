@@ -156,7 +156,7 @@ function RecipeBoxPage() {
             <img
               src={theme === "dark" ? iconImgDark : iconImgLight}
               alt="landing"
-              className="recipe-box-image"
+              className="recipe-box-image-2"
             />
             <div className="text-box">
               <h2 className="recipe-box-page-panel-title">RECIPE BOX</h2>

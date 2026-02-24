@@ -56,11 +56,7 @@ function MobileDropdown() {
       ),
       labelClass: "mobile-day-night-label",
     },
-    {
-      value: "recipebox",
-      label: "Recipe Box",
-      labelClass: "mobile-dropdown-label-default",
-    },
+
     {
       value: "submitreport",
       label: "Submit A Report",
@@ -100,7 +96,6 @@ function MobileDropdown() {
     if (value === "logout") handleLogout();
     if (value === "lightdark") toggleTheme();
     if (value === "profile") navigate(`/profile`);
-    if (value === "recipebox") navigate("/recipebox");
     if (value === "submitreport") setModalOpen("modal-report");
     if (value === "notifications") navigate("/notifications");
   };

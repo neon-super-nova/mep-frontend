@@ -30,6 +30,7 @@ import iconImgDark from "../components/img/recipe-box/recipesDark.png";
 import iconImgLight from "../components/img/recipe-box/recipesLight.png";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import { useBreakpoints } from "../context/breakpoints";
+import ModalDeleteAcct from "../components/ui-basic-reusables/modals/modal-delete-acct.jsx";
 
 function UserPage() {
   const { theme } = useTheme();
@@ -53,6 +54,7 @@ function UserPage() {
   const [likedPage, setLikedPage] = useState(1);
   const [showPencils2, setShowPencils2] = useState(false);
   const [showFlag, setShowFlag] = useState(false);
+  const [modalOpen, setModalOpen] = useState(null);
   const userId = getUserId();
 
   useEffect(() => {
@@ -670,14 +672,17 @@ function UserPage() {
                 </div>
            
               </div>
-                   <button
-                // onClick={ }
-                // will fill in with delete function later
-                aria-label="Delete User Account"
-                className="account-delete-button"
-              >
-                Delete User Account
-              </button>
+           <button
+        onClick={() => setModalOpen("modal-report")}
+        aria-label="Delete User Account"
+        className="account-delete-button"
+      >
+        Delete User Account
+      </button>
+      <ModalDeleteAcct
+        open={modalOpen === "modal-report"}
+        onClose={() => setModalOpen(null)}
+      />
             </div>
 
             <div className="profile-top-panel-container-right">
@@ -719,9 +724,9 @@ function UserPage() {
                 </div>
               </div>
               <div className="profile-top-panel right">
-                <div className="recipe-box-page-submitted-panel2">
-                  <div className="recipe-box-page-submitted-panel-heading">
-                    <h3 className="recipe-box-page-submitted-title">
+                <div className="user-page-submitted-panel2">
+                  <div className="user-page-submitted-panel-heading">
+                    <h3 className="user-page-submitted-title">
                       submitted recipes
                     </h3>
                     <h6>
@@ -729,7 +734,7 @@ function UserPage() {
                       <span className="home-page-left-panel-advanced-search-bold">
                         {" "}
                         <span
-                          className="recipe-box-page-toggle-link"
+                          className="user-page-toggle-link"
                           onClick={() => setShowPencils2((v) => !v)}
                         >
                           {showPencils2
@@ -750,7 +755,7 @@ function UserPage() {
                       </span>
                     </h6>
                   </div>
-                  <div className="recipe-box-page-submitted-panel-cards">
+                  <div className="user-page-submitted-panel-cards">
                     <button
                       disabled={submittedPage === 1}
                       onClick={() => setSubmittedPage(submittedPage - 1)}
@@ -791,7 +796,7 @@ function UserPage() {
                         </div>
                       ))
                     ) : (
-                      <p className="recipe-box-page-no-recipes-found">
+                      <p className="user-page-no-recipes-found">
                         No recipes submitted yet.
                       </p>
                     )}
@@ -810,9 +815,9 @@ function UserPage() {
                     </button>
                   </div>
                 </div>
-                <div className="recipe-box-page-liked-panel2">
-                  <div className="recipe-box-page-liked-panel-heading">
-                    <h3 className="recipe-box-page-liked-title">
+                <div className="user-page-liked-panel2">
+                  <div className="user-page-liked-panel-heading">
+                    <h3 className="user-page-liked-title">
                       liked recipes
                     </h3>
                     <h6>
@@ -830,7 +835,7 @@ function UserPage() {
                       </span>
                     </h6>
                   </div>
-                  <div className="recipe-box-page-liked-panel-cards">
+                  <div className="user-page-liked-panel-cards">
                     <button
                       disabled={likedPage === 1}
                       onClick={() => setLikedPage(likedPage - 1)}
@@ -848,7 +853,7 @@ function UserPage() {
                       return (
                         <div
                           key={idx}
-                          className="recipe-box-page-liked-flag-wrapper"
+                          className="user-page-liked-flag-wrapper"
                         >
                           <RecipeBlock recipe={recipe} type="liked" />
                           {showFlag && (
@@ -862,7 +867,7 @@ function UserPage() {
                                 )
                               }
                               show={showFlag}
-                              className="recipe-box-page-liked-remove-icon"
+                              className="user-page-liked-remove-icon"
                             />
                           )}
                         </div>
