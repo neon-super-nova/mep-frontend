@@ -1,0 +1,339 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.modal-delete-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-delete-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 500px;
+    min-height: 250px;
+    border: 2.5px solid var(--minor-accent-color-3);
+    background-color: var(--bg-panel-color-alt);
+    border-radius: 0px;
+    box-shadow: var(--shadow-elevated-modal);
+    gap: 1rem;
+    padding-bottom: 0.25rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.modal-delete-body.other {
+    width: 450px;
+    min-height: 200px;
+}
+
+.modal-delete-body.close {
+    width: 450px;
+    min-height: 100px;
+}
+
+.modal-delete-heading {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    letter-spacing: 0.125rem;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: var(--text-color-delete);
+    background-color: var(--minor-accent-color-3);
+    border-bottom: 7.5px solid var(--minor-accent-color-3);
+    margin-bottom: -0.5em;
+    padding: 0.35em 0;
+}
+
+.caution-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-delete-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1.25rem;
+}
+
+/* All text inside modal delete */
+.modal-delete-body,
+.modal-delete-content,
+.modal-delete-body label,
+.modal-delete-body p {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-variation-settings: "wdth" 87.5;
+    font-size: 0.2rem;
+    letter-spacing: 0.02rem;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1.75em;
+}
+
+.modal-delete-subheading {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-variation-settings: "wdth" 87.5;
+    font-size: 0.2rem;
+    letter-spacing: 0.02rem;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-bottom: 1.75em;
+}
+
+.modal-delete-content h6 {
+    font-family: "Open Sans", sans-serif;
+    font-variation-settings: "wdth" 75;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-style: italic;
+    text-transform: uppercase;
+    margin-bottom: 0.75em;
+    color: var(--text-color-check);
+}
+
+.modal-delete-body .buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: -2.25em;
+}
+
+.modal-delete-body .fancy-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.015rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 0.5em 1.25em;
+    border: none;
+    color: var(--text-color-alt);
+    cursor: pointer;
+    margin-right: 0.5em;
+    transition: background 0.2s;
+}
+
+.modal-delete-body .fancy-button.close-button {
+    letter-spacing: 0.0175rem;
+    font-size: 0.8rem;
+}
+
+.modal-delete-body button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.modal-delete-body .radio-group {
+    text-align: left;
+    width: 100%;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.5em;
+    padding-bottom: 1.25em;
+}
+
+/* .modal-delete-body .button-radio-btn{
+    background-color: blue;
+    -keep rule for future use- 
+} */
+
+.modal-delete-body .button-radio-btn.selected{
+    background-color:var(--bg-color-2);
+}
+
+.modal-delete-body label {
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 0.75em;
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 0.75rem;
+    justify-content: flex-start;
+}
+
+/* .modal-delete-body input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 0.85em;
+    height: 0.85em;
+    border-radius: 50%;
+    border: 1.25px solid var(--minor-accent-color-3);
+    background: var(--bg-panel-color-alt);
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: border 0.2s;
+    vertical-align: middle;
+    margin-top: 0.3em;
+    margin-right: 1.25em;
+}
+
+.modal-delete-body input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 0.35em;
+    height: 0.35em;
+    border-radius: 50%;
+    background: var(--minor-accent-color-3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+.modal-delete-body .textarea-feedback {
+    width: 100%;
+    height: 150px;
+    padding: 0.75em;
+    border-radius: 0.25em;
+    border: 1px solid var(--minor-accent-color-3);
+    background-color: var(--textarea-panel-box);
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+.fancy-button.submit-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-family: "Inter", sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.025rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    padding: 0.5em 1.25em;
+    border: none;
+    color: var(--minor-accent-color-3);
+    cursor: pointer;
+    margin-right: 0.5em;
+    transition: background 0.2s;
+}
+
+.modal-delete-content .text-container-end {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-variation-settings: "wdth" 87.5;
+    font-size: 0.95rem;
+    color: var(--text-color-alt);
+    text-align: right;
+    margin-top: 0.75em;
+    margin-bottom: 1.75em;
+}
+
+.modal-delete-content .buttons-container-end {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: -2.5em;
+}
+
+@media (min-width:0em) and (max-width: 54em) {
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-delete-body {
+    width: 400px;
+    border: 3.5px solid var(--minor-accent-color-3);
+}
+
+.modal-delete-body.other {
+    width: 400px;
+}
+
+.modal-delete-body.close {
+    width: 400px;
+}
+
+.modal-delete-heading {
+    gap: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.135rem;
+    font-size: 1.15rem;
+    border-bottom: 5.5px solid var(--minor-accent-color-3);
+    margin-bottom: -0.5em;
+    padding: 0.4em 0;
+}
+
+.caution-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.modal-delete-body .buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75em;
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: -1.75em;
+}
+}
