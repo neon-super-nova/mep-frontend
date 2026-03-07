@@ -433,7 +433,7 @@ function UserPage() {
         <main className="profile-page-main-content">
           <div className="profile-top-panel">
             <div className="profile-top-panel-container-left">
-              <h2 className="profile-page-panel-title">User Profile</h2>
+              <h2 className="profile-page-panel-title">Profile Details</h2>
               <div className="profile-top-panel left">
                 <div className="box1">
                   <div className="profile-top-panel avatar">
@@ -670,42 +670,6 @@ function UserPage() {
 
             <div className="profile-top-panel-container-right">
               <h2 className="profile-page-panel-title">Recipe Box</h2>
-              <div className="profile-top-panel rb2">
-                <div className="profile-top-panel rb">
-                  <img
-                    src={theme === "dark" ? iconImgDark : iconImgLight}
-                    alt="landing"
-                    className="recipe-box-image"
-                  />
-                  <div className="profile-top-panel info-new">
-                    <div className="desc-row">
-                      <p className="desc-bold">Username:</p>
-                      <p className="desc-reg">{username}</p>
-                    </div>
-                    <div className="spacer-small" />
-                    <div className="desc-row"></div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Full Name:</p>
-                      <p className="desc-reg name">{fullname}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Signup Date:</p>
-                      <p className="desc-reg">
-                        {user && user.createdAt
-                          ? new Date(user.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "2-digit",
-                                day: "2-digit",
-                                year: "numeric",
-                              },
-                            )
-                          : "Loading..."}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="profile-top-panel right">
                 <div className="user-page-submitted-panel2">
                   <div className="user-page-submitted-panel-heading">
@@ -715,7 +679,7 @@ function UserPage() {
                     <h6>
                       <span className="bold">Modify submitted recipes: </span>
                       <span className="home-page-left-panel-advanced-search-bold">
-                        {" "}
+                  
                         <span
                           className="user-page-toggle-link"
                           onClick={() => setShowPencils2((v) => !v)}
