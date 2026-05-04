@@ -679,7 +679,6 @@ function UserPage() {
                     <h6>
                       <span className="bold">Modify submitted recipes: </span>
                       <span className="home-page-left-panel-advanced-search-bold">
-                  
                         <span
                           className="user-page-toggle-link"
                           onClick={() => setShowPencils2((v) => !v)}
