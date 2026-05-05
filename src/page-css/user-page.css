@@ -22,7 +22,7 @@ html {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  font-size: .975rem;
+  font-size: 0.975rem;
   color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.05rem;
@@ -45,7 +45,7 @@ html {
 .profile-page {
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color); 
+  background-color: var(--bg-color);
   min-height: 100vh;
 }
 
@@ -55,7 +55,7 @@ html {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .profile-page-panel-title {
@@ -70,27 +70,31 @@ html {
 }
 
 .profile-top-panel {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 2rem;
   align-items: flex-start;
-  width: 95%;
+  margin-bottom: 1rem;
+}
+
+.profile-top-panel-container-left {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  border-right: 5px double var(--main-accent-color-alt);
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
 
-
-.profile-top-panel-container-left {
-  width: 35%;
+.profile-top-panel-container-total {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  border-right: 5px double var(--main-accent-color-alt);
-  padding-right: 1.5rem;
-  padding-bottom: 0rem;
-  margin-bottom: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
 }
 
 .profile-top-panel .left {
@@ -118,8 +122,8 @@ html {
   align-items: center;
 }
 
-.profile-top-panel-container-left>h2,
-.profile-top-panel-container-right>h2 {
+.profile-top-panel-container-left > h2,
+.profile-top-panel-container-right > h2 {
   width: 100%;
   text-align: center;
 }
@@ -147,9 +151,15 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: left;
-  align-items: flex-start;
+  align-items: center;
   padding: 0.25rem;
+}
+
+.profile-top-panel-info-entries {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
 }
 
 .profile-top-panel .info-new {
@@ -183,7 +193,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.025rem;
   color: var(--text-color);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   max-width: 12rem;
   display: block;
 }
@@ -204,7 +214,7 @@ html {
 
 .dietary-list {
   margin: 0.25rem 0 0 0;
-  padding-left: .75rem;
+  padding-left: 0.75rem;
   list-style: none;
 }
 
@@ -215,7 +225,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.025rem;
   color: var(--text-color);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
   margin: -0.125rem 0rem 0rem 0rem;
 }
 
@@ -292,42 +302,42 @@ html {
   flex-direction: column;
 }
 
+/* RIGHT PART */
+
 .profile-top-panel .right {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
+  justify-content: center;
+}
+
+.total-submitted-recipes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .profile-top-panel .rb2 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.25rem;
 }
 
 .profile-top-panel .rb {
-  width: 100;
+  width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   padding: 0.25rem;
-  margin-left: 1.75rem;
-  gap: 1.5rem;
 }
 
 .profile-top-panel-container-right {
-  width: 65%;
+  width: 75%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-bottom: 0rem;
-  margin-bottom: 0rem;
 }
 
 .user-button-container {
@@ -385,9 +395,7 @@ html {
   line-height: 1.2;
 }
 
-
 .edit-user-info-save {
-
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 800;
@@ -438,8 +446,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.025rem;
   color: var(--text-color);
-  font-size: 0.90rem;
-
+  font-size: 0.9rem;
 }
 
 .avatar-upload-btn {
@@ -451,7 +458,7 @@ html {
   text-transform: uppercase;
   letter-spacing: 0.015rem;
   color: var(--text-color);
-  font-size: 0.80rem;
+  font-size: 0.8rem;
 
   cursor: pointer;
 }
@@ -614,7 +621,7 @@ html {
 .user-page-submitted-panel-cards,
 .user-page-liked-panel-cards {
   display: flex;
-  width: 98%;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -624,11 +631,9 @@ html {
 
 .user-page-no-recipes-found {
   font-family: "Work Sans", sans-serif;
-  max-width: 100%;
   font-weight: 400;
   color: var(--text-color);
   font-size: 0.95rem;
-  letter-spacing: -0.02rem;
   text-align: center;
 }
 
@@ -636,16 +641,16 @@ html {
   position: relative !important;
 }
 
-
 .user-page-submitted-panel-heading,
 .user-page-liked-panel-heading {
+  flex: 2;
   display: flex;
-  width: 98%;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   margin-left: 1rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 2em;
   gap: 1rem;
 }
 
@@ -665,7 +670,6 @@ html {
 .user-page-submitted-panel-heading h6,
 .user-page-liked-panel-heading h6 {
   margin-bottom: -0.95rem;
-
 }
 
 .user-page-submitted-panel-heading h6 .bold,
@@ -678,7 +682,6 @@ html {
   color: var(--text-color);
   font-variation-settings: "wdth" 87.5;
   font-size: 0.85rem;
-
 }
 
 .user-page-submitted-panel-heading h6 .reg,
@@ -688,7 +691,7 @@ html {
   font-weight: 400;
   letter-spacing: 0.025rem;
   color: var(--text-color);
-  font-size: 0.90rem;
+  font-size: 0.9rem;
 }
 
 .recipe-box-image {
@@ -706,6 +709,32 @@ html {
   border-top: 10px solid var(--main-accent-color-alt);
 }
 
+.user-page-liked-panel2 {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.user-page-liked-panel2 > * {
+  width: 100%;
+  align-items: flex-start;
+}
+
+.user-page-liked-panel-heading,
+.user-page-liked-panel-cards {
+  max-width: fit-content;
+}
+
+.recipe-box-panels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1rem;
+}
 
 @media (min-width: 0em) and (max-width: 54em) {
   .profile-top-panel {
@@ -747,7 +776,6 @@ html {
     margin-left: 0rem;
   }
 
-
   .profile-top-panel .info {
     width: 60%;
     height: 100%;
@@ -756,7 +784,6 @@ html {
     padding-left: 0rem;
     margin-bottom: 0rem;
   }
-
 
   .profile-top-panel .info-new {
     width: 30%;
@@ -776,7 +803,6 @@ html {
     width: 100%;
   }
 
-
   .profile-top-panel-container-right {
     width: 100%;
     padding-bottom: 0rem;
@@ -784,9 +810,7 @@ html {
   }
 }
 
-
 @media (min-width: 54.063em) and (max-width: 68em) {
-
   .profile-top-panel {
     flex-direction: column;
     justify-content: space-between;
@@ -833,7 +857,6 @@ html {
     padding-left: 0rem;
     margin-bottom: 0rem;
   }
-
 
   .profile-top-panel .info-new {
     width: 40%;

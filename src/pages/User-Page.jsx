@@ -257,7 +257,9 @@ function UserPage() {
           favoriteCuisine: freshUserInfo.favoriteCuisine || "",
           favoriteMeal: freshUserInfo.favoriteMeal || "",
           favoriteDish: freshUserInfo.favoriteDish || "",
-          dietaryRestriction: (freshUserInfo.dietaryRestriction || []).join(", "),
+          dietaryRestriction: (freshUserInfo.dietaryRestriction || []).join(
+            ", ",
+          ),
         });
 
         setEditingField(null);
@@ -267,70 +269,6 @@ function UserPage() {
       navigate("/");
     }
   };
-
-  const db_recipe_saved = "000000";
-  const user_recipe_saved = "000000";
-
-  // const notificationChoices = [
-  //   {
-  //     value: "email-updates",
-  //     label:
-  //       "Update me through email when someone likes or comments on my recipes",
-  //   },
-  //   {
-  //     value: "text-message-updates",
-  //     label:
-  //       "Update me through text when someone likes or comments on my recipes",
-  //   },
-  //   {
-  //     value: "both",
-  //     label:
-  //       "Update me through both email and text when someone likes or comments on my recipes",
-  //   },
-  //   { value: "none", label: "Do none of the above" },
-  // ];
-
-  // change with backend logic when applicable
-
-  // const [notificationChoice, setNotificationChoice] = useState(
-  //   notificationChoices[0].value
-  // );
-
-  // const [emailOpen, setEmailOpen] = useState(
-  //   localStorage.getItem("emailOpen") === "true"
-  // );
-
-  // const [newsletterOpen, setNewsletterOpen] = useState(
-  //   localStorage.getItem("newsletterOpen") === "true"
-  // );
-
-  // useEffect(() => {
-  //   const storedNotificationChoice = localStorage.getItem("notificationChoice");
-  //   if (storedNotificationChoice)
-  //     setNotificationChoice(storedNotificationChoice);
-
-  //   const storedEmailOpen = localStorage.getItem("emailOpen");
-  //   if (storedEmailOpen !== null) setEmailOpen(storedEmailOpen === "true");
-
-  //   const storedNewsletterOpen = localStorage.getItem("newsletterOpen");
-  //   if (storedNewsletterOpen !== null)
-  //     setNewsletterOpen(storedNewsletterOpen === "true");
-  // }, []);
-
-  // const handleNotificationChange = (choice) => {
-  //   setNotificationChoice(choice);
-  //   localStorage.setItem("notificationChoice", choice);
-  // };
-
-  // const handleEmailOpenChange = (open) => {
-  //   setEmailOpen(open);
-  //   localStorage.setItem("emailOpen", open);
-  // };
-
-  // const handleNewsletterOpenChange = (open) => {
-  //   setNewsletterOpen(open);
-  //   localStorage.setItem("newsletterOpen", open);
-  // };
 
   const { isMobile, isTablet, isMedium, isLarge } = useBreakpoints();
 
@@ -433,411 +371,424 @@ function UserPage() {
         <main className="profile-page-main-content">
           <div className="profile-top-panel">
             <div className="profile-top-panel-container-left">
-              <h2 className="profile-page-panel-title">Profile Details</h2>
-              <div className="profile-top-panel left">
-                <div className="box1">
-                  <div className="profile-top-panel avatar">
-                    <Avatar
-                      className="profile-image"
-                      refreshTrigger={avatarRefresh}
-                    />
-                    {showPencils1 && (
-                      <form className="avatar-upload-form">
-                        <label
-                          htmlFor="avatar-upload"
-                          className="avatar-upload-label"
-                        >
-                          <input
-                            id="avatar-upload"
-                            type="file"
-                            accept="image/*"
-                            className="avatar-upload-input"
-                            onChange={(e) => {
-                              if (e.target.files && e.target.files[0]) {
-                                handleAvatarUpload(e.target.files[0]);
-                                setSelectedAvatarFile(e.target.files[0].name);
-                                e.target.value = "";
-                              } else {
-                                setSelectedAvatarFile("");
-                              }
-                            }}
-                          />
-                          <span className="avatar-upload-btn">
-                            Change Avatar
-                          </span>
-                          {selectedAvatarFile && (
-                            <div className="avatar-upload-filename">
-                              {selectedAvatarFile}
-                            </div>
-                          )}
-                        </label>
-                      </form>
-                    )}
-                  </div>
-                  <div className="profile-top-panel info">
-                    <div className="desc-row">
-                      <p className="desc-bold">Username:</p>
-                      <p className="desc-reg">{username}</p>
-                    </div>
-                    <div className="spacer-small" />
-                    <div className="desc-row"></div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Full Name:</p>
-                      <p className="desc-reg name">{fullname}</p>
-                    </div>
-                    <div className="desc-row">
-                      <p className="desc-bold">Signup Date:</p>
-                      <p className="desc-reg">
-                        {user && user.createdAt
-                          ? new Date(user.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "2-digit",
-                                day: "2-digit",
-                                year: "numeric",
-                              },
-                            )
-                          : "Loading..."}
-                      </p>
-                    </div>
-                    <div className="spacer-medium" />
-                    <div className="personal-preferences-row">
-                      <h4 className="personal-preferences-title">
-                        Personal Preferences
-                      </h4>
-                    </div>
-                    <div className="spacer-medium" />
-                    {[
-                      "favoriteCuisine",
-                      "favoriteMeal",
-                      "favoriteDish",
-                      "dietaryRestriction",
-                    ].map((field) => (
-                      <div
-                        className={
-                          "desc-row" +
-                          (field === "dietaryRestriction"
-                            ? " dietary-desc-row"
-                            : "")
-                        }
-                        key={field}
-                      >
-                        <span className="desc-bold">
-                          {field === "favoriteCuisine" &&
-                            "Favorite Global Cuisine:"}
-                          {field === "favoriteMeal" && "Favorite Meal:"}
-                          {field === "favoriteDish" && "Favorite Dish:"}
-                          {field === "dietaryRestriction" &&
-                            "Dietary Restriction:"}
-                        </span>
-                        {showPencils1 && editingField === field ? (
-                          <form
-                            onSubmit={(e) => handleFieldEdit(e, field)}
-                            className="edit-user-info-form"
+              <div className="profile-top-panel-container-total">
+                <h2 className="profile-page-panel-title">Profile Details</h2>
+                <div className="profile-top-panel left">
+                  <div className="box1">
+                    <div className="profile-top-panel avatar">
+                      <Avatar
+                        className="profile-image"
+                        refreshTrigger={avatarRefresh}
+                      />
+                      {showPencils1 && (
+                        <form className="avatar-upload-form">
+                          <label
+                            htmlFor="avatar-upload"
+                            className="avatar-upload-label"
                           >
-                            {field === "dietaryRestriction" ? (
-                              <textarea
-                                className="desc-reg"
-                                value={editFields[field]}
-                                onChange={(e) =>
-                                  setEditFields((f) => ({
-                                    ...f,
-                                    [field]: e.target.value,
-                                  }))
+                            <input
+                              id="avatar-upload"
+                              type="file"
+                              accept="image/*"
+                              className="avatar-upload-input"
+                              onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                  handleAvatarUpload(e.target.files[0]);
+                                  setSelectedAvatarFile(e.target.files[0].name);
+                                  e.target.value = "";
+                                } else {
+                                  setSelectedAvatarFile("");
                                 }
-                                rows={4}
-                                style={{ resize: "vertical" }}
-                              />
-                            ) : (
-                              <input
-                                className="desc-reg"
-                                type="text"
-                                value={editFields[field]}
-                                onChange={(e) =>
-                                  setEditFields((f) => ({
-                                    ...f,
-                                    [field]: e.target.value,
-                                  }))
-                                }
-                              />
-                            )}
-                            <div className="user-button-container">
-                              <button
-                                type="submit"
-                                className="edit-user-info-save"
-                              >
-                                Save
-                              </button>
-                              <button
-                                type="button"
-                                className="edit-user-info-cancel"
-                                onClick={() => setEditingField(null)}
-                              >
-                                Cancel
-                              </button>
-                            </div>
-                          </form>
-                        ) : field === "dietaryRestriction" ? (
-                          <>
-                            <ul className="dietary-list">
-                              {Array.isArray(userInfo?.dietaryRestriction) &&
-                              userInfo.dietaryRestriction.length > 0
-                                ? userInfo.dietaryRestriction.map((item, i) => (
-                                    <li key={i} className="dietary-list-item">
-                                      {item}
-                                    </li>
-                                  ))
-                                : null}
-                            </ul>
-                            {showPencils1 && (
-                              <Pencil
-                                className="edit-pencil-icon"
-                                color="var(--main-accent-color-alt)"
-                                fill="var(--main-accent-color)"
-                                strokeWidth={1.5}
-                                size={14}
-                                title="Edit"
-                                onClick={() => setEditingField(field)}
-                              />
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            <span className="desc-reg">
-                              {displayOrPlaceholder(userInfo?.[field])}
+                              }}
+                            />
+                            <span className="avatar-upload-btn">
+                              Change Avatar
                             </span>
-                            {showPencils1 && (
-                              <Pencil
-                                className="edit-pencil-icon"
-                                color="var(--main-accent-color-alt)"
-                                fill="var(--main-accent-color)"
-                                strokeWidth={1.5}
-                                size={14}
-                                title="Edit"
-                                onClick={() => setEditingField(field)}
-                              />
+                            {selectedAvatarFile && (
+                              <div className="avatar-upload-filename">
+                                {selectedAvatarFile}
+                              </div>
                             )}
-                          </>
-                        )}
-                      </div>
-                    ))}
-                    <div className="spacer-medium" />
-                    <h5
-                      className="edit-toggle-link"
-                      style={{
-                    
-                      }}
-                      onClick={() => setShowPencils1((v) => !v)}
-                    >
-                      {showPencils1 ? "Hide" : "Edit"}
-                    </h5>
-                    <div className="desc-row">
-                      <p className="desc-bold">User Recipes:</p>
+                          </label>
+                        </form>
+                      )}
                     </div>
-                    <div className="spacer-small" />
-                    <div className="micro-desc">
-                      <img
-                        src={theme === "dark" ? tinylikeddark : tinylikedlight}
-                        alt="likes"
-                        className="likes"
-                      />
-                      <p className="micro-bold">Recipes Liked: </p>
-                      <p className="micro-reg">{likeCount}</p>
-                      <p className="micro-div"> | </p>
-                      <img
-                        src={theme === "dark" ? tinysaveddark : tinysavedlight}
-                        alt="saves"
-                        className="saves"
-                      />
-                      <p className="micro-bold">Recipes Submitted: </p>
-                      <p className="micro-reg">{recipeCount}</p>
+                    <div className="profile-top-panel info">
+                      <div className="profile-top-panel-info-entries">
+                        <div className="desc-row">
+                          <p className="desc-bold">Username:</p>
+                          <p className="desc-reg">{username}</p>
+                        </div>
+                        <div className="spacer-small" />
+                        <div className="desc-row"></div>
+                        <div className="desc-row">
+                          <p className="desc-bold">Full Name:</p>
+                          <p className="desc-reg name">{fullname}</p>
+                        </div>
+                        <div className="desc-row">
+                          <p className="desc-bold">Signup Date:</p>
+                          <p className="desc-reg">
+                            {user && user.createdAt
+                              ? new Date(user.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                    year: "numeric",
+                                  },
+                                )
+                              : "Loading..."}
+                          </p>
+                        </div>
+                        <div className="spacer-medium" />
+                        <div className="personal-preferences-row">
+                          <h4 className="personal-preferences-title">
+                            Personal Preferences
+                          </h4>
+                        </div>
+                        <div className="spacer-medium" />
+                        {[
+                          "favoriteCuisine",
+                          "favoriteMeal",
+                          "favoriteDish",
+                          "dietaryRestriction",
+                        ].map((field) => (
+                          <div
+                            className={
+                              "desc-row" +
+                              (field === "dietaryRestriction"
+                                ? " dietary-desc-row"
+                                : "")
+                            }
+                            key={field}
+                          >
+                            <span className="desc-bold">
+                              {field === "favoriteCuisine" &&
+                                "Favorite Global Cuisine:"}
+                              {field === "favoriteMeal" && "Favorite Meal:"}
+                              {field === "favoriteDish" && "Favorite Dish:"}
+                              {field === "dietaryRestriction" &&
+                                "Dietary Restriction:"}
+                            </span>
+                            {showPencils1 && editingField === field ? (
+                              <form
+                                onSubmit={(e) => handleFieldEdit(e, field)}
+                                className="edit-user-info-form"
+                              >
+                                {field === "dietaryRestriction" ? (
+                                  <textarea
+                                    className="desc-reg"
+                                    value={editFields[field]}
+                                    onChange={(e) =>
+                                      setEditFields((f) => ({
+                                        ...f,
+                                        [field]: e.target.value,
+                                      }))
+                                    }
+                                    rows={4}
+                                    style={{ resize: "vertical" }}
+                                  />
+                                ) : (
+                                  <input
+                                    className="desc-reg"
+                                    type="text"
+                                    value={editFields[field]}
+                                    onChange={(e) =>
+                                      setEditFields((f) => ({
+                                        ...f,
+                                        [field]: e.target.value,
+                                      }))
+                                    }
+                                  />
+                                )}
+                                <div className="user-button-container">
+                                  <button
+                                    type="submit"
+                                    className="edit-user-info-save"
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="edit-user-info-cancel"
+                                    onClick={() => setEditingField(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </form>
+                            ) : field === "dietaryRestriction" ? (
+                              <>
+                                <ul className="dietary-list">
+                                  {Array.isArray(
+                                    userInfo?.dietaryRestriction,
+                                  ) && userInfo.dietaryRestriction.length > 0
+                                    ? userInfo.dietaryRestriction.map(
+                                        (item, i) => (
+                                          <li
+                                            key={i}
+                                            className="dietary-list-item"
+                                          >
+                                            {item}
+                                          </li>
+                                        ),
+                                      )
+                                    : null}
+                                </ul>
+                                {showPencils1 && (
+                                  <Pencil
+                                    className="edit-pencil-icon"
+                                    color="var(--main-accent-color-alt)"
+                                    fill="var(--main-accent-color)"
+                                    strokeWidth={1.5}
+                                    size={14}
+                                    title="Edit"
+                                    onClick={() => setEditingField(field)}
+                                  />
+                                )}
+                              </>
+                            ) : (
+                              <>
+                                <span className="desc-reg">
+                                  {displayOrPlaceholder(userInfo?.[field])}
+                                </span>
+                                {showPencils1 && (
+                                  <Pencil
+                                    className="edit-pencil-icon"
+                                    color="var(--main-accent-color-alt)"
+                                    fill="var(--main-accent-color)"
+                                    strokeWidth={1.5}
+                                    size={14}
+                                    title="Edit"
+                                    onClick={() => setEditingField(field)}
+                                  />
+                                )}
+                              </>
+                            )}
+                          </div>
+                        ))}
+                        <div className="spacer-medium" />
+                        <h5
+                          className="edit-toggle-link"
+                          style={{}}
+                          onClick={() => setShowPencils1((v) => !v)}
+                        >
+                          {showPencils1 ? "Hide" : "Edit"}
+                        </h5>
+                        <div className="desc-row">
+                          <p className="desc-bold">User Recipes:</p>
+                        </div>
+                        <div className="spacer-small" />
+                        <div className="micro-desc">
+                          <img
+                            src={
+                              theme === "dark" ? tinylikeddark : tinylikedlight
+                            }
+                            alt="likes"
+                            className="likes"
+                          />
+                          <p className="micro-bold">Recipes Liked: </p>
+                          <p className="micro-reg">{likeCount}</p>
+                          <p className="micro-div"> | </p>
+                          <img
+                            src={
+                              theme === "dark" ? tinysaveddark : tinysavedlight
+                            }
+                            alt="saves"
+                            className="saves"
+                          />
+                          <p className="micro-bold">Recipes Submitted: </p>
+                          <p className="micro-reg">{recipeCount}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => setModalOpen("modal-report")}
+                  aria-label="Delete User Account"
+                  className="account-delete-button"
+                >
+                  Delete User Account
+                </button>
+                <ModalDeleteAcct
+                  open={modalOpen === "modal-report"}
+                  onClose={() => setModalOpen(null)}
+                />
               </div>
-              <button
-                onClick={() => setModalOpen("modal-report")}
-                aria-label="Delete User Account"
-                className="account-delete-button"
-              >
-                Delete User Account
-              </button>
-              <ModalDeleteAcct
-                open={modalOpen === "modal-report"}
-                onClose={() => setModalOpen(null)}
-              />
             </div>
 
             <div className="profile-top-panel-container-right">
               <h2 className="profile-page-panel-title">Recipe Box</h2>
-              <div className="profile-top-panel right">
-                <div className="user-page-submitted-panel2">
-                  <div className="user-page-submitted-panel-heading">
-                    <h3 className="user-page-submitted-title">
-                      submitted recipes
-                    </h3>
-                    <h6>
-                      <span className="bold">Modify submitted recipes: </span>
-                      <span className="home-page-left-panel-advanced-search-bold">
-                        <span
-                          className="user-page-toggle-link"
-                          onClick={() => setShowPencils2((v) => !v)}
-                        >
-                          {showPencils2
-                            ? "Go Back"
-                            : "Edit a recipe you submitted"}
+              <div className="profile-top-panel-container-total">
+                <div className="recipe-box-panels">
+                  <div className="total-submitted-recipes">
+                    <div className="user-page-submitted-panel-heading">
+                      <h3 className="user-page-submitted-title">
+                        submitted recipes
+                      </h3>
+                      <h6>
+                        <span className="bold">Modify submitted recipes: </span>
+                        <span className="home-page-left-panel-advanced-search-bold">
+                          <span
+                            className="user-page-toggle-link"
+                            onClick={() => setShowPencils2((v) => !v)}
+                          >
+                            {showPencils2
+                              ? "Go Back"
+                              : "Edit a recipe you submitted"}
+                          </span>
                         </span>
-                      </span>
-                    </h6>
-                    <h6>
-                      <span className="bold">submit a recipe: </span>
-                      <span className="reg">
-                        <Link
-                          to="/submit-recipe"
-                          className="home-page-left-panel-advanced-search-bold"
-                        >
-                          Enter your recipe here.
-                        </Link>
-                      </span>
-                    </h6>
-                  </div>
-                  <div className="user-page-submitted-panel-cards">
-                    <button
-                      disabled={submittedPage === 1}
-                      onClick={() => setSubmittedPage(submittedPage - 1)}
-                    >
-                      {submittedPage !== 1 ? (
-                        <ArrowLeft
-                          color="var(--text-color)"
-                          strokeWidth={1.5}
-                          size={20}
-                        />
-                      ) : null}
-                    </button>
-
-                    {pagedSubmitted.length > 0 ? (
-                      pagedSubmitted.map((recipe, idx) => (
-                        <div
-                          key={recipe.recipeId || idx}
-                          style={{ position: "relative", zIndex: 1 }}
-                        >
-                          <RecipeBlockSubmit recipe={recipe} type="submitted" />
-                          {showPencils2 && (
-                            <Link
-                              to={`/modify-recipe/${
-                                recipe._id || recipe.recipeId
-                              }`}
-                              style={{ marginLeft: 8 }}
-                            >
-                              <Pencil
-                                className="edit-pencil-icon"
-                                color="var(--text-color)"
-                                fill="var(--main-accent-color-alt)"
-                                strokeWidth={1.75}
-                                size={24}
-                                title="Edit"
-                              />
-                            </Link>
-                          )}
-                        </div>
-                      ))
-                    ) : (
-                      <p className="user-page-no-recipes-found">
-                        No recipes submitted yet.
-                      </p>
-                    )}
-
-                    <button
-                      disabled={submittedEnd >= submittedRecipes.length}
-                      onClick={() => setSubmittedPage(submittedPage + 1)}
-                    >
-                      {submittedEnd < submittedRecipes.length ? (
-                        <ArrowRight
-                          color="var(--text-color)"
-                          strokeWidth={1.5}
-                          size={20}
-                        />
-                      ) : null}
-                    </button>
-                  </div>
-                </div>
-                <div className="user-page-liked-panel2">
-                  <div className="user-page-liked-panel-heading">
-                    <h3 className="user-page-liked-title">liked recipes</h3>
-                    <h6>
-                      <span className="bold">Modify liked recipes: </span>
-                      <span className="home-page-left-panel-advanced-search-bold">
-                        <span
-                          className="rbp-toggle-link"
-                          onClick={() => {
-                            setShowFlag((v) => !v);
-                            console.log("toggling showFlag", !showFlag);
-                          }}
-                        >
-                          {showFlag ? "Go Back" : "Unlike a recipe you liked"}
+                      </h6>
+                      <h6>
+                        <span className="bold">submit a recipe: </span>
+                        <span className="reg">
+                          <Link
+                            to="/submit-recipe"
+                            className="home-page-left-panel-advanced-search-bold"
+                          >
+                            Enter your recipe here.
+                          </Link>
                         </span>
-                      </span>
-                    </h6>
-                  </div>
-                  <div className="user-page-liked-panel-cards">
-                    <button
-                      disabled={likedPage === 1}
-                      onClick={() => setLikedPage(likedPage - 1)}
-                    >
-                      {likedPage !== 1 ? (
-                        <ArrowLeft
-                          color="var(--text-color)"
-                          strokeWidth={1.5}
-                          size={20}
-                        />
-                      ) : null}
-                    </button>
+                      </h6>
+                    </div>
+                    <div className="user-page-submitted-panel-cards">
+                      <button
+                        disabled={submittedPage === 1}
+                        onClick={() => setSubmittedPage(submittedPage - 1)}
+                      >
+                        {submittedPage !== 1 ? (
+                          <ArrowLeft
+                            color="var(--text-color)"
+                            strokeWidth={1.5}
+                            size={20}
+                          />
+                        ) : null}
+                      </button>
 
-                    {pagedliked.map((recipe, idx) => {
-                      return (
-                        <div key={idx} className="user-page-liked-flag-wrapper">
-                          <RecipeBlock recipe={recipe} type="liked" />
-                          {showFlag && (
-                            <XFlag
-                              clear={() =>
-                                handleLikeRecipe(
-                                  recipe,
-                                  true,
-                                  likedRecipes,
-                                  setLikedRecipes,
-                                )
-                              }
-                              show={showFlag}
-                              className="user-page-liked-remove-icon"
+                      {pagedSubmitted.length > 0 ? (
+                        pagedSubmitted.map((recipe, idx) => (
+                          <div
+                            key={recipe.recipeId || idx}
+                            style={{ position: "relative", zIndex: 1 }}
+                          >
+                            <RecipeBlockSubmit
+                              recipe={recipe}
+                              type="submitted"
                             />
-                          )}
-                        </div>
-                      );
-                    })}
-                    <button
-                      disabled={likedEnd >= likedRecipes.length}
-                      onClick={() => setLikedPage(likedPage + 1)}
-                    >
-                      {likedEnd < likedRecipes.length ? (
-                        <ArrowRight
-                          color="var(--text-color)"
-                          strokeWidth={1.5}
-                          size={20}
-                        />
-                      ) : null}
-                    </button>
+                            {showPencils2 && (
+                              <Link
+                                to={`/modify-recipe/${
+                                  recipe._id || recipe.recipeId
+                                }`}
+                                style={{ marginLeft: 8 }}
+                              >
+                                <Pencil
+                                  className="edit-pencil-icon"
+                                  color="var(--text-color)"
+                                  fill="var(--main-accent-color-alt)"
+                                  strokeWidth={1.75}
+                                  size={24}
+                                  title="Edit"
+                                />
+                              </Link>
+                            )}
+                          </div>
+                        ))
+                      ) : (
+                        <p className="user-page-no-recipes-found">
+                          No recipes submitted yet.
+                        </p>
+                      )}
+
+                      <button
+                        disabled={submittedEnd >= submittedRecipes.length}
+                        onClick={() => setSubmittedPage(submittedPage + 1)}
+                      >
+                        {submittedEnd < submittedRecipes.length ? (
+                          <ArrowRight
+                            color="var(--text-color)"
+                            strokeWidth={1.5}
+                            size={20}
+                          />
+                        ) : null}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="user-page-liked-panel2">
+                    <div className="user-page-liked-panel-heading">
+                      <h3 className="user-page-liked-title">liked recipes</h3>
+                      <h6>
+                        <span className="bold">Modify liked recipes: </span>
+                        <span className="home-page-left-panel-advanced-search-bold">
+                          <span
+                            className="rbp-toggle-link"
+                            onClick={() => {
+                              setShowFlag((v) => !v);
+                              console.log("toggling showFlag", !showFlag);
+                            }}
+                          >
+                            {showFlag ? "Go Back" : "Unlike a recipe you liked"}
+                          </span>
+                        </span>
+                      </h6>
+                    </div>
+                    <div className="user-page-liked-panel-cards">
+                      <button
+                        disabled={likedPage === 1}
+                        onClick={() => setLikedPage(likedPage - 1)}
+                      >
+                        {likedPage !== 1 ? (
+                          <ArrowLeft
+                            color="var(--text-color)"
+                            strokeWidth={1.5}
+                            size={20}
+                          />
+                        ) : null}
+                      </button>
+
+                      {pagedliked.map((recipe, idx) => {
+                        return (
+                          <div
+                            key={idx}
+                            className="user-page-liked-flag-wrapper"
+                          >
+                            <RecipeBlock recipe={recipe} type="liked" />
+                            {showFlag && (
+                              <XFlag
+                                clear={() =>
+                                  handleLikeRecipe(
+                                    recipe,
+                                    true,
+                                    likedRecipes,
+                                    setLikedRecipes,
+                                  )
+                                }
+                                show={showFlag}
+                                className="user-page-liked-remove-icon"
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
+                      <button
+                        disabled={likedEnd >= likedRecipes.length}
+                        onClick={() => setLikedPage(likedPage + 1)}
+                      >
+                        {likedEnd < likedRecipes.length ? (
+                          <ArrowRight
+                            color="var(--text-color)"
+                            strokeWidth={1.5}
+                            size={20}
+                          />
+                        ) : null}
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          {/* 
-          <div className="profile-bottom-panel">
-            <h3 className="profile-page-panel-title">ACCOUNT SETTINGS</h3>
-            <p className="profile-page-panel-desc">
-              "Delete Account" - link to go to page or modal
-            </p>
-          </div> */}
         </main>
         <footer className="profile-page-footer">
           <p>Footer Content</p>
