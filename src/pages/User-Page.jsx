@@ -6,16 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
-// import ToggleButton from "../components/ui-basic-reusables/buttons/button-toggle.jsx";
-// import ButtonRadioGroup from "../components/ui-basic-reusables/buttons/button-radio-group.jsx";
+
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
 import tinysaveddark from "../components/img/icons/icon-saves-small-dark.png";
-import tinysubmitlight from "../components/img/icons/icon-submit-small-light.png";
-import tinysubmitdark from "../components/img/icons/icon-submit-small-dark.png";
 import axios from "axios";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { getUserId } from "../context/decodeToken.js";
 import {
@@ -26,11 +22,10 @@ import {
 import handleLikeRecipe from "../components/ui-basic-reusables/util/handleLikeRecipe";
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
 import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-block-submit";
-import iconImgDark from "../components/img/recipe-box/recipesDark.png";
-import iconImgLight from "../components/img/recipe-box/recipesLight.png";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import { useBreakpoints } from "../context/breakpoints";
 import ModalDeleteAcct from "../components/ui-basic-reusables/modals/modal-delete-acct.jsx";
+import RecipeCardRow from "../components/ui-basic-reusables/blocks/RecipeCardRow.jsx";
 
 function UserPage() {
   const { theme } = useTheme();
@@ -50,8 +45,6 @@ function UserPage() {
 
   const [showPencils1, setShowPencils1] = useState(false);
   const [selectedAvatarFile, setSelectedAvatarFile] = useState("");
-  const [submittedPage, setSubmittedPage] = useState(1);
-  const [likedPage, setLikedPage] = useState(1);
   const [showPencils2, setShowPencils2] = useState(false);
   const [showFlag, setShowFlag] = useState(false);
   const [modalOpen, setModalOpen] = useState(null);
@@ -315,9 +308,6 @@ function UserPage() {
   }, [userId]);
 
   const [submittedRecipes, setSubmittedRecipes] = useState([]);
-  const submittedStart = (submittedPage - 1) * PAGE_SIZE;
-  const submittedEnd = submittedStart + PAGE_SIZE;
-  const pagedSubmitted = submittedRecipes.slice(submittedStart, submittedEnd);
 
   useEffect(() => {
     const getSubmittedRecipes = async () => {
@@ -338,10 +328,6 @@ function UserPage() {
   }, [userId]);
 
   const [likedRecipes, setLikedRecipes] = useState([]);
-  // const likedRecipes = dummyliked || [];
-  const likedStart = (likedPage - 1) * PAGE_SIZE;
-  const likedEnd = likedStart + PAGE_SIZE;
-  const pagedliked = likedRecipes.slice(likedStart, likedEnd);
 
   useEffect(() => {
     const getLikedRecipes = async () => {
@@ -652,68 +638,30 @@ function UserPage() {
                         </span>
                       </h6>
                     </div>
-                    <div className="user-page-submitted-panel-cards">
-                      <button
-                        disabled={submittedPage === 1}
-                        onClick={() => setSubmittedPage(submittedPage - 1)}
-                      >
-                        {submittedPage !== 1 ? (
-                          <ArrowLeft
-                            color="var(--text-color)"
-                            strokeWidth={1.5}
-                            size={20}
-                          />
-                        ) : null}
-                      </button>
-
-                      {pagedSubmitted.length > 0 ? (
-                        pagedSubmitted.map((recipe, idx) => (
-                          <div
-                            key={recipe.recipeId || idx}
-                            style={{ position: "relative", zIndex: 1 }}
-                          >
-                            <RecipeBlockSubmit
-                              recipe={recipe}
-                              type="submitted"
-                            />
-                            {showPencils2 && (
-                              <Link
-                                to={`/modify-recipe/${
-                                  recipe._id || recipe.recipeId
-                                }`}
-                                style={{ marginLeft: 8 }}
-                              >
-                                <Pencil
-                                  className="edit-pencil-icon"
-                                  color="var(--text-color)"
-                                  fill="var(--main-accent-color-alt)"
-                                  strokeWidth={1.75}
-                                  size={24}
-                                  title="Edit"
-                                />
-                              </Link>
-                            )}
-                          </div>
-                        ))
-                      ) : (
-                        <p className="user-page-no-recipes-found">
-                          No recipes submitted yet.
-                        </p>
+                    <RecipeCardRow
+                      recipes={submittedRecipes}
+                      renderCard={(recipe) => (
+                        <RecipeBlockSubmit recipe={recipe} type="submitted" />
                       )}
-
-                      <button
-                        disabled={submittedEnd >= submittedRecipes.length}
-                        onClick={() => setSubmittedPage(submittedPage + 1)}
-                      >
-                        {submittedEnd < submittedRecipes.length ? (
-                          <ArrowRight
-                            color="var(--text-color)"
-                            strokeWidth={1.5}
-                            size={20}
-                          />
-                        ) : null}
-                      </button>
-                    </div>
+                      renderOverlay={(recipe) =>
+                        showPencils2 && (
+                          <Link
+                            to={`/modify-recipe/${recipe._id || recipe.recipeId}`}
+                            style={{ marginLeft: 8 }}
+                          >
+                            <Pencil
+                              className="edit-pencil-icon"
+                              color="var(--text-color)"
+                              fill="var(--main-accent-color-alt)"
+                              strokeWidth={1.75}
+                              size={24}
+                              title="Edit"
+                            />
+                          </Link>
+                        )
+                      }
+                      emptyMessage="No recipes submitted yet."
+                    />
                   </div>
                   <div className="user-page-liked-panel2">
                     <div className="user-page-liked-panel-heading">
@@ -733,57 +681,29 @@ function UserPage() {
                         </span>
                       </h6>
                     </div>
-                    <div className="user-page-liked-panel-cards">
-                      <button
-                        disabled={likedPage === 1}
-                        onClick={() => setLikedPage(likedPage - 1)}
-                      >
-                        {likedPage !== 1 ? (
-                          <ArrowLeft
-                            color="var(--text-color)"
-                            strokeWidth={1.5}
-                            size={20}
+                    <RecipeCardRow
+                      recipes={likedRecipes}
+                      renderCard={(recipe) => (
+                        <RecipeBlock recipe={recipe} type="liked" />
+                      )}
+                      renderOverlay={(recipe) =>
+                        showFlag && (
+                          <XFlag
+                            clear={() =>
+                              handleLikeRecipe(
+                                recipe,
+                                true,
+                                likedRecipes,
+                                setLikedRecipes,
+                              )
+                            }
+                            show={showFlag}
+                            className="user-page-liked-remove-icon"
                           />
-                        ) : null}
-                      </button>
-
-                      {pagedliked.map((recipe, idx) => {
-                        return (
-                          <div
-                            key={idx}
-                            className="user-page-liked-flag-wrapper"
-                          >
-                            <RecipeBlock recipe={recipe} type="liked" />
-                            {showFlag && (
-                              <XFlag
-                                clear={() =>
-                                  handleLikeRecipe(
-                                    recipe,
-                                    true,
-                                    likedRecipes,
-                                    setLikedRecipes,
-                                  )
-                                }
-                                show={showFlag}
-                                className="user-page-liked-remove-icon"
-                              />
-                            )}
-                          </div>
-                        );
-                      })}
-                      <button
-                        disabled={likedEnd >= likedRecipes.length}
-                        onClick={() => setLikedPage(likedPage + 1)}
-                      >
-                        {likedEnd < likedRecipes.length ? (
-                          <ArrowRight
-                            color="var(--text-color)"
-                            strokeWidth={1.5}
-                            size={20}
-                          />
-                        ) : null}
-                      </button>
-                    </div>
+                        )
+                      }
+                      emptyMessage="No liked recipes yet."
+                    />
                   </div>
                 </div>
               </div>

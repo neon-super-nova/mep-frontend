@@ -9,7 +9,9 @@ function RecipeBlockSubmit({ recipe, currentUsername }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
   const isOwner =
-    Boolean(recipe?.username) && Boolean(currentUsername) && recipe.username === currentUsername;
+    Boolean(recipe?.username) &&
+    Boolean(currentUsername) &&
+    recipe.username === currentUsername;
   const submittedDate = recipe?.createdAt
     ? new Date(recipe.createdAt).toLocaleDateString("en-US", {
         month: "2-digit",
@@ -31,8 +33,8 @@ function RecipeBlockSubmit({ recipe, currentUsername }) {
             Array.isArray(recipe.imageUrls) && recipe.imageUrls.length > 0
               ? recipe.imageUrls[0]
               : theme === "dark"
-              ? dummyImgDark
-              : dummyImgLight
+                ? dummyImgDark
+                : dummyImgLight
           }
           alt={recipe.name}
           onError={(e) => {

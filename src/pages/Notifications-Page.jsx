@@ -140,15 +140,15 @@ function NotificationsPage() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
       console.log("POST request response: " + JSON.stringify(response.data));
       if (response?.data?.message === "Notifications marked as read") {
         //state handling after marking read
         setNotificationList((prevList) =>
           prevList.filter((notification) =>
-            notificationIds.includes(notification.id)
-          )
+            notificationIds.includes(notification.id),
+          ),
         );
         // refresh page
         window.location.reload();
@@ -198,7 +198,7 @@ function NotificationsPage() {
 
                         const getAvatarForUsername = (username) => {
                           const userObj = notification.group.find(
-                            (n) => n.senderUsername === username
+                            (n) => n.senderUsername === username,
                           );
                           return userObj?.senderPictureUrl || userAvatar;
                         };
@@ -224,7 +224,7 @@ function NotificationsPage() {
                             <div className="notifications-page-panel-item-grouped">
                               <img
                                 src={getAvatarForUsername(
-                                  uniqueUsers[0].username
+                                  uniqueUsers[0].username,
                                 )}
                                 alt="avatar"
                                 className="user-image"
@@ -265,7 +265,7 @@ function NotificationsPage() {
                                 <span> on </span>{" "}
                                 <span className="reviews-true-date">
                                   {new Date(
-                                    uniqueUsers[0].createdAt
+                                    uniqueUsers[0].createdAt,
                                   ).toLocaleDateString("en-US", {
                                     month: "2-digit",
                                     day: "2-digit",
@@ -273,7 +273,7 @@ function NotificationsPage() {
                                   })}{" "}
                                   at{" "}
                                   {new Date(
-                                    uniqueUsers[0].createdAt
+                                    uniqueUsers[0].createdAt,
                                   ).toLocaleTimeString("en-US", {
                                     hour: "2-digit",
                                     minute: "2-digit",
@@ -310,20 +310,12 @@ function NotificationsPage() {
                                 <span> on </span>{" "}
                                 <span className="reviews-true-date">
                                   {new Date(
-                                    notification.date
+                                    notification.date,
                                   ).toLocaleDateString("en-US", {
                                     month: "2-digit",
                                     day: "2-digit",
                                     year: "numeric",
                                   })}{" "}
-                                  {/* at{" "}
-                                  {new Date(
-                                    notification.date
-                                  ).toLocaleTimeString("en-US", {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: true,
-                                  })} */}
                                 </span>
                               </>
                             ) : (
