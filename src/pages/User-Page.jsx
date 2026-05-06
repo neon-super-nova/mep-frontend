@@ -23,7 +23,6 @@ import handleLikeRecipe from "../components/ui-basic-reusables/util/handleLikeRe
 import RecipeBlock from "../components/ui-basic-reusables/blocks/recipe-block";
 import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-block-submit";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
-import { useBreakpoints } from "../context/breakpoints";
 import ModalDeleteAcct from "../components/ui-basic-reusables/modals/modal-delete-acct.jsx";
 import RecipeCardRow from "../components/ui-basic-reusables/blocks/RecipeCardRow.jsx";
 
@@ -262,15 +261,6 @@ function UserPage() {
       navigate("/");
     }
   };
-
-  const { isMobile, isTablet, isMedium, isLarge } = useBreakpoints();
-
-  const PAGE_SIZE = useMemo(() => {
-    if (isMobile) return 3;
-    if (isTablet) return 4;
-    if (isMedium || isLarge) return 5;
-    return 6;
-  }, [isMobile, isTablet, isMedium, isLarge]);
 
   const [recipeCount, setRecipeCount] = useState(0);
   const [likeCount, setLikeCount] = useState(0);

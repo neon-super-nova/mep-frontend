@@ -273,5 +273,21 @@ html {
 }
 
 .home-page-footer {
-  background-color: orange;
+  background-color: var(--bg-color-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.footer-p {
+  font-size: clamp(0.75rem, 1vw, 0.9rem);
+  font-weight: 300;
+  color: var(--text-color-alt);
+}
+
+.footer-a {
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  font-weight: 400;
+  color: var(--text-color-alt);
 }

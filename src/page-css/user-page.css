@@ -737,14 +737,13 @@ html {
 }
 
 @media (min-width: 0em) and (max-width: 54em) {
-  .profile-top-panel {
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 0.5rem;
-    align-items: flex-start;
-    width: 95%;
-    padding: 0.5rem;
+  .profile-page h1.profile-page-panel-title {
+    margin-top: 2rem;
     margin-bottom: 1rem;
+  }
+
+  .profile-page h2.profile-page-panel-title {
+    margin-bottom: 0.5rem;
   }
 
   .profile-top-panel {
@@ -754,12 +753,11 @@ html {
     align-items: flex-start;
     width: 95%;
     padding: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem;
   }
 
   .profile-top-panel-container-left {
     width: 100%;
-
     border-right: 0px;
     border-bottom: 5px double var(--main-accent-color-alt);
     padding-right: 0rem;
@@ -811,6 +809,10 @@ html {
 }
 
 @media (min-width: 54.063em) and (max-width: 68em) {
+  .profile-page h1.profile-page-panel-title {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
   .profile-top-panel {
     flex-direction: column;
     justify-content: space-between;

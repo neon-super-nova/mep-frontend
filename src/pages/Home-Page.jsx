@@ -194,7 +194,7 @@ function HomePage() {
                         : "/img/home-blocks-green/region-hawaiian-pacific-islands-green.png",
                     onClick: () => {
                       navigate(
-                        "/advancedsearch?cuisineRegion=hawaiian pacific islander"
+                        "/advancedsearch?cuisineRegion=hawaiian pacific islander",
                       );
                     },
                   },
@@ -296,7 +296,7 @@ function HomePage() {
                         : "/img/home-blocks-green/diet-no-gluten-green.png",
                     onClick: () => {
                       navigate(
-                        "/advancedsearch?dietaryRestriction=gluten free"
+                        "/advancedsearch?dietaryRestriction=gluten free",
                       );
                     },
                   },
@@ -328,7 +328,7 @@ function HomePage() {
                         : "/img/home-blocks-green/diet-no-shellfish-green.png",
                     onClick: () => {
                       navigate(
-                        "/advancedsearch?dietaryRestriction=shellfish free"
+                        "/advancedsearch?dietaryRestriction=shellfish free",
                       );
                     },
                   },
@@ -405,7 +405,7 @@ function HomePage() {
                         : "/img/home-blocks-green/religion-kosher-parve-green-2.png",
                     onClick: () => {
                       navigate(
-                        "/advancedsearch?religiousRestriction=kosher parve"
+                        "/advancedsearch?religiousRestriction=kosher parve",
                       );
                     },
                   },
@@ -496,7 +496,13 @@ function HomePage() {
 
         {/* Footer */}
         <footer className="home-page-footer">
-          <p>Footer Content</p>
+          <p className="footer-p">Questions or Feedback? Contact us at</p>
+          <a
+            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
+            className="footer-a"
+          >
+            mep.misenplate@gmail.com
+          </a>
         </footer>
       </div>
     </div>
