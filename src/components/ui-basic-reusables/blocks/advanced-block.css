@@ -16,42 +16,40 @@
 }
 
 .shared-content-wrapper {
-  max-width: 45.5rem;
   margin: 0 auto;
   width: 100%;
 }
 
 .advanced-browse-blocks-container {
   display: grid;
-  grid-template-columns: repeat(4, 10rem);
+  width: 100%;
+  grid-template-columns: repeat(var(--col-count, 4), minmax(9.5rem, 12rem));
   gap: 1.5rem;
   justify-content: center;
 }
 
 .advanced-browse-blocks-block {
-  color: var(--text-color-dropdown);
   width: 9.5rem;
   height: 12rem;
+  color: var(--text-color-dropdown);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 0rem;
+  padding: 0;
   cursor: pointer;
-  font-size: 0.9rem;
   text-align: center;
 }
 .advanced-recipe-block-image {
- display: flex;
+  display: flex;
 }
 
 .advanced-recipe-block-thumbnail {
-      width: 9.5rem;
-    height: 7.75rem;
-    object-fit: cover;
-    margin-bottom: 0.65rem;
-    margin-top: 0rem;
-    border: 1.5px solid var(--minor-accent-color-2);
+  width: 9.5rem;
+  height: 7.75rem;
+  object-fit: cover;
+  margin-bottom: 0.65rem;
+  border: 1.5px solid var(--minor-accent-color-2);
 }
 
 .advanced-browse-blocks-block-label {
@@ -59,7 +57,7 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-    letter-spacing: 0.02rem;
+  letter-spacing: 0.02rem;
   font-style: normal;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -70,14 +68,14 @@
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-    letter-spacing: 0.02rem;
+  letter-spacing: 0.02rem;
   font-style: normal;
   font-size: 0.75rem;
   text-transform: uppercase;
 }
 
-
-.advanced-blocks-left-button, .advanced-blocks-right-button {
+.advanced-blocks-left-button,
+.advanced-blocks-right-button {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -87,7 +85,8 @@
   padding: 0.5rem;
 }
 
-.advanced-blocks-left-button-label, .advanced-blocks-right-button-label {
+.advanced-blocks-left-button-label,
+.advanced-blocks-right-button-label {
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 0.75rem;
@@ -102,7 +101,7 @@
   cursor: not-allowed;
 }
 
-.advanced-blocks-hide-label{
+.advanced-blocks-hide-label {
   display: none;
 }
 

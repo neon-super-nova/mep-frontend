@@ -4,14 +4,35 @@ import dummyImgLight from "../../img/recipe-box/dummybeige.jpg";
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function AdvancedBlocks({ subheading, blocks }) {
   const { theme } = useTheme();
   const [start, setStart] = useState(0);
-  const pageSize = 16;
+
+  const containerRef = useRef(null);
+  const [colNumer, setColNumer] = useState(4);
+  const ROWS = 4;
+  const pageSize = colNumer * ROWS;
   const canGoLeft = start > 0;
   const canGoRight = start + pageSize < blocks.length;
+
+  useEffect(() => {
+    if (!containerRef) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const w = entry.contentRect.width;
+      const CARD_MIN = 152;
+      const GAP = 24;
+      const fit = Math.max(1, Math.floor((w + GAP) / (CARD_MIN + GAP)));
+      setColNumer(fit);
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    setStart(0);
+  }, [pageSize]);
 
   const handlePrev = () => {
     if (canGoLeft) setStart(start - pageSize);
@@ -57,7 +78,11 @@ function AdvancedBlocks({ subheading, blocks }) {
         </div>
       )}
       <div className="shared-content-wrapper">
-        <div className="advanced-browse-blocks-container">
+        <div
+          className="advanced-browse-blocks-container"
+          ref={containerRef}
+          style={{ "--col-count": colNumer }}
+        >
           {blocks.slice(start, start + pageSize).map((block, index) => {
             const { recipe, onClick } = block;
             return (
@@ -74,8 +99,8 @@ function AdvancedBlocks({ subheading, blocks }) {
                       recipe.imageUrls.length > 0
                         ? recipe.imageUrls[0]
                         : theme === "dark"
-                        ? dummyImgDark
-                        : dummyImgLight
+                          ? dummyImgDark
+                          : dummyImgLight
                     }
                     alt={recipe.name}
                     onError={(e) => {

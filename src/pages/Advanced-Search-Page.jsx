@@ -11,6 +11,8 @@ import RecipeTags from "../components/ui-basic-reusables/labels/label-tag-food";
 import AdvancedBlocks from "../components/ui-basic-reusables/blocks/advanced-block";
 import FilterBlock from "../components/ui-basic-reusables/blocks/advance-search-filter-blocks";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+import { SlidersHorizonta, X, SlidersHorizontal } from "lucide-react";
 
 function AdvancedSearchPage() {
   const { theme } = useTheme();
@@ -19,6 +21,8 @@ function AdvancedSearchPage() {
   const [matches, setMatches] = useState(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const isMobile = useMediaQuery({ maxWidth: "54em" });
+  const [filterVisibility, setFilterVisibility] = useState(false);
 
   // get filters from from URL
   const selectedCuisineRegion = useMemo(() => {
@@ -31,21 +35,21 @@ function AdvancedSearchPage() {
 
   const selectedProteinChoice = useMemo(
     () => searchParams.get("proteinChoice") || null,
-    [searchParams]
+    [searchParams],
   );
   const selectedDietaryRestriction = useMemo(
     () => searchParams.get("dietaryRestriction") || null,
-    [searchParams]
+    [searchParams],
   );
   const selectedReligiousRestriction = useMemo(
     () => searchParams.get("religiousRestriction") || null,
-    [searchParams]
+    [searchParams],
   );
 
   // name filtering in home page search bar
   const recipeName = useMemo(
     () => searchParams.get("recipeName") || null,
-    [searchParams]
+    [searchParams],
   );
 
   // Update URL parameters dynamically
@@ -88,7 +92,7 @@ function AdvancedSearchPage() {
       let url = "";
       if (params.recipeName) {
         url = `/api/recipes/searchByName/${encodeURIComponent(
-          params.recipeName
+          params.recipeName,
         )}`;
       } else {
         const queryParams = new URLSearchParams(params).toString();
@@ -117,101 +121,177 @@ function AdvancedSearchPage() {
     <div className={theme === "dark" ? "dark" : ""}>
       <div className="advanced-search-page">
         <HeaderBar />
-        <main className="advanced-search-page-main-content">
-          <div className="advanced-search-page-left-panel">
-            <h2 className="advanced-search-page-title">FILTERS</h2>
-
-            <FilterBlock
-              filterName="CUISINE REGION"
-              filterCategory="cuisineRegion"
-              selectedFilter={selectedCuisineRegion}
-              onChange={handleCuisineChange}
-            />
-
-            <FilterBlock
-              filterName="PROTEIN CHOICE"
-              filterCategory="proteinChoice"
-              selectedFilter={selectedProteinChoice}
-              onChange={(val) => handleParamChange("proteinChoice", val)}
-            />
-
-            <FilterBlock
-              filterName="DIETARY RESTRICTION"
-              filterCategory="dietaryRestriction"
-              selectedFilter={selectedDietaryRestriction}
-              onChange={(val) => handleParamChange("dietaryRestriction", val)}
-            />
-
-            <FilterBlock
-              filterName="RELIGIOUS RESTRICTION"
-              filterCategory="religiousRestriction"
-              selectedFilter={selectedReligiousRestriction}
-              onChange={(val) => handleParamChange("religiousRestriction", val)}
-            />
-          </div>
-
-          <div className="advanced-search-page-right-panel">
-            <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
-
-            <div className="advanced-search-page-search-bar">
-              <span>
-                <h5 className="advanced-search-page-search-bar-label">
-                  search for:
-                </h5>
-                <AdvancedSearchBarType />
-              </span>
-              <span>
-                <h5 className="advanced-search-page-search-bar-label">
-                  sort by
-                </h5>{" "}
-                <SearchOptionsProvider options={sortOptions}>
-                  <AdvancedSearchBarEnum />
-                </SearchOptionsProvider>
-              </span>
-              <span>
-                <h5 className="advanced-search-page-search-bar-label">
-                  view as:
-                </h5>{" "}
-                <SearchOptionsProvider options={displayOptions}>
-                  <AdvancedSearchBarEnum />
-                </SearchOptionsProvider>
-              </span>
-            </div>
-
-            <div className="tags-container">
-              <div className="advanced-search-page-tags">
-                <span className="advanced-search-page-tags-label">
-                  <h5>
-                    {matches === 1
-                      ? `${matches} match found`
-                      : `${matches} matches found`}
-                  </h5>
+        {isMobile ? (
+          <main className="advanced-search-page-main-content mobile">
+            <div className="advanced-search-mobile-top">
+              <div className="advanced-search-mobile-subheader">
+                <SlidersHorizontal
+                  size={18}
+                  strokeWidth={1.75}
+                  color="var(--text-color)"
+                  onClick={() => setFilterVisibility((prev) => !prev)}
+                />
+                <span className="advanced-search-filter-btn-label">
+                  Filters
                 </span>
-                <RecipeTags
-                  recipe={{
-                    cuisineRegion: selectedCuisineRegion?.value,
-                    proteinChoice: selectedProteinChoice,
-                    dietaryRestriction: selectedDietaryRestriction,
-                    religiousRestriction: selectedReligiousRestriction,
-                  }}
-                  noTagsText={
-                    <span className="advanced-no-tags-text">
-                      (No filters selected)
-                    </span>
+              </div>
+            </div>
+            <div
+              className={`advanced-search-filter-drawer ${filterVisibility ? "open" : ""}`}
+            >
+              <div className="advanced-search-filter-drawer-inner">
+                <FilterBlock
+                  filterName="CUISINE REGION"
+                  filterCategory="cuisineRegion"
+                  selectedFilter={selectedCuisineRegion}
+                  onChange={handleCuisineChange}
+                />
+                <FilterBlock
+                  filterName="PROTEIN CHOICE"
+                  filterCategory="proteinChoice"
+                  selectedFilter={selectedProteinChoice}
+                  onChange={(val) => handleParamChange("proteinChoice", val)}
+                />
+                <FilterBlock
+                  filterName="DIETARY RESTRICTION"
+                  filterCategory="dietaryRestriction"
+                  selectedFilter={selectedDietaryRestriction}
+                  onChange={(val) =>
+                    handleParamChange("dietaryRestriction", val)
                   }
                 />
+                <FilterBlock
+                  filterName="RELIGIOUS RESTRICTION"
+                  filterCategory="religiousRestriction"
+                  selectedFilter={selectedReligiousRestriction}
+                  onChange={(val) =>
+                    handleParamChange("religiousRestriction", val)
+                  }
+                />
+
+                <button
+                  className="advanced-search-filter-drawer-apply"
+                  onClick={() => setFilterVisibility(false)}
+                >
+                  Apply Filters
+                </button>
               </div>
             </div>
 
-            <div className="advanced-search-page-advanced-blocks">
-              {allRecipes.length > 0 ? (
-                <AdvancedBlocks blocks={recipeBlocks} />
-              ) : (
-                <div className ="advanced-search-no-recipes-found">No recipes found.</div>
-              )}
+            {/* results */}
+            <div className="advanced-search-page-right-panel mobile">
+              <div className="advanced-search-page-advanced-blocks">
+                {allRecipes.length > 0 ? (
+                  <AdvancedBlocks blocks={recipeBlocks} />
+                ) : (
+                  <div className="advanced-search-no-recipes-found">
+                    No recipes found.
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        ) : (
+          <main className="advanced-search-page-main-content">
+            <div className="advanced-search-page-left-panel">
+              <h2 className="advanced-search-page-title">FILTERS</h2>
+
+              <FilterBlock
+                filterName="CUISINE REGION"
+                filterCategory="cuisineRegion"
+                selectedFilter={selectedCuisineRegion}
+                onChange={handleCuisineChange}
+              />
+
+              <FilterBlock
+                filterName="PROTEIN CHOICE"
+                filterCategory="proteinChoice"
+                selectedFilter={selectedProteinChoice}
+                onChange={(val) => handleParamChange("proteinChoice", val)}
+              />
+
+              <FilterBlock
+                filterName="DIETARY RESTRICTION"
+                filterCategory="dietaryRestriction"
+                selectedFilter={selectedDietaryRestriction}
+                onChange={(val) => handleParamChange("dietaryRestriction", val)}
+              />
+
+              <FilterBlock
+                filterName="RELIGIOUS RESTRICTION"
+                filterCategory="religiousRestriction"
+                selectedFilter={selectedReligiousRestriction}
+                onChange={(val) =>
+                  handleParamChange("religiousRestriction", val)
+                }
+              />
+            </div>
+
+            <div className="advanced-search-page-right-panel">
+              <h2 className="advanced-search-page-title">ADVANCED SEARCH</h2>
+
+              <div className="advanced-search-page-search-bar">
+                <span>
+                  <h5 className="advanced-search-page-search-bar-label">
+                    search for:
+                  </h5>
+                  <AdvancedSearchBarType />
+                </span>
+                <span>
+                  <h5 className="advanced-search-page-search-bar-label">
+                    sort by
+                  </h5>{" "}
+                  <SearchOptionsProvider options={sortOptions}>
+                    <AdvancedSearchBarEnum />
+                  </SearchOptionsProvider>
+                </span>
+                <span>
+                  <h5 className="advanced-search-page-search-bar-label">
+                    view as:
+                  </h5>{" "}
+                  <SearchOptionsProvider options={displayOptions}>
+                    <AdvancedSearchBarEnum />
+                  </SearchOptionsProvider>
+                </span>
+              </div>
+
+              <div className="tags-container">
+                <div className="advanced-search-page-tags">
+                  <span className="advanced-search-page-tags-label">
+                    <h5>
+                      {matches === 1
+                        ? `${matches} match found`
+                        : `${matches} matches found`}
+                    </h5>
+                  </span>
+                  <RecipeTags
+                    recipe={{
+                      cuisineRegion: selectedCuisineRegion?.value,
+                      proteinChoice: selectedProteinChoice,
+                      dietaryRestriction: selectedDietaryRestriction,
+                      religiousRestriction: selectedReligiousRestriction,
+                    }}
+                    noTagsText={
+                      <span className="advanced-no-tags-text">
+                        (No filters selected)
+                      </span>
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="advanced-search-page-advanced-blocks">
+                {allRecipes.length > 0 ? (
+                  <AdvancedBlocks blocks={recipeBlocks} />
+                ) : (
+                  <div className="advanced-search-no-recipes-found">
+                    No recipes found.
+                  </div>
+                )}
+              </div>
+            </div>
+          </main>
+        )}
       </div>
     </div>
   );
