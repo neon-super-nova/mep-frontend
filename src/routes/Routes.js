@@ -10,7 +10,6 @@ import VerifyScreen from "../pages/Verify-Email";
 import AdvancedSearchPage from "../pages/Advanced-Search-Page";
 import UserPage from "../pages/User-Page";
 import SettingsPage from "../pages/Settings-Page";
-// import RecipeBoxPage from "../pages/Recipe-Box-Page";
 import NotificationsPage from "../pages/Notifications-Page";
 import RecipePage from "../pages/Recipe-Page";
 import SubmitRecipePage from "../pages/Submit-Recipe-Page";

@@ -386,10 +386,17 @@ function NotificationsPage() {
             </div>
           </div>
         </main>
-        <footer className="notifications-page-footer">
-          <p>Footer Content</p>
-        </footer>
       </div>
+      {/* Footer */}
+      <footer className="home-page-footer">
+        <p className="footer-p">Questions or Feedback? Contact us at</p>
+        <a
+          href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
+          className="footer-a"
+        >
+          mep.misenplate@gmail.com
+        </a>
+      </footer>
     </div>
   );
 }

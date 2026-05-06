@@ -34,7 +34,6 @@ function LandingPage() {
   const handleLogin = async () => {
     if (!username || !password) {
       setErrorMessage("Please enter both username and password");
-      // alert("Please enter both username and password.");
       return;
     }
 

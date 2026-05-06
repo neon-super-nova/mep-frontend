@@ -58,7 +58,7 @@ function RecipePage() {
       const height = aboveRef.current.offsetHeight;
       imageRef.current.style.setProperty(
         "--above-component-height",
-        `${height}px`
+        `${height}px`,
       );
     }
   }, []);
@@ -77,9 +77,8 @@ function RecipePage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
-        console.log("upon refresh like status was " + response.data.status);
         setLikedStatus(response.data.status);
       } catch (err) {
         // setLikedStatus(false);
@@ -117,7 +116,7 @@ function RecipePage() {
 
         if (recipeData && recipeData.userId) {
           const userResponse = await axios.get(
-            `/api/users/${recipeData.userId}`
+            `/api/users/${recipeData.userId}`,
           );
           setUser(userResponse.data.userInfo);
         }
@@ -132,7 +131,6 @@ function RecipePage() {
   const getRecipeStats = useCallback(async () => {
     try {
       const response = await axios.get(`/api/recipes/${recipeId}/recipe-stats`);
-      console.log(response.data);
       setRecipeStats({
         averageReview: response.data.averageReview || 0,
         reviewCount: response.data.reviewCount || 0,
@@ -152,11 +150,9 @@ function RecipePage() {
       const response = await axios.get(`/api/recipes/${recipeId}/reviews`);
       const reviewsArray = response.data.reviews || [];
 
-      console.log("Frontend received reviews:", reviewsArray);
-
       setReviews(reviewsArray);
       setAlreadyReviewed(
-        reviewsArray.some((r) => r.userId.toString() === userId)
+        reviewsArray.some((r) => r.userId.toString() === userId),
       );
     } catch (err) {
       console.error("Error fetching reviews:", err);
@@ -201,7 +197,7 @@ function RecipePage() {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       if (response.data?.message || response.data?.success) {
@@ -216,7 +212,7 @@ function RecipePage() {
       }
     } catch (err) {
       alert(
-        err.response?.data?.error || "An error occurred. Please try again."
+        err.response?.data?.error || "An error occurred. Please try again.",
       );
     }
   };
@@ -271,7 +267,7 @@ function RecipePage() {
                     onClick={() => {
                       handleLikeRecipe(recipe, setLikedStatus);
                       showToast(
-                        likedStatus ? "Recipe unliked!" : "Recipe liked!"
+                        likedStatus ? "Recipe unliked!" : "Recipe liked!",
                       );
                       // need to get true or false from handleLikeRecipe()
                     }}
@@ -284,8 +280,8 @@ function RecipePage() {
                             ? tinylikeddark
                             : tinylikedlight
                           : theme === "dark"
-                          ? tinylikeddark25
-                          : tinylikedlight25
+                            ? tinylikeddark25
+                            : tinylikedlight25
                       }
                       alt="Like icon and button"
                       className="recipe-page-like-icon"
@@ -563,8 +559,15 @@ function RecipePage() {
             </div>
           </div>
         </main>
-        <footer className="recipe-page-footer">
-          <p>Footer Content</p>
+        {/* Footer */}
+        <footer className="home-page-footer">
+          <p className="footer-p">Questions or Feedback? Contact us at</p>
+          <a
+            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
+            className="footer-a"
+          >
+            mep.misenplate@gmail.com
+          </a>
         </footer>
       </div>
     </div>

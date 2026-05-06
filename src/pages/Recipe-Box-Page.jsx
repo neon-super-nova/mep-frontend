@@ -68,7 +68,7 @@ function RecipeBoxPage() {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
         const likeResult = await axios.get(`/api/users/${userId}/like-count`, {
           headers: {
@@ -212,9 +212,7 @@ function RecipeBoxPage() {
                     className="recipe-box-page-toggle-link"
                     onClick={() => setShowPencils2((v) => !v)}
                   >
-                    {showPencils2
-                      ? "Go Back"
-                      : "Edit a recipe you submitted"}
+                    {showPencils2 ? "Go Back" : "Edit a recipe you submitted"}
                   </span>
                 </span>
               </h6>
@@ -272,7 +270,9 @@ function RecipeBoxPage() {
                   </div>
                 ))
               ) : (
-                <p className="recipe-box-page-no-recipes-found">No recipes submitted yet.</p>
+                <p className="recipe-box-page-no-recipes-found">
+                  No recipes submitted yet.
+                </p>
               )}
 
               <button
@@ -302,9 +302,7 @@ function RecipeBoxPage() {
                       console.log("toggling showFlag", !showFlag);
                     }}
                   >
-                    {showFlag
-                      ? "Go Back"
-                      : "Unlike a recipe you liked"}
+                    {showFlag ? "Go Back" : "Unlike a recipe you liked"}
                   </span>
                 </span>
               </h6>
@@ -337,7 +335,7 @@ function RecipeBoxPage() {
                             recipe,
                             true,
                             likedRecipes,
-                            setLikedRecipes
+                            setLikedRecipes,
                           )
                         }
                         show={showFlag}
@@ -362,8 +360,15 @@ function RecipeBoxPage() {
             </div>
           </div>
         </div>
-        <footer className="recipe-box-page-footer">
-          <p>Footer Content</p>
+        {/* Footer */}
+        <footer className="home-page-footer">
+          <p className="footer-p">Questions or Feedback? Contact us at</p>
+          <a
+            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
+            className="footer-a"
+          >
+            mep.misenplate@gmail.com
+          </a>
         </footer>
       </div>
     </div>
