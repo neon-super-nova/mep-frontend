@@ -169,211 +169,220 @@ function NotificationsPage() {
             <div className="notifications-page-left-panel2">
               <h2 className="notifications-page-panel-title">Notifications</h2>
 
-              {groupedNotifications.map((notification) => {
-                let notificationClass = "";
+              {groupedNotifications.length > 0 ? (
+                groupedNotifications.map((notification) => {
+                  let notificationClass = "";
 
-                return (
-                  <div
-                    key={notification.id}
-                    className={`notifications-page-panel-item ${notificationClass}`}
-                  >
-                    {notification.grouped ? (
-                      (() => {
-                        const uniqueUsers = [];
-                        const seenUsernames = new Set();
+                  return (
+                    <div
+                      key={notification.id}
+                      className={`notifications-page-panel-item ${notificationClass}`}
+                    >
+                      {notification.grouped ? (
+                        (() => {
+                          const uniqueUsers = [];
+                          const seenUsernames = new Set();
 
-                        notification.group.forEach((n) => {
-                          const username = n.firstSenderUsername || "Anonymous";
-                          if (!seenUsernames.has(username)) {
-                            uniqueUsers.push({
-                              username,
-                              senderAvatarUrl: n.senderPictureUrl,
-                              recipeId: n.recipeId,
-                              recipeName: n.recipeName,
-                              createdAt: n.date,
-                            });
-                            seenUsernames.add(username);
+                          notification.group.forEach((n) => {
+                            const username =
+                              n.firstSenderUsername || "Anonymous";
+                            if (!seenUsernames.has(username)) {
+                              uniqueUsers.push({
+                                username,
+                                senderAvatarUrl: n.senderPictureUrl,
+                                recipeId: n.recipeId,
+                                recipeName: n.recipeName,
+                                createdAt: n.date,
+                              });
+                              seenUsernames.add(username);
+                            }
+                          });
+
+                          const getAvatarForUsername = (username) => {
+                            const userObj = notification.group.find(
+                              (n) => n.senderUsername === username,
+                            );
+                            return userObj?.senderPictureUrl || userAvatar;
+                          };
+
+                          const getRecipeLink = (user) => {
+                            return user.recipeId
+                              ? `/recipe/${user.recipeId}`
+                              : "#";
+                          };
+
+                          const typesInGroup = [
+                            ...new Set(notification.group.map((n) => n.type)),
+                          ];
+                          let actionText = "";
+                          if (typesInGroup.length === 1) {
+                            actionText =
+                              typesInGroup[0] === "like" ? "liked" : "reviewed";
+                          } else {
+                            actionText = "reacted to";
                           }
-                        });
-
-                        const getAvatarForUsername = (username) => {
-                          const userObj = notification.group.find(
-                            (n) => n.senderUsername === username,
-                          );
-                          return userObj?.senderPictureUrl || userAvatar;
-                        };
-
-                        const getRecipeLink = (user) => {
-                          return user.recipeId
-                            ? `/recipe/${user.recipeId}`
-                            : "#";
-                        };
-
-                        const typesInGroup = [
-                          ...new Set(notification.group.map((n) => n.type)),
-                        ];
-                        let actionText = "";
-                        if (typesInGroup.length === 1) {
-                          actionText =
-                            typesInGroup[0] === "like" ? "liked" : "reviewed";
-                        } else {
-                          actionText = "reacted to";
-                        }
-                        if (uniqueUsers.length <= 2) {
-                          return (
-                            <div className="notifications-page-panel-item-grouped">
-                              <img
-                                src={getAvatarForUsername(
-                                  uniqueUsers[0].username,
-                                )}
-                                alt="avatar"
-                                className="user-image"
-                              />
-                              <p className="notifications-page-panel-desc">
-                                {uniqueUsers.length === 1 && (
-                                  <span className="notifications-page-panel-desc bold">
-                                    {uniqueUsers[0].username}
+                          if (uniqueUsers.length <= 2) {
+                            return (
+                              <div className="notifications-page-panel-item-grouped">
+                                <img
+                                  src={getAvatarForUsername(
+                                    uniqueUsers[0].username,
+                                  )}
+                                  alt="avatar"
+                                  className="user-image"
+                                />
+                                <p className="notifications-page-panel-desc">
+                                  {uniqueUsers.length === 1 && (
+                                    <span className="notifications-page-panel-desc bold">
+                                      {uniqueUsers[0].username}
+                                    </span>
+                                  )}
+                                  {uniqueUsers.length === 2 && (
+                                    <>
+                                      <span className="notifications-page-panel-desc bold">
+                                        {uniqueUsers[0].username}
+                                      </span>
+                                      {" and "}
+                                      <span className="notifications-page-panel-desc bold">
+                                        {uniqueUsers[1].username}
+                                      </span>
+                                    </>
+                                  )}
+                                  {uniqueUsers.length > 2 && (
+                                    <>
+                                      <span className="notifications-page-panel-desc bold">
+                                        {uniqueUsers[0].username}
+                                      </span>
+                                      {" and "}
+                                      {uniqueUsers.length - 1} others
+                                    </>
+                                  )}{" "}
+                                  {actionText} your{" "}
+                                  <Link
+                                    className="notification-link"
+                                    to={getRecipeLink(uniqueUsers[0])}
+                                  >
+                                    {uniqueUsers[0].recipeName || "recipe"}
+                                  </Link>
+                                  <span> on </span>{" "}
+                                  <span className="reviews-true-date">
+                                    {new Date(
+                                      uniqueUsers[0].createdAt,
+                                    ).toLocaleDateString("en-US", {
+                                      month: "2-digit",
+                                      day: "2-digit",
+                                      year: "numeric",
+                                    })}{" "}
+                                    at{" "}
+                                    {new Date(
+                                      uniqueUsers[0].createdAt,
+                                    ).toLocaleTimeString("en-US", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                      hour12: true,
+                                    })}
                                   </span>
-                                )}
-                                {uniqueUsers.length === 2 && (
-                                  <>
-                                    <span className="notifications-page-panel-desc bold">
-                                      {uniqueUsers[0].username}
-                                    </span>
-                                    {" and "}
-                                    <span className="notifications-page-panel-desc bold">
-                                      {uniqueUsers[1].username}
-                                    </span>
-                                  </>
-                                )}
-                                {uniqueUsers.length > 2 && (
-                                  <>
-                                    <span className="notifications-page-panel-desc bold">
-                                      {uniqueUsers[0].username}
-                                    </span>
-                                    {" and "}
-                                    {uniqueUsers.length - 1} others
-                                  </>
-                                )}{" "}
-                                {actionText} your{" "}
-                                <Link
-                                  className="notification-link"
-                                  to={getRecipeLink(uniqueUsers[0])}
-                                >
-                                  {uniqueUsers[0].recipeName || "recipe"}
-                                </Link>
-                                <span> on </span>{" "}
-                                <span className="reviews-true-date">
-                                  {new Date(
-                                    uniqueUsers[0].createdAt,
-                                  ).toLocaleDateString("en-US", {
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    year: "numeric",
-                                  })}{" "}
-                                  at{" "}
-                                  {new Date(
-                                    uniqueUsers[0].createdAt,
-                                  ).toLocaleTimeString("en-US", {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    hour12: true,
-                                  })}
-                                </span>
-                              </p>
-                            </div>
-                          );
-                        }
-                      })()
-                    ) : (
-                      <>
-                        <div
-                          className={"notifications-page-panel-item-grouped"}
-                        >
-                          <img
-                            src={notification.senderPictureUrl || userAvatar}
-                            alt="avatar"
-                            className="user-image"
-                          />
-                          <p className="notifications-page-panel-desc">
-                            <span className="notifications-page-panel-desc bold">
-                              {notification.otherSendersCount === 0
-                                ? notification.firstSenderUsername
-                                : `${notification.firstSenderUsername} and ${notification.otherSendersCount} other user(s)`}
-                            </span>
-                            {notification.type.trim() === "like"
-                              ? " liked"
-                              : " reviewed"}
-                            {getNotificationValue(notification)}{" "}
-                            {notification.date ? (
-                              <>
-                                <span> on </span>{" "}
-                                <span className="reviews-true-date">
-                                  {new Date(
-                                    notification.date,
-                                  ).toLocaleDateString("en-US", {
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    year: "numeric",
-                                  })}{" "}
-                                </span>
-                              </>
-                            ) : (
-                              "at some time"
-                            )}
-                            .
-                          </p>
-                          <>
-                            {notification.type === "review" ? (
-                              <div className="event-reviewed-group">
-                                <img
-                                  src={
-                                    theme === "dark"
-                                      ? darkReviewedFrame
-                                      : lightReviewedFrame
-                                  }
-                                  alt="like-frame"
-                                  className="event-image-reviewed-frame"
-                                />
-                                <img
-                                  src={notification.recipeImageUrl || thumbnail}
-                                  alt="avatar"
-                                  className="event-image-reviewed"
-                                />
+                                </p>
                               </div>
-                            ) : (
-                              <div className="event-liked-group">
-                                <img
-                                  src={
-                                    theme === "dark"
-                                      ? darkLikedFrame
-                                      : lightLikedFrame
-                                  }
-                                  alt="like-frame"
-                                  className="event-image-liked-frame"
-                                />
-                                <img
-                                  src={notification.recipeImageUrl || thumbnail}
-                                  alt="avatar"
-                                  className="event-image-liked"
-                                />
-                              </div>
-                            )}
-                          </>
-
-                          <button
-                            className="mark-as-read-button"
-                            onClick={() => markAsRead(notification.id)}
-                            aria-label="Mark as Read"
+                            );
+                          }
+                        })()
+                      ) : (
+                        <>
+                          <div
+                            className={"notifications-page-panel-item-grouped"}
                           >
-                            Mark as Read
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
+                            <img
+                              src={notification.senderPictureUrl || userAvatar}
+                              alt="avatar"
+                              className="user-image"
+                            />
+                            <p className="notifications-page-panel-desc">
+                              <span className="notifications-page-panel-desc bold">
+                                {notification.otherSendersCount === 0
+                                  ? notification.firstSenderUsername
+                                  : `${notification.firstSenderUsername} and ${notification.otherSendersCount} other user(s)`}
+                              </span>
+                              {notification.type.trim() === "like"
+                                ? " liked"
+                                : " reviewed"}
+                              {getNotificationValue(notification)}{" "}
+                              {notification.date ? (
+                                <>
+                                  <span> on </span>{" "}
+                                  <span className="reviews-true-date">
+                                    {new Date(
+                                      notification.date,
+                                    ).toLocaleDateString("en-US", {
+                                      month: "2-digit",
+                                      day: "2-digit",
+                                      year: "numeric",
+                                    })}{" "}
+                                  </span>
+                                </>
+                              ) : (
+                                "at some time"
+                              )}
+                              .
+                            </p>
+                            <>
+                              {notification.type === "review" ? (
+                                <div className="event-reviewed-group">
+                                  <img
+                                    src={
+                                      theme === "dark"
+                                        ? darkReviewedFrame
+                                        : lightReviewedFrame
+                                    }
+                                    alt="like-frame"
+                                    className="event-image-reviewed-frame"
+                                  />
+                                  <img
+                                    src={
+                                      notification.recipeImageUrl || thumbnail
+                                    }
+                                    alt="avatar"
+                                    className="event-image-reviewed"
+                                  />
+                                </div>
+                              ) : (
+                                <div className="event-liked-group">
+                                  <img
+                                    src={
+                                      theme === "dark"
+                                        ? darkLikedFrame
+                                        : lightLikedFrame
+                                    }
+                                    alt="like-frame"
+                                    className="event-image-liked-frame"
+                                  />
+                                  <img
+                                    src={
+                                      notification.recipeImageUrl || thumbnail
+                                    }
+                                    alt="avatar"
+                                    className="event-image-liked"
+                                  />
+                                </div>
+                              )}
+                            </>
+
+                            <button
+                              className="mark-as-read-button"
+                              onClick={() => markAsRead(notification.id)}
+                              aria-label="Mark as Read"
+                            >
+                              Mark as Read
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="no-notifications">No notifications.</p>
+              )}
             </div>
           </div>
         </main>

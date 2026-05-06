@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from "react";
 import "./mobiledrop.css";
 import axios from "axios";
@@ -12,7 +11,6 @@ import { Sun, Moon } from "lucide-react";
 import { useTheme } from "../../../context/theme-context.js";
 import ModalReport from "../modals/modal-report.jsx";
 import { Turn as Hamburger } from "hamburger-react";
-
 
 function MobileDropdown() {
   const navigate = useNavigate();
@@ -81,7 +79,7 @@ function MobileDropdown() {
           headers: {
             Authorization: `Bearer ${currToken}`,
           },
-        }
+        },
       );
       deleteUserAvatar();
       navigate("/");
@@ -102,7 +100,6 @@ function MobileDropdown() {
 
   const ref = useRef(null);
 
-
   return (
     <div ref={ref}>
       <div className="mobile-dropdown">
@@ -113,36 +110,36 @@ function MobileDropdown() {
             color="var(--main-accent-color-alt)"
           />
         </div>
-          {open && (
-            <div className="mobile-dropdown-menu"> 
-              {options.map((option, idx) => (
-                <React.Fragment key={option.value}>
-                  <div
-                    id={`dropdown-option-${idx}`}
-                    role="option"
-                    aria-selected={selectedIdx === idx}
-                    tabIndex={-1}
-                    ref={(el) => (optionRefs.current[idx] = el)}
-                    className={`mobile-dropdown-item ${selectedIdx === idx ? "selected" : ""}`}
-                    onClick={() => handleSelect(option.value, idx)}
-                  >
-                    <div className={`option-label ${option.labelClass || ""}`}>
-                      {option.label}
-                    </div>
-                    {option.description && (
-                      <div
-                        className={`option-description ${
-                          option.descriptionClass || ""
-                        }`}
-                      >
-                        {option.description}
-                      </div>
-                    )}
+        {open && (
+          <div className="mobile-dropdown-menu">
+            {options.map((option, idx) => (
+              <React.Fragment key={option.value}>
+                <div
+                  id={`dropdown-option-${idx}`}
+                  role="option"
+                  aria-selected={selectedIdx === idx}
+                  tabIndex={-1}
+                  ref={(el) => (optionRefs.current[idx] = el)}
+                  className={`mobile-dropdown-item ${selectedIdx === idx ? "selected" : ""}`}
+                  onClick={() => handleSelect(option.value, idx)}
+                >
+                  <div className={`option-label ${option.labelClass || ""}`}>
+                    {option.label}
                   </div>
-                </React.Fragment>
-              ))}
-            </div>
-          )}
+                  {option.description && (
+                    <div
+                      className={`option-description ${
+                        option.descriptionClass || ""
+                      }`}
+                    >
+                      {option.description}
+                    </div>
+                  )}
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        )}
       </div>
 
       <ModalReport

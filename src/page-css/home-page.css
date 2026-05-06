@@ -126,7 +126,7 @@ html {
   gap: 1rem;
   justify-content: center;
 } */
- 
+
 .home-page-right-panel-mini-module {
   width: 100%;
   display: flex;
@@ -134,7 +134,6 @@ html {
   align-items: center;
   justify-content: start;
 }
-
 
 .home-page-right-panel-module {
   width: 100%;
@@ -153,41 +152,37 @@ html {
   border-top: 10px solid var(--main-accent-color-alt);
 }
 
-
-
 @media (min-width: 0em) and (max-width: 36em) {
   .home-page-footer {
     background-color: blue;
   }
   .home-page-main-content {
-  display: flex;
-  flex-flow: column wrap;
+    display: flex;
+    flex-flow: column wrap;
+  }
 
-}
+  /* Left Panel */
+  .home-page-left-panel {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    border-right: 5px double var(--main-accent-color-alt);
+    background-color: var(--bg-color);
+  }
 
-/* Left Panel */
-.home-page-left-panel {
- width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  border-right: 5px double var(--main-accent-color-alt);
-  background-color: var(--bg-color);
-}
-
-/* Right Panel */
-.home-page-right-panel {
-   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--bg-panel-color);
-}
-
+  /* Right Panel */
+  .home-page-right-panel {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-panel-color);
+  }
 }
 
 @media (min-width: 36.063em) and (max-width: 54em) {
@@ -196,33 +191,32 @@ html {
   }
 
   .home-page-main-content {
-  display: flex;
-  flex-flow: column wrap;
-}
+    display: flex;
+    flex-flow: column wrap;
+  }
 
-/* Left Panel */
-.home-page-left-panel {
- width: 100vw;
-  display: flex;
-  flex-flow: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  border-right: 5px double var(--main-accent-color-alt);
-  background-color: var(--bg-color);
-}
+  /* Left Panel */
+  .home-page-left-panel {
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    border-right: none;
+    background-color: var(--bg-color);
+  }
 
-/* Right Panel */
-.home-page-right-panel {
-   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--bg-panel-color);
-}
-
+  /* Right Panel */
+  .home-page-right-panel {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-panel-color);
+  }
 }
 
 @media (min-width: 54.063em) and (max-width: 68em) {
@@ -231,41 +225,39 @@ html {
   }
 
   .home-page-main-content {
-  display: flex;
-  flex-flow: column wrap;
-}
+    display: flex;
+    flex-flow: column wrap;
+  }
 
-/* Left Panel */
-.home-page-left-panel {
- width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  border-right: 5px double var(--main-accent-color-alt);
-  background-color: var(--bg-color);
-}
+  /* Left Panel */
+  .home-page-left-panel {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    border-right: 5px double var(--main-accent-color-alt);
+    background-color: var(--bg-color);
+  }
 
-/* Right Panel */
-.home-page-right-panel {
-   width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding: 1rem;
-  background-color: var(--bg-panel-color);
-}
+  /* Right Panel */
+  .home-page-right-panel {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-panel-color);
+  }
 
-.home-page-right-panel-mini-module {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 1rem;
-  justify-content: center;
-}
-
-
+  .home-page-right-panel-mini-module {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 1rem;
+    justify-content: center;
+  }
 }
 
 @media (min-width: 68.063em) and (max-width: 80em) {
@@ -279,6 +271,7 @@ html {
 @media (min-width: 93.813em) {
   /* Extra Extra Large: 1501px+ */
 }
-  .home-page-footer {
-    background-color: orange;
-  }
+
+.home-page-footer {
+  background-color: orange;
+}

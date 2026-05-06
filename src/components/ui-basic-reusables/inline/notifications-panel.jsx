@@ -11,7 +11,7 @@ function NotificationsPanel({ onClose }) {
         <div className="notification-item">
           <Bell fill="var(--subcat-filter-box)" strokeWidth={0.75} size={12} />
           <span style={{ width: "0.15rem" }}></span>
-          You have a new message!
+          Check your notifications
         </div>
         <span style={{ width: "0.05rem" }}></span>
         <button
