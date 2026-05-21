@@ -1,7 +1,7 @@
 import "../page-css/user-page.css";
 
 import { Link } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
@@ -94,7 +94,8 @@ function UserPage() {
     }
   };
 
-  const [globalLikeCount, setGlobalLikeCount] = useState(0);
+  // eslint-disable-next-line no-unused-vars
+  const [_, setGlobalLikeCount] = useState(0);
 
   useEffect(() => {
     const getCount = async () => {
