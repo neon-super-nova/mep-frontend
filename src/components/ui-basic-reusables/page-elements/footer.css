@@ -1,0 +1,36 @@
+.master-footer {
+  background-color: var(--bg-color-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  text-align: center;
+  padding: 2.5rem 0 1rem 0;
+  margin: 1rem 0; 
+  border-top: 10px solid var(--main-accent-color-alt);
+}
+
+.master-footer-p {
+  font-size: clamp(0.8rem, 1vw, 1.1rem);
+  font-weight: 300;
+  color: var(--text-color-alt);
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.master-footer-a {
+  font-size: clamp(0.85rem, 1vw, 1.15rem);
+  font-weight: 400;
+  color: var(--text-color-alt);
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.master-footer-space {
+  display: inline-block;
+  width: 0.35rem;
+}

@@ -6,6 +6,9 @@
   background-color: var(--bg-color-alt);
   padding: 5px 10px;
   border-bottom: 10px solid var(--main-accent-color-alt);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .comp-header-left {
@@ -41,7 +44,7 @@
 
 @media (min-width: 0em) and (max-width: 54em) {
   .comp-header {
-    overflow-x: hidden;
+    overflow: visible;
     min-height: 8vh;
   }
   /* .comp-logo {

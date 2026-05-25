@@ -12,7 +12,7 @@ import AdvancedBlocks from "../components/ui-basic-reusables/blocks/advanced-blo
 import FilterBlock from "../components/ui-basic-reusables/blocks/advance-search-filter-blocks";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
-import { SlidersHorizonta, X, SlidersHorizontal } from "lucide-react";
+import { X, SlidersHorizontal } from "lucide-react";
 
 function AdvancedSearchPage() {
   const { theme } = useTheme();
@@ -126,7 +126,7 @@ function AdvancedSearchPage() {
             <div className="advanced-search-mobile-top">
               <div className="advanced-search-mobile-subheader">
                 <SlidersHorizontal
-                  size={18}
+                  size={24}
                   strokeWidth={1.75}
                   color="var(--text-color)"
                   onClick={() => setFilterVisibility((prev) => !prev)}

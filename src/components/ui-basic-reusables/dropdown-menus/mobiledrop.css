@@ -91,11 +91,8 @@
 
 .mobile-dropdown {
   display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
+  /* anchor menu relative to the header toggle */
+  position: relative;
   overflow: visible;
   z-index: 2000;
 }
@@ -112,8 +109,9 @@
 
 .mobile-dropdown-menu {
   position: absolute;
-  top: 8vh;
-  left: 0;
+  /* place directly below the toggle element (100% of its height) */
+  top: 135%;
+  left: -0.65rem;
   width: 100vw;
   display: flex;
   flex-direction: column;

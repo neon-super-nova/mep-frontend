@@ -35,6 +35,7 @@ function RecipeCardRow({
   const [page, setPage] = useState(1);
   const containerRef = useRef(null);
   const pageSize = useContainerCards(containerRef);
+  const hasRecipes = recipes.length > 0;
 
   useEffect(() => {
     setPage(1);
@@ -46,34 +47,40 @@ function RecipeCardRow({
 
   return (
     <div className={containerClassName} ref={containerRef}>
-      <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-        {page !== 1 ? (
-          <ArrowLeft color="var(--text-color)" strokeWidth={1.5} size={20} />
-        ) : null}
-      </button>
+      {hasRecipes ? (
+        <>
+          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
+            {page !== 1 ? (
+              <ArrowLeft color="var(--text-color)" strokeWidth={1.5} size={20} />
+            ) : null}
+          </button>
 
-      {paged.length > 0 ? (
-        paged.map((recipe, idx) => (
-          <div
-            key={recipe._id ?? recipe.recipeId ?? idx}
-            style={{ position: "relative", zIndex: 1 }}
+          {paged.length > 0 ? (
+            paged.map((recipe, idx) => (
+              <div
+                key={recipe._id ?? recipe.recipeId ?? idx}
+                style={{ position: "relative", zIndex: 1 }}
+              >
+                {renderCard(recipe)}
+                {renderOverlay?.(recipe)}
+              </div>
+            ))
+          ) : null}
+
+          <button
+            disabled={end >= recipes.length}
+            onClick={() => setPage((p) => p + 1)}
           >
-            {renderCard(recipe)}
-            {renderOverlay?.(recipe)}
-          </div>
-        ))
+            {end < recipes.length ? (
+              <ArrowRight color="var(--text-color)" strokeWidth={1.5} size={20} />
+            ) : null}
+          </button>
+        </>
       ) : (
-        <p className="user-page-no-recipes-found">{emptyMessage}</p>
+        <div className="user-page-no-recipes-found-row">
+          <p className="user-page-no-recipes-found">{emptyMessage}</p>
+        </div>
       )}
-
-      <button
-        disabled={end >= recipes.length}
-        onClick={() => setPage((p) => p + 1)}
-      >
-        {end < recipes.length ? (
-          <ArrowRight color="var(--text-color)" strokeWidth={1.5} size={20} />
-        ) : null}
-      </button>
     </div>
   );
 }

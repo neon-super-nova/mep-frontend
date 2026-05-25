@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import ModalDefault from "./modal";
+import React, { useEffect, useState } from "react";
+import ModalDefault from "./modal.jsx";
 import "./modal-report.css";
 import "./modal-delete.css";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import cautionDark from "../../img/icons/icon-caution-dark.png";
 import cautionLight from "../../img/icons/icon-caution-light.png";
 import { useTheme } from "../../../context/theme-context.js";
+import axios from "axios";
+import { getToken, deleteToken } from "../../../context/tokens.js";
+import { useNavigate } from "react-router-dom";
 
 const Modal =
   typeof ModalDefault === "function"
@@ -14,19 +17,100 @@ const Modal =
       ? ModalDefault.default
       : null;
 
-function ModalDeleteRecipe({ open, onClose }) {
+function ModalDeleteRecipe({ open, onClose, recipeId }) {
   const { theme } = useTheme();
   const [step, setStep] = useState(1);
+  const [recipe, setRecipe] = useState(null);
+  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [usernameInput, setUsernameInput] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
+  const [verifyMessage, setVerifyMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleNext = () => {
-    if (step < 2) {
-      setStep(step + 1);
+  useEffect(() => {
+    async function fetchRecipeInfo() {
+      if (!recipeId) {
+        setRecipe(null);
+        setUsername("");
+        setFullName("");
+        return;
+      }
+
+      try {
+        const response = await axios.get(`/api/recipes/${recipeId}`);
+        const recipeData = response.data.recipe;
+        setRecipe(recipeData);
+
+        if (recipeData && recipeData.userId) {
+          const userResponse = await axios.get(
+            `/api/users/${recipeData.userId}`
+          );
+          const userInfo = userResponse.data.userInfo;
+          const { username: loadedUsername, firstName, lastName } = userInfo;
+          setUsername(loadedUsername || "");
+          setFullName(`${firstName || ""} ${lastName || ""}`.trim());
+        }
+      } catch (err) {
+        setRecipe(null);
+        setUsername("");
+        setFullName("");
+      }
     }
+
+    fetchRecipeInfo();
+  }, [recipeId]);
+
+  useEffect(() => {
+    if (!open) return;
+    setStep(1);
+    setUsernameInput("");
+    setConfirmed(false);
+    setVerifyMessage("");
+  }, [open]);
+
+  const handleVerifyUsername = (e) => {
+    e.preventDefault();
+
+    const expectedUsername = username?.trim().toLowerCase();
+    const enteredUsername = usernameInput.trim().toLowerCase();
+
+    if (!enteredUsername) {
+      setConfirmed(false);
+      setVerifyMessage("Please enter your username.");
+      return;
+    }
+
+    if (!expectedUsername) {
+      setConfirmed(false);
+      setVerifyMessage("Could not load account username. Please try again.");
+      return;
+    }
+
+    if (enteredUsername === expectedUsername) {
+      setConfirmed(true);
+      setVerifyMessage("Username verified.");
+      return;
+    }
+
+    setConfirmed(false);
+    setVerifyMessage("Username does not match this account.");
   };
 
-  const handleBack = () => {
-    if (step > 1) {
-      setStep(step - 1);
+  const handleDeleteRecipe = async () => {
+    const currToken = getToken();
+    deleteToken(currToken);
+
+    try {
+      await axios.delete(`/api/recipes/${recipeId}`, {
+        headers: {
+          Authorization: `Bearer ${currToken}`,
+        },
+      });
+      onClose();
+      navigate("/profile");
+    } catch (error) {
+      console.error("Delete recipe failed:", error);
     }
   };
 
@@ -46,16 +130,44 @@ function ModalDeleteRecipe({ open, onClose }) {
                     alt="caution icon"
                     className="caution-icon"
                   />
-                  DELETING ACCOUNT
+                  DELETING RECIPE
                 </h2>
                 <div className="modal-delete-content">
                   <p>
-                    Thank you for helping maintain our community standards by
-                    reporting rule violations. Please provide details about the
-                    situation, and our team will promptly investigate the
-                    matter.
+                    Enter your account username to confirm identity before
+                    deleting this recipe.
                   </p>
-                  <p>verify email</p>
+                  {recipe && (
+                    <p>
+                      {recipe.name ? `Recipe: ${recipe.name}` : "Recipe loaded"}
+                      {fullName ? ` by ${fullName}` : ""}
+                    </p>
+                  )}
+                  <form onSubmit={handleVerifyUsername}>
+                    <label
+                      htmlFor="delete-acct-username"
+                      style={{ display: "none" }}
+                    >
+                      Account username
+                    </label>
+                    <input
+                      id="delete-acct-username"
+                      className="verify-reset-input"
+                      type="text"
+                      value={usernameInput}
+                      onChange={(e) => setUsernameInput(e.target.value)}
+                      placeholder="Enter account username"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      className="fancy-button"
+                      style={{ marginTop: "8px" }}
+                    >
+                      Verify Username
+                    </button>
+                  </form>
+                  {verifyMessage && <p>{verifyMessage}</p>}
                   <div className="buttons-container">
                     <button onClick={onClose} className="fancy-button">
                       <X
@@ -69,7 +181,7 @@ function ModalDeleteRecipe({ open, onClose }) {
                       onClick={() => {
                         setStep(2);
                       }}
-                      disabled={step === 2}
+                      disabled={!confirmed || step === 2}
                       className="fancy-button"
                     >
                       Next
@@ -93,21 +205,18 @@ function ModalDeleteRecipe({ open, onClose }) {
                     alt="caution icon"
                     className="caution-icon"
                   />
-                  DELETING ACCOUNT
+                  DELETING RECIPE
                 </h2>
                 <div className="modal-delete-content">
                   <p>
-                    Thank you for helping maintain our community standards by
-                    reporting rule violations. Please provide details about the
-                    situation, and our team will promptly investigate the
-                    matter.
+                    This action permanently deletes the recipe and cannot be undone.
                   </p>
                   <button
                     className="fancy-button submit-button"
-                    // onClick={}
-                    // disabled={}
+                    onClick={handleDeleteRecipe}
+                    disabled={!confirmed}
                   >
-                    Delete Account
+                    Delete Recipe
                   </button>
                   <div className="buttons-container">
                     <button
@@ -137,31 +246,6 @@ function ModalDeleteRecipe({ open, onClose }) {
               </div>
             </div>
           )}
-          <div className="modal-footer">
-            {step > 1 && (
-              <button className="modal-button" onClick={handleBack}>
-                <ArrowLeft size={16} />
-                Back
-              </button>
-            )}
-            {step < 2 && (
-              <button className="modal-button" onClick={handleNext}>
-                Next
-                <ArrowRight size={16} />
-              </button>
-            )}
-            {step === 2 && (
-              <button
-                className="modal-button delete-button"
-                onClick={() => {
-                  // Handle the actual deletion logic here
-                  onClose();
-                }}
-              >
-                Delete
-              </button>
-            )}
-          </div>
         </div>
       </div>
     </Modal>

@@ -263,6 +263,12 @@ html {
   text-align: center;
 }
 
+/* ************** */
+/* ************** */
+/* MEDIA QUERIES */
+/* ************** */
+/* ************** */
+
 /* mobile css */
 /* main*/
 .advanced-search-page-main-content.mobile {
@@ -276,7 +282,7 @@ html {
 .advanced-search-mobile-top {
   display: flex;
   background-color: var(--bg-color);
-  margin-left: 0.5rem;
+  margin-left: 0rem;
 }
 
 /* subheader */
@@ -290,7 +296,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 100;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .advanced-search-filter-btn {
@@ -309,10 +315,11 @@ html {
 .advanced-search-filter-btn-label {
   font-family: "Open Sans", sans-serif;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.075rem;
   color: var(--text-color);
+
 }
 
 .advanced-search-filter-active-dot {

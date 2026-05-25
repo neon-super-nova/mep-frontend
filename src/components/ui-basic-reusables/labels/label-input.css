@@ -112,7 +112,7 @@ h5.food.tags-row {
   /* "NO TAGS" */
   text-transform: capitalize;
   font-family: "Open Sans", sans-serif;
-    font-variation-settings: "wdth" 75;
+  font-variation-settings: "wdth" 75;
   font-optical-sizing: auto;
   font-weight: 400;
 }
@@ -155,10 +155,12 @@ h5.food.tags-row {
   border: 1.25px solid var(--minor-accent-color-3);
 }
 
+/* SUBMIT RECIPE FILE UPLOAD BUTTON */
+
 .file-upload-button {
-  background-color: var(--home-page-block-alt);
+  background-color: var(--subcat-filter-box-half);
   color: var(--text-color);
-text-transform: uppercase;
+  text-transform: uppercase;
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -167,12 +169,14 @@ text-transform: uppercase;
   letter-spacing: 0.065rem;
   font-size: 0.775rem;
   padding: 0.35rem 0.75rem;
+  border: 0.025rem solid var(--text-color-3-8);
   border-radius: 0.25rem;
-margin-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
 
 }
 
 .file-upload-button:hover {
-  background-color:  var(--home-page-block);
-    color: var(--text-color);
-  }
+  background-color: var(--subcat-filter-box);
+  color: var(--text-color);
+  border: 0.025rem solid var(--text-color);
+}

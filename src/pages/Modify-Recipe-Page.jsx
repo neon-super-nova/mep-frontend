@@ -10,10 +10,12 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUserId } from "../context/decodeToken.js";
-import { Receipt, X } from "lucide-react";
+import { X } from "lucide-react";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import axios from "axios";
 import { cuisineData } from "../data/cuisineData.js";
+import ModalDeleteRecipe from "../components/ui-basic-reusables/modals/modal-delete-recipe.jsx";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx";
 
 function ModifyRecipePage() {
   const { recipeId } = useParams();
@@ -22,7 +24,7 @@ function ModifyRecipePage() {
   const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
   const [fullname, setFullname] = useState("");
-
+  const [modalOpen, setModalOpen] = useState(null);
   const navigate = useNavigate();
   const userId = getUserId();
   const token = localStorage.getItem("token");
@@ -56,7 +58,7 @@ function ModifyRecipePage() {
         setRecipe(recipeData);
         if (recipeData && recipeData.userId) {
           const userResponse = await axios.get(
-            `/api/users/${recipeData.userId}`
+            `/api/users/${recipeData.userId}`,
           );
           setUser(userResponse.data.userInfo);
         }
@@ -111,13 +113,13 @@ function ModifyRecipePage() {
 
       setImageUrls(Array(MAX_IMAGES).fill(null));
       setImagesPreview(
-        Array.from({ length: MAX_IMAGES }, (_, i) => urls[i] || null)
+        Array.from({ length: MAX_IMAGES }, (_, i) => urls[i] || null),
       );
       setImageMap(
         Array.from({ length: MAX_IMAGES }, (_, i) => ({
           replaced: false,
           oldUrl: urls[i] || null,
-        }))
+        })),
       );
     }
   }, [recipe]);
@@ -165,7 +167,7 @@ function ModifyRecipePage() {
     const urls = recipe?.imageUrls || [];
     const imageArray = Array.from(
       { length: MAX_IMAGES },
-      (_, i) => urls[i] || null
+      (_, i) => urls[i] || null,
     );
     return imageArray;
   });
@@ -175,7 +177,7 @@ function ModifyRecipePage() {
       .map(() => ({
         replaced: false,
         oldUrl: null,
-      }))
+      })),
   );
 
   const handleImageUpload = (file, targetIndex = null) => {
@@ -186,13 +188,13 @@ function ModifyRecipePage() {
     if (indexToUse === null) {
       // find first truly empty slot
       indexToUse = imageUrls.findIndex(
-        (_, idx) => !imageUrls[idx] && !imageMap[idx]?.oldUrl
+        (_, idx) => !imageUrls[idx] && !imageMap[idx]?.oldUrl,
       );
     }
 
     if (indexToUse === -1) {
       alert(
-        "All image slots are filled. Clear a slot before uploading a new image."
+        "All image slots are filled. Clear a slot before uploading a new image.",
       );
       return;
     }
@@ -450,7 +452,7 @@ function ModifyRecipePage() {
                         <option key={label} value={label}>
                           {label}
                         </option>
-                      )
+                      ),
                     )}
                   </select>
                 </div>
@@ -470,7 +472,7 @@ function ModifyRecipePage() {
                       }));
                       console.log(
                         "cuisine sub-region selected:",
-                        e.target.value
+                        e.target.value,
                       );
                     }}
                   >
@@ -480,7 +482,7 @@ function ModifyRecipePage() {
                         <option key={value} value={value}>
                           {value}
                         </option>
-                      )
+                      ),
                     )}
                   </select>
                 </div>
@@ -651,13 +653,7 @@ function ModifyRecipePage() {
                     Clear
                   </button>
                 </div>
-                <span style={{ height: "0.5rem" }}></span>
-                <div className="reg-input">
-                  {/* <span className="bold">Total Time: </span>
-                  <span className="reg-total">
-                    {Number(formData.prepTime + formData.cookTime)} minutes
-                  </span> */}
-                </div>
+
                 <span style={{ height: "0.5rem" }}></span>
                 <div className="reg-input">
                   <span className="bold">Servings: </span>
@@ -828,26 +824,28 @@ function ModifyRecipePage() {
             </div>
             <div className="modify-recipe-button-container">
               <button
+                onClick={() => setModalOpen("modal-report")}
+                aria-label="Delete User Account"
+                className="account-delete-button"
+              >
+                Delete Recipe
+              </button>
+              <ModalDeleteRecipe
+                open={modalOpen === "modal-report"}
+                onClose={() => setModalOpen(null)}
+              />
+              <span className="modify-button-container-border" aria-hidden="true" />
+              <button
                 onClick={handleSubmit}
                 aria-label="Save Changes"
                 className="modify-upload-button"
               >
                 Save Changes
               </button>
-                    <button
-                // onClick={ }
-                // will fill in with delete function later
-                aria-label="Delete Recipe"
-                className="modify-upload-button delete"
-              >
-                Delete Recipe
-              </button>
             </div>
           </div>
         </main>
-        <footer className="submit-recipe-footer">
-          <p>Footer Content</p>
-        </footer>
+       <Footer />
       </div>
     </div>
   );

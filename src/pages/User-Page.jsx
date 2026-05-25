@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import Avatar from "../components/ui-basic-reusables/icons/avatar.jsx";
-
 import tinylikedlight from "../components/img/icons/icon-likes-small-light.png";
 import tinysavedlight from "../components/img/icons/icon-saves-small-light.png";
 import tinylikeddark from "../components/img/icons/icon-likes-small-dark.png";
@@ -25,6 +24,7 @@ import RecipeBlockSubmit from "../components/ui-basic-reusables/blocks/recipe-bl
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import ModalDeleteAcct from "../components/ui-basic-reusables/modals/modal-delete-acct.jsx";
 import RecipeCardRow from "../components/ui-basic-reusables/blocks/RecipeCardRow.jsx";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx";
 
 function UserPage() {
   const { theme } = useTheme();
@@ -597,120 +597,101 @@ function UserPage() {
 
             <div className="profile-top-panel-container-right">
               <h2 className="profile-page-panel-title">Recipe Box</h2>
-              <div className="profile-top-panel-container-total">
-                <div className="recipe-box-panels">
-                  <div className="total-submitted-recipes">
-                    <div className="user-page-submitted-panel-heading">
-                      <h3 className="user-page-submitted-title">
-                        submitted recipes
-                      </h3>
-                      <h6>
-                        <span className="bold">Modify submitted recipes: </span>
-                        <span className="home-page-left-panel-advanced-search-bold">
-                          <span
-                            className="user-page-toggle-link"
-                            onClick={() => setShowPencils2((v) => !v)}
-                          >
-                            {showPencils2
-                              ? "Go Back"
-                              : "Edit a recipe you submitted"}
-                          </span>
-                        </span>
-                      </h6>
-                      <h6>
-                        <span className="bold">submit a recipe: </span>
-                        <span className="reg">
-                          <Link
-                            to="/submit-recipe"
-                            className="home-page-left-panel-advanced-search-bold"
-                          >
-                            Enter your recipe here.
-                          </Link>
-                        </span>
-                      </h6>
-                    </div>
-                    <RecipeCardRow
-                      recipes={submittedRecipes}
-                      renderCard={(recipe) => (
-                        <RecipeBlockSubmit recipe={recipe} type="submitted" />
-                      )}
-                      renderOverlay={(recipe) =>
-                        showPencils2 && (
-                          <Link
-                            to={`/modify-recipe/${recipe._id || recipe.recipeId}`}
-                            style={{ marginLeft: 8 }}
-                          >
-                            <Pencil
-                              className="edit-pencil-icon"
-                              color="var(--text-color)"
-                              fill="var(--main-accent-color-alt)"
-                              strokeWidth={1.75}
-                              size={24}
-                              title="Edit"
-                            />
-                          </Link>
-                        )
-                      }
-                      emptyMessage="No recipes submitted yet."
-                    />
-                  </div>
-                  <div className="user-page-liked-panel2">
-                    <div className="user-page-liked-panel-heading">
-                      <h3 className="user-page-liked-title">liked recipes</h3>
-                      <h6>
-                        <span className="bold">Modify liked recipes: </span>
-                        <span className="home-page-left-panel-advanced-search-bold">
-                          <span
-                            className="rbp-toggle-link"
-                            onClick={() => {
-                              setShowFlag((v) => !v);
-                              console.log("toggling showFlag", !showFlag);
-                            }}
-                          >
-                            {showFlag ? "Go Back" : "Unlike a recipe you liked"}
-                          </span>
-                        </span>
-                      </h6>
-                    </div>
-                    <RecipeCardRow
-                      recipes={likedRecipes}
-                      renderCard={(recipe) => (
-                        <RecipeBlock recipe={recipe} type="liked" />
-                      )}
-                      renderOverlay={(recipe) =>
-                        showFlag && (
-                          <XFlag
-                            clear={() =>
-                              handleLikeRecipe(
-                                recipe,
-                                true,
-                                likedRecipes,
-                                setLikedRecipes,
-                              )
-                            }
-                            show={showFlag}
-                            className="user-page-liked-remove-icon"
-                          />
-                        )
-                      }
-                      emptyMessage="No liked recipes yet."
-                    />
-                  </div>
-                </div>
+              <div className="user-page-submitted-panel-heading">
+                <h3 className="user-page-submitted-title">submitted recipes</h3>
+                <h6>
+                  <span className="bold"> Modify submitted recipes: </span>
+                </h6>
+                <span className="home-page-left-panel-advanced-search-bold">
+                  <span
+                    className="user-page-toggle-link"
+                    onClick={() => setShowPencils2((v) => !v)}
+                  >
+                    {showPencils2 ? "Go Back" : "Edit a recipe you submitted"}
+                  </span>
+                </span>
+                <h6>
+                  <span className="bold">submit a recipe: </span>
+                </h6>
+                <span className="reg">
+                  <Link
+                    to="/submit-recipe"
+                    className="home-page-left-panel-advanced-search-bold"
+                  >
+                    Enter your recipe here.
+                  </Link>
+                </span>
+
+                <RecipeCardRow
+                  recipes={submittedRecipes}
+                  renderCard={(recipe) => (
+                    <RecipeBlockSubmit recipe={recipe} type="submitted" />
+                  )}
+                  renderOverlay={(recipe) =>
+                    showPencils2 && (
+                      <Link
+                        to={`/modify-recipe/${recipe._id || recipe.recipeId}`}
+                      >
+                        <Pencil
+                          className="edit-pencil-icon"
+                          color="var(--text-color)"
+                          fill="var(--main-accent-color-alt)"
+                          strokeWidth={1.75}
+                          size={24}
+                          title="Edit"
+                        />
+                      </Link>
+                    )
+                  }
+                  emptyMessage="No recipes submitted yet."
+                />
+              </div>
+
+              <div className="user-page-liked-panel-heading">
+                <h3 className="user-page-liked-title">liked recipes</h3>
+                <h6>
+                  <span className="bold">Modify liked recipes: </span>
+                </h6>
+                <span className="home-page-left-panel-advanced-search-bold">
+                  <span
+                    className="rbp-toggle-link"
+                    onClick={() => {
+                      setShowFlag((v) => !v);
+                      console.log("toggling showFlag", !showFlag);
+                    }}
+                  >
+                    {showFlag ? "Go Back" : "Unlike a recipe you liked"}
+                  </span>
+                </span>
+
+                <RecipeCardRow
+                  recipes={likedRecipes}
+                  renderCard={(recipe) => (
+                    <RecipeBlock recipe={recipe} type="liked" />
+                  )}
+                  renderOverlay={(recipe) =>
+                    showFlag && (
+                      <XFlag
+                        clear={() =>
+                          handleLikeRecipe(
+                            recipe,
+                            true,
+                            likedRecipes,
+                            setLikedRecipes,
+                          )
+                        }
+                        show={showFlag}
+                        className="user-page-liked-remove-icon"
+                      />
+                    )
+                  }
+                  emptyMessage="No liked recipes yet."
+                />
               </div>
             </div>
           </div>
         </main>
-        {/* Footer */}
-        <footer className="home-page-footer">
-          <p className="footer-p">Questions or Feedback? Contact us at</p>
-          <a
-            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
-            className="footer-a"
-          >
-            mep.misenplate@gmail.com
-          </a>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

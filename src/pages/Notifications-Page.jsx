@@ -1,4 +1,5 @@
 import "../page-css/notifications-page.css";
+import axios from "axios";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import avatar from "../components/img/user/default-user-light_web.png";
@@ -14,7 +15,7 @@ import darkLikedFrame from "../components/img/like-follow-review/dark-liked-fram
 import lightLikedFrame from "../components/img/like-follow-review/light-liked-frame-2.png";
 import darkReviewedFrame from "../components/img/like-follow-review/dark-reviewed-frame-2.png";
 import lightReviewedFrame from "../components/img/like-follow-review/light-reviewed-frame-2.png";
-import axios from "axios";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx";
 
 function NotificationsPage() {
   const { theme } = useTheme();
@@ -387,16 +388,7 @@ function NotificationsPage() {
           </div>
         </main>
       </div>
-      {/* Footer */}
-      <footer className="home-page-footer">
-        <p className="footer-p">Questions or Feedback? Contact us at</p>
-        <a
-          href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
-          className="footer-a"
-        >
-          mep.misenplate@gmail.com
-        </a>
-      </footer>
+<Footer />
     </div>
   );
 }

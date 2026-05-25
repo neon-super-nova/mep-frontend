@@ -203,22 +203,19 @@ h3.notifications-page-panel-title {
   cursor: pointer;
 }
 
-.notifications-page-footer {
-  background-color: var(--minor-accent-color-2b);
-  text-align: center;
-  padding: 10px 20px;
-  border-top: 10px solid var(--main-accent-color-alt);
-  width: 100vw;
-}
+/* ************** */
+/* ************** */
+/* MEDIA QUERIES */
+/* ************** */
+/* ************** */
 
-@media (min-width: 36.063em) and (max-width: 54em) {
-  .notifications-page-footer {
-    background-color: chartreuse;
+@media (min-width: 0em) and (max-width: 68em) {
+  .notifications-page-main-content {
+    width: 90%;
+  }
+
+  .notifications-page-left-panel {
+    width: 100%;
   }
 }
 
-@media (min-width: 48em) and (max-width: 80em) {
-  .notifications-page-footer {
-    background-color: magenta;
-  }
-}

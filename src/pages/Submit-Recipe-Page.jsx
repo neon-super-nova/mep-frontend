@@ -13,6 +13,7 @@ import { X } from "lucide-react";
 import XFlag from "../components/ui-basic-reusables/labels/x-flag";
 import axios from "axios";
 import { cuisineData } from "../data/cuisineData.js";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx";
 
 function SubmitRecipePage() {
   const { theme } = useTheme();
@@ -541,13 +542,6 @@ function SubmitRecipePage() {
                 </div>
                 <span style={{ height: "0.5rem" }}></span>
                 <div className="reg-input">
-                  {/* <span className="bold">Total Time: </span>
-                  <span className="reg-total">
-                    {Number(formData.prepTime + formData.cookTime)} minutes
-                  </span> */}
-                </div>
-                <span style={{ height: "0.5rem" }}></span>
-                <div className="reg-input">
                   <span className="bold">Servings: </span>
                   <input
                     name="submit-recipe-time-input"
@@ -711,9 +705,7 @@ function SubmitRecipePage() {
             </div>
           </div>
         </main>
-        <footer className="submit-recipe-footer">
-          <p>Footer Content</p>
-        </footer>
+       <Footer />
       </div>
     </div>
   );

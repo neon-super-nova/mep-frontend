@@ -28,6 +28,7 @@ import ReviewBlock from "../components/ui-basic-reusables/blocks/review-block.js
 import RadioStarRating from "../components/ui-basic-reusables/buttons/buttons-radio-star.jsx";
 // import { Pencil } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx";
 
 function RecipePage() {
   const { recipeId } = useParams();
@@ -559,16 +560,7 @@ function RecipePage() {
             </div>
           </div>
         </main>
-        {/* Footer */}
-        <footer className="home-page-footer">
-          <p className="footer-p">Questions or Feedback? Contact us at</p>
-          <a
-            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
-            className="footer-a"
-          >
-            mep.misenplate@gmail.com
-          </a>
-        </footer>
+       <Footer />
       </div>
     </div>
   );

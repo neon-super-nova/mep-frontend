@@ -802,14 +802,6 @@ html {
   border: 1.5px solid var(--text-color);
 }
 
-.recipe-page-footer {
-  background-color: var(--minor-accent-color-2b);
-  text-align: center;
-  margin-top: 2rem;
-  padding: 10px 20px;
-  border-top: 10px solid var(--main-accent-color-alt);
-}
-
 /* ************** */
 /* ************** */
 /* MEDIA QUERIES */

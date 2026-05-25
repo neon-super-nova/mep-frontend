@@ -10,6 +10,7 @@ import { getUserId } from "../context/decodeToken.js";
 import { useTheme } from "../context/theme-context";
 import HeaderBar from "../components/ui-basic-reusables/page-elements/header-bar";
 import placeholder1 from "../components/img/dummy/placeholder_1.jpg";
+import Footer from "../components/ui-basic-reusables/page-elements/footer.jsx"; 
 
 function HomePage() {
   const { theme } = useTheme();
@@ -495,15 +496,7 @@ function HomePage() {
         </main>
 
         {/* Footer */}
-        <footer className="home-page-footer">
-          <p className="footer-p">Questions or Feedback? Contact us at</p>
-          <a
-            href="mailto:mep.misenplate@gmail.com?subject=Recipe App Feedback"
-            className="footer-a"
-          >
-            mep.misenplate@gmail.com
-          </a>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
